@@ -1,4 +1,4 @@
-# CookingAIDS
+# CookingAids
 
 This is a project template for a greenfield Java project. It is a meal planner for students who are looking to eat more healthily and affordably. Given below are instructions on how to use it.
 
