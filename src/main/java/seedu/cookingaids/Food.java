@@ -1,4 +1,4 @@
-package main.java.seedu.cookingaids;
+package seedu.cookingaids;
 
 import java.util.HashMap;
 import java.util.Map;
