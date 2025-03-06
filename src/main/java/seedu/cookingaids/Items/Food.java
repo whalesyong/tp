@@ -1,4 +1,4 @@
-package seedu.cookingaids;
+package seedu.cookingaids.Items;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,5 +33,10 @@ public abstract class Food {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return "Dish ID: " + id + ", Name: " + name ;
     }
 }

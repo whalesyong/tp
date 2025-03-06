@@ -1,17 +1,20 @@
-package seedu.cookingaids;
+package seedu.cookingaids.Collections;
+
+import seedu.cookingaids.Items.Dish;
+import seedu.cookingaids.Items.DishDate;
 
 import java.util.ArrayList;
 
 
 public class DishCalendar {
-    ArrayList<Dish> dishCalendar = new ArrayList<>();
+    static ArrayList<Dish> dishCalendar = new ArrayList<>();
 
     public static ArrayList<Dish> getDishCalendar() {
         return dishCalendar;
     }
 
 
-    public void addDishToCalendar(Dish dish) {
+    public static void addDishToCalendar(Dish dish) {
 
         dishCalendar.add(dish);
 
