@@ -1,4 +1,4 @@
-package seedu.cookingaids;
+package seedu.cookingaids.Items;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

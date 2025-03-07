@@ -1,4 +1,4 @@
-package seedu.cookingaids;
+package seedu.cookingaids.Items;
 
 public class Dish extends Food {
     static DishDate dishDate;
@@ -12,7 +12,7 @@ public class Dish extends Food {
         super(id, name);
         dishDate = new DishDate(date);
     }
-    public static DishDate getDishDate() {
+    public DishDate getDishDate() {
         return dishDate;
     }
 
@@ -21,6 +21,11 @@ public class Dish extends Food {
     public void displayInfo() {
 
         System.out.println("Dish ID: " + id + ", Name: " + name +", Scheduled for:" + dishDate.toString());
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", Scheduled for:" + dishDate.toString();
     }
 }
 

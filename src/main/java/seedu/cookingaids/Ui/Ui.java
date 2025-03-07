@@ -1,4 +1,7 @@
-package seedu.cookingaids;
+package seedu.cookingaids.Ui;
+
+import seedu.cookingaids.Items.Dish;
+import seedu.cookingaids.Parser.Parser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,11 +37,11 @@ public class Ui {
      *
      * @param items is list of items to be output
      */
-    public static void printItemsListView(List<Food> items) {
+    public static void printDishListView(ArrayList<Dish> dishes) {
         //prints TaskList on console
         final List<String> formattedItems = new ArrayList<>();
-        for (Food f : items) {
-            formattedItems.add(f.toString());
+        for (Dish d : dishes) {
+            formattedItems.add(d.toString());
         }
         printAsIndexedList(formattedItems);
     }
