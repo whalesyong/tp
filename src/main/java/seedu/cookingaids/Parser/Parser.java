@@ -4,6 +4,8 @@ package seedu.cookingaids.Parser;
 import seedu.cookingaids.Commands.AddCommand;
 import seedu.cookingaids.Commands.DisplayCommand;
 import seedu.cookingaids.Ui.Ui;
+import java.util.HashMap;
+import java.util.regex.Pattern;
 
 /**
  * Holds methods that manipulate input received from user into useful data
@@ -60,6 +62,39 @@ public class Parser {
 
 
     }
+
+    public static HashMap<String, String> parseIngredient(String command) {
+        HashMap<String, String> data = new HashMap<>();
+        String[] parts = command.split(" ");
+        Pattern quantityPattern = Pattern.compile("-\\d+"); // Matches numbers like -5, -10
+
+        for (String part : parts) {
+            if (quantityPattern.matcher(part).matches()) {
+                data.put("quantity", part.substring(1)); // Remove "-"
+            } else if (part.startsWith("-")) {
+                if (isDate(part.substring(1))) {
+                    data.put("expiry_date", part.substring(1));
+                } else {
+                    data.put("ingredient", part.substring(1));
+                }
+            }
+        }
+
+        if (!data.containsKey("expiry_date")) {
+            data.put("expiry_date", "None");  // Default value if no expiry date is provided
+        }
+
+        return data;
+    }
+
+    /**
+     * Checks if the input could be a date in various formats.
+     */
+    public static boolean isDate(String input) {
+        // Matches YYYY-MM-DD or date formats with alphabets like "31 Dec"
+        return input.matches("\\d{4}-\\d{2}-\\d{2}") || input.matches("\\d{1,2}.*[A-Za-z]+.*");
+    }
+
 
 
 }
