@@ -3,6 +3,7 @@ package seedu.cookingaids.Parser;
 
 import seedu.cookingaids.Commands.AddCommand;
 import seedu.cookingaids.Commands.DisplayCommand;
+import seedu.cookingaids.Commands.HelpCommand;
 import seedu.cookingaids.Ui.Ui;
 
 /**
@@ -65,6 +66,8 @@ public class Parser {
                 System.out.println("I DO NOT UNDERSTAND " + receivedText);
             }
 //            Ui.printLineDivider();
+        } else if (command.equals(HelpCommand.COMMAND_WORD)) {
+            HelpCommand.showHelp();
         } else {
             System.out.println("I DO NOT UNDERSTAND " + receivedText);
             System.out.println("type \"help\" to see available commands");
