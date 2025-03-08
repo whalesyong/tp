@@ -2,11 +2,14 @@ package seedu.cookingaids.Commands;
 
 import seedu.cookingaids.Collections.DishCalendar;
 import seedu.cookingaids.Collections.RecipeBank;
+import seedu.cookingaids.Collections.IngredientStorage;
 import seedu.cookingaids.Items.Dish;
 import seedu.cookingaids.Items.Recipe;
+import seedu.cookingaids.Items.Ingredient;
 import seedu.cookingaids.Parser.Parser;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class AddCommand {
     public final static String COMMAND_WORD = "add";
@@ -58,4 +61,13 @@ public class AddCommand {
     }
 
 
+
+    public static void addIngredient(String receivedText) {
+        String inputs = receivedText.substring(COMMAND_WORD.length() + SPACE);
+        HashMap<String, String> ingredientFields = Parser.parseIngredient(inputs);
+        Ingredient ingredient = new Ingredient(1,ingredientFields.get("ingredient"), ingredientFields.get("expiry_date"),
+                Integer.parseInt(ingredientFields.get("quantity")));
+        IngredientStorage.addToStorage(ingredient);
+        System.out.println("Added Ingredient: " + ingredient);
+    }
 }
