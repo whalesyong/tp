@@ -1,14 +1,22 @@
 package seedu.cookingaids.Items;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 
 public class Dish extends Food {
-    static DishDate dishDate;
+    private DishDate dishDate;
 
 
-    public Dish(int id, String name) {
+    public Dish(@JsonProperty("id") int id,
+                @JsonProperty("name") String name) {
         super(id, name);
         dishDate = new DishDate("None");
     }
-    public Dish(int id, String name,String date) {
+    public Dish(
+            @JsonProperty("id") int id,
+            @JsonProperty("name") String name,
+            @JsonProperty("date") String date) {
         super(id, name);
         dishDate = new DishDate(date);
     }

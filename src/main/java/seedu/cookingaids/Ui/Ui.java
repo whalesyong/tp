@@ -1,7 +1,9 @@
 package seedu.cookingaids.Ui;
 
+import seedu.cookingaids.Collections.DishCalendar;
 import seedu.cookingaids.Items.Dish;
 import seedu.cookingaids.Parser.Parser;
+import seedu.cookingaids.Storage.Storage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +80,7 @@ public class Ui {
     }
 
     /**
-     * waits for user input
+     * waits for user input.
      */
     public static void waitForCommand() {
         Scanner scanner = new Scanner(System.in);
@@ -87,6 +89,8 @@ public class Ui {
             Parser.decipherCommand(scannedText);
         }
 
+        //store list
+        Storage.storeList(DishCalendar.getDishCalendar());
     }
 
 

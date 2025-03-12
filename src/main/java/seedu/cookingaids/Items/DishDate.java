@@ -1,5 +1,7 @@
 package seedu.cookingaids.Items;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -24,7 +26,7 @@ public class DishDate {
      *
      * @param date is the date that is to be instantiated
      */
-    public DishDate(String date) {
+    public DishDate(@JsonProperty("date") String date) {
         this.dateString = date;
         try {
             dateLocalDate = parseDate(date);
