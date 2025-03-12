@@ -37,7 +37,7 @@ public class Parser {
         }
         Ui.printLineDivider();
     }
-
+  
     private static void handleDisplayCommand(String receivedText) {
         if (receivedText.contains("-recipe")) {
             DisplayCommand.displayRecipeBank();
@@ -111,28 +111,38 @@ public class Parser {
     public static HashMap<String, String> parseIngredient(String command) {
         HashMap<String, String> data = new HashMap<>();
         String[] parts = command.split(" ");
-        Pattern quantityPattern = Pattern.compile("-\\d+");
-
+        Pattern quantityPattern = Pattern.compile("\\d+"); // Matches positive numbers
+        boolean hasIngredient = false;
         for (String part : parts) {
-            if (quantityPattern.matcher(part).matches()) {
-                data.put("quantity", part.substring(1));
-            } else if (part.startsWith("-")) {
-                String key = isDate(part.substring(1)) ? "expiry_date" : "ingredient";
-                data.put(key, part.substring(1));
+            if (part.startsWith("-ingredient=")) {
+                data.put("ingredient", part.substring(11).trim());
+                hasIngredient = true;
+            } else if (part.startsWith("-quantity=")) {
+                String quantity = part.substring(9).trim();
+                if (quantityPattern.matcher(quantity).matches()) {
+                    data.put("quantity", quantity);
+                } else {
+                    System.out.println("Invalid quantity format.");
+                    return null; // Exit early if quantity is invalid
+                }
+            } else if (part.startsWith("-expiry=")) {
+                data.put("expiry_date", part.substring(8).trim());
             }
         }
 
+        // Exit early if ingredient is missing
+        if (!hasIngredient) {
+            return null;
+        }
+
+        // Default values
+        data.putIfAbsent("quantity", "1");
         data.putIfAbsent("expiry_date", "None");
+
         return data;
     }
 
-    /**
-     * Checks if the input string could represent a date.
-     *
-     * @param input The string to check.
-     * @return True if the string is a potential date, false otherwise.
-     */
-    public static boolean isDate(String input) {
-        return input.matches("\\d{4}-\\d{2}-\\d{2}") || input.matches("\\d{1,2}.*[A-Za-z]+.*");
-    }
+
+
+
 }
