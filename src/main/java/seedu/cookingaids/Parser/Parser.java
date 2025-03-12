@@ -16,6 +16,7 @@ public class Parser {
     private static final String RECIPE_FLAG = "-recipe=";
     private static final String CALLS_FOR_FLAG = "-callsfor=";
     private static final String DISH_FLAG = "-dish=";
+    private static final String INGREDIENT_FLAG = "-ingredient=";
 
     /**
      * Deciphers the user's input for commands and executes the corresponding method.
@@ -43,6 +44,8 @@ public class Parser {
             DisplayCommand.displayRecipeBank();
         } else if (receivedText.contains("-dish")) {
             DisplayCommand.displayDishCalendar();
+        } else if (receivedText.contains("-ingredient")) {
+            DisplayCommand.displayIngredients();
         } else {
             System.out.printf((UNKNOWN_COMMAND_STR) + "%n", receivedText);
         }
@@ -53,6 +56,8 @@ public class Parser {
             AddCommand.addRecipe(receivedText);
         } else if (receivedText.contains(DISH_FLAG)) {
             AddCommand.addDish(receivedText);
+        } else if (receivedText.contains(INGREDIENT_FLAG)) {
+            AddCommand.addIngredient(receivedText);
         } else {
             System.out.println("I DO NOT UNDERSTAND " + receivedText);
         }
@@ -112,11 +117,9 @@ public class Parser {
         HashMap<String, String> data = new HashMap<>();
         String[] parts = command.split(" ");
         Pattern quantityPattern = Pattern.compile("\\d+"); // Matches positive numbers
-        boolean hasIngredient = false;
         for (String part : parts) {
             if (part.startsWith("-ingredient=")) {
                 data.put("ingredient", part.substring(11).trim());
-                hasIngredient = true;
             } else if (part.startsWith("-quantity=")) {
                 String quantity = part.substring(9).trim();
                 if (quantityPattern.matcher(quantity).matches()) {
@@ -129,16 +132,9 @@ public class Parser {
                 data.put("expiry_date", part.substring(8).trim());
             }
         }
-
-        // Exit early if ingredient is missing
-        if (!hasIngredient) {
-            return null;
-        }
-
         // Default values
         data.putIfAbsent("quantity", "1");
         data.putIfAbsent("expiry_date", "None");
-
         return data;
     }
 
