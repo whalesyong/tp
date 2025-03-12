@@ -1,10 +1,13 @@
 package seedu.cookingaids.Items;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 
 /**
@@ -14,7 +17,7 @@ import java.time.format.DateTimeParseException;
  */
 public class DishDate {
 
-
+    @JsonIgnore
     public LocalDate dateLocalDate;
     public String dateString;
 
@@ -26,11 +29,13 @@ public class DishDate {
      *
      * @param date is the date that is to be instantiated
      */
-    public DishDate(@JsonProperty("date") String date) {
+    @JsonCreator
+    public DishDate(@JsonProperty("dateString") String date) {
         this.dateString = date;
         try {
             dateLocalDate = parseDate(date);
-            dateString = dateLocalDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            dateString = dateLocalDate == null ? "none" : dateLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
         } catch (DateTimeParseException e) {
             dateLocalDate = null;
         }
@@ -60,6 +65,9 @@ public class DishDate {
     }
 
     public static LocalDate parseDate(String receivedText) {
+        if (Objects.equals(receivedText, "none")) {
+            return null;
+        }
         return LocalDate.parse(receivedText);
 
     }

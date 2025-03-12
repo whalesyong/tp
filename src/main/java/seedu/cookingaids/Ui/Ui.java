@@ -37,7 +37,7 @@ public class Ui {
     /**
      * outputs taskList on console
      *
-     * @param items is list of items to be output
+     * @param dishes is list of items to be output
      */
     public static void printDishListView(ArrayList<Dish> dishes) {
         //prints TaskList on console
@@ -83,6 +83,9 @@ public class Ui {
      * waits for user input.
      */
     public static void waitForCommand() {
+
+        //initialize list
+        DishCalendar.initializeDishCalendar();
         Scanner scanner = new Scanner(System.in);
         String scannedText;
         while (!(scannedText = scanner.nextLine()).equals("bye")) {     //bye breaks the while loop

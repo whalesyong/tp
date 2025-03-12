@@ -1,9 +1,8 @@
 {
   "dishes" : [ {
     "id" : 1,
-    "name" : "-dish=salad",
+    "name" : "dish=salad",
     "dishDate" : {
-      "dateLocalDate" : null,
       "dateString" : "none"
     }
   } ]

@@ -2,17 +2,25 @@ package seedu.cookingaids.Collections;
 
 import seedu.cookingaids.Items.Dish;
 import seedu.cookingaids.Items.DishDate;
+import seedu.cookingaids.Storage.Storage;
 
 import java.util.ArrayList;
 
 
 public class DishCalendar {
-    static ArrayList<Dish> dishCalendar = new ArrayList<>();
+    private static ArrayList<Dish> dishCalendar;
+
+    //load data from JSON when first accessed
+    public static void initializeDishCalendar() {
+        dishCalendar = Storage.loadList();
+    }
 
     public static ArrayList<Dish> getDishCalendar() {
         return dishCalendar;
     }
-
+    public static void setDishCalendar(ArrayList<Dish> dishCalendar) {
+        DishCalendar.dishCalendar = dishCalendar;
+    }
 
     public static void addDishToCalendar(Dish dish) {
 
