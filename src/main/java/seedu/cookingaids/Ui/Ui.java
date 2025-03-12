@@ -1,9 +1,11 @@
 package seedu.cookingaids.Ui;
 
 import seedu.cookingaids.Items.Dish;
+import seedu.cookingaids.Items.Ingredient;
 import seedu.cookingaids.Parser.Parser;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -46,6 +48,14 @@ public class Ui {
         printAsIndexedList(formattedItems);
     }
 
+    public static void printIngredientListView(HashMap<String, List<Ingredient>> ingredients) {
+        for (String name : ingredients.keySet()) {
+            System.out.println(name + ":");
+            for (Ingredient ing : ingredients.get(name)) {
+                System.out.println("  " + ing);
+            }
+        }
+    }
     /**
      * print items as an indexed list
      */

@@ -12,7 +12,7 @@ public class AddCommand {
     public final static String COMMAND_WORD = "add";
     final static int SPACE = 1;
 
-    static public void addDish(String receivedText){
+    public static void addDish(String receivedText){
         receivedText = receivedText.substring(COMMAND_WORD.length() + SPACE);
         String[] dishFields = Parser.parseDish(receivedText);
         Dish dish = new Dish(Integer.parseInt(dishFields[0]),dishFields[1],dishFields[2]);
@@ -23,7 +23,11 @@ public class AddCommand {
     public static void addIngredient(String receivedText) {
         String inputs = receivedText.substring(COMMAND_WORD.length() + SPACE);
         HashMap<String, String> ingredientFields = Parser.parseIngredient(inputs);
-        Ingredient ingredient = new Ingredient(1,ingredientFields.get("ingredient"), ingredientFields.get("expiry_date"),
+        if (ingredientFields == null) {
+            return;
+        }
+        Ingredient ingredient = new Ingredient(1,ingredientFields.get("ingredient"),
+                ingredientFields.get("expiry_date"),
                 Integer.parseInt(ingredientFields.get("quantity")));
         IngredientStorage.addToStorage(ingredient);
         System.out.println("Added Ingredient: " + ingredient);
