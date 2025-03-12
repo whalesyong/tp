@@ -1,7 +1,11 @@
 {
+  "recipes" : [ {
+    "ingredients" : [ "garlic", "pasta", "olive oil", "tomato" ],
+    "recipeName" : "spaghetti"
+  } ],
   "dishes" : [ {
     "id" : 1,
-    "name" : "dish=salad",
+    "name" : "-dish=salad",
     "dishDate" : {
       "dateString" : "none"
     }

@@ -5,14 +5,15 @@ import seedu.cookingaids.Items.DishDate;
 import seedu.cookingaids.Storage.Storage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class DishCalendar {
-    private static ArrayList<Dish> dishCalendar;
+    private static ArrayList<Dish> dishCalendar = new ArrayList<>();
 
     //load data from JSON when first accessed
-    public static void initializeDishCalendar() {
-        dishCalendar = Storage.loadList();
+    public static void initializeDishCalendar(List<Dish> dishes) {
+        dishCalendar.addAll(dishes);
     }
 
     public static ArrayList<Dish> getDishCalendar() {

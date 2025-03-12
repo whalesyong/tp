@@ -64,6 +64,13 @@ public class DishDate {
         return dateString;
     }
 
+    /**
+     * Parses a string into a LocalDate object.
+     * If the string is "none", it returns null.
+     *
+     * @param receivedText The date string to be parsed.
+     * @return The LocalDate corresponding to the parsed string, or null if the string is "none" or invalid.
+     */
     public static LocalDate parseDate(String receivedText) {
         if (Objects.equals(receivedText, "none")) {
             return null;

@@ -1,14 +1,23 @@
 package seedu.cookingaids.Items;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.ArrayList;
 
+
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Recipe {
     private String recipeName;
     private ArrayList<String> ingredients;
 
-    public Recipe(String recipeName, ArrayList<String> ingredients) {
+    @JsonCreator
+    public Recipe(@JsonProperty("name") String recipeName,
+                  @JsonProperty("ingredients") ArrayList<String> ingredients) {
         this.recipeName = recipeName;
-        this.ingredients = ingredients;
+        this.ingredients = (ingredients != null) ? ingredients : new ArrayList<>();
     }
 
     public Recipe(String recipeName) {

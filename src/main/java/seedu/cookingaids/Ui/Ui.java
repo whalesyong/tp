@@ -1,6 +1,7 @@
 package seedu.cookingaids.Ui;
 
 import seedu.cookingaids.Collections.DishCalendar;
+import seedu.cookingaids.Collections.RecipeBank;
 import seedu.cookingaids.Items.Dish;
 import seedu.cookingaids.Items.Recipe;
 import seedu.cookingaids.Parser.Parser;
@@ -28,7 +29,9 @@ public class Ui {
         System.out.println(LINE_DIVIDER);
     }
 
-
+    public static void showWelcomeMessage() {
+        System.out.println(WELCOME_MESSAGE + '\n' + ASCII_MESSAGE);
+    }
     public static void printItems(String... messages) { //print items to console
         for (String s : messages) {
             System.out.println(s.replace("\n", System.lineSeparator()));
@@ -38,7 +41,7 @@ public class Ui {
     /**
      * outputs taskList on console
      *
-     * @param dishes is list of items to be output
+     * @param dishes a list of dishes to be displayed in the console
      */
     public static void printDishListView(ArrayList<Dish> dishes) {
         //prints TaskList on console
@@ -48,7 +51,11 @@ public class Ui {
         }
         printAsIndexedList(formattedItems);
     }
-
+    /**
+     * Outputs a list of recipes to the console in a formatted view.
+     *
+     * @param recipes A list of recipes to be displayed in the console.
+     */
     public static void printRecipeListView(ArrayList<Recipe> recipes) {
         //prints TaskList on console
         final List<String> formattedItems = new ArrayList<>();
@@ -69,7 +76,10 @@ public class Ui {
     }
 
     /**
-     * formats list into an indexed list
+     * Formats a list of items into a string where each item is indexed, starting from 1.
+     *
+     * @param listItems A list of items to be formatted as an indexed list.
+     * @return A string representing the indexed list of items.
      */
     private static String getIndexedListForViewing(List<String> listItems) {
         final StringBuilder formatted = new StringBuilder();
@@ -92,12 +102,15 @@ public class Ui {
     }
 
     /**
-     * waits for user input.
+     * Waits for user input and processes commands until the user types "bye".
+     * It initializes the required data structures, processes commands, and then stores the data before terminating.
      */
     public static void waitForCommand() {
 
         //initialize list
-        DishCalendar.initializeDishCalendar();
+        Storage.DataWrapper wrapper = Storage.loadData();
+        DishCalendar.initializeDishCalendar(wrapper.dishes);
+        RecipeBank.initializeRecipeBank(wrapper.recipes);
         Scanner scanner = new Scanner(System.in);
         String scannedText;
         while (!(scannedText = scanner.nextLine()).equals("bye")) {     //bye breaks the while loop
@@ -105,10 +118,20 @@ public class Ui {
         }
 
         //store list
-        Storage.storeList(DishCalendar.getDishCalendar());
+        Storage.storeData(DishCalendar.getDishCalendar(), RecipeBank.getRecipeBank());
     }
 
+    static String WELCOME_MESSAGE = "welcome to cooking";
 
+    static String ASCII_MESSAGE = " ░▒▓██████▓▒░░▒▓█▓▒░▒▓███████▓▒░ ░▒▓███████▓▒░ \n" +
+            "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        \n" +
+            "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        \n" +
+            "░▒▓████████▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░  \n" +
+            "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░ \n" +
+            "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░ \n" +
+            "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓███████▓▒░░▒▓███████▓▒░  \n" +
+            "                                               \n" +
+            "                                               ";
 
 
 }
