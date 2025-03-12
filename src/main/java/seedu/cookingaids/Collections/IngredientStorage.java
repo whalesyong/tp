@@ -46,7 +46,7 @@ public class IngredientStorage {
     }
 
     public void displayStorage() {
-        HashMap<String, List<Ingredient>> ingredients = this.getStorage();
+        HashMap<String, List<Ingredient>> ingredients = getStorage();
         Ui.printIngredientListView(ingredients);
     }
 

@@ -66,9 +66,11 @@ public class Ui {
         }
         printAsIndexedList(formattedItems);
     }
-
-
-
+    /**
+     * Outputs a list of recipes to the console in a formatted view.
+     *
+     * @param ingredients A list of ingredients to be displayed in the console.
+     */
     public static void printIngredientListView(HashMap<String, List<Ingredient>> ingredients) {
         for (String name : ingredients.keySet()) {
             System.out.println(name + ":");
