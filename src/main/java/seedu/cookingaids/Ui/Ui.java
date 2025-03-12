@@ -2,6 +2,7 @@ package seedu.cookingaids.Ui;
 
 import seedu.cookingaids.Collections.DishCalendar;
 import seedu.cookingaids.Items.Dish;
+import seedu.cookingaids.Items.Recipe;
 import seedu.cookingaids.Parser.Parser;
 import seedu.cookingaids.Storage.Storage;
 
@@ -47,6 +48,17 @@ public class Ui {
         }
         printAsIndexedList(formattedItems);
     }
+
+    public static void printRecipeListView(ArrayList<Recipe> recipes) {
+        //prints TaskList on console
+        final List<String> formattedItems = new ArrayList<>();
+        for (Recipe r : recipes) {
+            formattedItems.add(r.toString());
+        }
+        printAsIndexedList(formattedItems);
+    }
+
+
 
     /**
      * print items as an indexed list
