@@ -38,6 +38,10 @@ public class IngredientStorage {
         ingredients.put(name, ingredientList);
     }
 
+    public static void removeIngredient(String ingredientName) {
+        ingredients.remove(ingredientName);
+    }
+
     public void displayStorage() {
         for (String name : ingredients.keySet()) {
             System.out.println(name + ":");

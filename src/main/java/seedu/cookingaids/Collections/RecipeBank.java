@@ -25,7 +25,7 @@ public class RecipeBank {
 
     // d
 
-    public void removeRecipeFromRecipeBank(String recipeName) {
+    public static void removeRecipeFromRecipeBank(String recipeName) {
         for (int i = 0; i < recipeBank.size(); i++) {
             if (Objects.equals(recipeBank.get(i).getRecipeName(), recipeName)) {
                 recipeBank.remove(i);

@@ -19,6 +19,9 @@ public class DishCalendar {
     public static ArrayList<Dish> getDishCalendar() {
         return dishCalendar;
     }
+    public static List<Dish> getAllDishes() {
+        return new ArrayList<>(dishCalendar);
+    }
     public static void setDishCalendar(ArrayList<Dish> dishCalendar) {
         DishCalendar.dishCalendar = dishCalendar;
     }
@@ -28,11 +31,33 @@ public class DishCalendar {
         dishCalendar.add(dish);
 
     }
-    public void removeDishInCalendar(Dish dish) {
+
+    public static List<Dish> getDishesByName(String dishName) {
+        List<Dish> matchingDishes = new ArrayList<>();
+        for (Dish dish : dishCalendar) {
+            if (dish.getName().equalsIgnoreCase(dishName)) {
+                matchingDishes.add(dish);
+            }
+        }
+        return matchingDishes;
+    }
+
+    public static void removeDishInCalendar(Dish dish) {
 
         dishCalendar.remove(dish);
 
     }
+
+    public static List<Dish> getDishesByDate(String date) {
+        List<Dish> matchingDishes = new ArrayList<>();
+        for (Dish dish : dishCalendar) {
+            if (dish.getDishDate().equals(new DishDate(date))) {
+                matchingDishes.add(dish);
+            }
+        }
+        return matchingDishes;
+    }
+
     public void removeDishInCalendar(int dishIndex) {
         dishCalendar.remove(dishIndex);
 
