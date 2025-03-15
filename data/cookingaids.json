@@ -1,16 +1,22 @@
 {
-  "recipes" : [ ],
+  "recipes" : [ {
+    "ingredients" : [ "Spaghetti", "Eggs", "Bacon", "Parmesan" ],
+    "recipeName" : "Pasta Carbonara"
+  }, {
+    "ingredients" : [ "Chicken", "Curry Powder", "Coconut Milk" ],
+    "recipeName" : "Chicken Curry"
+  } ],
   "dishes" : [ {
     "id" : 1,
-    "name" : "-dish=salad",
+    "name" : "Pasta Carbonara",
     "dishDate" : {
-      "dateString" : "none"
+      "dateString" : "20/03/2025"
     }
   }, {
-    "id" : 1,
-    "name" : "-dish=fish",
+    "id" : 2,
+    "name" : "Chicken Curry",
     "dishDate" : {
-      "dateString" : "none"
+      "dateString" : "22/03/2025"
     }
   } ]
 }
