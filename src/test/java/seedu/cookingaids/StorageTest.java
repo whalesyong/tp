@@ -2,9 +2,9 @@ package seedu.cookingaids;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seedu.cookingaids.Items.Dish;
-import seedu.cookingaids.Items.Recipe;
-import seedu.cookingaids.Storage.Storage;
+import seedu.cookingaids.items.Dish;
+import seedu.cookingaids.items.Recipe;
+import seedu.cookingaids.storage.Storage;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

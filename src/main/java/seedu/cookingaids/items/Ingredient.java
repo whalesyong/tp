@@ -1,4 +1,4 @@
-package seedu.cookingaids.Items;
+package seedu.cookingaids.items;
 
 public class Ingredient extends Food{
     static ExpiryDate expiryDate;

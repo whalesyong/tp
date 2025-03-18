@@ -1,4 +1,4 @@
-package seedu.cookingaids.Commands;
+package seedu.cookingaids.commands;
 
 public class HelpCommand {
 

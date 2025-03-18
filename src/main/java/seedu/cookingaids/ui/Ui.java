@@ -1,13 +1,15 @@
-package seedu.cookingaids.Ui;
+package seedu.cookingaids.ui;
 
-import seedu.cookingaids.Collections.DishCalendar;
-import seedu.cookingaids.Collections.RecipeBank;
-import seedu.cookingaids.Items.Dish;
-import seedu.cookingaids.Items.Recipe;
-import seedu.cookingaids.Parser.Parser;
-import seedu.cookingaids.Storage.Storage;
+import seedu.cookingaids.collections.DishCalendar;
+import seedu.cookingaids.collections.RecipeBank;
+import seedu.cookingaids.items.Dish;
+import seedu.cookingaids.items.Ingredient;
+import seedu.cookingaids.items.Recipe;
+import seedu.cookingaids.parser.Parser;
+import seedu.cookingaids.storage.Storage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -65,6 +67,20 @@ public class Ui {
         printAsIndexedList(formattedItems);
     }
 
+    /**
+     * Outputs a list of recipes to the console in a formatted view.
+     *
+     * @param ingredients A list of ingredients to be displayed in the console.
+     */
+    public static void printIngredientListView(HashMap<String, List<Ingredient>> ingredients) {
+        for (String name : ingredients.keySet()) {
+            System.out.println(name + ":");
+            for (Ingredient ing : ingredients.get(name)) {
+                System.out.println("  " + ing);
+            }
+        }
+    }
+
 
 
     /**
@@ -83,7 +99,7 @@ public class Ui {
      */
     private static String getIndexedListForViewing(List<String> listItems) {
         final StringBuilder formatted = new StringBuilder();
-        int displayIndex = 0 + DISPLAYED_INDEX_OFFSET;
+        int displayIndex = DISPLAYED_INDEX_OFFSET;
         //sets offset so it starts from 1
         for (String listItem : listItems) {
             formatted.append(getIndexedListItem(displayIndex, listItem)).append("\n");
@@ -121,9 +137,9 @@ public class Ui {
         Storage.storeData(DishCalendar.getDishCalendar(), RecipeBank.getRecipeBank());
     }
 
-    static String WELCOME_MESSAGE = "welcome to cooking";
+    static final String WELCOME_MESSAGE = "welcome to cooking";
 
-    static String ASCII_MESSAGE = " ░▒▓██████▓▒░░▒▓█▓▒░▒▓███████▓▒░ ░▒▓███████▓▒░ \n" +
+    static final String ASCII_MESSAGE = " ░▒▓██████▓▒░░▒▓█▓▒░▒▓███████▓▒░ ░▒▓███████▓▒░ \n" +
             "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        \n" +
             "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        \n" +
             "░▒▓████████▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░  \n" +

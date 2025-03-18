@@ -1,11 +1,10 @@
-package seedu.cookingaids.Collections;
+package seedu.cookingaids.collections;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import seedu.cookingaids.Items.Recipe;
-import seedu.cookingaids.Storage.Storage;
+import seedu.cookingaids.items.Recipe;
 
 public class RecipeBank {
 
