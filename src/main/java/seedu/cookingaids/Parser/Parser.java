@@ -192,9 +192,9 @@ public class Parser {
         Pattern quantityPattern = Pattern.compile("\\d+"); // Matches positive numbers
         for (String part : parts) {
             if (part.startsWith("-ingredient=")) {
-                data.put("ingredient", part.substring(11).trim());
+                data.put("ingredient", part.substring(12).trim());
             } else if (part.startsWith("-quantity=")) {
-                String quantity = part.substring(9).trim();
+                String quantity = part.substring(10).trim();
                 if (quantityPattern.matcher(quantity).matches()) {
                     data.put("quantity", quantity);
                 } else {
@@ -202,7 +202,7 @@ public class Parser {
                     return null; // Exit early if quantity is invalid
                 }
             } else if (part.startsWith("-expiry=")) {
-                data.put("expiry_date", part.substring(8).trim());
+                data.put("expiry_date", part.substring(9).trim());
             }
         }
         // Default values

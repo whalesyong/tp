@@ -42,6 +42,10 @@ public class IngredientStorage {
         ingredients.remove(ingredientName);
     }
 
+    public static HashMap<String, List<Ingredient>> getStorage() {
+        return ingredients;
+    }
+
     public void displayStorage() {
         for (String name : ingredients.keySet()) {
             System.out.println(name + ":");
