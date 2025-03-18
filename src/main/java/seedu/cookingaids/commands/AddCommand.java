@@ -1,12 +1,12 @@
-package seedu.cookingaids.Commands;
+package seedu.cookingaids.commands;
 
-import seedu.cookingaids.Collections.DishCalendar;
-import seedu.cookingaids.Collections.RecipeBank;
-import seedu.cookingaids.Collections.IngredientStorage;
-import seedu.cookingaids.Items.Dish;
-import seedu.cookingaids.Items.Recipe;
-import seedu.cookingaids.Items.Ingredient;
-import seedu.cookingaids.Parser.Parser;
+import seedu.cookingaids.collections.DishCalendar;
+import seedu.cookingaids.collections.RecipeBank;
+import seedu.cookingaids.collections.IngredientStorage;
+import seedu.cookingaids.items.Dish;
+import seedu.cookingaids.items.Recipe;
+import seedu.cookingaids.items.Ingredient;
+import seedu.cookingaids.parser.Parser;
 
 import java.util.ArrayList;
 import java.util.HashMap;

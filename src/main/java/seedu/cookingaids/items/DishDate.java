@@ -1,4 +1,4 @@
-package seedu.cookingaids.Items;
+package seedu.cookingaids.items;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -34,7 +34,8 @@ public class DishDate {
         this.dateString = date;
         try {
             dateLocalDate = parseDate(date);
-            dateString = dateLocalDate == null ? "none" : dateLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            dateString = dateLocalDate == null ? "none" :
+                    dateLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
         } catch (DateTimeParseException e) {
             dateLocalDate = null;

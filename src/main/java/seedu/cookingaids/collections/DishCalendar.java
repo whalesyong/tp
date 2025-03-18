@@ -1,8 +1,7 @@
-package seedu.cookingaids.Collections;
+package seedu.cookingaids.collections;
 
-import seedu.cookingaids.Items.Dish;
-import seedu.cookingaids.Items.DishDate;
-import seedu.cookingaids.Storage.Storage;
+import seedu.cookingaids.items.Dish;
+import seedu.cookingaids.items.DishDate;
 
 import java.util.ArrayList;
 import java.util.List;

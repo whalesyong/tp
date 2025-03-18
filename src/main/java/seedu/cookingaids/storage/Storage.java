@@ -1,11 +1,9 @@
-package seedu.cookingaids.Storage;
+package seedu.cookingaids.storage;
 
-import com.fasterxml.jackson.core.exc.StreamWriteException;
-import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import seedu.cookingaids.Items.Dish;
-import seedu.cookingaids.Items.Recipe;
+import seedu.cookingaids.items.Dish;
+import seedu.cookingaids.items.Recipe;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +15,7 @@ import java.util.List;
 
 public class Storage {
     private static final String RECIPE_LIST_FIELD_NAME = "recipes";
-    private static String DISH_LIST_FIELD_NAME = "dishes";
+    private static final String DISH_LIST_FIELD_NAME = "dishes";
     private static final String FILE_PATH = "./data/cookingaids.json";
 
 

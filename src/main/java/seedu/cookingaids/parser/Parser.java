@@ -1,10 +1,10 @@
-package seedu.cookingaids.Parser;
+package seedu.cookingaids.parser;
 
-import seedu.cookingaids.Commands.AddCommand;
-import seedu.cookingaids.Commands.DeleteCommand;
-import seedu.cookingaids.Commands.DisplayCommand;
-import seedu.cookingaids.Commands.HelpCommand;
-import seedu.cookingaids.Ui.Ui;
+import seedu.cookingaids.commands.AddCommand;
+import seedu.cookingaids.commands.DeleteCommand;
+import seedu.cookingaids.commands.DisplayCommand;
+import seedu.cookingaids.commands.HelpCommand;
+import seedu.cookingaids.ui.Ui;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
@@ -99,7 +99,9 @@ public class Parser {
         }
         int startIndex = receivedText.indexOf(WHEN_FLAG) + WHEN_FLAG.length();
         int endIndex = receivedText.indexOf(" ", startIndex);
-        if (endIndex == -1) endIndex = receivedText.length();
+        if (endIndex == -1) {
+            endIndex = receivedText.length();
+        }
 
         return receivedText.substring(startIndex, endIndex).trim();
     }
@@ -116,7 +118,9 @@ public class Parser {
         }
         int startIndex = receivedText.indexOf(INGREDIENT_FLAG) + INGREDIENT_FLAG.length();
         int endIndex = receivedText.indexOf(" ", startIndex);
-        if (endIndex == -1) endIndex = receivedText.length();
+        if (endIndex == -1) {
+            endIndex = receivedText.length();
+        }
 
         return receivedText.substring(startIndex, endIndex).trim();
     }
@@ -127,7 +131,9 @@ public class Parser {
         }
         int startIndex = receivedText.indexOf(RECIPE_FLAG) + RECIPE_FLAG.length();
         int endIndex = receivedText.indexOf(" ", startIndex);
-        if (endIndex == -1) endIndex = receivedText.length();
+        if (endIndex == -1) {
+            endIndex = receivedText.length();
+        }
 
         return receivedText.substring(startIndex, endIndex).trim();
     }

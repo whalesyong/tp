@@ -1,7 +1,7 @@
-package seedu.cookingaids.Collections;
+package seedu.cookingaids.collections;
 
-import seedu.cookingaids.Items.ExpiryDate;
-import seedu.cookingaids.Items.Ingredient;
+import seedu.cookingaids.items.ExpiryDate;
+import seedu.cookingaids.items.Ingredient;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -17,8 +17,10 @@ public class IngredientStorage {
 
         // Check if an ingredient with the same expiry date exists, then add quantity
         for (Ingredient ing : ingredientList) {
-            if ((newIngredient.getExpiryDate().getDateLocalDate() == null && ing.getExpiryDate().getDateLocalDate() == null) ||
-                    (newIngredient.getExpiryDate().getDateLocalDate() != null && newIngredient.getExpiryDate().getDateLocalDate()
+            if ((newIngredient.getExpiryDate().getDateLocalDate() == null &&
+                    ing.getExpiryDate().getDateLocalDate() == null) ||
+                    (newIngredient.getExpiryDate().getDateLocalDate() != null &&
+                            newIngredient.getExpiryDate().getDateLocalDate()
                             .equals(ing.getExpiryDate().getDateLocalDate()))) {
                 ing.addQuantity(newIngredient.getQuantity());
                 return;

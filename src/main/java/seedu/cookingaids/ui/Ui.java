@@ -1,12 +1,12 @@
-package seedu.cookingaids.Ui;
+package seedu.cookingaids.ui;
 
-import seedu.cookingaids.Collections.DishCalendar;
-import seedu.cookingaids.Collections.RecipeBank;
-import seedu.cookingaids.Items.Dish;
-import seedu.cookingaids.Items.Ingredient;
-import seedu.cookingaids.Items.Recipe;
-import seedu.cookingaids.Parser.Parser;
-import seedu.cookingaids.Storage.Storage;
+import seedu.cookingaids.collections.DishCalendar;
+import seedu.cookingaids.collections.RecipeBank;
+import seedu.cookingaids.items.Dish;
+import seedu.cookingaids.items.Ingredient;
+import seedu.cookingaids.items.Recipe;
+import seedu.cookingaids.parser.Parser;
+import seedu.cookingaids.storage.Storage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -137,9 +137,9 @@ public class Ui {
         Storage.storeData(DishCalendar.getDishCalendar(), RecipeBank.getRecipeBank());
     }
 
-    static String WELCOME_MESSAGE = "welcome to cooking";
+    static final String WELCOME_MESSAGE = "welcome to cooking";
 
-    static String ASCII_MESSAGE = " ░▒▓██████▓▒░░▒▓█▓▒░▒▓███████▓▒░ ░▒▓███████▓▒░ \n" +
+    static final String ASCII_MESSAGE = " ░▒▓██████▓▒░░▒▓█▓▒░▒▓███████▓▒░ ░▒▓███████▓▒░ \n" +
             "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        \n" +
             "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        \n" +
             "░▒▓████████▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░  \n" +

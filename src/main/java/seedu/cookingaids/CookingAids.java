@@ -1,6 +1,6 @@
 package seedu.cookingaids;
 
-import seedu.cookingaids.Ui.Ui;
+import seedu.cookingaids.ui.Ui;
 
 
 public class CookingAids {

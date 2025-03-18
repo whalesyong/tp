@@ -1,4 +1,4 @@
-package seedu.cookingaids.Items;
+package seedu.cookingaids.items;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
