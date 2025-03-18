@@ -7,6 +7,7 @@ import seedu.cookingaids.Commands.HelpCommand;
 import seedu.cookingaids.Ui.Ui;
 import java.util.HashMap;
 import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public class Parser {
     private static final String UNKNOWN_COMMAND_STR = "Unknown command: %s";
@@ -54,16 +55,15 @@ public class Parser {
 
     private static void handleDeleteCommand(String receivedText) {
         if (receivedText.contains(RECIPE_FLAG)) {
-            DeleteCommand.deleteRecipe(parseRecipeForDeletion(receivedText));
+            DeleteCommand.deleteRecipe(receivedText);
         } else if (receivedText.contains(DISH_FLAG) && receivedText.contains(WHEN_FLAG)) {
-            String[] data = parseDishAndWhenForDeletion(receivedText);
             DeleteCommand.deleteDishWithWhen(receivedText);
         } else if (receivedText.contains(DISH_FLAG)) {
-            DeleteCommand.deleteDish(parseDishNameForDeletion(receivedText));
+            DeleteCommand.deleteDish(receivedText);
         } else if (receivedText.contains(WHEN_FLAG)) {
-            DeleteCommand.deleteDishByWhen(parseWhenForDeletion(receivedText));
+            DeleteCommand.deleteDishByWhen(receivedText);
         } else if (receivedText.contains(INGREDIENT_FLAG)) {
-            DeleteCommand.deleteIngredient(parseIngredientForDeletion(receivedText));
+            DeleteCommand.deleteIngredient(receivedText);
         } else {
             System.out.println("Invalid delete command: " + receivedText);
         }
@@ -121,14 +121,18 @@ public class Parser {
 
     public static String[] parseDish(String receivedText) {
         String[] returnedArray = {"1", "none", "none"};
-        String[] parts = receivedText.split(" ");
 
-        if (parts.length > 0) {
-            returnedArray[1] = parts[0];
+        if (!receivedText.contains("-dish=")) {
+            return returnedArray; // If no dish flag, return default
         }
-        if (parts.length > 1) {
-            returnedArray[2] = parts[1];
-        }
+
+        int startIndex = receivedText.indexOf("-dish=") + "-dish=".length();
+        int endIndex = receivedText.indexOf(" -", startIndex); // Look for the next flag starting with '-'
+        if (endIndex == -1) endIndex = receivedText.length(); // If no next flag, take the rest
+
+        String dishName = receivedText.substring(startIndex, endIndex).trim();
+        returnedArray[1] = dishName;
+
         return returnedArray;
     }
 

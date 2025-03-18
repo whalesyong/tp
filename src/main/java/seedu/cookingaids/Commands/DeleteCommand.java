@@ -14,7 +14,6 @@ public class DeleteCommand {
     final static int SPACE = 1;
 
     public static void deleteDish(String receivedText) {
-//        receivedText = receivedText.substring(COMMAND_WORD.length() + SPACE);
         String[] parsedDish = Parser.parseDish(receivedText);
 
         String dishId = parsedDish[0];        // dish ID
@@ -107,7 +106,6 @@ public class DeleteCommand {
     }
 
     public static void deleteIngredient(String receivedText) {
-//        receivedText = receivedText.substring(COMMAND_WORD.length() + SPACE);
         String ingredientName = Parser.parseIngredientForDeletion(receivedText);
 
         IngredientStorage.removeIngredient(ingredientName);
@@ -115,7 +113,6 @@ public class DeleteCommand {
     }
 
     public static void deleteRecipe(String receivedText) {
-//        receivedText = receivedText.substring(COMMAND_WORD.length() + SPACE);
         String recipeName = Parser.parseRecipeForDeletion(receivedText);
 
         RecipeBank.removeRecipeFromRecipeBank(recipeName);
