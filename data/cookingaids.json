@@ -1,11 +1,5 @@
 {
-  "recipes" : [ {
-    "ingredients" : [ "Spaghetti", "Eggs", "Bacon", "Parmesan" ],
-    "recipeName" : "Pasta Carbonara"
-  }, {
-    "ingredients" : [ "Chicken", "Curry Powder", "Coconut Milk" ],
-    "recipeName" : "Chicken Curry"
-  } ],
+  "recipes" : [ ],
   "dishes" : [ {
     "id" : 1,
     "name" : "Pasta Carbonara",
