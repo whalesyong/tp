@@ -7,8 +7,11 @@ import seedu.cookingaids.Commands.HelpCommand;
 import seedu.cookingaids.Ui.Ui;
 import java.util.HashMap;
 import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
+/**
+ * Holds methods that manipulate user input into useful data
+ * that can be understood by other methods.
+ */
 public class Parser {
     private static final String UNKNOWN_COMMAND_STR = "Unknown command: %s";
     private static final String RECIPE_FLAG = "-recipe=";
@@ -17,6 +20,12 @@ public class Parser {
     private static final String WHEN_FLAG = "-when=";
     private static final String INGREDIENT_FLAG = "-ingredient=";
 
+    /**
+     * Deciphers the user's input for commands and executes the corresponding method.
+     * If the command is not recognized, an error message is displayed.
+     *
+     * @param receivedText Entire command input received from the user.
+     */
     public static void decipherCommand(String receivedText) {
         String command = receivedText.strip().split(" ")[0];
 
@@ -38,6 +47,8 @@ public class Parser {
             DisplayCommand.displayRecipeBank();
         } else if (receivedText.contains("-dish")) {
             DisplayCommand.displayDishCalendar();
+        } else if (receivedText.contains("-ingredient")) {
+            DisplayCommand.displayIngredients();
         } else {
             System.out.printf((UNKNOWN_COMMAND_STR) + "%n", receivedText);
         }
@@ -48,6 +59,8 @@ public class Parser {
             AddCommand.addRecipe(receivedText);
         } else if (receivedText.contains(DISH_FLAG)) {
             AddCommand.addDish(receivedText);
+        } else if (receivedText.contains(INGREDIENT_FLAG)) {
+            AddCommand.addIngredient(receivedText);
         } else {
             System.out.println("I DO NOT UNDERSTAND " + receivedText);
         }
@@ -136,6 +149,12 @@ public class Parser {
         return returnedArray;
     }
 
+    /**
+     * Parses a recipe input string and extracts the recipe name and ingredients.
+     *
+     * @param receivedText Input string containing recipe details.
+     * @return An array with two elements: the recipe name and ingredients string.
+     */
     public static String[] parseRecipe(String receivedText) {
         String[] returnedArray = {"none", ""};
 
@@ -161,20 +180,33 @@ public class Parser {
         return returnedArray;
     }
 
+    /**
+     * Parses an ingredient command into a HashMap containing quantity, expiry date, and ingredient name.
+     *
+     * @param command The ingredient command string.
+     * @return A HashMap with keys "quantity", "expiry_date", and "ingredient".
+     */
     public static HashMap<String, String> parseIngredient(String command) {
         HashMap<String, String> data = new HashMap<>();
         String[] parts = command.split(" ");
-        Pattern quantityPattern = Pattern.compile("-\\d+");
-
+        Pattern quantityPattern = Pattern.compile("\\d+"); // Matches positive numbers
         for (String part : parts) {
-            if (quantityPattern.matcher(part).matches()) {
-                data.put("quantity", part.substring(1));
-            } else if (part.startsWith("-")) {
-                String key = isDate(part.substring(1)) ? "expiry_date" : "ingredient";
-                data.put(key, part.substring(1));
+            if (part.startsWith("-ingredient=")) {
+                data.put("ingredient", part.substring(11).trim());
+            } else if (part.startsWith("-quantity=")) {
+                String quantity = part.substring(9).trim();
+                if (quantityPattern.matcher(quantity).matches()) {
+                    data.put("quantity", quantity);
+                } else {
+                    System.out.println("Invalid quantity format.");
+                    return null; // Exit early if quantity is invalid
+                }
+            } else if (part.startsWith("-expiry=")) {
+                data.put("expiry_date", part.substring(8).trim());
             }
         }
-
+        // Default values
+        data.putIfAbsent("quantity", "1");
         data.putIfAbsent("expiry_date", "None");
         return data;
     }

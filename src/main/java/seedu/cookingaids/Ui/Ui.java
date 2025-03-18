@@ -3,11 +3,13 @@ package seedu.cookingaids.Ui;
 import seedu.cookingaids.Collections.DishCalendar;
 import seedu.cookingaids.Collections.RecipeBank;
 import seedu.cookingaids.Items.Dish;
+import seedu.cookingaids.Items.Ingredient;
 import seedu.cookingaids.Items.Recipe;
 import seedu.cookingaids.Parser.Parser;
 import seedu.cookingaids.Storage.Storage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -65,6 +67,20 @@ public class Ui {
         printAsIndexedList(formattedItems);
     }
 
+    /**
+     * Outputs a list of recipes to the console in a formatted view.
+     *
+     * @param ingredients A list of ingredients to be displayed in the console.
+     */
+    public static void printIngredientListView(HashMap<String, List<Ingredient>> ingredients) {
+        for (String name : ingredients.keySet()) {
+            System.out.println(name + ":");
+            for (Ingredient ing : ingredients.get(name)) {
+                System.out.println("  " + ing);
+            }
+        }
+    }
+
 
 
     /**
@@ -83,7 +99,7 @@ public class Ui {
      */
     private static String getIndexedListForViewing(List<String> listItems) {
         final StringBuilder formatted = new StringBuilder();
-        int displayIndex = 0 + DISPLAYED_INDEX_OFFSET;
+        int displayIndex = DISPLAYED_INDEX_OFFSET;
         //sets offset so it starts from 1
         for (String listItem : listItems) {
             formatted.append(getIndexedListItem(displayIndex, listItem)).append("\n");
