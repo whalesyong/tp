@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class DisplayCommand {
+public class ListCommand {
     public static final String COMMAND_WORD = "list";
 
     public static void displayDishCalendar() {
