@@ -2,7 +2,7 @@ package seedu.cookingaids.parser;
 
 import seedu.cookingaids.commands.AddCommand;
 import seedu.cookingaids.commands.DeleteCommand;
-import seedu.cookingaids.commands.DisplayCommand;
+import seedu.cookingaids.commands.ListCommand;
 import seedu.cookingaids.commands.HelpCommand;
 import seedu.cookingaids.ui.Ui;
 
@@ -31,7 +31,7 @@ public class Parser {
         String command = receivedText.strip().split(" ")[0];
 
         switch (command) {
-        case DisplayCommand.COMMAND_WORD -> handleDisplayCommand(receivedText);
+        case ListCommand.COMMAND_WORD -> handleDisplayCommand(receivedText);
         case AddCommand.COMMAND_WORD -> handleAddCommand(receivedText);
         case DeleteCommand.COMMAND_WORD -> handleDeleteCommand(receivedText);
         case HelpCommand.COMMAND_WORD -> HelpCommand.showHelp();
@@ -45,11 +45,11 @@ public class Parser {
 
     private static void handleDisplayCommand(String receivedText) {
         if (receivedText.contains("-recipe")) {
-            DisplayCommand.displayRecipeBank();
+            ListCommand.displayRecipeBank();
         } else if (receivedText.contains("-dish")) {
-            DisplayCommand.displayDishCalendar();
+            ListCommand.displayDishCalendar();
         } else if (receivedText.contains("-ingredient")) {
-            DisplayCommand.displayIngredients();
+            ListCommand.displayIngredients();
         } else {
             System.out.printf((UNKNOWN_COMMAND_STR) + "%n", receivedText);
         }
@@ -207,10 +207,9 @@ public class Parser {
         String[] parts = command.split("-(?=ingredient=|quantity=|expiry=)");
         Pattern quantityPattern = Pattern.compile("\\d+"); // Matches positive numbers
         for (String part : parts) {
-          
-            if (part.startsWith("-ingredient=")) {
+            if (part.startsWith("ingredient=")) {
                 data.put("ingredient", part.substring(11).trim());
-            } else if (part.startsWith("-quantity=")) {
+            } else if (part.startsWith("quantity=")) {
                 String quantity = part.substring(9).trim();
               
                 if (quantityPattern.matcher(quantity).matches()) {
