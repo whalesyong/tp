@@ -1,8 +1,9 @@
 package seedu.cookingaids.items;
 
-//import seedu.cookingaids.items.Recipe;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,11 +16,6 @@ class RecipeTest {
     private Recipe testRecipe;
     private String recipeName;
     private ArrayList<String> ingredients;
-
-//    @Test
-//    public void sampleTest() {
-//        assertTrue(true);
-//    }
 
     @BeforeEach
     void setUp() {
@@ -75,7 +71,8 @@ class RecipeTest {
 
     @Test
     void testToString() {
-        String expected = "Recipe named 'Pasta Carbonara' calls for ingredients [Spaghetti, Eggs, Pancetta, Parmesan, Black Pepper]";
+        String expected = "Recipe named 'Pasta Carbonara' calls for ingredients " +
+                "[Spaghetti, Eggs, Pancetta, Parmesan, Black Pepper]";
         assertEquals(expected, testRecipe.toString());
     }
 }
