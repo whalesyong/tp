@@ -49,7 +49,7 @@ public class AddCommand {
 
         // Add to RecipeBank
         RecipeBank recipeBank = new RecipeBank();
-        recipeBank.addRecipeToRecipeBank(recipe);
+        RecipeBank.addRecipeToRecipeBank(recipe);
 
         // Print confirmation
         System.out.println("Added Recipe: " + recipeName);

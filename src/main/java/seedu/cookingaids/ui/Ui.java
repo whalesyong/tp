@@ -24,7 +24,7 @@ public class Ui {
      * Offset required to convert between 1-indexing and 0-indexing.
      */
     public static final int DISPLAYED_INDEX_OFFSET = 1;
-    private static final String MESSAGE_INDEXED_LIST_ITEM = "\t%1$d. %2$s";
+
     public static final String LINE_DIVIDER =
             "______________________________________________________________________________";
 
@@ -39,7 +39,7 @@ public class Ui {
             "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓███████▓▒░░▒▓███████▓▒░  \n" +
             "                                               \n" +
             "                                               ";
-
+    private static final String MESSAGE_INDEXED_LIST_ITEM = "\t%1$d. %2$s";
 
     public static void printLineDivider() {
         System.out.println(LINE_DIVIDER);

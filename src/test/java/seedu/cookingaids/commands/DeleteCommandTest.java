@@ -22,8 +22,8 @@ class DeleteCommandTest {
     @BeforeEach
     void setUp() {
         dishCalendar = new DishCalendar();
-        Dish Spaghetti = new Dish(1, "Spaghetti", "20/03/2025");
-        DishCalendar.addDishToCalendar(Spaghetti);
+        Dish spaghetti = new Dish(1, "Spaghetti", "20/03/2025");
+        DishCalendar.addDishToCalendar(spaghetti);
     }
 
     @AfterEach
