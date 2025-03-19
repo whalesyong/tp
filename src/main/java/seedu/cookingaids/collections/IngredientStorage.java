@@ -58,7 +58,7 @@ public class IngredientStorage {
         Ui.printIngredientListView(ingredients);
     }
 
-    public List<Ingredient> getIngredients(String name) {
+    public static List<Ingredient> getIngredients(String name) {
         return ingredients.getOrDefault(name, new ArrayList<>());
     }
 }
