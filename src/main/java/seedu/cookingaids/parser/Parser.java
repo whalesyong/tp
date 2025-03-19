@@ -203,20 +203,23 @@ public class Parser {
      */
     public static HashMap<String, String> parseIngredient(String command) {
         HashMap<String, String> data = new HashMap<>();
-        String[] parts = command.split(" ");
+        // Split by "-" but keep the first part (command) intact
+        String[] parts = command.split("-(?=ingredient=|quantity=|expiry=)");
         Pattern quantityPattern = Pattern.compile("\\d+"); // Matches positive numbers
         for (String part : parts) {
+          
             if (part.startsWith("-ingredient=")) {
                 data.put("ingredient", part.substring(11).trim());
             } else if (part.startsWith("-quantity=")) {
                 String quantity = part.substring(9).trim();
+              
                 if (quantityPattern.matcher(quantity).matches()) {
                     data.put("quantity", quantity);
                 } else {
                     System.out.println("Invalid quantity format.");
                     return null; // Exit early if quantity is invalid
                 }
-            } else if (part.startsWith("-expiry=")) {
+            } else if (part.startsWith("expiry=")) {
                 data.put("expiry_date", part.substring(7).trim());
             }
         }

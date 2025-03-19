@@ -2,6 +2,7 @@ package seedu.cookingaids.collections;
 
 import seedu.cookingaids.items.ExpiryDate;
 import seedu.cookingaids.items.Ingredient;
+import seedu.cookingaids.ui.Ui;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -53,15 +54,11 @@ public class IngredientStorage {
     }
 
     public void displayStorage() {
-        for (String name : ingredients.keySet()) {
-            System.out.println(name + ":");
-            for (Ingredient ing : ingredients.get(name)) {
-                System.out.println("  " + ing);
-            }
-        }
+        HashMap<String, List<Ingredient>> ingredients = getStorage();
+        Ui.printIngredientListView(ingredients);
     }
 
-    public List<Ingredient> getIngredients(String name) {
+    public static List<Ingredient> getIngredients(String name) {
         return ingredients.getOrDefault(name, new ArrayList<>());
     }
 }
