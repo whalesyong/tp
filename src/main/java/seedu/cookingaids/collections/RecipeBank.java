@@ -14,7 +14,7 @@ public class RecipeBank {
         recipeBank.addAll(recipeBank);
     }
     // shld it take in a fully-formed object?
-    public void addRecipeToRecipeBank(Recipe recipe) {
+    public static void addRecipeToRecipeBank(Recipe recipe) {
         recipeBank.add(recipe);
     }
 
@@ -22,15 +22,12 @@ public class RecipeBank {
         return recipeBank;
     }
 
-    // d
+    public static void removeRecipeFromRecipeBank(String command) {
+        String recipeName = command.replace("delete -recipe=", "").trim();  // Extract name
+        recipeBank.removeIf(recipe -> recipe.getName().equalsIgnoreCase(recipeName));
+    }
 
-    public static void removeRecipeFromRecipeBank(String recipeName) {
-        for (int i = 0; i < recipeBank.size(); i++) {
-            if (Objects.equals(recipeBank.get(i).getRecipeName(), recipeName)) {
-                recipeBank.remove(i);
-                return;
-            }
-        }
-
+    public static boolean contains(String recipeName) {
+        return recipeBank.stream().anyMatch(recipe -> recipe.getName().equalsIgnoreCase(recipeName));
     }
 }

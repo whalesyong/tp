@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public class DishCalendar {
-    private static ArrayList<Dish> dishCalendar = new ArrayList<>();
+    public static ArrayList<Dish> dishCalendar = new ArrayList<>();
 
     //load data from JSON when first accessed
     public static void initializeDishCalendar(List<Dish> dishes) {
@@ -72,4 +72,16 @@ public class DishCalendar {
         dishCalendar.remove(dishesToBeRemoved);
     }
 
+    public boolean containsDish(String dishName) {
+        for (Dish dish : dishCalendar) {
+            if (dish.getName().equalsIgnoreCase(dishName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void clear() {
+        dishCalendar.clear();
+    }
 }
