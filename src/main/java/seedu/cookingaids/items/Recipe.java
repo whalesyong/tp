@@ -46,4 +46,8 @@ public class Recipe {
         return "Recipe named '" + recipeName + "'" +
                 "calls for ingredients" + ingredients ;
     }
+
+    public String getName() {
+        return this.recipeName;
+    }
 }
