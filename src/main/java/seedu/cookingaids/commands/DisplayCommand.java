@@ -28,7 +28,6 @@ public class DisplayCommand {
 
     public static void displayRecipeBank() {
         // This should ideally be a singleton or accessed through a proper controller
-        // RecipeBank recipeBank = new RecipeBank();
         ArrayList<Recipe> listOfRecipes = RecipeBank.getRecipeBank();
         Ui.printRecipeListView(listOfRecipes);
     }
