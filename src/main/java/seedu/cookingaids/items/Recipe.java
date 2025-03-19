@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.ArrayList;
 
 
-
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Recipe {
     private String recipeName;
@@ -44,7 +43,7 @@ public class Recipe {
     @java.lang.Override
     public java.lang.String toString() {
         return "Recipe named '" + recipeName + "'" +
-                "calls for ingredients" + ingredients ;
+                " calls for ingredients " + ingredients ;
     }
 
     public String getName() {
