@@ -25,7 +25,21 @@ public class Ui {
      */
     public static final int DISPLAYED_INDEX_OFFSET = 1;
     private static final String MESSAGE_INDEXED_LIST_ITEM = "\t%1$d. %2$s";
-    static final String LINE_DIVIDER = "_________________________________________________________________________________________";
+    public static final String LINE_DIVIDER =
+            "______________________________________________________________________________";
+
+    public static final String WELCOME_MESSAGE = "welcome to cooking";
+
+    public static final String ASCII_MESSAGE = " ░▒▓██████▓▒░░▒▓█▓▒░▒▓███████▓▒░ ░▒▓███████▓▒░ \n" +
+            "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        \n" +
+            "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        \n" +
+            "░▒▓████████▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░  \n" +
+            "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░ \n" +
+            "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░ \n" +
+            "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓███████▓▒░░▒▓███████▓▒░  \n" +
+            "                                               \n" +
+            "                                               ";
+
 
     public static void printLineDivider() {
         System.out.println(LINE_DIVIDER);
@@ -34,6 +48,7 @@ public class Ui {
     public static void showWelcomeMessage() {
         System.out.println(WELCOME_MESSAGE + '\n' + ASCII_MESSAGE);
     }
+
     public static void printItems(String... messages) { //print items to console
         for (String s : messages) {
             System.out.println(s.replace("\n", System.lineSeparator()));
@@ -53,6 +68,7 @@ public class Ui {
         }
         printAsIndexedList(formattedItems);
     }
+
     /**
      * Outputs a list of recipes to the console in a formatted view.
      *
@@ -80,7 +96,6 @@ public class Ui {
             }
         }
     }
-
 
 
     /**
@@ -136,18 +151,6 @@ public class Ui {
         //store list
         Storage.storeData(DishCalendar.getDishCalendar(), RecipeBank.getRecipeBank());
     }
-
-    static final String WELCOME_MESSAGE = "welcome to cooking";
-
-    static final String ASCII_MESSAGE = " ░▒▓██████▓▒░░▒▓█▓▒░▒▓███████▓▒░ ░▒▓███████▓▒░ \n" +
-            "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        \n" +
-            "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        \n" +
-            "░▒▓████████▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░  \n" +
-            "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░ \n" +
-            "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░ \n" +
-            "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓███████▓▒░░▒▓███████▓▒░  \n" +
-            "                                               \n" +
-            "                                               ";
 
 
 }

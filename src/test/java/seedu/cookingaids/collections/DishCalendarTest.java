@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class DishCalendarTest {
     private Dish dish1;
@@ -49,7 +51,7 @@ public class DishCalendarTest {
 
     }
     @Test
-    public void testAddDishToCalendar_ExpectCalendarContainsAddedDishes() {
+    public void testAddDishToCalendar_expectCalendarContainsAddedDishes() {
         // Test adding dishes one by one
         DishCalendar.addDishToCalendar(this.dish1);
         assertEquals(1, DishCalendar.getDishCalendar().size());
@@ -63,7 +65,7 @@ public class DishCalendarTest {
     }
 
     @Test
-    public void testGetDishesByName_ExpectListOfDishWithSameName() {
+    public void testGetDishesByName_expectListOfDishWithSameName() {
         // Add dishes to calendar
         DishCalendar.addDishToCalendar(this.dish1); // Pasta
         DishCalendar.addDishToCalendar(this.dish2); // Pizza
@@ -86,7 +88,7 @@ public class DishCalendarTest {
     }
 
     @Test
-    public void testRemoveDishInCalendar_ExpectListWithDishesRemoved() {
+    public void testRemoveDishInCalendar_expectListWithDishesRemoved() {
         // Add dishes to calendar
         DishCalendar.addDishToCalendar(this.dish1);
         DishCalendar.addDishToCalendar(this.dish2);

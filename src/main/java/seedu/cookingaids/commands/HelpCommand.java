@@ -2,7 +2,7 @@ package seedu.cookingaids.commands;
 
 public class HelpCommand {
 
-    public final static String COMMAND_WORD = "help";
+    public static final String COMMAND_WORD = "help";
 
     /**
      * Displays a list of available commands along with their descriptions.

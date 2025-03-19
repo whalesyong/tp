@@ -17,7 +17,7 @@ public class DishDateTest {
 
     }
     @Test
-    void constructor_addStringFormat_expectLocalDateNull_expectString(){
+    void constructor_addStringFormat_expectString(){
         DishDate dishDate = new DishDate("tomorrow");
         assertEquals("tomorrow",dishDate.toString());
         assertNull(dishDate.getDateLocalDate());

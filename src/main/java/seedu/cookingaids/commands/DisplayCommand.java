@@ -13,9 +13,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class DisplayCommand {
-    public final static String COMMAND_WORD = "list";
+    public static final String COMMAND_WORD = "list";
 
-    public static void displayDishCalendar(){
+    public static void displayDishCalendar() {
         ArrayList<Dish> listOfDish = DishCalendar.getDishCalendar();
         Ui.printDishListView(listOfDish);
 
@@ -26,7 +26,7 @@ public class DisplayCommand {
         Ui.printIngredientListView(ingredients);
     }
 
-    public static void displayRecipeBank(){
+    public static void displayRecipeBank() {
         // This should ideally be a singleton or accessed through a proper controller
         // RecipeBank recipeBank = new RecipeBank();
         ArrayList<Recipe> listOfRecipes = RecipeBank.getRecipeBank();

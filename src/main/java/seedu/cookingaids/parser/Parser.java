@@ -5,6 +5,7 @@ import seedu.cookingaids.commands.DeleteCommand;
 import seedu.cookingaids.commands.DisplayCommand;
 import seedu.cookingaids.commands.HelpCommand;
 import seedu.cookingaids.ui.Ui;
+
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
@@ -88,7 +89,9 @@ public class Parser {
         }
         int startIndex = receivedText.indexOf(DISH_FLAG) + DISH_FLAG.length();
         int endIndex = receivedText.indexOf(" ", startIndex);
-        if (endIndex == -1) endIndex = receivedText.length();
+        if (endIndex == -1) {
+            endIndex = receivedText.length();
+        }
 
         return receivedText.substring(startIndex, endIndex).trim();
     }
@@ -147,7 +150,9 @@ public class Parser {
 
         int startIndex = receivedText.indexOf("-dish=") + "-dish=".length();
         int endIndex = receivedText.indexOf(" -", startIndex); // Look for the next flag starting with '-'
-        if (endIndex == -1) endIndex = receivedText.length(); // If no next flag, take the rest
+        if (endIndex == -1) {
+            endIndex = receivedText.length();
+        }// If no next flag, take the rest
 
         String dishName = receivedText.substring(startIndex, endIndex).trim();
         returnedArray[1] = dishName;
@@ -172,7 +177,9 @@ public class Parser {
                         : receivedText.length();
                 returnedArray[0] = receivedText.substring(recipeStartIndex, recipeEndIndex).trim();
             }
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+            System.out.println("exception encountered");
+        }
 
         try {
             if (receivedText.contains(CALLS_FOR_FLAG)) {
@@ -181,7 +188,9 @@ public class Parser {
                     returnedArray[1] = receivedText.substring(ingredientsStartIndex).trim();
                 }
             }
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+            System.out.println("exception encountered");
+        }
 
         return returnedArray;
     }

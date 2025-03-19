@@ -40,13 +40,6 @@ public class DishCalendar {
         }
         return matchingDishes;
     }
-
-    public static void removeDishInCalendar(Dish dish) {
-
-        dishCalendar.remove(dish);
-
-    }
-
     public static List<Dish> getDishesByDate(String date) {
         List<Dish> matchingDishes = new ArrayList<>();
         for (Dish dish : dishCalendar) {
@@ -55,6 +48,12 @@ public class DishCalendar {
             }
         }
         return matchingDishes;
+    }
+
+    public static void removeDishInCalendar(Dish dish) {
+
+        dishCalendar.remove(dish);
+
     }
 
     public void removeDishInCalendar(int dishIndex) {
