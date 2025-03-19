@@ -48,6 +48,10 @@ public class IngredientStorage {
         return ingredients;
     }
 
+    public static boolean contains(String ingredientName) {
+        return ingredients.containsKey(ingredientName);
+    }
+
     public void displayStorage() {
         for (String name : ingredients.keySet()) {
             System.out.println(name + ":");
