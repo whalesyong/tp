@@ -14,9 +14,9 @@ public class Ingredient extends Food{
         expiryDate = new ExpiryDate("None");
     }
 
-    public Ingredient(int id, String name, String expiry_date, int quantity ) {
+    public Ingredient(int id, String name, String expiryDate, int quantity ) {
         super(id, name);
-        expiryDate = new ExpiryDate(expiry_date);
+        this.expiryDate = new ExpiryDate(expiryDate);
         this.quantity = quantity;
     }
 

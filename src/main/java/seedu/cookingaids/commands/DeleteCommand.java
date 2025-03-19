@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class DeleteCommand {
-    public final static String COMMAND_WORD = "delete";
-    final static int SPACE = 1;
+    public static final String COMMAND_WORD = "delete";
+    static final int SPACE = 1;
 
     public static void deleteDish(String receivedText) {
         String[] parsedDish = Parser.parseDish(receivedText);
