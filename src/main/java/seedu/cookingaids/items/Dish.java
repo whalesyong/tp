@@ -22,7 +22,6 @@ public class Dish extends Food {
 
     @Override
     public void displayInfo() {
-
         System.out.println("Dish ID: " + id + ", Name: " + name +", Scheduled for:" + dishDate.toString());
     }
 
