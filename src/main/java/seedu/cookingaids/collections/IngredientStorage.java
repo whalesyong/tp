@@ -53,6 +53,10 @@ public class IngredientStorage {
         return ingredients.containsKey(ingredientName);
     }
 
+    public static void clear() {
+        ingredients.clear();
+    }
+
     public void displayStorage() {
         HashMap<String, List<Ingredient>> ingredients = getStorage();
         Ui.printIngredientListView(ingredients);

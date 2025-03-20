@@ -32,31 +32,112 @@ class DeleteCommandTest {
     }
 
     @Test
-    void assertDeleteDishSuccessful() {
-        assertTrue(dishCalendar.containsDish("Spaghetti"));
-        DeleteCommand.deleteDish("delete -dish=Spaghetti");
-        assertFalse(dishCalendar.containsDish("Spaghetti"));
+    void execute_emptyDishCalendar_returnsDishNotFoundMessage() {
+        assertDeletionFailsDueToNoSuchDish("Pizza", new DishCalendar());
     }
 
     @Test
-    void assertDeleteIngredientSuccessful() {
-        Ingredient tomato = new Ingredient(2, "Tomato");  // Create ingredient
-        IngredientStorage.addToStorage(tomato);  // Add to storage
-        assertTrue(IngredientStorage.contains("Tomato")); // Verify addition
-        DeleteCommand.deleteIngredient("delete -ingredient=Tomato");  // Delete
-        assertFalse(IngredientStorage.contains("Tomato")); // Verify deletion
+    void execute_invalidDish_returnsInvalidIndexMessage() {
+        assertDeletionFailsDueToInvalidDish("NonExistentDish", dishCalendar);
     }
 
     @Test
-    void assertDeleteRecipeSuccessful() {
+    void execute_validDish_deletesSuccessfully() {
+        assertDeletionSuccessful("Spaghetti", dishCalendar);
+    }
+
+    @Test
+    void execute_validIngredient_deletesSuccessfully() {
+        Ingredient tomato = new Ingredient(2, "Tomato");
+        IngredientStorage.addToStorage(tomato);
+        assertDeletionSuccessfulIngredient("Tomato");
+    }
+
+    @Test
+    void execute_nonExistentIngredient_returnsIngredientNotFoundMessage() {
+        assertDeletionFailsDueToNoSuchIngredient("Garlic");
+    }
+
+    @Test
+    void execute_validRecipe_deletesSuccessfully() {
         ArrayList<String> ingredients = new ArrayList<>();
         ingredients.add("Bread");
         ingredients.add("Tomato");
         ingredients.add("Egg");
-        Recipe sandwich = new Recipe("Sandwich", ingredients);  // Create recipe
-        RecipeBank.addRecipeToRecipeBank(sandwich);  // Add to recipe bank
-        assertTrue(RecipeBank.contains("Sandwich")); // Verify addition
-        RecipeBank.removeRecipeFromRecipeBank("delete -recipe=Sandwich");  // Delete
-        assertFalse(RecipeBank.contains("Sandwich")); // Verify deletion
+        Recipe sandwich = new Recipe("Sandwich", ingredients);
+        RecipeBank.addRecipeToRecipeBank(sandwich);
+        assertDeletionSuccessfulRecipe("Sandwich");
+    }
+
+    @Test
+    void execute_nonExistentRecipe_returnsRecipeNotFoundMessage() {
+        assertDeletionFailsDueToNoSuchRecipe("Pasta");
+    }
+
+    @Test
+    void execute_afterDishCalendarCleared_returnsDishNotFoundMessage() {
+        dishCalendar.clear();
+        assertDeletionFailsDueToNoSuchDish("Spaghetti", dishCalendar);
+    }
+
+    @Test
+    void execute_deleteFromEmptyRecipeBank_returnsRecipeNotFoundMessage() {
+        RecipeBank.clear();
+        assertDeletionFailsDueToNoSuchRecipe("Salad");
+    }
+
+    @Test
+    void execute_longDishName_deletesSuccessfully() {
+        String longDishName =
+                "A very long dish name that exceeds normal expectations and is meant to test the limits of the system";
+        Dish longDish = new Dish(2, longDishName, "21/03/2025");
+        DishCalendar.addDishToCalendar(longDish);
+        assertDeletionSuccessful(longDishName, dishCalendar);
+    }
+
+    @Test
+    void execute_deleteIngredientWhenFull_returnsIngredientNotFoundMessage() {
+        IngredientStorage.clear();  // Simulate the full storage by clearing it first.
+        Ingredient ingredient = new Ingredient(3, "Lettuce");
+        IngredientStorage.addToStorage(ingredient);
+        assertDeletionSuccessfulIngredient("Lettuce");
+    }
+
+    private void assertDeletionFailsDueToInvalidDish(String dishName, DishCalendar dishCalendar) {
+        DeleteCommand.deleteDish("delete -dish=" + dishName);
+        assertFalse(dishCalendar.containsDish(dishName));
+    }
+
+    private void assertDeletionFailsDueToNoSuchDish(String dishName, DishCalendar dishCalendar) {
+        DeleteCommand.deleteDish("delete -dish=" + dishName);
+        assertFalse(dishCalendar.containsDish(dishName));
+    }
+
+    private void assertDeletionSuccessful(String dishName, DishCalendar dishCalendar) {
+        assertTrue(dishCalendar.containsDish(dishName));
+        DeleteCommand.deleteDish("delete -dish=" + dishName);
+        assertFalse(dishCalendar.containsDish(dishName));
+    }
+
+    private void assertDeletionSuccessfulIngredient(String ingredientName) {
+        assertTrue(IngredientStorage.contains(ingredientName));
+        DeleteCommand.deleteIngredient("delete -ingredient=" + ingredientName);
+        assertFalse(IngredientStorage.contains(ingredientName));
+    }
+
+    private void assertDeletionSuccessfulRecipe(String recipeName) {
+        assertTrue(RecipeBank.contains(recipeName));
+        DeleteCommand.deleteRecipe("delete -recipe=" + recipeName);
+        assertFalse(RecipeBank.contains(recipeName));
+    }
+
+    private void assertDeletionFailsDueToNoSuchIngredient(String ingredientName) {
+        DeleteCommand.deleteIngredient("delete -ingredient=" + ingredientName);
+        assertFalse(IngredientStorage.contains(ingredientName));
+    }
+
+    private void assertDeletionFailsDueToNoSuchRecipe(String recipeName) {
+        DeleteCommand.deleteRecipe("delete -recipe=" + recipeName);
+        assertFalse(RecipeBank.contains(recipeName));
     }
 }

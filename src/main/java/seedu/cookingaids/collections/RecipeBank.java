@@ -30,4 +30,8 @@ public class RecipeBank {
     public static boolean contains(String recipeName) {
         return recipeBank.stream().anyMatch(recipe -> recipe.getName().equalsIgnoreCase(recipeName));
     }
+
+    public static void clear() {
+        recipeBank.clear();
+    }
 }
