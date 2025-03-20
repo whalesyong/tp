@@ -7,6 +7,7 @@ import seedu.cookingaids.commands.HelpCommand;
 import seedu.cookingaids.ui.Ui;
 
 import java.util.HashMap;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -58,6 +59,8 @@ public class Parser {
     private static void handleAddCommand(String receivedText) {
         if (receivedText.contains(RECIPE_FLAG)) {
             AddCommand.addRecipe(receivedText);
+        } else if (receivedText.contains(DISH_FLAG) && receivedText.contains(WHEN_FLAG)) {
+            AddCommand.addDishWithWhen(receivedText);
         } else if (receivedText.contains(DISH_FLAG)) {
             AddCommand.addDish(receivedText);
         } else if (receivedText.contains(INGREDIENT_FLAG)) {
@@ -141,23 +144,15 @@ public class Parser {
         return receivedText.substring(startIndex, endIndex).trim();
     }
 
-    public static String[] parseDish(String receivedText) {
-        String[] returnedArray = {"1", "none", "none"};
+    public static String[] parseDish(String input) {
+        Pattern pattern = Pattern.compile("-dish=([^\\s]+)\\s+-when=([^\\s]+)");
+        Matcher matcher = pattern.matcher(input);
 
-        if (!receivedText.contains("-dish=")) {
-            return returnedArray; // If no dish flag, return default
+        if (matcher.find()) {
+            return new String[]{"", matcher.group(1), matcher.group(2)}; // Maintain index alignment
+        } else {
+            return new String[]{"", "", "none"}; // Indicates parsing failure
         }
-
-        int startIndex = receivedText.indexOf("-dish=") + "-dish=".length();
-        int endIndex = receivedText.indexOf(" -", startIndex); // Look for the next flag starting with '-'
-        if (endIndex == -1) {
-            endIndex = receivedText.length();
-        }// If no next flag, take the rest
-
-        String dishName = receivedText.substring(startIndex, endIndex).trim();
-        returnedArray[1] = dishName;
-
-        return returnedArray;
     }
 
     /**

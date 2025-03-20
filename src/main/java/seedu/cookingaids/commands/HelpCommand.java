@@ -16,7 +16,8 @@ public class HelpCommand {
         System.out.println();
         System.out.println("  add - Adds a new recipe, dish or ingredient");
         System.out.println("    Usage: add -recipe=<recipe_name>   (Adds a new recipe)");
-        System.out.println("           add -recipe=<recipe_name> -needs=ingredient1,ingredient2... (Adds a new recipe with ingredients)");
+        System.out.println("           add -recipe=<recipe_name> -needs=ingredient1,ingredient2... " +
+                "(Adds a new recipe with ingredients)");
         System.out.println("           add -dish=<dish_name>       (Adds a new dish to the schedule)");
         System.out.println("           add -ingredient=<ingredient_name>   (Adds a new ingredient)");
         System.out.println();

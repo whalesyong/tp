@@ -23,6 +23,24 @@ public class AddCommand {
         System.out.println("Added Dish: " + dish.getName() + ", Scheduled for: " + dish.getDishDate().toString());
     }
 
+    public static void addDishWithWhen(String receivedText) {
+        String[] parsedDish = Parser.parseDish(receivedText);
+
+        String dishName = parsedDish[1];
+        String date = parsedDish[2];
+
+        if (date.equals("none")) {
+            System.out.println("Invalid format. Use: add dish_name -when=YYYY-MM-DD");
+            return;
+        }
+
+        int newId = DishCalendar.generateNewDishId();
+        Dish newDish = new Dish(newId, dishName, date);
+        DishCalendar.addDishToCalendar(newDish);
+
+        System.out.println(date + " - " + dishName + " successfully added!");
+    }
+
     public static void addRecipe(String receivedText) {
         receivedText = receivedText.substring(COMMAND_WORD.length() + SPACE);
         String[] recipeFields = Parser.parseRecipe(receivedText);
