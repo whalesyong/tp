@@ -208,9 +208,9 @@ public class Parser {
         Pattern quantityPattern = Pattern.compile("\\d+"); // Matches positive numbers
         for (String part : parts) {
             if (part.startsWith("ingredient=")) {
-                data.put("ingredient", part.substring(10).trim());
+                data.put("ingredient", part.substring(11).trim());
             } else if (part.startsWith("quantity=")) {
-                String quantity = part.substring(8).trim();
+                String quantity = part.substring(9).trim();
                 if (quantityPattern.matcher(quantity).matches()) {
                     data.put("quantity", quantity);
                 } else {
