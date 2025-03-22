@@ -1,12 +1,13 @@
 package seedu.cookingaids.collections;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seedu.cookingaids.items.ExpiryDate;
 import seedu.cookingaids.items.Ingredient;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class IngredientStorageTest {
 
@@ -26,7 +27,7 @@ public class IngredientStorageTest {
     }
 
     @Test
-    public void testAddToStorage_NewIngredient() {
+    public void testAddToStorage_newIngredient() {
         IngredientStorage.addToStorage(ingredient1);
 
         assertTrue(IngredientStorage.contains("Sugar"));
@@ -36,7 +37,7 @@ public class IngredientStorageTest {
     }
 
     @Test
-    public void testAddToStorage_MergeQuantity() {
+    public void testAddToStorage_mergeQuantity() {
         IngredientStorage.addToStorage(ingredient1);
         IngredientStorage.addToStorage(ingredient3);
 
@@ -46,7 +47,7 @@ public class IngredientStorageTest {
     }
 
     @Test
-    public void testAddToStorage_DifferentExpiryDates() {
+    public void testAddToStorage_differentExpiryDates() {
         Ingredient differentExpiry = new Ingredient(1,"Sugar", "2026-01-01", 200);
 
         IngredientStorage.addToStorage(ingredient1);
@@ -69,13 +70,13 @@ public class IngredientStorageTest {
     }
 
     @Test
-    public void testGetIngredients_NonExistent() {
+    public void testGetIngredients_nonExistent() {
         List<Ingredient> nonExistent = IngredientStorage.getIngredients("Flour");
         assertTrue(nonExistent.isEmpty());
     }
 
     @Test
-    public void testGetStorage_ReturnsCopy() {
+    public void testGetStorage_returnsCopy() {
         IngredientStorage.addToStorage(ingredient1);
         assertEquals(1, IngredientStorage.getStorage().size());
     }

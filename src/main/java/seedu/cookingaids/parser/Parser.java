@@ -2,11 +2,12 @@ package seedu.cookingaids.parser;
 
 import seedu.cookingaids.commands.AddCommand;
 import seedu.cookingaids.commands.DeleteCommand;
-import seedu.cookingaids.commands.DisplayCommand;
+import seedu.cookingaids.commands.ListCommand;
 import seedu.cookingaids.commands.HelpCommand;
 import seedu.cookingaids.ui.Ui;
 
 import java.util.HashMap;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -16,7 +17,7 @@ import java.util.regex.Pattern;
 public class Parser {
     private static final String UNKNOWN_COMMAND_STR = "Unknown command: %s";
     private static final String RECIPE_FLAG = "-recipe=";
-    private static final String CALLS_FOR_FLAG = "-callsfor=";
+    private static final String NEEDS_FLAG = "-needs=";
     private static final String DISH_FLAG = "-dish=";
     private static final String WHEN_FLAG = "-when=";
     private static final String INGREDIENT_FLAG = "-ingredient=";
@@ -31,7 +32,7 @@ public class Parser {
         String command = receivedText.strip().split(" ")[0];
 
         switch (command) {
-        case DisplayCommand.COMMAND_WORD -> handleDisplayCommand(receivedText);
+        case ListCommand.COMMAND_WORD -> handleDisplayCommand(receivedText);
         case AddCommand.COMMAND_WORD -> handleAddCommand(receivedText);
         case DeleteCommand.COMMAND_WORD -> handleDeleteCommand(receivedText);
         case HelpCommand.COMMAND_WORD -> HelpCommand.showHelp();
@@ -45,11 +46,11 @@ public class Parser {
 
     private static void handleDisplayCommand(String receivedText) {
         if (receivedText.contains("-recipe")) {
-            DisplayCommand.displayRecipeBank();
+            ListCommand.displayRecipeBank();
         } else if (receivedText.contains("-dish")) {
-            DisplayCommand.displayDishCalendar();
+            ListCommand.displayDishCalendar();
         } else if (receivedText.contains("-ingredient")) {
-            DisplayCommand.displayIngredients();
+            ListCommand.displayIngredients();
         } else {
             System.out.printf((UNKNOWN_COMMAND_STR) + "%n", receivedText);
         }
@@ -58,6 +59,8 @@ public class Parser {
     private static void handleAddCommand(String receivedText) {
         if (receivedText.contains(RECIPE_FLAG)) {
             AddCommand.addRecipe(receivedText);
+        } else if (receivedText.contains(DISH_FLAG) && receivedText.contains(WHEN_FLAG)) {
+            AddCommand.addDishWithWhen(receivedText);
         } else if (receivedText.contains(DISH_FLAG)) {
             AddCommand.addDish(receivedText);
         } else if (receivedText.contains(INGREDIENT_FLAG)) {
@@ -141,23 +144,15 @@ public class Parser {
         return receivedText.substring(startIndex, endIndex).trim();
     }
 
-    public static String[] parseDish(String receivedText) {
-        String[] returnedArray = {"1", "none", "none"};
+    public static String[] parseDish(String input) {
+        Pattern pattern = Pattern.compile("-dish=([^\\s]+)\\s+-when=([^\\s]+)");
+        Matcher matcher = pattern.matcher(input);
 
-        if (!receivedText.contains("-dish=")) {
-            return returnedArray; // If no dish flag, return default
+        if (matcher.find()) {
+            return new String[]{"", matcher.group(1), matcher.group(2)}; // Maintain index alignment
+        } else {
+            return new String[]{"", "", "none"}; // Indicates parsing failure
         }
-
-        int startIndex = receivedText.indexOf("-dish=") + "-dish=".length();
-        int endIndex = receivedText.indexOf(" -", startIndex); // Look for the next flag starting with '-'
-        if (endIndex == -1) {
-            endIndex = receivedText.length();
-        }// If no next flag, take the rest
-
-        String dishName = receivedText.substring(startIndex, endIndex).trim();
-        returnedArray[1] = dishName;
-
-        return returnedArray;
     }
 
     /**
@@ -172,8 +167,8 @@ public class Parser {
         try {
             if (receivedText.contains(RECIPE_FLAG)) {
                 int recipeStartIndex = receivedText.indexOf(RECIPE_FLAG) + RECIPE_FLAG.length();
-                int recipeEndIndex = receivedText.contains(CALLS_FOR_FLAG)
-                        ? receivedText.indexOf(CALLS_FOR_FLAG)
+                int recipeEndIndex = receivedText.contains(NEEDS_FLAG)
+                        ? receivedText.indexOf(NEEDS_FLAG)
                         : receivedText.length();
                 returnedArray[0] = receivedText.substring(recipeStartIndex, recipeEndIndex).trim();
             }
@@ -182,8 +177,8 @@ public class Parser {
         }
 
         try {
-            if (receivedText.contains(CALLS_FOR_FLAG)) {
-                int ingredientsStartIndex = receivedText.indexOf(CALLS_FOR_FLAG) + CALLS_FOR_FLAG.length();
+            if (receivedText.contains(NEEDS_FLAG)) {
+                int ingredientsStartIndex = receivedText.indexOf(NEEDS_FLAG) + NEEDS_FLAG.length();
                 if (ingredientsStartIndex < receivedText.length()) {
                     returnedArray[1] = receivedText.substring(ingredientsStartIndex).trim();
                 }

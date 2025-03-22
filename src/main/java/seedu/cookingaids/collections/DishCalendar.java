@@ -9,8 +9,11 @@ import java.util.List;
 
 public class DishCalendar {
     public static ArrayList<Dish> dishCalendar = new ArrayList<>();
+    private static int currentId = 1; // Keeps track of the latest assigned ID
 
-    //load data from JSON when first accessed
+    public static synchronized int generateNewDishId() {
+        return currentId++; // Increment and return the next ID
+    }
     public static void initializeDishCalendar(List<Dish> dishes) {
         dishCalendar.addAll(dishes);
     }
