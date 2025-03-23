@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import seedu.cookingaids.items.Dish;
 import seedu.cookingaids.items.Recipe;
+import seedu.cookingaids.items.Ingredient;
+import seedu.cookingaids.collections.IngredientStorage;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +18,7 @@ import java.util.List;
 public class Storage {
     private static final String RECIPE_LIST_FIELD_NAME = "recipes";
     private static final String DISH_LIST_FIELD_NAME = "dishes";
+    private static final String INGREDIENT_STORAGE_FIELD_NAME = "ingredients";
     private static final String FILE_PATH = "./data/cookingaids.json";
 
 
@@ -26,7 +29,8 @@ public class Storage {
      * @param dishList The list of dishes to be stored.
      * @param recipeList The list of recipes to be stored.
      */
-    public static void storeData(ArrayList<Dish> dishList, ArrayList<Recipe> recipeList){
+    public static void storeData(ArrayList<Dish> dishList, ArrayList<Recipe> recipeList,
+                                 HashMap<String,List<Ingredient>> ingredientStorage){
         //get dishList array, store into json.
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -35,6 +39,7 @@ public class Storage {
 
         dataMap.put(DISH_LIST_FIELD_NAME, dishList);
         dataMap.put(RECIPE_LIST_FIELD_NAME, recipeList);
+        dataMap.put(INGREDIENT_STORAGE_FIELD_NAME, ingredientStorage);
 
         File file = new File(FILE_PATH);
         file.getParentFile().mkdirs();
@@ -60,7 +65,8 @@ public class Storage {
 
         if (!file.exists()) {
             System.out.println("No data found, creating new lists.");
-            return new DataWrapper(new ArrayList<>(), new ArrayList<>());
+            IngredientStorage.clear();
+            return new DataWrapper(new ArrayList<>(), new ArrayList<>(), new HashMap<>());
         }
 
         try {
@@ -68,7 +74,7 @@ public class Storage {
         } catch (IOException e){
             System.err.println("Failed to load Dish list from: " + FILE_PATH + ", loading new list.");
             System.err.println(e.getMessage());
-            return new DataWrapper(new ArrayList<>(), new ArrayList<>());
+            return new DataWrapper(new ArrayList<>(), new ArrayList<>(), new HashMap<>());
         }
 
 
@@ -84,14 +90,15 @@ public class Storage {
     public static class DataWrapper {
         public List<Dish> dishes;
         public List<Recipe> recipes;
+        public HashMap<String, List<Ingredient>> ingredients;
 
         public DataWrapper() {}
 
-        public DataWrapper(List<Dish> dishes, List<Recipe> recipes) {
+        public DataWrapper(List<Dish> dishes, List<Recipe> recipes, HashMap<String,List<Ingredient>> ingredients) {
             this.dishes = dishes;
             this.recipes = recipes;
+            this.ingredients = ingredients;
         }
     }
-
 
 }

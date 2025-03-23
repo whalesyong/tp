@@ -1,8 +1,9 @@
 package seedu.cookingaids.items;
 
 public class Ingredient extends Food{
-    static ExpiryDate expiryDate;
+    public ExpiryDate expiryDate;
     private int quantity;
+    private boolean expiringSoon = false;
 
     public Ingredient(int id, String name) {
         super(id, name);
@@ -16,7 +17,7 @@ public class Ingredient extends Food{
 
     public Ingredient(int id, String name, String expiryDate, int quantity ) {
         super(id, name);
-        Ingredient.expiryDate = new ExpiryDate(expiryDate);
+        this.expiryDate = new ExpiryDate(expiryDate);
         this.quantity = quantity;
     }
 
@@ -36,6 +37,10 @@ public class Ingredient extends Food{
         this.quantity -= quantity;
     }
 
+    public void setExpiringSoon(boolean b) {
+        this.expiringSoon = b;
+    }
+
     @Override
     public void displayInfo() {
         System.out.println("Ingredient ID: " + id + ", Name: " + name +", Scheduled for:" + expiryDate.toString());
@@ -43,6 +48,9 @@ public class Ingredient extends Food{
 
     @Override
     public String toString() {
-        return name + " (" + quantity + (expiryDate != null? ", Expiry: " + expiryDate : "") + ")";
+        String expiryFlag = expiringSoon ? "[X]" : "[]";
+        return name + " (" + quantity + (expiryDate != null? ", Expiry: "
+                + expiryDate : "") + ", Expiring Soon: " + expiryFlag + ")";
     }
+
 }
