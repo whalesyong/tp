@@ -1,4 +1,6 @@
 package seedu.cookingaids.items;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Ingredient extends Food{
     public ExpiryDate expiryDate;
@@ -14,8 +16,9 @@ public class Ingredient extends Food{
         this.quantity = quantity;
         expiryDate = new ExpiryDate("None");
     }
-
-    public Ingredient(int id, String name, String expiryDate, int quantity ) {
+    @JsonCreator
+    public Ingredient(@JsonProperty("id") int id, @JsonProperty("name") String name,
+                      @JsonProperty("expiry") String expiryDate, @JsonProperty("quantity") int quantity ) {
         super(id, name);
         this.expiryDate = new ExpiryDate(expiryDate);
         this.quantity = quantity;
