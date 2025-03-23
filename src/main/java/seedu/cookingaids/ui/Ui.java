@@ -1,6 +1,7 @@
 package seedu.cookingaids.ui;
 
 import seedu.cookingaids.collections.DishCalendar;
+import seedu.cookingaids.collections.IngredientStorage;
 import seedu.cookingaids.collections.RecipeBank;
 import seedu.cookingaids.items.Dish;
 import seedu.cookingaids.items.Ingredient;
@@ -149,7 +150,7 @@ public class Ui {
         }
 
         //store list
-        Storage.storeData(DishCalendar.getDishCalendar(), RecipeBank.getRecipeBank());
+        Storage.storeData(DishCalendar.getDishCalendar(), RecipeBank.getRecipeBank(), IngredientStorage.getStorage());
     }
 
 

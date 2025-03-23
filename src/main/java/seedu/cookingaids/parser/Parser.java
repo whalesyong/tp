@@ -206,7 +206,6 @@ public class Parser {
                 data.put("ingredient", part.substring(11).trim());
             } else if (part.startsWith("quantity=")) {
                 String quantity = part.substring(9).trim();
-              
                 if (quantityPattern.matcher(quantity).matches()) {
                     data.put("quantity", quantity);
                 } else {
