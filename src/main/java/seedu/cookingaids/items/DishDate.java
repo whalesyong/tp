@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 
+
 /**
  * represents date of a task
  * holds date as string and as LocalDate type
@@ -32,28 +33,45 @@ public class DishDate {
     public DishDate(@JsonProperty("dateString") String date) {
         this.dateString = date;
         try {
-            dateLocalDate = parseDateFormat(date);
+            dateLocalDate = parseDate(date);
+
             dateString = dateLocalDate == null ? "None" : //None set here to match format
                     dateLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
         } catch (DateTimeParseException e) {
-            dateLocalDate = null;
+
+            tryDateFormats();
         }
     }
 
-    public LocalDate parseDateFormat(String dateString) {
-        LocalDate today = LocalDate.now();
+    private void tryDateFormats() {
+        LocalDate formattedDate = parseDateFormat(dateString);
 
-        switch (dateString) {
-        case "today", "td":
-            return today;
-        case "tomorrow", "tmr":
-            return today.plusDays(1);
-        case "next week", "nxt wk":
-            return today.plusWeeks(1);
-        default:
-            break;
+        if (formattedDate != null) {
+
+            dateLocalDate = formattedDate;
+        } else {
+
+            LocalDate today = LocalDate.now();
+            switch (dateString) {
+            case "today", "td":
+                dateLocalDate = today;
+                break;
+            case "tomorrow", "tmr":
+                dateLocalDate = today.plusDays(1);
+                break;
+            case "next week", "nxt wk":
+                dateLocalDate = today.plusWeeks(1);
+                break;
+            default:
+                dateLocalDate = null;
+            }
         }
+        dateString = dateLocalDate == null ? "None" : //None set here to match format
+                dateLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
+
+    public LocalDate parseDateFormat(String dateString) {
 
         DateTimeFormatter[] formatters = {
                 DateTimeFormatter.ofPattern("dd/MM/yyyy"),
@@ -63,13 +81,11 @@ public class DishDate {
                 DateTimeFormatter.ofPattern("yyyy/MM/dd"),
         };
 
-        // Try each format until one works
-        LocalDate date = null;
+        LocalDate date;
         for (DateTimeFormatter formatter : formatters) {
             try {
                 date = LocalDate.parse(dateString, formatter);
                 return date;
-
             } catch (DateTimeParseException e) {
                 // Tries next format
             }
@@ -77,7 +93,6 @@ public class DishDate {
         return null;
 
     }
-
 
     /**
      * sets a new date for taskDate

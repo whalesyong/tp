@@ -1,6 +1,14 @@
 {
   "recipes" : [ ],
   "ingredients" : {
+    "egg" : [ {
+      "id" : 1,
+      "name" : "egg",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "25/03/2025"
+      }
+    } ],
     "hello" : [ {
       "id" : 1,
       "name" : "hello",
