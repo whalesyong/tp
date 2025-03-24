@@ -22,7 +22,7 @@ class DeleteCommandTest {
     @BeforeEach
     void setUp() {
         dishCalendar = new DishCalendar();
-        Dish spaghetti = new Dish(1, "Spaghetti", "20/03/2025");
+        Dish spaghetti = new Dish( "spaghetti", "20/03/2025");
         DishCalendar.addDishToCalendar(spaghetti);
     }
 
@@ -33,7 +33,7 @@ class DeleteCommandTest {
 
     @Test
     void execute_emptyDishCalendar_returnsDishNotFoundMessage() {
-        assertDeletionFailsDueToNoSuchDish("Pizza", new DishCalendar());
+        assertDeletionFailsDueToNoSuchDish("pizza", new DishCalendar());
     }
 
     @Test
@@ -43,7 +43,7 @@ class DeleteCommandTest {
 
     @Test
     void execute_validDish_deletesSuccessfully() {
-        assertDeletionSuccessful("Spaghetti", dishCalendar);
+        assertDeletionSuccessful("spaghetti", dishCalendar);
     }
 
     @Test
@@ -77,20 +77,20 @@ class DeleteCommandTest {
     @Test
     void execute_afterDishCalendarCleared_returnsDishNotFoundMessage() {
         dishCalendar.clear();
-        assertDeletionFailsDueToNoSuchDish("Spaghetti", dishCalendar);
+        assertDeletionFailsDueToNoSuchDish("spaghetti", dishCalendar);
     }
 
     @Test
     void execute_deleteFromEmptyRecipeBank_returnsRecipeNotFoundMessage() {
         RecipeBank.clear();
-        assertDeletionFailsDueToNoSuchRecipe("Salad");
+        assertDeletionFailsDueToNoSuchRecipe("salad");
     }
 
     @Test
     void execute_longDishName_deletesSuccessfully() {
         String longDishName =
-                "A very long dish name that exceeds normal expectations and is meant to test the limits of the system";
-        Dish longDish = new Dish(2, longDishName, "21/03/2025");
+                "a_very_long_dish_name_that_exceeds_normal_expectations_and_is_meant_to_test_the_limits_of_the_system";
+        Dish longDish = new Dish( longDishName, "21/03/2025");
         DishCalendar.addDishToCalendar(longDish);
         assertDeletionSuccessful(longDishName, dishCalendar);
     }
@@ -98,9 +98,9 @@ class DeleteCommandTest {
     @Test
     void execute_deleteIngredientWhenFull_returnsIngredientNotFoundMessage() {
         IngredientStorage.clear();  // Simulate the full storage by clearing it first.
-        Ingredient ingredient = new Ingredient(3, "Lettuce");
+        Ingredient ingredient = new Ingredient(3, "lettuce");
         IngredientStorage.addToStorage(ingredient);
-        assertDeletionSuccessfulIngredient("Lettuce");
+        assertDeletionSuccessfulIngredient("lettuce");
     }
 
     private void assertDeletionFailsDueToInvalidDish(String dishName, DishCalendar dishCalendar) {
