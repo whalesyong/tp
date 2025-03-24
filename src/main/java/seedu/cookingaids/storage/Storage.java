@@ -44,6 +44,10 @@ public class Storage {
         File file = new File(FILE_PATH);
         file.getParentFile().mkdirs();
 
+        //print map. FOR DEBUGGING
+        //TODO: remove debug statememt
+        IngredientStorage.printMap();
+
         try{
             mapper.writeValue(file, dataMap);
             System.out.println("Stored Dish List successfully in: " + FILE_PATH);
@@ -60,6 +64,8 @@ public class Storage {
      * @return A DataWrapper containing the lists of dishes and recipes.
      */
     public static DataWrapper loadData(){
+
+
         ObjectMapper mapper = new ObjectMapper();
         File file = new File(FILE_PATH);
 
@@ -90,7 +96,7 @@ public class Storage {
     public static class DataWrapper {
         public List<Dish> dishes;
         public List<Recipe> recipes;
-        public HashMap<String, List<Ingredient>> ingredients;
+        public  HashMap<String, List<Ingredient>> ingredients;
 
         public DataWrapper() {}
 
@@ -98,6 +104,14 @@ public class Storage {
             this.dishes = dishes;
             this.recipes = recipes;
             this.ingredients = ingredients;
+        }
+
+        //for debugging
+        public static void printData(){
+            System.out.println("All data obtained: ");
+            //System.out.println("All dishes: " + dishes);
+           // System.out.println("All recipes: " + recipes);
+            //System.out.println("All ingredients: " + ingredients);
         }
     }
 

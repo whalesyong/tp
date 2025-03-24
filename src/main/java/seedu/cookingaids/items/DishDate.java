@@ -34,7 +34,7 @@ public class DishDate {
         this.dateString = date;
         try {
             dateLocalDate = parseDate(date);
-            dateString = dateLocalDate == null ? "none" :
+            dateString = dateLocalDate == null ? "None" : //None set here to match format
                     dateLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
         } catch (DateTimeParseException e) {
@@ -73,11 +73,12 @@ public class DishDate {
      * @return The LocalDate corresponding to the parsed string, or null if the string is "none" or invalid.
      */
     public static LocalDate parseDate(String receivedText) {
-        if (Objects.equals(receivedText, "none")) {
+        if (receivedText == null || receivedText.equalsIgnoreCase("none")) {
             return null;
         }
-        return LocalDate.parse(receivedText);
-
+        // Expecting the pattern dd/MM/yyyy as per your formatting
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return LocalDate.parse(receivedText, formatter);
     }
 
 

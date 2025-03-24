@@ -14,8 +14,11 @@ import java.util.Iterator;
 import java.util.Comparator;
 
 public class IngredientStorage {
-    private static final HashMap<String, List<Ingredient>> ingredients = new HashMap<>();
+    private static HashMap<String, List<Ingredient>> ingredients = new HashMap<>();
 
+    public static void initializeIngredientStorage(HashMap<String, List<Ingredient>> newIngredients) {
+        ingredients = newIngredients;
+    }
     public static void addToStorage(Ingredient newIngredient) {
         String name = newIngredient.getName();
         List<Ingredient> ingredientList = ingredients.getOrDefault(name, new ArrayList<>());
@@ -143,5 +146,10 @@ public class IngredientStorage {
         }
 
         return unexpiredQuantity;
+    }
+
+    //FOR DEBUGGING. TODO remove statement
+    public static void printMap(){
+        System.out.println(ingredients);
     }
 }
