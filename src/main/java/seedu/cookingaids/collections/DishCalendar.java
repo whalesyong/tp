@@ -59,10 +59,6 @@ public class DishCalendar {
 
     }
 
-    public void removeDishInCalendar(int dishIndex) {
-        dishCalendar.remove(dishIndex);
-
-    }
     public void removeDishInCalendarByDate(String date) {
         date = date.trim().toLowerCase();
         ArrayList<Dish> dishesToBeRemoved = new ArrayList<Dish>();
