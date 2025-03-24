@@ -96,7 +96,7 @@ class DeleteCommandTest {
     }
 
     @Test
-    void execute_deleteIngredientWhenFull_returnsIngredientNotFoundMessage() {
+    void execute_deleteIngredientWhenFull_returnsIngredientNotFoundMessage() throws NullPointerException{
         IngredientStorage.clear();  // Simulate the full storage by clearing it first.
         Ingredient ingredient = new Ingredient(3, "lettuce");
         IngredientStorage.addToStorage(ingredient);

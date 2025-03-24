@@ -1,10 +1,11 @@
 package seedu.cookingaids.parser;
 
-import seedu.cookingaids.exceptions.InvalidInputException;
+
 import seedu.cookingaids.commands.AddCommand;
 import seedu.cookingaids.commands.DeleteCommand;
 import seedu.cookingaids.commands.ListCommand;
 import seedu.cookingaids.commands.HelpCommand;
+import seedu.cookingaids.exception.InvalidInputException;
 import seedu.cookingaids.ui.Ui;
 
 import java.util.HashMap;

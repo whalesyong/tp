@@ -1,6 +1,23 @@
 {
   "recipes" : [ ],
-  "ingredients" : { },
+  "ingredients" : {
+    "egg" : [ {
+      "id" : 1,
+      "name" : "egg",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "25/03/2025"
+      }
+    } ],
+    "hello" : [ {
+      "id" : 1,
+      "name" : "hello",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ]
+  },
   "dishes" : [ {
     "name" : "chicken_pasta",
     "dishDate" : {
@@ -16,6 +33,10 @@
     "dishDate" : {
       "dateString" : "25/03/2025"
     }
+  }, {
+    "name" : "pasta",
+    "dishDate" : {
+      "dateString" : "25/03/2025"
+    }
   } ]
-
 }
