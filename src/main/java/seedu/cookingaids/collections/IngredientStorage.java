@@ -82,7 +82,7 @@ public class IngredientStorage {
         for (Ingredient ing : ingredientList) {
             ExpiryDate expiryDate = ing.getExpiryDate();
             if(expiryDate == null){
-                continue;
+                break;
             }
             LocalDate expiryLocalDate =  expiryDate.getDateLocalDate();
 
