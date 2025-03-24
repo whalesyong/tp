@@ -1,5 +1,19 @@
 {
-  "recipes" : [ ],
+  "recipes" : [ {
+    "name" : "Pasta Carbonara",
+    "ingredients" : [ "garlic", "cheese", "cream", "pasta" ],
+    "recipeName" : "Pasta Carbonara"
+  } ],
+  "ingredients" : {
+    "garlic" : [ {
+      "id" : 1,
+      "name" : "garlic",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ]
+  },
   "dishes" : [ {
     "id" : 1,
     "name" : "Pasta Carbonara",
