@@ -75,13 +75,18 @@ public class IngredientStorage {
         return ingredients.getOrDefault(name, new ArrayList<>());
     }
 
-    private static void checkExpiringSoon(String name) {
+    private static void checkExpiringSoon(String name){
         LocalDate tomorrow = LocalDate.now().plusDays(1);
         List<Ingredient> ingredientList = ingredients.get(name);
 
         for (Ingredient ing : ingredientList) {
-            LocalDate expiryDate = ing.getExpiryDate().getDateLocalDate();
-            if (expiryDate != null && expiryDate.equals(tomorrow)) {
+            ExpiryDate expiryDate = ing.getExpiryDate();
+            if(expiryDate == null){
+                continue;
+            }
+            LocalDate expiryLocalDate =  expiryDate.getDateLocalDate();
+
+            if (expiryLocalDate != null && expiryLocalDate.equals(tomorrow)) {
                 ing.setExpiringSoon(true);
             }
         }

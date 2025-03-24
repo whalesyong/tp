@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Objects;
 
 
 /**
@@ -33,7 +32,7 @@ public class DishDate {
     public DishDate(@JsonProperty("dateString") String date) {
         this.dateString = date;
         try {
-            dateLocalDate = parseDate(date);
+            dateLocalDate = parseDateFormat(date);
             dateString = dateLocalDate == null ? "None" : //None set here to match format
                     dateLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
@@ -41,6 +40,44 @@ public class DishDate {
             dateLocalDate = null;
         }
     }
+
+    public LocalDate parseDateFormat(String dateString) {
+        LocalDate today = LocalDate.now();
+
+        switch (dateString) {
+        case "today", "td":
+            return today;
+        case "tomorrow", "tmr":
+            return today.plusDays(1);
+        case "next week", "nxt wk":
+            return today.plusWeeks(1);
+        default:
+            break;
+        }
+
+        DateTimeFormatter[] formatters = {
+                DateTimeFormatter.ofPattern("dd/MM/yyyy"),
+                DateTimeFormatter.ofPattern("MM/dd/yyyy"),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd"),
+                DateTimeFormatter.ofPattern("dd-MM-yyyy"),
+                DateTimeFormatter.ofPattern("yyyy/MM/dd"),
+        };
+
+        // Try each format until one works
+        LocalDate date = null;
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                date = LocalDate.parse(dateString, formatter);
+                return date;
+
+            } catch (DateTimeParseException e) {
+                // Tries next format
+            }
+        }
+        return null;
+
+    }
+
 
     /**
      * sets a new date for taskDate

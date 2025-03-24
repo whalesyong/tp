@@ -1,4 +1,4 @@
-package seedu.cookingaids.exceptions;
+package seedu.cookingaids.exception;
 
 public class InvalidInputException extends Exception{
 }

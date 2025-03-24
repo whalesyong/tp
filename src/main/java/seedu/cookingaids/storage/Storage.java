@@ -26,11 +26,11 @@ public class Storage {
      * Stores the list of dishes and recipes into a JSON file.
      * This method serializes the dish and recipe lists into a JSON format and writes them to the specified file path.
      *
-     * @param dishList The list of dishes to be stored.
+     * @param dishList   The list of dishes to be stored.
      * @param recipeList The list of recipes to be stored.
      */
     public static void storeData(ArrayList<Dish> dishList, ArrayList<Recipe> recipeList,
-                                 HashMap<String,List<Ingredient>> ingredientStorage){
+                                 HashMap<String, List<Ingredient>> ingredientStorage) {
         //get dishList array, store into json.
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -46,9 +46,9 @@ public class Storage {
 
         //print map. FOR DEBUGGING
         //TODO: remove debug statememt
-        IngredientStorage.printMap();
 
-        try{
+
+        try {
             mapper.writeValue(file, dataMap);
             System.out.println("Stored Dish List successfully in: " + FILE_PATH);
         } catch (IOException e) {
@@ -63,7 +63,7 @@ public class Storage {
      *
      * @return A DataWrapper containing the lists of dishes and recipes.
      */
-    public static DataWrapper loadData(){
+    public static DataWrapper loadData() {
 
 
         ObjectMapper mapper = new ObjectMapper();
@@ -77,7 +77,7 @@ public class Storage {
 
         try {
             return mapper.readValue(file, DataWrapper.class);
-        } catch (IOException e){
+        } catch (IOException e) {
             System.err.println("Failed to load Dish list from: " + FILE_PATH + ", loading new list.");
             System.err.println(e.getMessage());
             return new DataWrapper(new ArrayList<>(), new ArrayList<>(), new HashMap<>());
@@ -96,21 +96,22 @@ public class Storage {
     public static class DataWrapper {
         public List<Dish> dishes;
         public List<Recipe> recipes;
-        public  HashMap<String, List<Ingredient>> ingredients;
+        public HashMap<String, List<Ingredient>> ingredients;
 
-        public DataWrapper() {}
+        public DataWrapper() {
+        }
 
-        public DataWrapper(List<Dish> dishes, List<Recipe> recipes, HashMap<String,List<Ingredient>> ingredients) {
+        public DataWrapper(List<Dish> dishes, List<Recipe> recipes, HashMap<String, List<Ingredient>> ingredients) {
             this.dishes = dishes;
             this.recipes = recipes;
             this.ingredients = ingredients;
         }
 
         //for debugging
-        public static void printData(){
+        public static void printData() {
             System.out.println("All data obtained: ");
-            //System.out.println("All dishes: " + dishes);
-           // System.out.println("All recipes: " + recipes);
+            // System.out.println("All dishes: " + dishes);
+            // System.out.println("All recipes: " + recipes);
             //System.out.println("All ingredients: " + ingredients);
         }
     }

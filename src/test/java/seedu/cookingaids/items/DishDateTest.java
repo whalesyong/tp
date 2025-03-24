@@ -3,9 +3,9 @@ package seedu.cookingaids.items;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class DishDateTest {
 
@@ -17,10 +17,10 @@ public class DishDateTest {
 
     }
     @Test
-    void constructor_addStringFormat_expectString(){
+    void constructor_addStringFormat_expectLocalDate(){
         DishDate dishDate = new DishDate("tomorrow");
-        assertEquals("tomorrow",dishDate.toString());
-        assertNull(dishDate.getDateLocalDate());
+        assertEquals(LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),dishDate.toString());
+
     }
     
 }

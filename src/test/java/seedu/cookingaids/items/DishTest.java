@@ -23,7 +23,7 @@ public class DishTest {
         Dish dish2 = new Dish( "Pizza", null);
 
         assertEquals("pizza", dish2.getName());
-        assertEquals("", dish2.getDishDate().toString());
+        assertEquals("None", dish2.getDishDate().toString());
 
     }
 

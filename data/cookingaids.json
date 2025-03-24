@@ -1,6 +1,15 @@
 {
   "recipes" : [ ],
-  "ingredients" : { },
+  "ingredients" : {
+    "pasta" : [ {
+      "id" : 1,
+      "name" : "pasta",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ]
+  },
   "dishes" : [ {
     "name" : "chicken_pasta",
     "dishDate" : {
@@ -16,6 +25,10 @@
     "dishDate" : {
       "dateString" : "25/03/2025"
     }
+  }, {
+    "name" : "pasta",
+    "dishDate" : {
+      "dateString" : "25/03/2025"
+    }
   } ]
-
 }
