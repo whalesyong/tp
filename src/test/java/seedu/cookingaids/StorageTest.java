@@ -24,35 +24,35 @@ public class StorageTest {
     public void setUp() {
         // Create test data
         testDishes = new ArrayList<>();
-        testDishes.add(new Dish(1, "Pasta Carbonara", "2025-03-20"));
-        testDishes.add(new Dish(2, "Chicken Curry", "2025-03-22"));
+        testDishes.add(new Dish( "pasta_carbonara", "2025-03-20"));
+        testDishes.add(new Dish( "chicken_curry", "2025-03-22"));
 
         testRecipes = new ArrayList<>();
         ArrayList<String> pastaIngredients = new ArrayList<>();
-        pastaIngredients.add("Spaghetti");
-        pastaIngredients.add("Eggs");
-        pastaIngredients.add("Bacon");
-        pastaIngredients.add("Parmesan");
+        pastaIngredients.add("spaghetti");
+        pastaIngredients.add("eggs");
+        pastaIngredients.add("bacon");
+        pastaIngredients.add("parmesan");
 
         ArrayList<String> curryIngredients = new ArrayList<>();
-        curryIngredients.add("Chicken");
-        curryIngredients.add("Curry Powder");
-        curryIngredients.add("Coconut Milk");
+        curryIngredients.add("chicken");
+        curryIngredients.add("curry Powder");
+        curryIngredients.add("coconut Milk");
 
-        testRecipes.add(new Recipe("Pasta Carbonara", pastaIngredients));
-        testRecipes.add(new Recipe("Chicken Curry", curryIngredients));
+        testRecipes.add(new Recipe("pasta_carbonara", pastaIngredients));
+        testRecipes.add(new Recipe("chicken_curry", curryIngredients));
 
         // Create test ingredients
         testIngredients = new HashMap<>();
         ArrayList<Ingredient> pastaStock = new ArrayList<>();
-        pastaStock.add(new Ingredient(1,"Spaghetti", "2025-04-15",2));
-        pastaStock.add(new Ingredient(1,"Eggs", "2025-03-30", 4));
-        testIngredients.put("Pasta Carbonara", pastaStock);
+        pastaStock.add(new Ingredient(1,"sphagetti", "2025-04-15",2));
+        pastaStock.add(new Ingredient(1,"eggs", "2025-03-30", 4));
+        testIngredients.put("pasta_carbonara", pastaStock);
 
         ArrayList<Ingredient> curryStock = new ArrayList<>();
-        curryStock.add(new Ingredient(1,"Chicken","2025-04-10", 1));
-        curryStock.add(new Ingredient(1,"Curry Powder","2025-06-01", 1));
-        testIngredients.put("Chicken Curry", curryStock);
+        curryStock.add(new Ingredient(1,"chicken","2025-04-10", 1));
+        curryStock.add(new Ingredient(1,"curry_powder","2025-06-01", 1));
+        testIngredients.put("chicken_curry", curryStock);
     }
 
     @Test
@@ -85,14 +85,14 @@ public class StorageTest {
         assertEquals(2, wrapper.recipes.size(), "DataWrapper should contain 2 recipes");
         assertEquals(2, wrapper.ingredients.size(), "DataWrapper should contain 2 ingredient lists");
 
-        assertEquals("Pasta Carbonara", wrapper.dishes.get(0).getName(), "First dish should be Pasta Carbonara");
-        assertEquals("Chicken Curry", wrapper.recipes.get(1).getRecipeName(), "Second recipe should be Chicken Curry");
+        assertEquals("pasta_carbonara", wrapper.dishes.get(0).getName(), "First dish should be Pasta Carbonara");
+        assertEquals("chicken_curry", wrapper.recipes.get(1).getRecipeName(), "Second recipe should be Chicken Curry");
 
-        List<Ingredient> pastaStock = wrapper.ingredients.get("Pasta Carbonara");
+        List<Ingredient> pastaStock = wrapper.ingredients.get("pasta_carbonara");
         assertNotNull(pastaStock, "Pasta Carbonara ingredients should exist");
         assertEquals(2, pastaStock.size(), "Pasta Carbonara should have 2 ingredients");
 
-        List<Ingredient> curryStock = wrapper.ingredients.get("Chicken Curry");
+        List<Ingredient> curryStock = wrapper.ingredients.get("chicken_curry");
         assertNotNull(curryStock, "Chicken Curry ingredients should exist");
         assertEquals(2, curryStock.size(), "Chicken Curry should have 2 ingredients");
     }

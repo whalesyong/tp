@@ -23,9 +23,9 @@ public class DishCalendarTest {
         DishCalendar.setDishCalendar(new ArrayList<>());
 
         // Initialize test dishes
-        this.dish1 = new Dish(1, "Pasta", "2025-03-20");
-        this.dish2 = new Dish(2, "Pizza", "2025-03-21");
-        this.dish3 = new Dish(3, "Pasta", "2025-03-20"); // Same name as dish1 and same date
+        this.dish1 = new Dish( "Pasta", "2025-03-20");
+        this.dish2 = new Dish( "Pizza", "2025-03-21");
+        this.dish3 = new Dish( "Pasta", "2025-03-20"); // Same name as dish1 and same date
     }
     @Test
     public void testInitializeDishCalendar() {

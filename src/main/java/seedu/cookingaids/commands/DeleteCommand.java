@@ -1,6 +1,6 @@
 package seedu.cookingaids.commands;
 
-import seedu.cookingaids.Exceptions.InvalidInputException;
+import seedu.cookingaids.exceptions.InvalidInputException;
 import seedu.cookingaids.collections.DishCalendar;
 import seedu.cookingaids.collections.IngredientStorage;
 import seedu.cookingaids.collections.RecipeBank;
@@ -13,6 +13,7 @@ import java.util.Scanner;
 public class DeleteCommand {
     public static final String COMMAND_WORD = "delete";
     static final int SPACE = 1;
+
     public static String removeCommandWord(String receivedText) {
         return receivedText.substring(COMMAND_WORD.length() + SPACE);
     }
@@ -45,7 +46,9 @@ public class DeleteCommand {
             // If only one dish matches, delete it
             if (dishes.size() == 1) {
                 DishCalendar.removeDishInCalendar(dishes.get(0));
-                System.out.println(dishes.get(0).getDishDate().toString() + " - " + dishName + " Successfully deleted!");
+                System.out.println(dishes.get(0).getDishDate().toString()
+                        + " - " + dishName
+                        + " Successfully deleted!");
             } else {
                 System.out.println("Multiple dishes found:");
                 for (int i = 0; i < dishes.size(); i++) {
@@ -59,7 +62,9 @@ public class DeleteCommand {
                 if (choice > 0 && choice <= dishes.size()) {
                     Dish selectedDish = dishes.get(choice - 1);
                     DishCalendar.removeDishInCalendar(selectedDish);
-                    System.out.println(selectedDish.getDishDate().toString() + " - " + dishName + " Successfully deleted!");
+                    System.out.println(selectedDish.getDishDate().toString()
+                            + " - " + dishName
+                            + " Successfully deleted!");
                 } else {
                     System.out.println("Invalid choice. No dish deleted.");
                 }

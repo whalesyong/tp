@@ -1,6 +1,6 @@
 package seedu.cookingaids.commands;
 
-import seedu.cookingaids.Exceptions.InvalidInputException;
+import seedu.cookingaids.exceptions.InvalidInputException;
 import seedu.cookingaids.collections.DishCalendar;
 import seedu.cookingaids.collections.RecipeBank;
 import seedu.cookingaids.collections.IngredientStorage;
@@ -33,7 +33,9 @@ public class AddCommand {
                 System.out.println("Added Dish: " + dish.getName() + ", No scheduled date yet");
 
             } else {
-                System.out.println("Added Dish: " + dish.getName() + ", Scheduled for: " + dish.getDishDate().toString());
+                System.out.println("Added Dish: "
+                        + dish.getName() + ", Scheduled for: "
+                        + dish.getDishDate().toString());
             }
 
         } catch (InvalidInputException e) {
@@ -41,7 +43,6 @@ public class AddCommand {
             System.out.println("Invalid format. Use: add -dish=dish_name -when=YYYY-MM-DD");
         }
     }
-
 
 
     public static void addRecipe(String receivedText) {
