@@ -1,33 +1,49 @@
 package seedu.cookingaids.items;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-public class Dish extends Food {
+public class Dish {
     private DishDate dishDate;
+    private Recipe recipe;
+    private String dishName;
 
     // constructor for jackson
     @JsonCreator
-    public Dish(@JsonProperty("id") int id,
-                @JsonProperty("name") String name,
-                @JsonProperty("date") String dishDate) {
-        super(id, name);
-        this.dishDate = (dishDate != null) ? new DishDate(dishDate) : new DishDate("None");
+    public Dish(
+            @JsonProperty("name") String dishName,
+            @JsonProperty("date") String dishDate) {
+
+        this.dishName = dishName.toLowerCase();
+        this.dishDate = (dishDate != null) ? new DishDate(dishDate.toLowerCase()) : new DishDate("");
     }
+
+    public String getName() {
+        return dishName;
+    }
+
 
     public DishDate getDishDate() {
         return dishDate;
     }
 
-
-    @Override
     public void displayInfo() {
-        System.out.println("Dish ID: " + id + ", Name: " + name +", Scheduled for:" + dishDate.toString());
+        if (dishDate.toString().isEmpty()) {
+            System.out.println("Name: " + dishName + "No scheduled date yet");
+        } else {
+            System.out.println("Name: " + dishName + ", Scheduled for:" + dishDate.toString());
+        }
     }
 
     @Override
     public String toString() {
-        return super.toString() + ", Scheduled for:" + dishDate.toString();
+        if (dishDate.toString().isEmpty()) {
+            return  dishName + "No scheduled date yet";
+        } else {
+            return dishName + ", Scheduled for:" + dishDate.toString();
+        }
     }
+
 }
 
