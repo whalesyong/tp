@@ -1,12 +1,12 @@
 {
   "recipes" : [ ],
   "ingredients" : {
-    "pasta" : [ {
+    "eggs" : [ {
       "id" : 1,
-      "name" : "pasta",
+      "name" : "eggs",
       "quantity" : 1,
       "expiryDate" : {
-        "dateString" : "None"
+        "dateString" : "25/03/2025"
       }
     } ]
   },
