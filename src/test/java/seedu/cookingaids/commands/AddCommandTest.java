@@ -3,6 +3,8 @@ package seedu.cookingaids.commands;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import seedu.cookingaids.collections.DishCalendar;
 import seedu.cookingaids.collections.IngredientStorage;
 import seedu.cookingaids.collections.RecipeBank;
@@ -14,15 +16,28 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AddCommandTest {
 
     private DishCalendar dishCalendar;
+    private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+
+    @BeforeEach
+    void setUpStreams() {
+        System.setOut(new PrintStream(outputStream));
+    }
+
+    @AfterEach
+    void restoreStreams() {
+        System.setOut(originalOut);
+    }
 
     @BeforeEach
     void setUp() {
         dishCalendar = new DishCalendar();
-        Dish spaghetti = new Dish(1, "Spaghetti", "20/03/2025");
+        Dish spaghetti = new Dish( "Spaghetti", "20/03/2025");
         DishCalendar.addDishToCalendar(spaghetti);
     }
 
@@ -35,7 +50,7 @@ class AddCommandTest {
     void execute_addDishToEmptyDishCalendar_addsSuccessfully() {
         DishCalendar emptyDishCalendar = new DishCalendar();
         String dishName = "Pizza";
-        Dish newDish = new Dish(1, dishName, "22/03/2025");
+        Dish newDish = new Dish(dishName, "22/03/2025");
 
         AddCommand.addDish("add -dish=" + dishName + " -when=22/03/2025");
 
@@ -89,22 +104,21 @@ class AddCommandTest {
     }
 
     @Test
-    void execute_addInvalidDishName_returnsInvalidDishNameMessage() {
+    void execute_addEmptyDishName_returnsInvalidFormatMessage() {
         String invalidDishName = "";  // Invalid because dish name is empty
+        AddCommand.addDish("add -dish=" + invalidDishName + " -when=2025-03-23");
 
-        AddCommand.addDish("add -dish=" + invalidDishName + " -when=23/03/2025");
-
-        assertFalse(dishCalendar.containsDish(invalidDishName));
+        String commandOutput = outputStream.toString().trim();
+        assertEquals("Invalid format. Use: add -dish=dish_name -when=YYYY-MM-DD", commandOutput);
     }
 
     @Test
-    void execute_addDishWithInvalidDate_returnsInvalidDateMessage() {
-        String invalidDate = "32/13/2025";  // Invalid date
-
+    void execute_addDishWithNoDate_returnsInvalidFormatMessage() {
+        String invalidDate = "";  // Invalid date
         AddCommand.addDish("add -dish=Lasagna -when=" + invalidDate);
 
-        // Check if the dish is not added
-        assertFalse(dishCalendar.containsDish("Lasagna"));
+        String commandOutput = outputStream.toString().trim();
+        assertEquals("Invalid format. Use: add -dish=dish_name -when=YYYY-MM-DD", commandOutput);
     }
 
     @Test
