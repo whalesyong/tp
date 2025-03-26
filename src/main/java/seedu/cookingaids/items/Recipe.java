@@ -43,7 +43,7 @@ public class Recipe {
     @java.lang.Override
     public java.lang.String toString() {
         return "Recipe named '" + recipeName + "'" +
-                " calls for ingredients " + ingredients ;
+                " needs ingredients " + ingredients ;
     }
 
 

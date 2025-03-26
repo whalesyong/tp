@@ -1,6 +1,5 @@
 package seedu.cookingaids.commands;
 
-
 import seedu.cookingaids.collections.DishCalendar;
 import seedu.cookingaids.collections.RecipeBank;
 import seedu.cookingaids.collections.IngredientStorage;
@@ -18,6 +17,9 @@ public class AddCommand {
     static final int SPACE = 1;
 
     public static String removeCommandWord(String receivedText) {
+        assert receivedText != null : "Received text should not be null";
+        assert receivedText.length() > COMMAND_WORD.length() + SPACE : "Received text is too short to process";
+
         return receivedText.substring(COMMAND_WORD.length() + SPACE);
     }
 
@@ -26,34 +28,35 @@ public class AddCommand {
             receivedText = removeCommandWord(receivedText);
             String[] dishFields = Parser.parseDish(receivedText);
 
+            assert dishFields != null : "Dish fields should not be null";
+            assert dishFields.length == 2 : "Dish fields should contain exactly two elements";
+
             Dish dish = new Dish(dishFields[0], dishFields[1]);
             DishCalendar.addDishToCalendar(dish);
 
             String date = dish.getDishDate().toString();
+            assert date != null : "Dish date should not be null";
+
             if (date.isEmpty()) {
                 System.out.println("Added Dish: " + dish.getName() + ", No scheduled date yet");
-
             } else {
-                System.out.println("Added Dish: "
-                        + dish.getName() + ", Scheduled for: "
-                        + dish.getDishDate().toString());
+                System.out.println("Added Dish: " + dish.getName() + ", Scheduled for: " + date);
             }
-
         } catch (InvalidInputException e) {
-
             System.out.println("Invalid format. Use: add -dish=dish_name -when=YYYY-MM-DD");
         }
     }
-
 
     public static void addRecipe(String receivedText) {
         receivedText = removeCommandWord(receivedText);
         String[] recipeFields = Parser.parseRecipe(receivedText);
 
+        assert recipeFields != null : "Recipe fields should not be null";
+        assert recipeFields.length == 2 : "Recipe fields should contain exactly two elements";
+
         String recipeName = recipeFields[0];
         String ingredientsString = recipeFields[1];
 
-        // Process ingredients string into ArrayList
         ArrayList<String> ingredients = new ArrayList<>();
         if (!ingredientsString.isEmpty()) {
             String[] ingredientArray = ingredientsString.split(",");
@@ -62,19 +65,10 @@ public class AddCommand {
             }
         }
 
-        // Create Recipe object
-        Recipe recipe;
-        if (ingredients.isEmpty()) {
-            recipe = new Recipe(recipeName);
-        } else {
-            recipe = new Recipe(recipeName, ingredients);
-        }
-
-        // Add to RecipeBank
-        RecipeBank recipeBank = new RecipeBank();
+        assert recipeName != null && !recipeName.isEmpty() : "Recipe name should not be empty";
+        Recipe recipe = ingredients.isEmpty() ? new Recipe(recipeName) : new Recipe(recipeName, ingredients);
         RecipeBank.addRecipeToRecipeBank(recipe);
 
-        // Print confirmation
         System.out.println("Added Recipe: " + recipeName);
         if (!ingredients.isEmpty()) {
             System.out.println("Ingredients: " + ingredients);
@@ -86,11 +80,21 @@ public class AddCommand {
     public static void addIngredient(String receivedText) {
         String inputs = removeCommandWord(receivedText);
         HashMap<String, String> ingredientFields = Parser.parseIngredient(inputs);
-        Ingredient ingredient = new Ingredient(
-                1, ingredientFields.get("ingredient"),
-                ingredientFields.get("expiry_date"),
-                Integer.parseInt(ingredientFields.get("quantity"))
-        );
+
+        assert ingredientFields != null : "Parsed ingredient fields should not be null";
+        assert ingredientFields.containsKey("ingredient") : "Missing 'ingredient' key";
+        assert ingredientFields.containsKey("expiry_date") : "Missing 'expiry_date' key";
+        assert ingredientFields.containsKey("quantity") : "Missing 'quantity' key";
+
+        String ingredientName = ingredientFields.get("ingredient");
+        String expiryDate = ingredientFields.get("expiry_date");
+        int quantity = Integer.parseInt(ingredientFields.get("quantity"));
+
+        assert ingredientName != null && !ingredientName.isEmpty() : "Ingredient name should not be empty";
+        assert expiryDate != null && !expiryDate.isEmpty() : "Expiry date should not be empty";
+        assert quantity > 0 : "Quantity should be greater than zero";
+
+        Ingredient ingredient = new Ingredient(1, ingredientName, expiryDate, quantity);
         IngredientStorage.addToStorage(ingredient);
         System.out.println("Added Ingredient: " + ingredient);
     }
