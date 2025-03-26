@@ -36,11 +36,11 @@ public class Suggest {
                     missingCount++;
                 }
             }
-             if (availableCount == neededIngredients.size()) {
-                 suggestedRecipes.add(recipe);
-             }
+            if (availableCount == neededIngredients.size()) {
+                suggestedRecipes.add(recipe);
+            }
         }
-         return suggestedRecipes;
+        return suggestedRecipes;
 
     }
 }
