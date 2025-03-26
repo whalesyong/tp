@@ -1,6 +1,26 @@
 {
-  "recipes" : [ ],
+  "recipes" : [ {
+    "name" : "chicken pasta",
+    "ingredients" : [ "garlic", "chicken", "cream" ],
+    "recipeName" : "chicken pasta"
+  } ],
   "ingredients" : {
+    "garlic" : [ {
+      "id" : 1,
+      "name" : "garlic",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ],
+    "chicken" : [ {
+      "id" : 1,
+      "name" : "chicken",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ],
     "egg" : [ {
       "id" : 1,
       "name" : "egg",
@@ -9,9 +29,9 @@
         "dateString" : "25/03/2025"
       }
     } ],
-    "hello" : [ {
+    "cream" : [ {
       "id" : 1,
-      "name" : "hello",
+      "name" : "cream",
       "quantity" : 1,
       "expiryDate" : {
         "dateString" : "None"
