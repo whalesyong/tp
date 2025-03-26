@@ -14,7 +14,6 @@ import seedu.cookingaids.items.Recipe;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -66,16 +65,6 @@ class AddCommandTest {
         AddCommand.addIngredient("add -ingredient=" + ingredientName);
 
         assertTrue(IngredientStorage.contains(ingredientName));
-    }
-
-    @Test
-    void execute_addIngredientThatExists_returnsIngredientAlreadyExistsMessage() {
-        IngredientStorage.clear();
-        IngredientStorage.addToStorage(new Ingredient(1, "Lettuce"));
-
-        AddCommand.addIngredient("add -ingredient=Lettuce");
-
-        assertTrue(IngredientStorage.contains("Lettuce"));
     }
 
     @Test

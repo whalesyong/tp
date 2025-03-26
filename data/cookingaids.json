@@ -20,22 +20,6 @@
       "expiryDate" : {
         "dateString" : "None"
       }
-    } ],
-    "egg" : [ {
-      "id" : 1,
-      "name" : "egg",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "25/03/2025"
-      }
-    } ],
-    "cream" : [ {
-      "id" : 1,
-      "name" : "cream",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
     } ]
   },
   "dishes" : [ {
