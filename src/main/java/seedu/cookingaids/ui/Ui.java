@@ -1,6 +1,7 @@
 package seedu.cookingaids.ui;
 
 import seedu.cookingaids.collections.DishCalendar;
+import seedu.cookingaids.collections.IngredientStorage;
 import seedu.cookingaids.collections.RecipeBank;
 import seedu.cookingaids.items.Dish;
 import seedu.cookingaids.items.Ingredient;
@@ -142,6 +143,7 @@ public class Ui {
         Storage.DataWrapper wrapper = Storage.loadData();
         DishCalendar.initializeDishCalendar(wrapper.dishes);
         RecipeBank.initializeRecipeBank(wrapper.recipes);
+        IngredientStorage.initializeIngredientStorage(wrapper.ingredients);
         Scanner scanner = new Scanner(System.in);
         String scannedText;
         while (!(scannedText = scanner.nextLine()).equals("bye")) {     //bye breaks the while loop
@@ -149,7 +151,7 @@ public class Ui {
         }
 
         //store list
-        Storage.storeData(DishCalendar.getDishCalendar(), RecipeBank.getRecipeBank());
+        Storage.storeData(DishCalendar.getDishCalendar(), RecipeBank.getRecipeBank(), IngredientStorage.getStorage());
     }
 
 

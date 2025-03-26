@@ -1,9 +1,35 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+welcome to cooking
+ ░▒▓██████▓▒░░▒▓█▓▒░▒▓███████▓▒░ ░▒▓███████▓▒░
+░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░
+░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░
+░▒▓████████▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░
+░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░
+░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░
+░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓███████▓▒░░▒▓███████▓▒░
 
-What is your name?
-Hello James Gosling
+
+CookingAIDS v1.0. Type "help" to see available commands
+No data found, creating new lists.
+Available commands:
+  list - Displays all stored recipes, scheduled dishes and available ingredients
+    Usage: list -recipe  (Displays all recipes)
+           list -dish    (Displays all scheduled dishes)
+           list -ingredient  (Displays all available ingredients)
+
+  add - Adds a new recipe, dish or ingredient
+    Usage: add -recipe=<recipe_name>   (Adds a new recipe)
+           add -recipe=<recipe_name> -needs=ingredient1,ingredient2... (Adds a new recipe with ingredients)
+           add -dish=<dish_name>       (Adds a new dish to the schedule)
+           add -ingredient=<ingredient_name>   (Adds a new ingredient)
+
+  remove - Removes a recipe, dish or ingredient
+    Usage: remove -recipe=<recipe_name>   (Removes a recipe)
+           remove -dish=<dish_name>       (Removes a recipe)
+           remove -ingredient=<ingredient_name>   (Removes a recipe)
+
+  help - Shows this help message
+    Usage: help
+______________________________________________________________________________
+Added Dish: chicken_rice, Scheduled for: 25/03/2025
+______________________________________________________________________________
+Stored Dish List successfully in: ./data/cookingaids.json

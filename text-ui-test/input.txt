@@ -1,1 +1,3 @@
-James Gosling
+help
+add -dish=chicken_rice -when=tmr
+bye

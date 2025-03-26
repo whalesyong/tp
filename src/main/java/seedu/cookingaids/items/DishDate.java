@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Objects;
+
 
 
 /**
@@ -34,12 +34,64 @@ public class DishDate {
         this.dateString = date;
         try {
             dateLocalDate = parseDate(date);
-            dateString = dateLocalDate == null ? "none" :
+
+            dateString = dateLocalDate == null ? "None" : //None set here to match format
                     dateLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
         } catch (DateTimeParseException e) {
-            dateLocalDate = null;
+
+            tryDateFormats();
         }
+    }
+
+    private void tryDateFormats() {
+        LocalDate formattedDate = parseDateFormat(dateString);
+
+        if (formattedDate != null) {
+
+            dateLocalDate = formattedDate;
+        } else {
+
+            LocalDate today = LocalDate.now();
+            switch (dateString) {
+            case "today", "td":
+                dateLocalDate = today;
+                break;
+            case "tomorrow", "tmr":
+                dateLocalDate = today.plusDays(1);
+                break;
+            case "next week", "nxt wk":
+                dateLocalDate = today.plusWeeks(1);
+                break;
+            default:
+                dateLocalDate = null;
+            }
+        }
+        dateString = dateLocalDate == null ? "None" : //None set here to match format
+                dateLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
+
+    public LocalDate parseDateFormat(String dateString) {
+
+        DateTimeFormatter[] formatters = {
+                DateTimeFormatter.ofPattern("dd/MM/yyyy"),
+                DateTimeFormatter.ofPattern("MM/dd/yyyy"),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd"),
+                DateTimeFormatter.ofPattern("dd-MM-yyyy"),
+                DateTimeFormatter.ofPattern("yyyy/MM/dd"),
+        };
+
+        LocalDate date;
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                date = LocalDate.parse(dateString, formatter);
+                return date;
+            } catch (DateTimeParseException e) {
+                // Tries next format
+            }
+        }
+        return null;
+
     }
 
     /**
@@ -73,11 +125,12 @@ public class DishDate {
      * @return The LocalDate corresponding to the parsed string, or null if the string is "none" or invalid.
      */
     public static LocalDate parseDate(String receivedText) {
-        if (Objects.equals(receivedText, "none")) {
+        if (receivedText == null || receivedText.equalsIgnoreCase("none")) {
             return null;
         }
-        return LocalDate.parse(receivedText);
-
+        // Expecting the pattern dd/MM/yyyy as per your formatting
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return LocalDate.parse(receivedText, formatter);
     }
 
 

@@ -1,8 +1,10 @@
 package seedu.cookingaids.commands;
 
+
 import seedu.cookingaids.collections.DishCalendar;
 import seedu.cookingaids.collections.RecipeBank;
 import seedu.cookingaids.collections.IngredientStorage;
+import seedu.cookingaids.exception.InvalidInputException;
 import seedu.cookingaids.items.Dish;
 import seedu.cookingaids.items.Recipe;
 import seedu.cookingaids.items.Ingredient;
@@ -15,34 +17,37 @@ public class AddCommand {
     public static final String COMMAND_WORD = "add";
     static final int SPACE = 1;
 
+    public static String removeCommandWord(String receivedText) {
+        return receivedText.substring(COMMAND_WORD.length() + SPACE);
+    }
+
     public static void addDish(String receivedText) {
-        receivedText = receivedText.substring(COMMAND_WORD.length() + SPACE);
-        String[] dishFields = Parser.parseDish(receivedText);
-        Dish dish = new Dish(Integer.parseInt(dishFields[0]), dishFields[1], dishFields[2]);
-        DishCalendar.addDishToCalendar(dish);
-        System.out.println("Added Dish: " + dish.getName() + ", Scheduled for: " + dish.getDishDate().toString());
-    }
+        try {
+            receivedText = removeCommandWord(receivedText);
+            String[] dishFields = Parser.parseDish(receivedText);
 
-    public static void addDishWithWhen(String receivedText) {
-        String[] parsedDish = Parser.parseDish(receivedText);
+            Dish dish = new Dish(dishFields[0], dishFields[1]);
+            DishCalendar.addDishToCalendar(dish);
 
-        String dishName = parsedDish[1];
-        String date = parsedDish[2];
+            String date = dish.getDishDate().toString();
+            if (date.isEmpty()) {
+                System.out.println("Added Dish: " + dish.getName() + ", No scheduled date yet");
 
-        if (date.equals("none")) {
-            System.out.println("Invalid format. Use: add dish_name -when=YYYY-MM-DD");
-            return;
+            } else {
+                System.out.println("Added Dish: "
+                        + dish.getName() + ", Scheduled for: "
+                        + dish.getDishDate().toString());
+            }
+
+        } catch (InvalidInputException e) {
+
+            System.out.println("Invalid format. Use: add -dish=dish_name -when=YYYY-MM-DD");
         }
-
-        int newId = DishCalendar.generateNewDishId();
-        Dish newDish = new Dish(newId, dishName, date);
-        DishCalendar.addDishToCalendar(newDish);
-
-        System.out.println(date + " - " + dishName + " successfully added!");
     }
+
 
     public static void addRecipe(String receivedText) {
-        receivedText = receivedText.substring(COMMAND_WORD.length() + SPACE);
+        receivedText = removeCommandWord(receivedText);
         String[] recipeFields = Parser.parseRecipe(receivedText);
 
         String recipeName = recipeFields[0];
@@ -79,7 +84,7 @@ public class AddCommand {
     }
 
     public static void addIngredient(String receivedText) {
-        String inputs = receivedText.substring(COMMAND_WORD.length() + SPACE);
+        String inputs = removeCommandWord(receivedText);
         HashMap<String, String> ingredientFields = Parser.parseIngredient(inputs);
         Ingredient ingredient = new Ingredient(
                 1, ingredientFields.get("ingredient"),

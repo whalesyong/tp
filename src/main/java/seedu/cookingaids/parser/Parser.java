@@ -1,9 +1,11 @@
 package seedu.cookingaids.parser;
 
+
 import seedu.cookingaids.commands.AddCommand;
 import seedu.cookingaids.commands.DeleteCommand;
 import seedu.cookingaids.commands.ListCommand;
 import seedu.cookingaids.commands.HelpCommand;
+import seedu.cookingaids.exception.InvalidInputException;
 import seedu.cookingaids.ui.Ui;
 
 import java.util.HashMap;
@@ -59,8 +61,6 @@ public class Parser {
     private static void handleAddCommand(String receivedText) {
         if (receivedText.contains(RECIPE_FLAG)) {
             AddCommand.addRecipe(receivedText);
-        } else if (receivedText.contains(DISH_FLAG) && receivedText.contains(WHEN_FLAG)) {
-            AddCommand.addDishWithWhen(receivedText);
         } else if (receivedText.contains(DISH_FLAG)) {
             AddCommand.addDish(receivedText);
         } else if (receivedText.contains(INGREDIENT_FLAG)) {
@@ -144,14 +144,21 @@ public class Parser {
         return receivedText.substring(startIndex, endIndex).trim();
     }
 
-    public static String[] parseDish(String input) {
-        Pattern pattern = Pattern.compile("-dish=([^\\s]+)\\s+-when=([^\\s]+)");
-        Matcher matcher = pattern.matcher(input);
+    public static String[] parseDish(String input) throws InvalidInputException {
+        boolean containsWhenFlag = input.contains("-when=");
+        Pattern pattern = Pattern.compile("-dish=(\\S+)");
+        if(containsWhenFlag) {
+            pattern = Pattern.compile("-dish=(\\S+)\\s+-when=(\\S+)");
+        }
 
+        Matcher matcher = pattern.matcher(input);
         if (matcher.find()) {
-            return new String[]{"", matcher.group(1), matcher.group(2)}; // Maintain index alignment
+            if (containsWhenFlag) {
+                return new String[]{matcher.group(1), matcher.group(2)}; // Maintain index alignment
+            }
+            return new String[]{matcher.group(1), ""};
         } else {
-            return new String[]{"", "", "none"}; // Indicates parsing failure
+            throw new InvalidInputException();
         }
     }
 
@@ -206,7 +213,6 @@ public class Parser {
                 data.put("ingredient", part.substring(11).trim());
             } else if (part.startsWith("quantity=")) {
                 String quantity = part.substring(9).trim();
-              
                 if (quantityPattern.matcher(quantity).matches()) {
                     data.put("quantity", quantity);
                 } else {

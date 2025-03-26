@@ -1,16 +1,42 @@
 {
   "recipes" : [ ],
+  "ingredients" : {
+    "egg" : [ {
+      "id" : 1,
+      "name" : "egg",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "25/03/2025"
+      }
+    } ],
+    "hello" : [ {
+      "id" : 1,
+      "name" : "hello",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ]
+  },
   "dishes" : [ {
-    "id" : 1,
-    "name" : "Pasta Carbonara",
+    "name" : "chicken_pasta",
     "dishDate" : {
-      "dateString" : "20/03/2025"
+      "dateString" : "24/03/2025"
     }
   }, {
-    "id" : 2,
-    "name" : "Chicken Curry",
+    "name" : "chicken_rice",
     "dishDate" : {
-      "dateString" : "22/03/2025"
+      "dateString" : "25/03/2025"
+    }
+  }, {
+    "name" : "cai_fan",
+    "dishDate" : {
+      "dateString" : "25/03/2025"
+    }
+  }, {
+    "name" : "pasta",
+    "dishDate" : {
+      "dateString" : "25/03/2025"
     }
   } ]
 }
