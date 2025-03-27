@@ -1,0 +1,35 @@
+{
+  "recipes" : [ ],
+  "ingredients" : { },
+  "dishes" : [ {
+    "name" : "chicken_rice",
+    "dishDate" : {
+      "dateString" : "26/03/2025"
+    }
+  }, {
+    "name" : "chicken_rice",
+    "dishDate" : {
+      "dateString" : "26/03/2025"
+    }
+  }, {
+    "name" : "chicken_rice",
+    "dishDate" : {
+      "dateString" : "26/03/2025"
+    }
+  }, {
+    "name" : "chicken_rice",
+    "dishDate" : {
+      "dateString" : "26/03/2025"
+    }
+  }, {
+    "name" : "chicken_rice",
+    "dishDate" : {
+      "dateString" : "26/03/2025"
+    }
+  }, {
+    "name" : "chicken_rice",
+    "dishDate" : {
+      "dateString" : "26/03/2025"
+    }
+  } ]
+}
