@@ -50,7 +50,7 @@ public class Parser {
         if (receivedText.contains("-recipe")) {
             ListCommand.displayRecipeBank();
         } else if (receivedText.contains("-dish")) {
-            ListCommand.displayDishCalendar();
+            ListCommand.displayDishList(receivedText);
         } else if (receivedText.contains("-ingredient")) {
             ListCommand.displayIngredients();
         } else {
