@@ -15,7 +15,6 @@ Available commands:
     Usage: list -recipe  (Displays all recipes)
            list -dish    (Displays all scheduled dishes)
            list -ingredient  (Displays all available ingredients)
-
   add - Adds a new recipe, dish or ingredient
     Usage: add -recipe=<recipe_name>   (Adds a new recipe)
            add -recipe=<recipe_name> -needs=ingredient1,ingredient2... (Adds a new recipe with ingredients)
