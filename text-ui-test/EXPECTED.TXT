@@ -9,6 +9,7 @@ welcome to cooking
 
 
 CookingAIDS v1.0. Type "help" to see available commands
+No data found, creating new lists.
 Available commands:
   list - Displays all stored recipes, scheduled dishes and available ingredients
     Usage: list -recipe  (Displays all recipes)
