@@ -9,7 +9,6 @@ welcome to cooking
 
 
 CookingAIDS v1.0. Type "help" to see available commands
-No data found, creating new lists.
 Available commands:
   list - Displays all stored recipes, scheduled dishes and available ingredients
     Usage: list -recipe  (Displays all recipes)
@@ -30,6 +29,6 @@ Available commands:
   help - Shows this help message
     Usage: help
 ______________________________________________________________________________
-Added Dish: chicken_rice, Scheduled for: 25/03/2025
+Added Dish: chicken_rice, Scheduled for: 26/03/2025
 ______________________________________________________________________________
 Stored Dish List successfully in: ./data/cookingaids.json

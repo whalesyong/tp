@@ -1,17 +1,21 @@
 {
-  "recipes" : [ ],
+  "recipes" : [ {
+    "name" : "chicken pasta",
+    "ingredients" : [ "garlic", "chicken", "cream" ],
+    "recipeName" : "chicken pasta"
+  } ],
   "ingredients" : {
-    "egg" : [ {
+    "garlic" : [ {
       "id" : 1,
-      "name" : "egg",
+      "name" : "garlic",
       "quantity" : 1,
       "expiryDate" : {
-        "dateString" : "25/03/2025"
+        "dateString" : "None"
       }
     } ],
-    "hello" : [ {
+    "chicken" : [ {
       "id" : 1,
-      "name" : "hello",
+      "name" : "chicken",
       "quantity" : 1,
       "expiryDate" : {
         "dateString" : "None"

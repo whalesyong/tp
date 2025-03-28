@@ -1,10 +1,7 @@
 package seedu.cookingaids.parser;
 
 
-import seedu.cookingaids.commands.AddCommand;
-import seedu.cookingaids.commands.DeleteCommand;
-import seedu.cookingaids.commands.ListCommand;
-import seedu.cookingaids.commands.HelpCommand;
+import seedu.cookingaids.commands.*;
 import seedu.cookingaids.exception.InvalidInputException;
 import seedu.cookingaids.ui.Ui;
 
@@ -38,6 +35,7 @@ public class Parser {
         case AddCommand.COMMAND_WORD -> handleAddCommand(receivedText);
         case DeleteCommand.COMMAND_WORD -> handleDeleteCommand(receivedText);
         case HelpCommand.COMMAND_WORD -> HelpCommand.showHelp();
+        case SuggestCommand.COMMAND_WORD -> SuggestCommand.printSuggestions();
         default -> {
             System.out.println(String.format(UNKNOWN_COMMAND_STR, receivedText));
             System.out.println("Type \"help\" to see available commands.");
