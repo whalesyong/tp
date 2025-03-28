@@ -1,8 +1,8 @@
 {
   "recipes" : [ {
-    "name" : "chicken pasta",
-    "ingredients" : [ "garlic", "chicken", "cream" ],
-    "recipeName" : "chicken pasta"
+    "name" : "pasta_carbonara",
+    "ingredients" : [ ],
+    "recipeName" : "pasta_carbonara"
   } ],
   "ingredients" : {
     "garlic" : [ {

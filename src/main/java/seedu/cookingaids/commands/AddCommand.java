@@ -66,7 +66,9 @@ public class AddCommand {
         }
 
         assert recipeName != null && !recipeName.isEmpty() : "Recipe name should not be empty";
-        Recipe recipe = ingredients.isEmpty() ? new Recipe(recipeName) : new Recipe(recipeName, ingredients);
+        Recipe recipe = ingredients.isEmpty()
+                ? new Recipe( replaceSpaceWithUnderscore(recipeName))
+                : new Recipe( replaceSpaceWithUnderscore(recipeName), ingredients);
         RecipeBank.addRecipeToRecipeBank(recipe);
 
         System.out.println("Added Recipe: " + recipeName);
@@ -97,5 +99,9 @@ public class AddCommand {
         Ingredient ingredient = new Ingredient(1, ingredientName, expiryDate, quantity);
         IngredientStorage.addToStorage(ingredient);
         System.out.println("Added Ingredient: " + ingredient);
+    }
+
+    private static String replaceSpaceWithUnderscore(String input){
+        return input.replace(" ", "_");
     }
 }

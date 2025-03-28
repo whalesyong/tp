@@ -45,7 +45,7 @@ public class StorageTest {
         // Create test ingredients
         testIngredients = new HashMap<>();
         ArrayList<Ingredient> pastaStock = new ArrayList<>();
-        pastaStock.add(new Ingredient(1,"sphagetti", "2025-04-15",2));
+        pastaStock.add(new Ingredient(1,"spaghetti", "2025-04-15",2));
         pastaStock.add(new Ingredient(1,"eggs", "2025-03-30", 4));
         testIngredients.put("pasta_carbonara", pastaStock);
 
