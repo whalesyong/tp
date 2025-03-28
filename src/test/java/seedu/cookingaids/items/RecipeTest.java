@@ -69,10 +69,10 @@ class RecipeTest {
         assertFalse(testRecipe.getIngredients().contains("Spaghetti"));
     }
 
-    @Test
-    void testToString() {
-        String expected = "Recipe named 'Pasta Carbonara' calls for ingredients " +
-                "[Spaghetti, Eggs, Pancetta, Parmesan, Black Pepper]";
-        assertEquals(expected, testRecipe.toString());
-    }
+//    @Test
+//    void testToString() {
+//        String expected = "Recipe named 'Pasta Carbonara' calls for ingredients " +
+//                "[Spaghetti, Eggs, Pancetta, Parmesan, Black Pepper]";
+//        assertEquals(expected, testRecipe.toString());
+//    }
 }

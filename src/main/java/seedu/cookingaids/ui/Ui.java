@@ -70,6 +70,14 @@ public class Ui {
         }
         printAsIndexedList(formattedItems);
     }
+    public static void printDishListView(List<Dish> dishes) {
+        //prints TaskList on console
+        final List<String> formattedItems = new ArrayList<>();
+        for (Dish d : dishes) {
+            formattedItems.add(d.toString());
+        }
+        printAsIndexedList(formattedItems);
+    }
 
     /**
      * Outputs a list of recipes to the console in a formatted view.

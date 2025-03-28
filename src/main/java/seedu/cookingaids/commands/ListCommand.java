@@ -1,6 +1,6 @@
 package seedu.cookingaids.commands;
 
-import com.sun.net.httpserver.Headers;
+
 import seedu.cookingaids.collections.DishCalendar;
 import seedu.cookingaids.collections.RecipeBank;
 import seedu.cookingaids.collections.IngredientStorage;
@@ -13,8 +13,10 @@ import seedu.cookingaids.ui.Ui;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ListCommand {
     public static final String COMMAND_WORD = "list";
@@ -28,6 +30,11 @@ public class ListCommand {
             Ui.printDishListView(listOfDish);
         }
     }
+    public static List<Dish> sortDishesByDateStream(ArrayList<Dish> dishes) {
+        return dishes.stream()
+                .sorted(Comparator.comparing(dish -> dish.getDishDate().getDateLocalDate()))
+                .toList();
+    }
     public static void displayDishMonth() {
         int month = LocalDate.now().getMonthValue();
         int year = LocalDate.now().getYear();
@@ -39,14 +46,15 @@ public class ListCommand {
         ArrayList<Dish> filteredList = new ArrayList<>();
         for (Dish dish: listOfDish){
             LocalDate dishDate = dish.getDishDate().getDateLocalDate();
-            if(dishDate != null && dishDate.isAfter(startOfMonth) && dishDate.isBefore(endOfMonth)){
+            if(dishDate != null && dishDate.isAfter(startOfMonth.minusDays(1)) && dishDate.isBefore(endOfMonth)){
                 filteredList.add(dish);
             }
         }
         CalendarPrinter.printMonthCalendar(2025, Month.MARCH, filteredList);
-        Ui.printDishListView(filteredList);
+        Ui.printDishListView(sortDishesByDateStream(filteredList));
 
     }
+
 
     public static void displayIngredients() {
         HashMap<String, List<Ingredient>> ingredients = IngredientStorage.getStorage();

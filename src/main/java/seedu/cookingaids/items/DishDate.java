@@ -75,7 +75,10 @@ public class DishDate {
 
         DateTimeFormatter[] formatters = {
                 DateTimeFormatter.ofPattern("dd/MM/yyyy"),
-                DateTimeFormatter.ofPattern("MM/dd/yyyy"),
+                DateTimeFormatter.ofPattern("d/MM/yyyy"),
+                DateTimeFormatter.ofPattern("d/MM/yy"),
+                DateTimeFormatter.ofPattern("dd/MM/yy"),
+                DateTimeFormatter.ofPattern("MM/d/yyyy"),
                 DateTimeFormatter.ofPattern("yyyy-MM-dd"),
                 DateTimeFormatter.ofPattern("dd-MM-yyyy"),
                 DateTimeFormatter.ofPattern("yyyy/MM/dd"),
@@ -87,6 +90,8 @@ public class DishDate {
                 date = LocalDate.parse(dateString, formatter);
                 return date;
             } catch (DateTimeParseException e) {
+               //intentionally left empty for logic purposes
+
                 // Tries next format
             }
         }
