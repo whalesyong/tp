@@ -10,8 +10,10 @@ public class DishTest {
 
         Dish dish1 = new Dish( "Pasta", "2025-03-20");
 
+
         assertEquals("pasta", dish1.getName());
         assertEquals("20/03/2025", dish1.getDishDate().toString());
+
 
 
 

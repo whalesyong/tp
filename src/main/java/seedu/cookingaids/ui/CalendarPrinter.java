@@ -3,7 +3,6 @@ package seedu.cookingaids.ui;
 import seedu.cookingaids.items.Dish;
 
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.TextStyle;
@@ -104,8 +103,7 @@ public class CalendarPrinter {
                 list.remove(listDish.get(0));
             } else if (listDish.size() > 1) {
                 System.out.printf("%10.9s", "+" + listDish.size() + " more");
-            }
-            else {
+            } else {
                 System.out.printf(BLANK_SPACE);
             }
         }
@@ -113,7 +111,12 @@ public class CalendarPrinter {
     }
 
 
-    private static void printFirstCalendarRow(int year, Month month, ArrayList<Dish> list, int firstDayOfWeek, LocalDate today) {
+    private static void printFirstCalendarRow(
+            int year
+            , Month month
+            , ArrayList<Dish> list
+            , int firstDayOfWeek
+            , LocalDate today) {
         for (int i = 1; i < firstDayOfWeek; i++) {
             System.out.print(BLANK_SPACE);
         }
@@ -161,8 +164,7 @@ public class CalendarPrinter {
                 list.remove(listDish.get(0));
             } else if (listDish.size() > 1) {
                 System.out.printf("%10.9s", "+" + listDish.size() + " more");
-            }
-            else {
+            } else {
                 System.out.printf(BLANK_SPACE);
             }
         }
