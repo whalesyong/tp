@@ -71,7 +71,7 @@ class RecipeTest {
 
     @Test
     void testToString() {
-        String expected = "Recipe named 'Pasta Carbonara' calls for ingredients " +
+        String expected = "Recipe named 'Pasta Carbonara' needs ingredients " +
                 "[Spaghetti, Eggs, Pancetta, Parmesan, Black Pepper]";
         assertEquals(expected, testRecipe.toString());
     }
