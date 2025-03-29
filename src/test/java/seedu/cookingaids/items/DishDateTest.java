@@ -19,7 +19,9 @@ public class DishDateTest {
     @Test
     void constructor_addStringFormat_expectLocalDate(){
         DishDate dishDate = new DishDate("tomorrow");
-        assertEquals(LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),dishDate.toString());
+        String dishString =  dishDate.toString();
+        assert dishString != null : "Dish fields should not be null";
+        assertEquals(LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),dishString);
 
     }
     

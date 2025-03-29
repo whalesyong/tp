@@ -31,15 +31,16 @@ public class Ui {
 
     public static final String WELCOME_MESSAGE = "welcome to cooking";
 
-    public static final String ASCII_MESSAGE = " ░▒▓██████▓▒░░▒▓█▓▒░▒▓███████▓▒░ ░▒▓███████▓▒░ \n" +
-            "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        \n" +
-            "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        \n" +
-            "░▒▓████████▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░  \n" +
-            "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░ \n" +
-            "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░ \n" +
-            "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓███████▓▒░░▒▓███████▓▒░  \n" +
-            "                                               \n" +
-            "                                               ";
+    public static final String ASCII_MESSAGE = """
+             ░▒▓██████▓▒░░▒▓█▓▒░▒▓███████▓▒░ ░▒▓███████▓▒░\s
+            ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░       \s
+            ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░       \s
+            ░▒▓████████▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░ \s
+            ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░\s
+            ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░\s
+            ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓███████▓▒░░▒▓███████▓▒░ \s
+                                                          \s
+                                                          \s""";
     private static final String MESSAGE_INDEXED_LIST_ITEM = "\t%1$d. %2$s";
 
     public static void printLineDivider() {
@@ -62,6 +63,14 @@ public class Ui {
      * @param dishes a list of dishes to be displayed in the console
      */
     public static void printDishListView(ArrayList<Dish> dishes) {
+        //prints TaskList on console
+        final List<String> formattedItems = new ArrayList<>();
+        for (Dish d : dishes) {
+            formattedItems.add(d.toString());
+        }
+        printAsIndexedList(formattedItems);
+    }
+    public static void printDishListView(List<Dish> dishes) {
         //prints TaskList on console
         final List<String> formattedItems = new ArrayList<>();
         for (Dish d : dishes) {
