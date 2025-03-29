@@ -15,6 +15,7 @@ public class HelpCommand {
         System.out.println("           list -ingredient  (Displays all available ingredients)");
         System.out.println();
         System.out.println("  add - Adds a new recipe, dish or ingredient");
+        System.out.println("  ** Note for all: use snake_case (no capital letters and underscores)");
         System.out.println("    Usage: add -recipe=<recipe_name>   (Adds a new recipe)");
         System.out.println("           add -recipe=<recipe_name> -needs=ingredient1,ingredient2... " +
                 "(Adds a new recipe with ingredients)");
