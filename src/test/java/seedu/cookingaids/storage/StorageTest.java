@@ -1,11 +1,11 @@
-package seedu.cookingaids;
+package seedu.cookingaids.storage;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.cookingaids.items.Dish;
 import seedu.cookingaids.items.Recipe;
 import seedu.cookingaids.items.Ingredient;
-import seedu.cookingaids.storage.Storage;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,7 +45,7 @@ public class StorageTest {
         // Create test ingredients
         testIngredients = new HashMap<>();
         ArrayList<Ingredient> pastaStock = new ArrayList<>();
-        pastaStock.add(new Ingredient(1,"sphagetti", "2025-04-15",2));
+        pastaStock.add(new Ingredient(1,"spaghetti", "2025-04-15",2));
         pastaStock.add(new Ingredient(1,"eggs", "2025-03-30", 4));
         testIngredients.put("pasta_carbonara", pastaStock);
 

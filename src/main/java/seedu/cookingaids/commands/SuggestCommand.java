@@ -11,7 +11,9 @@ public class SuggestCommand {
     public static final String COLON_SEPARATOR = ": ";
     public static void printSuggestions() {
         List<Recipe> suggestedRecipes = Suggest.suggestRecipes();
-        System.out.println("You have enough ingredients to make: ");
+        if (!suggestedRecipes.isEmpty()) {
+            System.out.println("You have enough ingredients to make: ");
+        }
 
         int i = 1;
         for (Recipe recipe : suggestedRecipes) {

@@ -1,9 +1,5 @@
 {
-  "recipes" : [ {
-    "name" : "chicken pasta",
-    "ingredients" : [ "garlic", "chicken", "cream" ],
-    "recipeName" : "chicken pasta"
-  } ],
+  "recipes" : [ ],
   "ingredients" : {
     "garlic" : [ {
       "id" : 1,
