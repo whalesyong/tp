@@ -1,7 +1,12 @@
 package seedu.cookingaids.parser;
 
 
-import seedu.cookingaids.commands.*;
+
+import seedu.cookingaids.commands.AddCommand;
+import seedu.cookingaids.commands.DeleteCommand;
+import seedu.cookingaids.commands.ListCommand;
+import seedu.cookingaids.commands.SuggestCommand;
+import seedu.cookingaids.commands.HelpCommand;
 import seedu.cookingaids.exception.InvalidInputException;
 import seedu.cookingaids.ui.Ui;
 
@@ -48,7 +53,7 @@ public class Parser {
         if (receivedText.contains("-recipe")) {
             ListCommand.displayRecipeBank();
         } else if (receivedText.contains("-dish")) {
-            ListCommand.displayDishCalendar();
+            ListCommand.displayDishList(receivedText);
         } else if (receivedText.contains("-ingredient")) {
             ListCommand.displayIngredients();
         } else {
