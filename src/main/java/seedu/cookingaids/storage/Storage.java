@@ -31,6 +31,11 @@ public class Storage {
      */
     public static void storeData(ArrayList<Dish> dishList, ArrayList<Recipe> recipeList,
                                  HashMap<String, List<Ingredient>> ingredientStorage) {
+
+        //check if any inputs are null:\
+        assert dishList != null : "Dish list cannot be null";
+        assert recipeList != null : "Recipe list cannot be null";
+        assert ingredientStorage != null : "Ingredient storage cannot be null";
         //get dishList array, store into json.
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);

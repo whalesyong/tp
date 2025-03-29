@@ -18,9 +18,16 @@ public class Suggest {
     public static List<Recipe> suggestRecipes(){
         HashMap<String, List<Ingredient>> availableIngredientsMap = IngredientStorage.getStorage();
         ArrayList<Recipe> availableRecipes = RecipeBank.getRecipeBank();
+
+        if (availableRecipes.isEmpty()){
+            System.out.println("There are no available recipes.");
+            return new ArrayList<>();
+        }
         List<Recipe> suggestedRecipes = new ArrayList<>();
         Set<String> foodSet = availableIngredientsMap.keySet();
         List<String> availableIngredients = new ArrayList<>(foodSet);
+
+
 
         // check recipes to see if needed food is present
         for (Recipe recipe : availableRecipes) {

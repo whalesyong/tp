@@ -1,9 +1,5 @@
 {
-  "recipes" : [ {
-    "name" : "pasta_carbonara",
-    "ingredients" : [ ],
-    "recipeName" : "pasta_carbonara"
-  } ],
+  "recipes" : [ ],
   "ingredients" : {
     "garlic" : [ {
       "id" : 1,
