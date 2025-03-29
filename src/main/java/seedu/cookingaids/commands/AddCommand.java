@@ -11,7 +11,6 @@ import seedu.cookingaids.parser.Parser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class AddCommand {
     public static final String COMMAND_WORD = "add";
