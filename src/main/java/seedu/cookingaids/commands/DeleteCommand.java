@@ -19,15 +19,13 @@ public class DeleteCommand {
         return receivedText.substring(COMMAND_WORD.length() + SPACE);
     }
 
-
     public static void deleteDish(String receivedText) {
         try {
             receivedText = removeCommandWord(receivedText);
             String[] parsedDish = Parser.parseDish(receivedText);
 
             String dishName = parsedDish[0];
-            String dishDate = parsedDish[1];      // date
-
+            String dishDate = parsedDish[1];
             List<Dish> dishes = DishCalendar.getDishesByName(dishName);
 
             if (dishes.isEmpty()) {
@@ -35,64 +33,57 @@ public class DeleteCommand {
                 return;
             }
 
-            // If dishDate is provided, filter by it
-            if (!dishDate.isEmpty()) {
-                dishes.removeIf(dish -> dish.getDishDate().toString().equals(dishDate));
-                if (dishes.isEmpty()) {
-                    System.out.println("No dishes found with name: " + dishName + " on " + dishDate);
-                    return;
-                }
+            dishes.removeIf(dish -> !dishDate.isEmpty() && dish.getDishDate().toString().equals(dishDate));
+            if (dishes.isEmpty()) {
+                System.out.println("No dishes found with name: " + dishName + " on " + dishDate);
+                return;
             }
 
-            // If only one dish matches, delete it
             if (dishes.size() == 1) {
-                DishCalendar.removeDishInCalendar(dishes.get(0));
-                System.out.println(dishes.get(0).getDishDate().toString()
-                        + " - " + dishName
-                        + " Successfully deleted!");
+                removeDish(dishes.get(0), dishName);
             } else {
-                System.out.println("Multiple dishes found:");
-                for (int i = 0; i < dishes.size(); i++) {
-                    System.out.println((i + 1) + ", Date: " +
-                            dishes.get(i).getDishDate().toString() + " - " + dishName);
-                }
-                System.out.println("Which would you like to delete? Input a number.");
-
-                Scanner scanner = new Scanner(System.in);
-                int choice = scanner.nextInt();
-                if (choice > 0 && choice <= dishes.size()) {
-                    Dish selectedDish = dishes.get(choice - 1);
-                    DishCalendar.removeDishInCalendar(selectedDish);
-                    System.out.println(selectedDish.getDishDate().toString()
-                            + " - " + dishName
-                            + " Successfully deleted!");
-                } else {
-                    System.out.println("Invalid choice. No dish deleted.");
-                }
+                promptUserForDeletion(dishes, dishName);
             }
         } catch (InvalidInputException e) {
-            System.out.println("invalid input");
+            System.out.println("Invalid input");
+        }
+    }
+
+    private static void removeDish(Dish dish, String dishName) {
+        DishCalendar.removeDishInCalendar(dish);
+        System.out.println(dish.getDishDate().toString() + " - " + dishName + " Successfully deleted!");
+    }
+
+    private static void promptUserForDeletion(List<Dish> dishes, String dishName) {
+        System.out.println("Multiple dishes found:");
+        for (int i = 0; i < dishes.size(); i++) {
+            System.out.println((i + 1) + ", Date: " + dishes.get(i).getDishDate().toString() + " - " + dishName);
+        }
+        System.out.println("Which would you like to delete? Input a number.");
+
+        Scanner scanner = new Scanner(System.in);
+        int choice = scanner.nextInt();
+        if (choice > 0 && choice <= dishes.size()) {
+            removeDish(dishes.get(choice - 1), dishName);
+        } else {
+            System.out.println("Invalid choice. No dish deleted.");
         }
     }
 
     public static void deleteDishWithWhen(String receivedText) {
         try {
             String[] parsedDish = Parser.parseDish(receivedText);
-
             String dishName = parsedDish[0];
             String date = parsedDish[1];
-
             if (date.equals("none")) {
                 System.out.println("Invalid format. Use: delete dish_name -when=YYYY-MM-DD");
                 return;
             }
-
             List<Dish> dishes = DishCalendar.getDishesByName(dishName);
             if (dishes.isEmpty()) {
                 System.out.println("No scheduled dishes found for: " + dishName);
                 return;
             }
-
             for (Dish dish : dishes) {
                 if (dish.getDishDate().toString().equals(date)) {
                     DishCalendar.removeDishInCalendar(dish);
@@ -100,7 +91,6 @@ public class DeleteCommand {
                     return;
                 }
             }
-
             System.out.println("No dish found with name: " + dishName + " on " + date);
         } catch (InvalidInputException e) {
             System.out.println("no dish found");
