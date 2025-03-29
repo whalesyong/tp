@@ -11,10 +11,12 @@ import seedu.cookingaids.parser.Parser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class AddCommand {
     public static final String COMMAND_WORD = "add";
-    static final int SPACE = 1;
+    private static final int SPACE = 1;
+    private static final String INGREDIENT_SEPARATOR = ",";
 
     public static String removeCommandWord(String receivedText) {
         assert receivedText != null : "Received text should not be null";
@@ -57,13 +59,7 @@ public class AddCommand {
         String recipeName = recipeFields[0];
         String ingredientsString = recipeFields[1];
 
-        ArrayList<String> ingredients = new ArrayList<>();
-        if (!ingredientsString.isEmpty()) {
-            String[] ingredientArray = ingredientsString.split(",");
-            for (String ingredient : ingredientArray) {
-                ingredients.add(ingredient.trim());
-            }
-        }
+        ArrayList<String> ingredients = parseIngredients(ingredientsString);
 
         assert recipeName != null && !recipeName.isEmpty() : "Recipe name should not be empty";
         Recipe recipe = ingredients.isEmpty() ? new Recipe(recipeName) : new Recipe(recipeName, ingredients);
@@ -75,6 +71,17 @@ public class AddCommand {
         } else {
             System.out.println("No ingredients specified.");
         }
+    }
+
+    private static ArrayList<String> parseIngredients(String ingredientsString) {
+        ArrayList<String> ingredients = new ArrayList<>();
+        if (!ingredientsString.isEmpty()) {
+            String[] ingredientArray = ingredientsString.split(INGREDIENT_SEPARATOR);
+            for (String ingredient : ingredientArray) {
+                ingredients.add(ingredient.trim());
+            }
+        }
+        return ingredients;
     }
 
     public static void addIngredient(String receivedText) {
@@ -96,6 +103,7 @@ public class AddCommand {
 
         Ingredient ingredient = new Ingredient(1, ingredientName, expiryDate, quantity);
         IngredientStorage.addToStorage(ingredient);
+
         System.out.println("Added Ingredient: " + ingredient);
     }
 }
