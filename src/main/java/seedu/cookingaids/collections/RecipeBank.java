@@ -13,7 +13,6 @@ public class RecipeBank {
         recipeBank.addAll(recipesList);
     }
 
-    // shld it take in a fully-formed object?
     public static void addRecipeToRecipeBank(Recipe recipe) {
         recipeBank.add(recipe);
     }
