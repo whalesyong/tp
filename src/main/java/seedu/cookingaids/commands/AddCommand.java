@@ -14,7 +14,8 @@ import java.util.HashMap;
 
 public class AddCommand {
     public static final String COMMAND_WORD = "add";
-    static final int SPACE = 1;
+    private static final int SPACE = 1;
+    private static final String INGREDIENT_SEPARATOR = ",";
 
     public static String removeCommandWord(String receivedText) {
         assert receivedText != null : "Received text should not be null";
@@ -83,6 +84,17 @@ public class AddCommand {
 
     }
 
+    private static ArrayList<String> parseIngredients(String ingredientsString) {
+        ArrayList<String> ingredients = new ArrayList<>();
+        if (!ingredientsString.isEmpty()) {
+            String[] ingredientArray = ingredientsString.split(INGREDIENT_SEPARATOR);
+            for (String ingredient : ingredientArray) {
+                ingredients.add(ingredient.trim());
+            }
+        }
+        return ingredients;
+    }
+
     public static void addIngredient(String receivedText) {
         String inputs = removeCommandWord(receivedText);
         HashMap<String, String> ingredientFields = Parser.parseIngredient(inputs);
@@ -102,6 +114,7 @@ public class AddCommand {
 
         Ingredient ingredient = new Ingredient(1, ingredientName, expiryDate, quantity);
         IngredientStorage.addToStorage(ingredient);
+
         System.out.println("Added Ingredient: " + ingredient);
     }
 

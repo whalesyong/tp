@@ -80,7 +80,7 @@ public class DishCalendar {
         return false;
     }
 
-    public void clear() {
+    public static void clear() {
         dishCalendar.clear();
     }
 }
