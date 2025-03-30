@@ -92,7 +92,8 @@ class RecipeTest {
 
     @Test
     void testToString() {
-        String expected = "Recipe named 'Pasta Carbonara' needs ingredients [Spaghetti (0, Expiring Soon: []), Egg (0, Expiring Soon: []), Parmesan (0, Expiring Soon: []), Black Pepper (0, Expiring Soon: [])]";
+        String expected = "Recipe named 'Pasta Carbonara' needs ingredients [Spaghetti (0, Expiring Soon: []), " +
+                "Egg (0, Expiring Soon: []), Parmesan (0, Expiring Soon: []), Black Pepper (0, Expiring Soon: [])]";
         assertEquals(expected, testRecipe.toString());
     }
 }
