@@ -19,7 +19,7 @@ public class Storage {
     private static final String RECIPE_LIST_FIELD_NAME = "recipes";
     private static final String DISH_LIST_FIELD_NAME = "dishes";
     private static final String INGREDIENT_STORAGE_FIELD_NAME = "ingredients";
-    private static final String SHOPPING_LIST_FIELD_NAME = "shopping cart";
+    private static final String SHOPPING_LIST_FIELD_NAME = "shopping";
     private static final String FILE_PATH = "./data/cookingaids.json";
 
 

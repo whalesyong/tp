@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Dish {
     private DishDate dishDate;
-    private Recipe recipe;
+
     private String dishName;
 
     // constructor for jackson
@@ -28,18 +28,12 @@ public class Dish {
         return dishDate;
     }
 
-    public void displayInfo() {
-        if (dishDate.toString().isEmpty()) {
-            System.out.println("Name: " + dishName + "No scheduled date yet");
-        } else {
-            System.out.println("Name: " + dishName + ", Scheduled for:" + dishDate.toString());
-        }
-    }
+
 
     @Override
     public String toString() {
-        if (dishDate.toString().isEmpty()) {
-            return  dishName + "No scheduled date yet";
+        if (dishDate.toString().equals("None")) {
+            return  dishName ;
         } else {
             return dishName + ", Scheduled for:" + dishDate.toString();
         }
