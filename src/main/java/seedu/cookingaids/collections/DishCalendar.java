@@ -28,7 +28,7 @@ public class DishCalendar {
         DishCalendar.dishCalendar = dishCalendar;
     }
 
-    public static void addDishToCalendar(Dish dish) {
+    public static void addDishToCalendar(Dish dish) { //TODO implement add Dish minus ingredient
 //        if(RecipeBank.contains(dish.getName())) {
 ////            List<String> ingredientList = getIngredientList(dish);
 ////            for(Ingredient ingredient: ingredientList)

@@ -1,6 +1,7 @@
 package seedu.cookingaids.commands;
 
 import seedu.cookingaids.collections.DishCalendar;
+import seedu.cookingaids.exception.InvalidInputException;
 import seedu.cookingaids.items.Dish;
 import seedu.cookingaids.ui.CalendarPrinter;
 import seedu.cookingaids.ui.Ui;
@@ -14,9 +15,11 @@ import java.util.List;
 public class ViewCommand {
     public static final String COMMAND_WORD = "view";
 
-    public static void displayDishMonth() {
+    public static void displayDishMonth(int month) throws InvalidInputException {
+        if (month <1 || month >12){
 
-        int month = LocalDate.now().getMonthValue();
+            throw new InvalidInputException();
+        }
         int year = LocalDate.now().getYear();
         LocalDate startOfMonth = LocalDate.of(year, month, 1);
         int lengthOfMonth = LocalDate.now().lengthOfMonth();
@@ -30,7 +33,7 @@ public class ViewCommand {
                 filteredList.add(dish);
             }
         }
-        CalendarPrinter.printMonthCalendar(2025, Month.MARCH, filteredList);
+        CalendarPrinter.printMonthCalendar(year, Month.of(month), filteredList);
         Ui.printDishListView(sortDishesByDateStream(filteredList));
 
     }

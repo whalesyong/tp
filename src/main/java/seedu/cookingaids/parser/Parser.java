@@ -10,6 +10,7 @@ import seedu.cookingaids.commands.HelpCommand;
 import seedu.cookingaids.exception.InvalidInputException;
 import seedu.cookingaids.ui.Ui;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -54,16 +55,40 @@ public class Parser {
     }
 
     private static void handleViewCommand(String receivedText) {
-        if (receivedText.contains(MONTH_FLAG)){
-            ViewCommand.displayDishMonth();
+
+
+        if (receivedText.contains(MONTH_FLAG)) {
+            Pattern pattern = Pattern.compile("-month=(\\d{1,2})");
+            Matcher matcher = pattern.matcher(receivedText);
+
+            int month;
+            if (matcher.find()) {
+                try {
+                    month = Integer.parseInt(matcher.group(1));
+                    ViewCommand.displayDishMonth(month);
+                } catch (InvalidInputException e) {
+                    System.out.println("Invalid month input. Use: view -month={1-12} or leave blank for the current month.");
+                    return;
+                }
+            } else {
+                month = LocalDate.now().getMonthValue(); // Default to current month
+            }
+            try {
+                ViewCommand.displayDishMonth(month); // Assuming ViewCommand has an overloaded method
+            } catch (InvalidInputException e) {
+                System.out.println("Invalid month input. Use: view -month={1-12} or leave blank for the current month.");
+
+            }
         }
-        if (receivedText.contains(DAY_FLAG)){
+
+
+        if (receivedText.contains(DAY_FLAG)) {
             //TODO
         }
-        if(receivedText.contains(SHOPPING_FLAG)){
 
-        }
+
     }
+
 
     private static void handleDisplayCommand(String receivedText) {
         if (receivedText.contains("-recipe")) {
@@ -168,7 +193,7 @@ public class Parser {
     public static String[] parseDish(String input) throws InvalidInputException {
         boolean containsWhenFlag = input.contains("-when=");
         Pattern pattern = Pattern.compile("-dish=(\\S+)");
-        if(containsWhenFlag) {
+        if (containsWhenFlag) {
             pattern = Pattern.compile("-dish=(\\S+)\\s+-when=(\\S+)");
         }
 
