@@ -2,18 +2,18 @@ package seedu.cookingaids.collections;
 
 import seedu.cookingaids.items.Dish;
 import seedu.cookingaids.items.DishDate;
+import seedu.cookingaids.items.Ingredient;
+import seedu.cookingaids.items.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static seedu.cookingaids.collections.RecipeBank.recipeBank;
+
 
 public class DishCalendar {
     public static ArrayList<Dish> dishCalendar = new ArrayList<>();
-    private static int currentId = 1; // Keeps track of the latest assigned ID
 
-    public static synchronized int generateNewDishId() {
-        return currentId++; // Increment and return the next ID
-    }
     public static void initializeDishCalendar(List<Dish> dishes) {
         dishCalendar.addAll(dishes);
     }
@@ -29,8 +29,22 @@ public class DishCalendar {
     }
 
     public static void addDishToCalendar(Dish dish) {
+        if(RecipeBank.contains(dish.getName())) {
+            List<String> ingredientList = getIngredientList(dish);
+//            for(Ingredient ingredient: ingredientList)
+            dishCalendar.add(dish);
+        }
+        else {
+            dishCalendar.add(dish);
+        }
 
-        dishCalendar.add(dish);
+    }
+    public static List<String> getIngredientList(Dish dish){
+        ArrayList<Recipe> recipeBank = RecipeBank.getRecipeBank();
+        for (Recipe item : recipeBank) {
+            if (item.getName().equals(dish.getName())) {
+                return item.getIngredients();
+        }
 
     }
 
@@ -59,17 +73,6 @@ public class DishCalendar {
 
     }
 
-    public void removeDishInCalendarByDate(String date) {
-        date = date.trim().toLowerCase();
-        ArrayList<Dish> dishesToBeRemoved = new ArrayList<Dish>();
-        for(Dish d : dishCalendar){
-            DishDate dishDate = d.getDishDate();
-            if (date.equals(dishDate.toString().toLowerCase())){
-                dishesToBeRemoved.add(d);
-            }
-        }
-        dishCalendar.remove(dishesToBeRemoved);
-    }
 
     public boolean containsDish(String dishName) {
         for (Dish dish : dishCalendar) {

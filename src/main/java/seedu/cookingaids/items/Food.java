@@ -14,34 +14,6 @@ public abstract class Food {
     }
 
     /**
-     * Creates a new food entry in the food database.
-     *
-     * @param food The food item to be added to the database.
-     */
-    public static void createFood(Food food) {
-        foodDatabase.put(food.id, food);
-    }
-
-    /**
-     * Retrieves a food item from the food database by its ID.
-     *
-     * @param id The ID of the food item to be retrieved.
-     * @return The food item corresponding to the given ID, or null if no such item exists.
-     */
-    public static Food getFood(int id) {
-        return foodDatabase.get(id);
-    }
-
-    /**
-     * Deletes a food item from the food database by its ID.
-     *
-     * @param id The ID of the food item to be removed from the database.
-     */
-    public static void deleteFood(int id) {
-        foodDatabase.remove(id);
-    }
-
-    /**
      * Displays detailed information about the food item.
      * This method must be implemented by subclasses of Food to provide specific details about the food.
      */

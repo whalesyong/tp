@@ -111,7 +111,7 @@ add -ingredient={ingredientName} [-expiry={expiryDate}] [-qty={quantity}]
 
 ### **4. View Scheduled Dishes: `list -dish`** {#view-scheduled-dishes-list--dish}  
 
-Displays a list of scheduled dishes.  
+Displays a list of scheduled dishes.  In Chronological order
 
 **Format:**  
 ```plaintext

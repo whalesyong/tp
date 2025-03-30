@@ -37,6 +37,9 @@ public class DishDate {
 
             dateString = dateLocalDate == null ? "None" : //None set here to match format
                     dateLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            assert dateString != null : "Date string should not be null";
+            assert (dateLocalDate == null || dateLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).equals(dateString))
+                    : "dateLocalDate and dateString should be consistent";
 
         } catch (DateTimeParseException e) {
 
