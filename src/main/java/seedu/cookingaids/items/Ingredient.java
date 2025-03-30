@@ -6,6 +6,7 @@ public class Ingredient extends Food{
     public ExpiryDate expiryDate;
     private int quantity;
     private boolean expiringSoon = false;
+    protected boolean expired = false;
     private  String name;
     public Ingredient( String name) {
         super( name);
@@ -33,7 +34,6 @@ public class Ingredient extends Food{
     public int getQuantity() {
         return quantity;
     }
-
     public ExpiryDate getExpiryDate() {
         return expiryDate;
     }
@@ -52,6 +52,9 @@ public class Ingredient extends Food{
 
     public void setExpiringSoon(boolean b) {
         this.expiringSoon = b;
+    }
+    public void setExpired(boolean b) {
+        this.expired = b;
     }
 
 

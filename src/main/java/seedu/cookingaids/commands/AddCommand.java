@@ -148,7 +148,7 @@ public class AddCommand {
                 throw new IllegalArgumentException("Quantity must be a valid number");
             }
             assert quantity > 0 : "Quantity should be greater than zero";
-            Ingredient ingredient = new Ingredient(1, ingredientName, expiryDate, quantity);
+            Ingredient ingredient = new Ingredient( ingredientName, expiryDate, quantity);
             IngredientStorage.addToStorage(ingredient);
             System.out.println("Added Ingredient: " + ingredient);
         } catch (IllegalArgumentException e) {

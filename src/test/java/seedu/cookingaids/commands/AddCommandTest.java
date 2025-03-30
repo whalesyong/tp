@@ -60,7 +60,7 @@ class AddCommandTest {
     void execute_addIngredientToEmptyStorage_addsSuccessfully() {
         IngredientStorage.clear();
         String ingredientName = "Tomato";
-        Ingredient newIngredient = new Ingredient(1, ingredientName);
+        Ingredient newIngredient = new Ingredient( ingredientName);
 
         AddCommand.addIngredient("add -ingredient=" + ingredientName);
 
@@ -71,8 +71,8 @@ class AddCommandTest {
     void execute_addRecipeToEmptyRecipeBank_addsSuccessfully() {
         RecipeBank.clear();
         ArrayList<Ingredient> ingredients = new ArrayList<>();
-        ingredients.add(new Ingredient(1, "Tomato"));
-        ingredients.add(new Ingredient(2, "Pizza"));
+        ingredients.add(new Ingredient( "Tomato"));
+        ingredients.add(new Ingredient( "Pizza"));
         Recipe newRecipe = new Recipe("Pizza", ingredients);
 
         AddCommand.addRecipe("add -recipe=Pizza -needs=Tomato, 1 ,Cheese, 1");
@@ -83,8 +83,8 @@ class AddCommandTest {
     @Test
     void execute_addRecipeThatExists_returnsRecipeAlreadyExistsMessage() {
         ArrayList<Ingredient> ingredients = new ArrayList<>();
-        ingredients.add(new Ingredient(1, "Tomato"));
-        ingredients.add(new Ingredient(2, "Bread"));
+        ingredients.add(new Ingredient( "Tomato"));
+        ingredients.add(new Ingredient( "Bread"));
         RecipeBank.addRecipeToRecipeBank(new Recipe("Sandwich", ingredients));
 
         AddCommand.addRecipe("add -recipe=Sandwich -needs=Bread,Tomato");
@@ -113,7 +113,7 @@ class AddCommandTest {
     @Test
     void execute_addRecipeWithMissingIngredients_returnsMissingIngredientsMessage() {
         ArrayList<Ingredient> ingredients = new ArrayList<>();
-        ingredients.add(new Ingredient(1, "Bread"));
+        ingredients.add(new Ingredient( "Bread"));
         Recipe incompleteRecipe = new Recipe("Toast", ingredients);
 
         AddCommand.addRecipe("add -recipe=Toast -needs=Bread, 1");

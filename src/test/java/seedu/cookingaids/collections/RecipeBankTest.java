@@ -28,18 +28,18 @@ class RecipeBankTest {
         // Create test recipes
         testRecipe1 = new Recipe("Spaghetti Carbonara");
         testRecipe1.setIngredients(new ArrayList<>(Arrays.asList(
-                new Ingredient(0, "Pasta"),
-                new Ingredient(1, "Eggs"),
-                new Ingredient(2, "Cheese")
+                new Ingredient( "Pasta"),
+                new Ingredient( "Eggs"),
+                new Ingredient( "Cheese")
         )));
 
         testRecipe2 = new Recipe("Chocolate Cake");
         testRecipe1.setIngredients(new ArrayList<>(Arrays.asList(
-                new Ingredient(0, "Flour"),
-                new Ingredient(1, "Sugar"),
-                new Ingredient(2, "Cocoa"),
-                new Ingredient(3, "Eggs"),
-                new Ingredient(4, "Butter")
+                new Ingredient( "Flour"),
+                new Ingredient( "Sugar"),
+                new Ingredient( "Cocoa"),
+                new Ingredient( "Eggs"),
+                new Ingredient( "Butter")
         )));
 
 

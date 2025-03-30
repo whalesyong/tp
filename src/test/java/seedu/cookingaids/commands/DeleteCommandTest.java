@@ -48,7 +48,7 @@ class DeleteCommandTest {
 
     @Test
     void execute_validIngredient_deletesSuccessfully() {
-        Ingredient tomato = new Ingredient(2, "Tomato");
+        Ingredient tomato = new Ingredient("Tomato");
         IngredientStorage.addToStorage(tomato);
         assertDeletionSuccessfulIngredient("Tomato");
     }
@@ -61,9 +61,9 @@ class DeleteCommandTest {
     @Test
     void execute_validRecipe_deletesSuccessfully() {
         ArrayList<Ingredient> ingredients = new ArrayList<>();
-        ingredients.add(new Ingredient(1, "Bread"));
-        ingredients.add( new Ingredient(2,"Tomato"));
-        ingredients.add(new Ingredient(3, "Egg"));
+        ingredients.add(new Ingredient( "Bread"));
+        ingredients.add( new Ingredient("Tomato"));
+        ingredients.add(new Ingredient( "Egg"));
         Recipe sandwich = new Recipe("Sandwich", ingredients);
         RecipeBank.addRecipeToRecipeBank(sandwich);
         assertDeletionSuccessfulRecipe("Sandwich");
@@ -98,7 +98,7 @@ class DeleteCommandTest {
     @Test
     void execute_deleteIngredientWhenFull_returnsIngredientNotFoundMessage() throws NullPointerException{
         IngredientStorage.clear();  // Simulate the full storage by clearing it first.
-        Ingredient ingredient = new Ingredient(3, "lettuce");
+        Ingredient ingredient = new Ingredient( "lettuce");
         IngredientStorage.addToStorage(ingredient);
         assertDeletionSuccessfulIngredient("lettuce");
     }

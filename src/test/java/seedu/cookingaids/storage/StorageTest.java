@@ -29,15 +29,15 @@ public class StorageTest {
 
         testRecipes = new ArrayList<>();
         ArrayList<Ingredient> pastaIngredients = new ArrayList<>();
-        pastaIngredients.add(new Ingredient(1, "spaghetti"));
-        pastaIngredients.add(new Ingredient(2, "egg"));
-        pastaIngredients.add(new Ingredient(3, "bacon"));
-        pastaIngredients.add(new Ingredient(4, "parmesan"));
+        pastaIngredients.add(new Ingredient("spaghetti"));
+        pastaIngredients.add(new Ingredient("egg"));
+        pastaIngredients.add(new Ingredient( "bacon"));
+        pastaIngredients.add(new Ingredient( "parmesan"));
 
         ArrayList<Ingredient> curryIngredients = new ArrayList<>();
-        curryIngredients.add(new Ingredient(1,"chicken"));
-        curryIngredients.add(new Ingredient (1,"curry Powder"));
-        curryIngredients.add(new Ingredient(3, "coconut Milk"));
+        curryIngredients.add(new Ingredient("chicken"));
+        curryIngredients.add(new Ingredient ("curry Powder"));
+        curryIngredients.add(new Ingredient( "coconut Milk"));
 
         testRecipes.add(new Recipe("pasta_carbonara", pastaIngredients));
         testRecipes.add(new Recipe("chicken_curry", curryIngredients));
@@ -45,13 +45,13 @@ public class StorageTest {
         // Create test ingredients
         testIngredients = new HashMap<>();
         ArrayList<Ingredient> pastaStock = new ArrayList<>();
-        pastaStock.add(new Ingredient(1,"spaghetti", "2025-04-15",2));
-        pastaStock.add(new Ingredient(1,"eggs", "2025-03-30", 4));
+        pastaStock.add(new Ingredient("spaghetti", "2025-04-15",2));
+        pastaStock.add(new Ingredient("eggs", "2025-03-30", 4));
         testIngredients.put("pasta_carbonara", pastaStock);
 
         ArrayList<Ingredient> curryStock = new ArrayList<>();
-        curryStock.add(new Ingredient(1,"chicken","2025-04-10", 1));
-        curryStock.add(new Ingredient(1,"curry_powder","2025-06-01", 1));
+        curryStock.add(new Ingredient("chicken","2025-04-10", 1));
+        curryStock.add(new Ingredient("curry_powder","2025-06-01", 1));
         testIngredients.put("chicken_curry", curryStock);
     }
 

@@ -2,14 +2,12 @@
   "recipes" : [ {
     "name" : "tomato_pasta",
     "ingredients" : [ {
-      "id" : 1,
       "name" : "tomato",
       "quantity" : 2,
       "expiryDate" : {
         "dateString" : "None"
       }
     }, {
-      "id" : 2,
       "name" : "pasta",
       "quantity" : 1,
       "expiryDate" : {
@@ -20,7 +18,6 @@
   } ],
   "ingredients" : {
     "garlic" : [ {
-      "id" : 1,
       "name" : "garlic",
       "quantity" : 1,
       "expiryDate" : {
@@ -28,7 +25,6 @@
       }
     } ],
     "chicken" : [ {
-      "id" : 1,
       "name" : "chicken",
       "quantity" : 1,
       "expiryDate" : {
@@ -36,7 +32,6 @@
       }
     } ],
     "pasta" : [ {
-      "id" : 1,
       "name" : "pasta",
       "quantity" : 2,
       "expiryDate" : {

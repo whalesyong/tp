@@ -22,10 +22,10 @@ class RecipeTest {
         // Create test data before each test
         recipeName = "Pasta Carbonara";
         ingredients = new ArrayList<>(Arrays.asList(
-                new Ingredient(1, "Spaghetti"),
-                new Ingredient(2, "Egg"),
-                new Ingredient(3, "Parmesan"),
-                new Ingredient(4, "Black Pepper")
+                new Ingredient( "Spaghetti"),
+                new Ingredient( "Egg"),
+                new Ingredient("Parmesan"),
+                new Ingredient( "Black Pepper")
         ));
 
         testRecipe = new Recipe(recipeName, ingredients);
@@ -71,10 +71,10 @@ class RecipeTest {
     @Test
     void setIngredients() {
         ArrayList<Ingredient> newIngredients = new ArrayList<>(Arrays.asList(
-            new Ingredient(1, "Flour"),
-            new Ingredient(2, "Sugar"),
-            new Ingredient(3, "Egg"),
-            new Ingredient(4, "Butter")
+            new Ingredient("Flour"),
+            new Ingredient( "Sugar"),
+            new Ingredient( "Egg"),
+            new Ingredient( "Butter")
         ));
 
         testRecipe.setIngredients(newIngredients);
@@ -92,8 +92,10 @@ class RecipeTest {
 
     @Test
     void testToString() {
-        String expected = "Recipe named 'Pasta Carbonara' needs ingredients [Spaghetti (0, Expiring Soon: []), " +
-                "Egg (0, Expiring Soon: []), Parmesan (0, Expiring Soon: []), Black Pepper (0, Expiring Soon: [])]";
+        String expected = "Recipe named 'Pasta Carbonara' needs ingredients [Spaghetti (0, Expiry: null, " +
+                "Expiring Soon: No, Expired: No), Egg (0, Expiry: null, Expiring Soon: No, Expired: No), " +
+                "Parmesan (0, Expiry: null, Expiring Soon: No, Expired: No), " +
+                "Black Pepper (0, Expiry: null, Expiring Soon: No, Expired: No)]";
         assertEquals(expected, testRecipe.toString());
     }
 }
