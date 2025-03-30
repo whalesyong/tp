@@ -3,19 +3,23 @@ package seedu.cookingaids.commands;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seedu.cookingaids.collections.DishCalendar;
 import seedu.cookingaids.items.Dish;
 import seedu.cookingaids.items.DishDate;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 
 class ViewCommandTest {
 
-    private Dish dish1, dish2, dish3;
+    private Dish dish1;
+    private Dish dish2;
+    private Dish dish3;
 
     @BeforeEach
     void setUp() {

@@ -14,8 +14,7 @@ public class ShoppingList {
 
     public static int getIngredientQuantity(String ingredientName) {
         for (Ingredient item : shoppingList) {
-            if (item.getName().equals(ingredientName)) ;
-            {// Update quantity
+            if (item.getName().equals(ingredientName)) {// Update quantity
                 return item.getQuantity();
             }
 

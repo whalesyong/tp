@@ -67,7 +67,8 @@ public class Parser {
                     month = Integer.parseInt(matcher.group(1));
                     ViewCommand.displayDishMonth(month);
                 } catch (InvalidInputException e) {
-                    System.out.println("Invalid month input. Use: view -month={1-12} or leave blank for the current month.");
+                    System.out.println(
+                            "Invalid month input. Use: view -month={1-12} or leave blank for the current month.");
                     return;
                 }
             } else {
@@ -76,7 +77,8 @@ public class Parser {
             try {
                 ViewCommand.displayDishMonth(month); // Assuming ViewCommand has an overloaded method
             } catch (InvalidInputException e) {
-                System.out.println("Invalid month input. Use: view -month={1-12} or leave blank for the current month.");
+                System.out.println(
+                        "Invalid month input. Use: view -month={1-12} or leave blank for the current month.");
 
             }
         }

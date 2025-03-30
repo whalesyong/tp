@@ -17,13 +17,7 @@
     "recipeName" : "tomato_pasta"
   } ],
   "ingredients" : {
-    "garlic" : [ {
-      "name" : "garlic",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
-    } ],
+
     "chicken" : [ {
       "name" : "chicken",
       "quantity" : 1,

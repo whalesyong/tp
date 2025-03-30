@@ -9,7 +9,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 
-
 /**
  * represents date of a task
  * holds date as string and as LocalDate type
@@ -34,11 +33,11 @@ public class DishDate {
         this.dateString = date;
         try {
             dateLocalDate = parseDate(date);
-
             dateString = dateLocalDate == null ? "None" : //None set here to match format
                     dateLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             assert dateString != null : "Date string should not be null";
-            assert (dateLocalDate == null || dateLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).equals(dateString))
+            assert (dateLocalDate == null || dateLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                    .equals(dateString))
                     : "dateLocalDate and dateString should be consistent";
 
         } catch (DateTimeParseException e) {
@@ -93,7 +92,7 @@ public class DishDate {
                 date = LocalDate.parse(dateString, formatter);
                 return date;
             } catch (DateTimeParseException e) {
-               //intentionally left empty for logic purposes
+                //intentionally left empty for logic purposes
 
                 // Tries next format
             }
