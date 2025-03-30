@@ -25,22 +25,17 @@ public class Suggest {
         }
         List<Recipe> suggestedRecipes = new ArrayList<>();
         Set<String> foodSet = availableIngredientsMap.keySet();
-        List<String> availableIngredients = new ArrayList<>(foodSet);
-
-
+        ArrayList<String> availableIngredients = new ArrayList<>(foodSet);
 
         // check recipes to see if needed food is present
         for (Recipe recipe : availableRecipes) {
-            ArrayList<String> neededIngredients = recipe.getIngredients();
+            ArrayList<Ingredient> neededIngredients = recipe.getIngredients();
             int availableCount = 0;
-            int missingCount = 0;
 
             //check how many ingredients for the recipe are available
-            for (String neededIngredient : neededIngredients) {
-                if (availableIngredients.contains(neededIngredient)) {
+            for (Ingredient neededIngredient : neededIngredients) {
+                if (availableIngredients.contains(neededIngredient.getName())) {
                     availableCount++;
-                } else {
-                    missingCount++;
                 }
             }
             if (availableCount == neededIngredients.size()) {
