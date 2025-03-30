@@ -126,7 +126,8 @@ public class AddCommand {
             String inputs = removeCommandWord(receivedText);
             HashMap<String, String> ingredientFields = Parser.parseIngredient(inputs);
             if (ingredientFields == null) {
-                System.out.println("Failed to parse ingredient, please check your input");
+                System.out.println("Invalid format. Please make sure your flags are spelled correctly, and date is in "
+                        + "YYYY/MM/DD format");
                 return;
             }
             assert ingredientFields.containsKey("ingredient") : "Missing 'ingredient' key";
@@ -138,7 +139,7 @@ public class AddCommand {
             }
             String expiryDate = ingredientFields.get("expiry_date");
             if (expiryDate.isEmpty()) {
-                throw new IllegalArgumentException("Ingredient name cannot be empty");
+                throw new IllegalArgumentException("Expiry date cannot be empty");
             }
             int quantity;
             try {
