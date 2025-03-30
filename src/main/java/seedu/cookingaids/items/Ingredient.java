@@ -6,33 +6,40 @@ public class Ingredient extends Food{
     public ExpiryDate expiryDate;
     private int quantity;
     private boolean expiringSoon = false;
-    private boolean expired = false;
-    public Ingredient(int id, String name) {
-        super(id, name);
+    private  String name;
+    public Ingredient( String name) {
+        super( name);
+        this.name = name;
     }
 
-    public Ingredient(int id, String name, int quantity ) {
-        super(id, name);
+    public Ingredient( String name, int quantity ) {
+        super( name);
         this.quantity = quantity;
         expiryDate = new ExpiryDate("None");
+        this.name = name;
     }
     @JsonCreator
-    public Ingredient(@JsonProperty("id") int id, @JsonProperty("name") String name,
+    public Ingredient( @JsonProperty("name") String name,
                       @JsonProperty("expiry") String expiryDate, @JsonProperty("quantity") int quantity ) {
-        super(id, name);
+        super(name);
+
         this.expiryDate = new ExpiryDate(expiryDate);
         this.quantity = quantity;
+        this.name = name;
     }
-    public void setQuantity(int quantity){
-        this.quantity =quantity;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
-
     public int getQuantity() {
         return quantity;
     }
 
     public ExpiryDate getExpiryDate() {
         return expiryDate;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void addQuantity(int quantity) {
@@ -47,23 +54,17 @@ public class Ingredient extends Food{
         this.expiringSoon = b;
     }
 
-    public void setExpired(boolean b) {
-        this.expired = b;
-    }
 
     @Override
     public void displayInfo() {
-        System.out.println("Ingredient ID: " + id + ", Name: " + name +
-                ", Quantity: " + quantity + ", Expiry: " + expiryDate.toString() +
-                ", Expiring Soon: " + (expiringSoon ? "Yes" : "No") +
-                ", Expired: " + (expired ? "Yes" : "No"));
+        System.out.println(" Name: " + name +", Expiring in:" + expiryDate.toString());
     }
 
     @Override
     public String toString() {
         String expiryFlag = expiringSoon ? "[X]" : "[]";
-        return name + " (" + quantity + ", Expiry: " + expiryDate + ", Expiring Soon: " +
-                (expiringSoon ? "Yes" : "No") + ", Expired: " + (expired ? "Yes" : "No") + ")";
+        return name + " (" + quantity + (expiryDate != null? ", Expiry: "
+                + expiryDate : "") + ", Expiring Soon: " + expiryFlag + ")";
     }
 
 }

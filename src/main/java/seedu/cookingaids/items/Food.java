@@ -8,9 +8,20 @@ public abstract class Food {
     protected int id;
     protected String name;
 
-    public Food(int id, String name) {
-        this.id = id;
+    public Food( String name) {
+
         this.name = name;
+    }
+
+
+
+    /**
+     * Deletes a food item from the food database by its ID.
+     *
+     * @param id The ID of the food item to be removed from the database.
+     */
+    public static void deleteFood(int id) {
+        foodDatabase.remove(id);
     }
 
     /**
@@ -19,9 +30,6 @@ public abstract class Food {
      */
     public abstract void displayInfo();
 
-    public int getId() {
-        return id;
-    }
 
     public String getName() {
         return name;
@@ -29,6 +37,6 @@ public abstract class Food {
 
     @Override
     public String toString() {
-        return "Dish ID: " + id + ", Name: " + name ;
+        return  " Name: " + name ;
     }
 }
