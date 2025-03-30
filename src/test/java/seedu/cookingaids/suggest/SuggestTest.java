@@ -79,8 +79,18 @@ class SuggestTest {
         mockedIngredientStorage.when(IngredientStorage::getStorage).thenReturn(ingredientMap);
 
         // Mock recipe bank
-        Recipe recipe1 = new Recipe("Grilled Cheese", new ArrayList<>(List.of("Cheese", "Bread")));
-        Recipe recipe2 = new Recipe("Tomato Sandwich", new ArrayList<>(List.of("Tomato", "Bread")));
+        Recipe recipe1 = new Recipe("Grilled Cheese", new ArrayList<Ingredient>(
+                List.of(
+                        new Ingredient(1, "cheese"),
+                        new Ingredient(2, "bread")
+                )
+        ));
+        Recipe recipe2 = new Recipe("Tomato Sandwich", new ArrayList<>(
+                List.of(
+                        new Ingredient(1, "tomato"),
+                        new Ingredient(2, "bread")
+                )
+        ));
         ArrayList<Recipe> recipes = new ArrayList<>(List.of(recipe1, recipe2));
         mockedRecipeBank.when(RecipeBank::getRecipeBank).thenReturn(recipes);
 
@@ -100,8 +110,18 @@ class SuggestTest {
         mockedIngredientStorage.when(IngredientStorage::getStorage).thenReturn(ingredientMap);
 
         // Set up the recipe bank
-        Recipe recipe1 = new Recipe("Grilled Cheese", new ArrayList<>(List.of("Cheese", "Bread")));
-        Recipe recipe2 = new Recipe("Tomato Sandwich", new ArrayList<>(List.of("Tomato", "Bread")));
+        Recipe recipe1 = new Recipe("Grilled Cheese", new ArrayList<Ingredient>(
+                List.of(
+                        new Ingredient(1, "cheese"),
+                        new Ingredient(2, "bread")
+                )
+        ));
+        Recipe recipe2 = new Recipe("Tomato Sandwich", new ArrayList<>(
+                List.of(
+                        new Ingredient(1, "Tomato"),
+                        new Ingredient(2, "bread")
+                )
+        ));
         ArrayList<Recipe> recipes = new ArrayList<>(List.of(recipe1, recipe2));
         mockedRecipeBank.when(RecipeBank::getRecipeBank).thenReturn(recipes);
 

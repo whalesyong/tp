@@ -60,10 +60,10 @@ class DeleteCommandTest {
 
     @Test
     void execute_validRecipe_deletesSuccessfully() {
-        ArrayList<String> ingredients = new ArrayList<>();
-        ingredients.add("Bread");
-        ingredients.add("Tomato");
-        ingredients.add("Egg");
+        ArrayList<Ingredient> ingredients = new ArrayList<>();
+        ingredients.add(new Ingredient(1, "Bread"));
+        ingredients.add( new Ingredient(2,"Tomato"));
+        ingredients.add(new Ingredient(3, "Egg"));
         Recipe sandwich = new Recipe("Sandwich", ingredients);
         RecipeBank.addRecipeToRecipeBank(sandwich);
         assertDeletionSuccessfulRecipe("Sandwich");

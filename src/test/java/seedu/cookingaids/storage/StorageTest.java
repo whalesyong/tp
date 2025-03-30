@@ -28,16 +28,16 @@ public class StorageTest {
         testDishes.add(new Dish( "chicken_curry", "2025-03-22"));
 
         testRecipes = new ArrayList<>();
-        ArrayList<String> pastaIngredients = new ArrayList<>();
-        pastaIngredients.add("spaghetti");
-        pastaIngredients.add("eggs");
-        pastaIngredients.add("bacon");
-        pastaIngredients.add("parmesan");
+        ArrayList<Ingredient> pastaIngredients = new ArrayList<>();
+        pastaIngredients.add(new Ingredient(1, "spaghetti"));
+        pastaIngredients.add(new Ingredient(2, "egg"));
+        pastaIngredients.add(new Ingredient(3, "bacon"));
+        pastaIngredients.add(new Ingredient(4, "parmesan"));
 
-        ArrayList<String> curryIngredients = new ArrayList<>();
-        curryIngredients.add("chicken");
-        curryIngredients.add("curry Powder");
-        curryIngredients.add("coconut Milk");
+        ArrayList<Ingredient> curryIngredients = new ArrayList<>();
+        curryIngredients.add(new Ingredient(1,"chicken"));
+        curryIngredients.add(new Ingredient (1,"curry Powder"));
+        curryIngredients.add(new Ingredient(3, "coconut Milk"));
 
         testRecipes.add(new Recipe("pasta_carbonara", pastaIngredients));
         testRecipes.add(new Recipe("chicken_curry", curryIngredients));

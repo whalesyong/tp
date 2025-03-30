@@ -35,7 +35,9 @@ public class Ingredient extends Food{
         return expiryDate;
     }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
     public void addQuantity(int quantity) {
         this.quantity += quantity;
