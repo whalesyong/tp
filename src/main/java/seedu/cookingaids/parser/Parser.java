@@ -1,7 +1,7 @@
 package seedu.cookingaids.parser;
 
 
-
+import seedu.cookingaids.commands.ViewCommand;
 import seedu.cookingaids.commands.AddCommand;
 import seedu.cookingaids.commands.DeleteCommand;
 import seedu.cookingaids.commands.ListCommand;
@@ -25,6 +25,9 @@ public class Parser {
     private static final String DISH_FLAG = "-dish=";
     private static final String WHEN_FLAG = "-when=";
     private static final String INGREDIENT_FLAG = "-ingredient=";
+    private static final String MONTH_FLAG = "-month=";
+    private static final String DAY_FLAG = "-day=";
+    private static final String SHOPPING_FLAG = "-shopping";
 
     /**
      * Deciphers the user's input for commands and executes the corresponding method.
@@ -41,6 +44,7 @@ public class Parser {
         case DeleteCommand.COMMAND_WORD -> handleDeleteCommand(receivedText);
         case HelpCommand.COMMAND_WORD -> HelpCommand.showHelp();
         case SuggestCommand.COMMAND_WORD -> SuggestCommand.printSuggestions();
+        case ViewCommand.COMMAND_WORD -> handleViewCommand(receivedText);
         default -> {
             System.out.println(String.format(UNKNOWN_COMMAND_STR, receivedText));
             System.out.println("Type \"help\" to see available commands.");
@@ -49,12 +53,26 @@ public class Parser {
         Ui.printLineDivider();
     }
 
+    private static void handleViewCommand(String receivedText) {
+        if (receivedText.contains(MONTH_FLAG)){
+            ViewCommand.displayDishMonth();
+        }
+        if (receivedText.contains(DAY_FLAG)){
+            //TODO
+        }
+        if(receivedText.contains(SHOPPING_FLAG)){
+
+        }
+    }
+
     private static void handleDisplayCommand(String receivedText) {
         if (receivedText.contains("-recipe")) {
             ListCommand.displayRecipeBank();
         } else if (receivedText.contains("-dish")) {
             ListCommand.displayDishList(receivedText);
         } else if (receivedText.contains("-ingredient")) {
+            ListCommand.displayIngredients();
+        } else if (receivedText.contains("-shopping")) {
             ListCommand.displayIngredients();
         } else {
             System.out.printf((UNKNOWN_COMMAND_STR) + "%n", receivedText);

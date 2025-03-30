@@ -8,6 +8,11 @@ import java.util.ArrayList;
 public class ShoppingList {
     private static ArrayList<Ingredient> shoppingList = new ArrayList<>();
 
+    public static ArrayList<Ingredient> getShoppingList() {
+        return shoppingList;
+    }
+
+
     public static void addToShoppingList(Ingredient ingredient) {
         for (Ingredient item : shoppingList) {
             if (item.getName().equals(ingredient.getName())) {
@@ -32,13 +37,11 @@ public class ShoppingList {
                 }
                 shoppingList.remove(item);
                 ingredient.removeQuantity(item.getQuantity());
-                return ingredient;
-
 
             }
 
         }
-        return null;
+        return ingredient;
 
     }
 }

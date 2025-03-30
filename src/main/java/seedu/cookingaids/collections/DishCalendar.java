@@ -39,13 +39,14 @@ public class DishCalendar {
         }
 
     }
-    public static List<String> getIngredientList(Dish dish){
+    public static List<String> getIngredientList(Dish dish) {
         ArrayList<Recipe> recipeBank = RecipeBank.getRecipeBank();
         for (Recipe item : recipeBank) {
             if (item.getName().equals(dish.getName())) {
                 return item.getIngredients();
-        }
+            }
 
+        }
     }
 
     public static List<Dish> getDishesByName(String dishName) {
