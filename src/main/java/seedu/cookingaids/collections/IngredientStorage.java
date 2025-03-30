@@ -55,7 +55,6 @@ public class IngredientStorage {
         checkExpiringSoon(name);
     }
 
-
     public static void removeIngredient(String ingredientName) {
         ingredients.remove(ingredientName);
     }

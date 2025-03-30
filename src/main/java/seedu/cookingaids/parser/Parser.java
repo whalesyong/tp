@@ -98,7 +98,7 @@ public class Parser {
         } else if (receivedText.contains("-ingredient")) {
             ListCommand.displayIngredients();
         } else if (receivedText.contains("-shopping")) {
-            ListCommand.displayIngredients();
+            ListCommand.displayShoppingList();
         } else {
             System.out.printf((UNKNOWN_COMMAND_STR) + "%n", receivedText);
         }

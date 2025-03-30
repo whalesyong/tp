@@ -20,6 +20,7 @@ public class ShoppingList {
                 return;
             }
         }
+        System.out.println("added");
         shoppingList.add(ingredient);
     }
 

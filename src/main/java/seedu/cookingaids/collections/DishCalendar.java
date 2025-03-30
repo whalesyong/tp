@@ -8,8 +8,6 @@ import seedu.cookingaids.items.Recipe;
 import java.util.ArrayList;
 import java.util.List;
 
-import static seedu.cookingaids.collections.RecipeBank.recipeBank;
-
 
 public class DishCalendar {
     public static ArrayList<Dish> dishCalendar = new ArrayList<>();
@@ -21,33 +19,72 @@ public class DishCalendar {
     public static ArrayList<Dish> getDishCalendar() {
         return dishCalendar;
     }
+
     public static List<Dish> getAllDishes() {
         return new ArrayList<>(dishCalendar);
     }
+
     public static void setDishCalendar(ArrayList<Dish> dishCalendar) {
         DishCalendar.dishCalendar = dishCalendar;
     }
 
-    public static void addDishToCalendar(Dish dish) { //TODO implement add Dish minus ingredient
-//        if(RecipeBank.contains(dish.getName())) {
-////            List<String> ingredientList = getIngredientList(dish);
-////            for(Ingredient ingredient: ingredientList)
-//            dishCalendar.add(dish);
-//        }
-//        else {
-            dishCalendar.add(dish);
-//        }
+    public static void addDishToCalendar(Dish dish) {
+        if (RecipeBank.contains(dish.getName())) {
+            List<Ingredient> ingredientList = getIngredientList(dish);
+
+            assert ingredientList != null;
+            for (Ingredient ingredient : ingredientList) {
+                System.out.println(ingredient.getName());
+                int requiredQuantity = ingredient.getQuantity();
+                if (IngredientStorage.contains(ingredient.getName())) {
+                    int totalQuantity = getTotalQuantity(ingredient);
+                    if (totalQuantity > requiredQuantity) {
+                        System.out.println("case 1" + ingredient.getName());
+                        IngredientStorage.useIngredients(ingredient.getName(), requiredQuantity);
+                    }
+                    if (totalQuantity < requiredQuantity) {
+                        System.out.println("case 2" + ingredient.getName());
+                        IngredientStorage.removeIngredient(ingredient.getName());
+                        ingredient.setQuantity(requiredQuantity - totalQuantity);
+                        ShoppingList.addToShoppingList(ingredient);
+
+                    }
+                    if (totalQuantity == requiredQuantity) {
+                        System.out.println("case 3" + ingredient.getName());
+                        IngredientStorage.removeIngredient(ingredient.getName());
+                    }
+                }
+            }
+
+        }
+
+        dishCalendar.add(dish);
+
 
     }
-//    public static List<String> getIngredientList(Dish dish) {
-//        ArrayList<Recipe> recipeBank = RecipeBank.getRecipeBank();
-//        for (Recipe item : recipeBank) {
-//            if (item.getName().equals(dish.getName())) {
-//                return item.getIngredients();
-//            }
-//
-//        }
-//    }
+
+    private static int getTotalQuantity(Ingredient ingredient) {
+        List<Ingredient> storedIngredients = IngredientStorage.getIngredients(ingredient.getName());
+        int totalQuantity = 0;
+        System.out.println(ingredient.getName());
+        for (Ingredient storedIngredient : storedIngredients) {
+
+            totalQuantity += storedIngredient.getQuantity();
+
+        }
+        return totalQuantity;
+    }
+
+    public static List<Ingredient> getIngredientList(Dish dish) {
+        ArrayList<Recipe> recipeBank = RecipeBank.getRecipeBank();
+        for (Recipe item : recipeBank) {
+            if (item.getName().equals(dish.getName())) {
+                return item.getIngredients();
+            }
+
+        }
+        return null;
+    }
 
     public static List<Dish> getDishesByName(String dishName) {
         List<Dish> matchingDishes = new ArrayList<>();
@@ -58,6 +95,7 @@ public class DishCalendar {
         }
         return matchingDishes;
     }
+
     public static List<Dish> getDishesByDate(String date) {
         List<Dish> matchingDishes = new ArrayList<>();
         for (Dish dish : dishCalendar) {
