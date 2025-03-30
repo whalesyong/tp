@@ -49,13 +49,13 @@ public class IngredientTest {
     @Test
     void toString_withExpiry_expectCorrectFormat() {
         Ingredient ingredient = new Ingredient(6, "Sugar", "2025-06-30", 25);
-        assertEquals("Sugar (25, Expiry: 30/06/2025, Expiring Soon: [])", ingredient.toString());
+        assertEquals("Sugar (25, Expiry: 30/06/2025, Expiring Soon: No, Expired: No)", ingredient.toString());
     }
 
     @Test
     void toString_withoutExpiry_expectCorrectFormat() {
         Ingredient ingredient = new Ingredient(7, "Salt", 50);
-        assertEquals("Salt (50, Expiry: None, Expiring Soon: [])", ingredient.toString());
+        assertEquals("Salt (50, Expiry: None, Expiring Soon: No, Expired: No)", ingredient.toString());
     }
 
     @Test
@@ -69,27 +69,41 @@ public class IngredientTest {
     void setExpiringSoon_trueValue_expectFlagSet() {
         Ingredient ingredient = new Ingredient(9, "Yogurt", "2025-11-01", 12);
         ingredient.setExpiringSoon(true);
-        assertTrue(ingredient.toString().contains("[X]"));
+        assertTrue(ingredient.toString().contains("Expiring Soon: Yes"));
     }
 
     @Test
     void setExpiringSoon_falseValue_expectFlagUnset() {
         Ingredient ingredient = new Ingredient(10, "Bread", "2025-08-15", 6);
         ingredient.setExpiringSoon(false);
-        assertTrue(ingredient.toString().contains("[]"));
+        assertTrue(ingredient.toString().contains("Expiring Soon: No"));
     }
 
     @Test
     void toString_expiringSoonTrue_expectCorrectFormat() {
         Ingredient ingredient = new Ingredient(11, "Milk", "2025-05-10", 20);
         ingredient.setExpiringSoon(true);
-        assertEquals("Milk (20, Expiry: 10/05/2025, Expiring Soon: [X])", ingredient.toString());
+        assertEquals("Milk (20, Expiry: 10/05/2025, Expiring Soon: Yes, Expired: No)", ingredient.toString());
     }
 
     @Test
     void toString_expiringSoonFalse_expectCorrectFormat() {
         Ingredient ingredient = new Ingredient(12, "Butter", "2025-05-10", 15);
         ingredient.setExpiringSoon(false);
-        assertEquals("Butter (15, Expiry: 10/05/2025, Expiring Soon: [])", ingredient.toString());
+        assertEquals("Butter (15, Expiry: 10/05/2025, Expiring Soon: No, Expired: No)", ingredient.toString());
+    }
+
+    @Test
+    void setExpired_trueValue_expectFlagSet() {
+        Ingredient ingredient = new Ingredient(13, "Cheese", "2025-01-01", 7);
+        ingredient.setExpired(true);
+        assertTrue(ingredient.toString().contains("Expired: Yes"));
+    }
+
+    @Test
+    void setExpired_falseValue_expectFlagUnset() {
+        Ingredient ingredient = new Ingredient(14, "Butter", "2025-12-31", 5);
+        ingredient.setExpired(false);
+        assertTrue(ingredient.toString().contains("Expired: No"));
     }
 }
