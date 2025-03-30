@@ -29,12 +29,6 @@ public class ListCommand {
 
     }
 
-    public static List<Dish> sortDishesByDateStream(ArrayList<Dish> dishes) {
-        return dishes.stream()
-                .sorted(Comparator.comparing(dish -> dish.getDishDate().getDateLocalDate()))
-                .toList();
-    }
-
 
     public static void displayIngredients() {
         HashMap<String, List<Ingredient>> ingredients = IngredientStorage.getStorage();

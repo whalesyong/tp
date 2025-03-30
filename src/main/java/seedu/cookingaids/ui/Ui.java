@@ -70,15 +70,22 @@ public class Ui {
         }
         printAsIndexedList(formattedItems);
     }
-    public static void printShoppingListView(ArrayList<Ingredient> shoppingList) {
+    public static void printDishListView(List<Dish> dishes) {
         //prints TaskList on console
         final List<String> formattedItems = new ArrayList<>();
-        for (Ingredient ingredient : shoppingList) {
-            formattedItems.add(ingredient.toString());
+        for (Dish d : dishes) {
+            formattedItems.add(d.toString());
         }
         printAsIndexedList(formattedItems);
     }
-
+    public static void printShoppingListView(ArrayList<Ingredient> shoppingList) {
+        //prints TaskList on console
+        final List<String> formattedItems = new ArrayList<>();
+        for (Ingredient ingredients : shoppingList) {
+            formattedItems.add(ingredients.toString());
+        }
+        printAsIndexedList(formattedItems);
+    }
 
     /**
      * Outputs a list of recipes to the console in a formatted view.
