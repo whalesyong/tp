@@ -19,6 +19,7 @@ public class Storage {
     private static final String RECIPE_LIST_FIELD_NAME = "recipes";
     private static final String DISH_LIST_FIELD_NAME = "dishes";
     private static final String INGREDIENT_STORAGE_FIELD_NAME = "ingredients";
+    private static final String SHOPPING_LIST_FIELD_NAME = "shopping cart";
     private static final String FILE_PATH = "./data/cookingaids.json";
 
 
@@ -29,13 +30,17 @@ public class Storage {
      * @param dishList   The list of dishes to be stored.
      * @param recipeList The list of recipes to be stored.
      */
-    public static void storeData(ArrayList<Dish> dishList, ArrayList<Recipe> recipeList,
-                                 HashMap<String, List<Ingredient>> ingredientStorage) {
+    public static void storeData(
+            ArrayList<Dish> dishList,
+            ArrayList<Recipe> recipeList,
+            HashMap<String,List<Ingredient>> ingredientStorage,
+            ArrayList<Ingredient> shoppingList) {
 
         //check if any inputs are null:\
         assert dishList != null : "Dish list cannot be null";
         assert recipeList != null : "Recipe list cannot be null";
         assert ingredientStorage != null : "Ingredient storage cannot be null";
+
         //get dishList array, store into json.
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -45,10 +50,10 @@ public class Storage {
         dataMap.put(DISH_LIST_FIELD_NAME, dishList);
         dataMap.put(RECIPE_LIST_FIELD_NAME, recipeList);
         dataMap.put(INGREDIENT_STORAGE_FIELD_NAME, ingredientStorage);
+        dataMap.put(SHOPPING_LIST_FIELD_NAME, shoppingList);
 
         File file = new File(FILE_PATH);
         file.getParentFile().mkdirs();
-
 
 
         try {
@@ -75,7 +80,7 @@ public class Storage {
         if (!file.exists()) {
             System.out.println("No data found, creating new lists.");
             IngredientStorage.clear();
-            return new DataWrapper(new ArrayList<>(), new ArrayList<>(), new HashMap<>());
+            return new DataWrapper(new ArrayList<>(), new ArrayList<>(), new HashMap<>(), new ArrayList<>());
         }
 
         try {
@@ -83,7 +88,7 @@ public class Storage {
         } catch (IOException e) {
             System.err.println("Failed to load Dish list from: " + FILE_PATH + ", loading new list.");
             System.err.println(e.getMessage());
-            return new DataWrapper(new ArrayList<>(), new ArrayList<>(), new HashMap<>());
+            return new DataWrapper(new ArrayList<>(), new ArrayList<>(), new HashMap<>(), new ArrayList<>());
         }
 
 
@@ -100,14 +105,18 @@ public class Storage {
         public List<Dish> dishes;
         public List<Recipe> recipes;
         public HashMap<String, List<Ingredient>> ingredients;
+        public List<Ingredient> shopping;
 
         public DataWrapper() {
         }
 
-        public DataWrapper(List<Dish> dishes, List<Recipe> recipes, HashMap<String, List<Ingredient>> ingredients) {
+        public DataWrapper(List<Dish> dishes, List<Recipe> recipes,
+                           HashMap<String, List<Ingredient>> ingredients,
+                           List<Ingredient> shopping) {
             this.dishes = dishes;
             this.recipes = recipes;
             this.ingredients = ingredients;
+            this.shopping = shopping;
         }
 
         //for debugging

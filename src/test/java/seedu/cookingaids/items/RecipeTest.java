@@ -22,10 +22,10 @@ class RecipeTest {
         // Create test data before each test
         recipeName = "Pasta Carbonara";
         ingredients = new ArrayList<>(Arrays.asList(
-                new Ingredient(1, "Spaghetti"),
-                new Ingredient(2, "Egg"),
-                new Ingredient(3, "Parmesan"),
-                new Ingredient(4, "Black Pepper")
+                new Ingredient( "Spaghetti"),
+                new Ingredient( "Egg"),
+                new Ingredient("Parmesan"),
+                new Ingredient( "Black Pepper")
         ));
 
         testRecipe = new Recipe(recipeName, ingredients);
@@ -71,10 +71,10 @@ class RecipeTest {
     @Test
     void setIngredients() {
         ArrayList<Ingredient> newIngredients = new ArrayList<>(Arrays.asList(
-            new Ingredient(1, "Flour"),
-            new Ingredient(2, "Sugar"),
-            new Ingredient(3, "Egg"),
-            new Ingredient(4, "Butter")
+            new Ingredient("Flour"),
+            new Ingredient( "Sugar"),
+            new Ingredient( "Egg"),
+            new Ingredient( "Butter")
         ));
 
         testRecipe.setIngredients(newIngredients);

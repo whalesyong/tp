@@ -20,6 +20,11 @@ public class IngredientStorage {
         ingredients = newIngredients;
     }
     public static void addToStorage(Ingredient newIngredient) {
+        newIngredient = ShoppingList.removeFromShoppingList(newIngredient);
+        if(newIngredient == null){
+            return;
+        }
+        
         String name = newIngredient.getName();
         List<Ingredient> ingredientList = ingredients.getOrDefault(name, new ArrayList<>());
 

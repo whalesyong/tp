@@ -8,29 +8,12 @@ public abstract class Food {
     protected int id;
     protected String name;
 
-    public Food(int id, String name) {
-        this.id = id;
+    public Food( String name) {
+
         this.name = name;
     }
 
-    /**
-     * Creates a new food entry in the food database.
-     *
-     * @param food The food item to be added to the database.
-     */
-    public static void createFood(Food food) {
-        foodDatabase.put(food.id, food);
-    }
 
-    /**
-     * Retrieves a food item from the food database by its ID.
-     *
-     * @param id The ID of the food item to be retrieved.
-     * @return The food item corresponding to the given ID, or null if no such item exists.
-     */
-    public static Food getFood(int id) {
-        return foodDatabase.get(id);
-    }
 
     /**
      * Deletes a food item from the food database by its ID.
@@ -47,9 +30,6 @@ public abstract class Food {
      */
     public abstract void displayInfo();
 
-    public int getId() {
-        return id;
-    }
 
     public String getName() {
         return name;
@@ -57,6 +37,6 @@ public abstract class Food {
 
     @Override
     public String toString() {
-        return "Dish ID: " + id + ", Name: " + name ;
+        return  " Name: " + name ;
     }
 }

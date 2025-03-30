@@ -1,20 +1,35 @@
 {
-  "recipes" : [ ],
-  "ingredients" : {
-    "garlic" : [ {
-      "id" : 1,
-      "name" : "garlic",
+  "recipes" : [ {
+    "name" : "tomato_pasta",
+    "ingredients" : [ {
+      "name" : "tomato",
+      "quantity" : 2,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    }, {
+      "name" : "pasta",
       "quantity" : 1,
       "expiryDate" : {
         "dateString" : "None"
       }
     } ],
+    "recipeName" : "tomato_pasta"
+  } ],
+  "ingredients" : {
+
     "chicken" : [ {
-      "id" : 1,
       "name" : "chicken",
       "quantity" : 1,
       "expiryDate" : {
         "dateString" : "None"
+      }
+    } ],
+    "pasta" : [ {
+      "name" : "pasta",
+      "quantity" : 2,
+      "expiryDate" : {
+        "dateString" : "01/12/2025"
       }
     } ]
   },
@@ -67,6 +82,11 @@
     "name" : "digglets",
     "dishDate" : {
       "dateString" : "01/03/2025"
+    }
+  }, {
+    "name" : "tomato_pasta",
+    "dishDate" : {
+      "dateString" : "31/03/2025"
     }
   } ]
 }

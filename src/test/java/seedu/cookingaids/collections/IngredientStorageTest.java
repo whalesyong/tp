@@ -22,13 +22,13 @@ public class IngredientStorageTest {
     public void setUp() {
         IngredientStorage.clear();
 
-        this.ingredient1 = new Ingredient(1, "Sugar", "2025-12-31", 500);
-        this.ingredient2 = new Ingredient(2, "Salt", "2025-06-30", 300);
-        this.ingredient3 = new Ingredient(3, "Sugar", "2025-12-31", 200);
+        this.ingredient1 = new Ingredient( "Sugar", "2025-12-31", 500);
+        this.ingredient2 = new Ingredient( "Salt", "2025-06-30", 300);
+        this.ingredient3 = new Ingredient( "Sugar", "2025-12-31", 200);
 
         // Already expired (yesterday)
         String yesterday = LocalDate.now().minusDays(1).toString();
-        this.expiredIngredient = new Ingredient(5, "Butter", yesterday, 50);
+        this.expiredIngredient = new Ingredient( "Butter", yesterday, 50);
     }
 
     @Test
@@ -53,7 +53,7 @@ public class IngredientStorageTest {
 
     @Test
     public void testAddToStorage_differentExpiryDates() {
-        Ingredient differentExpiry = new Ingredient(1, "Sugar", "2026-01-01", 200);
+        Ingredient differentExpiry = new Ingredient( "Sugar", "2026-01-01", 200);
 
         IngredientStorage.addToStorage(ingredient1);
         IngredientStorage.addToStorage(differentExpiry);
@@ -121,7 +121,7 @@ public class IngredientStorageTest {
 
     @Test
     public void testUseIngredients_handlesMultipleExpiry() {
-        Ingredient earlyExpiry = new Ingredient(6, "Sugar", "2025-01-01", 200);
+        Ingredient earlyExpiry = new Ingredient( "Sugar", "2025-01-01", 200);
 
         IngredientStorage.addToStorage(earlyExpiry);
         IngredientStorage.addToStorage(ingredient1);
