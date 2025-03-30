@@ -16,10 +16,13 @@ public class ViewCommand {
     public static final String COMMAND_WORD = "view";
 
     public static void displayDishMonth(int month) throws InvalidInputException {
-        if (month <1 || month >12){
+        if (month < 1 || month > 12) {
 
             throw new InvalidInputException();
         }
+        assert month >= 1;
+        assert month <= 12;
+
         int year = LocalDate.now().getYear();
         LocalDate startOfMonth = LocalDate.of(year, month, 1);
         int lengthOfMonth = LocalDate.now().lengthOfMonth();
@@ -37,6 +40,7 @@ public class ViewCommand {
         Ui.printDishListView(sortDishesByDateStream(filteredList));
 
     }
+
     public static List<Dish> sortDishesByDateStream(ArrayList<Dish> dishes) {
         return dishes.stream()
                 .sorted(Comparator.comparing(dish -> dish.getDishDate().getDateLocalDate()))
