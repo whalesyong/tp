@@ -209,24 +209,21 @@ public class Parser {
     public static HashMap<String, String> parseIngredient(String command) {
         HashMap<String, String> data = new HashMap<>();
         // Split by "-" but keep the first part (command) intact
-        String[] parts = command.split("-(?=ingredient=|quantity=|expiry=)");
-        Pattern quantityPattern = Pattern.compile("\\d+"); // Matches positive numbers
+        String[] parts = command.split("-");
         for (String part : parts) {
             if (part.startsWith("ingredient=")) {
-                data.put("ingredient", part.substring(11).trim());
+                String ingredient = part.substring(11).trim();
+                data.put("ingredient", ingredient);
             } else if (part.startsWith("quantity=")) {
                 String quantity = part.substring(9).trim();
-                if (quantityPattern.matcher(quantity).matches()) {
-                    data.put("quantity", quantity);
-                } else {
-                    System.out.println("Invalid quantity format.");
-                    return null; // Exit early if quantity is invalid
-                }
+                data.put("quantity", quantity);
             } else if (part.startsWith("expiry=")) {
-                data.put("expiry_date", part.substring(7).trim());
+                String expiry = part.substring(7).trim();
+                data.put("expiry_date", expiry);
+            } else if (!part.isEmpty()) {
+                return null;
             }
         }
-        // Default values
         data.putIfAbsent("quantity", "1");
         data.putIfAbsent("expiry_date", "None");
         return data;

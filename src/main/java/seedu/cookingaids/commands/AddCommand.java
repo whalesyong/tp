@@ -79,7 +79,8 @@ public class AddCommand {
             System.out.println("Added Recipe: " + recipeName);
             System.out.println("Ingredients: " + ingredients);
         } catch (InvalidInputException e) {
-            System.out.println("Invalid format, recipe should have at least one ingredient (use -needs=ingredientName)");
+            System.out.println("Invalid format, " +
+                    "recipe should have at least one ingredient (use -needs=ingredientName)");
         }
 
     }
@@ -96,28 +97,41 @@ public class AddCommand {
     }
 
     public static void addIngredient(String receivedText) {
-        String inputs = removeCommandWord(receivedText);
-        HashMap<String, String> ingredientFields = Parser.parseIngredient(inputs);
-
-        assert ingredientFields != null : "Parsed ingredient fields should not be null";
-        assert ingredientFields.containsKey("ingredient") : "Missing 'ingredient' key";
-        assert ingredientFields.containsKey("expiry_date") : "Missing 'expiry_date' key";
-        assert ingredientFields.containsKey("quantity") : "Missing 'quantity' key";
-
-        String ingredientName = ingredientFields.get("ingredient");
-        String expiryDate = ingredientFields.get("expiry_date");
-        int quantity = Integer.parseInt(ingredientFields.get("quantity"));
-
-        assert ingredientName != null && !ingredientName.isEmpty() : "Ingredient name should not be empty";
-        assert expiryDate != null && !expiryDate.isEmpty() : "Expiry date should not be empty";
-        assert quantity > 0 : "Quantity should be greater than zero";
-
-        Ingredient ingredient = new Ingredient(1, ingredientName, expiryDate, quantity);
-        IngredientStorage.addToStorage(ingredient);
-
-        System.out.println("Added Ingredient: " + ingredient);
+        try {
+            String inputs = removeCommandWord(receivedText);
+            HashMap<String, String> ingredientFields = Parser.parseIngredient(inputs);
+            if (ingredientFields == null) {
+                System.out.println("Failed to parse ingredient, please check your input");
+                return;
+            }
+            assert ingredientFields.containsKey("ingredient") : "Missing 'ingredient' key";
+            assert ingredientFields.containsKey("expiry_date") : "Missing 'expiry_date' key";
+            assert ingredientFields.containsKey("quantity") : "Missing 'quantity' key";
+            String ingredientName = ingredientFields.get("ingredient");
+            if (ingredientName.isEmpty()) {
+                throw new IllegalArgumentException("Ingredient name cannot be empty");
+            }
+            String expiryDate = ingredientFields.get("expiry_date");
+            if (expiryDate.isEmpty()) {
+                throw new IllegalArgumentException("Ingredient name cannot be empty");
+            }
+            int quantity;
+            try {
+                quantity = Integer.parseInt(ingredientFields.get("quantity"));
+                if (quantity < 0) {
+                    throw new IllegalArgumentException("Quantity must be a positive number");
+                }
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("Quantity must be a valid number");
+            }
+            assert quantity > 0 : "Quantity should be greater than zero";
+            Ingredient ingredient = new Ingredient(1, ingredientName, expiryDate, quantity);
+            IngredientStorage.addToStorage(ingredient);
+            System.out.println("Added Ingredient: " + ingredient);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
-
     private static String replaceSpaceWithUnderscore(String input){
         return input.replace(" ", "_");
     }
