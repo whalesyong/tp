@@ -30,10 +30,10 @@ public class IngredientStorage {
 
         // Check if an ingredient with the same expiry date exists, then add quantity
         boolean isMerged = false;
-        for (Ingredient ing : ingredientList) {
+        for (Ingredient ingredient : ingredientList) {
             if (Objects.equals(newIngredient.getExpiryDate().getDateLocalDate(),
-                    ing.getExpiryDate().getDateLocalDate())) {
-                ing.addQuantity(newIngredient.getQuantity());
+                    ingredient.getExpiryDate().getDateLocalDate())) {
+                ingredient.addQuantity(newIngredient.getQuantity());
                 isMerged = true;
                 break; // Exit once merged
             }
@@ -53,6 +53,7 @@ public class IngredientStorage {
         ingredients.put(name, ingredientList);
 
         checkExpiringSoon(name);
+        checkExpiredIngredients(name);
     }
 
     public static void removeIngredient(String ingredientName) {
@@ -84,15 +85,35 @@ public class IngredientStorage {
         LocalDate tomorrow = LocalDate.now().plusDays(1);
         List<Ingredient> ingredientList = ingredients.get(name);
 
-        for (Ingredient ing : ingredientList) {
-            ExpiryDate expiryDate = ing.getExpiryDate();
+        for (Ingredient ingredient : ingredientList) {
+            ExpiryDate expiryDate = ingredient.getExpiryDate();
             if(expiryDate == null){
                 break;
             }
             LocalDate expiryLocalDate =  expiryDate.getDateLocalDate();
 
-            if (expiryLocalDate != null && expiryLocalDate.equals(tomorrow)) {
-                ing.setExpiringSoon(true);
+            if (expiryLocalDate != null) {
+                if (expiryLocalDate.equals(tomorrow)) {
+                    ingredient.setExpiringSoon(true);
+                }
+            }
+        }
+    }
+
+    private static void checkExpiredIngredients(String name) {
+        LocalDate today = LocalDate.now();
+        List<Ingredient> ingredientList = ingredients.get(name);
+
+        for (Ingredient ingredient : ingredientList) {
+            ExpiryDate expiryDate = ingredient.getExpiryDate();
+            if(expiryDate == null){
+                break;
+            }
+            LocalDate expiryLocalDate = expiryDate.getDateLocalDate();
+            if (expiryLocalDate != null) {
+                if (expiryLocalDate.isBefore(today)) {
+                    ingredient.setExpired(true);
+                }
             }
         }
     }
@@ -101,9 +122,12 @@ public class IngredientStorage {
         List<Ingredient> ingredientList = ingredients.getOrDefault(name, new ArrayList<>());
 
         LocalDate today = LocalDate.now();
-        ingredientList.removeIf(ing -> {
-            LocalDate expiryDate = ing.getExpiryDate().getDateLocalDate();
-            return expiryDate != null && expiryDate.isBefore(today);
+        ingredientList.removeIf(ingredient -> {
+            LocalDate expiryDate = ingredient.getExpiryDate().getDateLocalDate();
+            if (expiryDate!=null) {
+                return expiryDate.isBefore(today);
+            }
+            return false;
         });
 
         if (ingredientList.isEmpty()) {
@@ -123,15 +147,15 @@ public class IngredientStorage {
         removeExpiredIngredients(name);
 
         // Reduce quantity starting from the earliest expiry date
-        for (Iterator<Ingredient> iterator = ingredientList.iterator(); iterator.hasNext() && amount > 0; ) {
-            Ingredient ing = iterator.next();
-            int currentQuantity = ing.getQuantity();
+        for (Iterator<Ingredient> looker = ingredientList.iterator(); looker.hasNext() && amount > 0; ) {
+            Ingredient ingredient = looker.next();
+            int currentQuantity = ingredient.getQuantity();
 
             if (currentQuantity <= amount) {
                 amount -= currentQuantity;
-                iterator.remove(); // Remove if quantity reaches 0
+                looker.remove(); // Remove if quantity reaches 0
             } else {
-                ing.removeQuantity(amount);
+                ingredient.removeQuantity(amount);
                 amount = 0; // All required quantity is deducted
             }
         }
@@ -156,6 +180,21 @@ public class IngredientStorage {
         }
 
         return unexpiredQuantity;
+    }
+
+    public static int getExpiringSoonIngredients(String ingredientName) {
+        List<Ingredient> ingredientList = ingredients.getOrDefault(ingredientName, new ArrayList<>());
+        int expiringSoonQuantity = 0;
+        LocalDate tomorrow = LocalDate.now().plusDays(1);
+        for (Ingredient ingredient : ingredientList) {
+            LocalDate expiryDate = ingredient.getExpiryDate().getDateLocalDate();
+            if (expiryDate != null) {
+                if (expiryDate.equals(tomorrow)) {
+                    expiringSoonQuantity += ingredient.getQuantity();
+                }
+            }
+        }
+        return expiringSoonQuantity;
     }
 
     //FOR DEBUGGING. TODO remove statement
