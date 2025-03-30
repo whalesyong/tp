@@ -31,34 +31,36 @@ public class DishCalendar {
     public static void addDishToCalendar(Dish dish) {
         if (RecipeBank.contains(dish.getName())) {
             List<Ingredient> ingredientList = getIngredientList(dish);
+            if (ingredientList != null) {
 
-            assert ingredientList != null;
-            for (Ingredient ingredient : ingredientList) {
+                assert ingredientList != null;
+                for (Ingredient ingredient : ingredientList) {
 
-                int requiredQuantity = ingredient.getQuantity();
-                if (IngredientStorage.contains(ingredient.getName())) {
-                    int totalQuantity = getTotalQuantity(ingredient);
-                    if (totalQuantity > requiredQuantity) {
+                    int requiredQuantity = ingredient.getQuantity();
+                    if (IngredientStorage.contains(ingredient.getName())) {
+                        int totalQuantity = getTotalQuantity(ingredient);
+                        if (totalQuantity > requiredQuantity) {
 
-                        IngredientStorage.useIngredients(ingredient.getName(), requiredQuantity);
-                    }
-                    if (totalQuantity < requiredQuantity) {
+                            IngredientStorage.useIngredients(ingredient.getName(), requiredQuantity);
+                        }
+                        if (totalQuantity < requiredQuantity) {
 
-                        IngredientStorage.removeIngredient(ingredient.getName());
-                        ingredient.setQuantity(requiredQuantity - totalQuantity);
+                            IngredientStorage.removeIngredient(ingredient.getName());
+                            ingredient.setQuantity(requiredQuantity - totalQuantity);
+                            ShoppingList.addToShoppingList(ingredient);
+
+                        }
+                        if (totalQuantity == requiredQuantity) {
+
+                            IngredientStorage.removeIngredient(ingredient.getName());
+                        }
+
+                    } else {
                         ShoppingList.addToShoppingList(ingredient);
-
                     }
-                    if (totalQuantity == requiredQuantity) {
-
-                        IngredientStorage.removeIngredient(ingredient.getName());
-                    }
-
-                } else {
-                    ShoppingList.addToShoppingList(ingredient);
                 }
-            }
 
+            }
         }
 
         dishCalendar.add(dish);
