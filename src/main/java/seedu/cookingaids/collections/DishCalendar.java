@@ -29,25 +29,25 @@ public class DishCalendar {
     }
 
     public static void addDishToCalendar(Dish dish) {
-        if(RecipeBank.contains(dish.getName())) {
-            List<String> ingredientList = getIngredientList(dish);
-//            for(Ingredient ingredient: ingredientList)
+//        if(RecipeBank.contains(dish.getName())) {
+////            List<String> ingredientList = getIngredientList(dish);
+////            for(Ingredient ingredient: ingredientList)
+//            dishCalendar.add(dish);
+//        }
+//        else {
             dishCalendar.add(dish);
-        }
-        else {
-            dishCalendar.add(dish);
-        }
+//        }
 
     }
-    public static List<String> getIngredientList(Dish dish) {
-        ArrayList<Recipe> recipeBank = RecipeBank.getRecipeBank();
-        for (Recipe item : recipeBank) {
-            if (item.getName().equals(dish.getName())) {
-                return item.getIngredients();
-            }
-
-        }
-    }
+//    public static List<String> getIngredientList(Dish dish) {
+//        ArrayList<Recipe> recipeBank = RecipeBank.getRecipeBank();
+//        for (Recipe item : recipeBank) {
+//            if (item.getName().equals(dish.getName())) {
+//                return item.getIngredients();
+//            }
+//
+//        }
+//    }
 
     public static List<Dish> getDishesByName(String dishName) {
         List<Dish> matchingDishes = new ArrayList<>();
