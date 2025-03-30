@@ -8,13 +8,11 @@ import seedu.cookingaids.collections.ShoppingList;
 import seedu.cookingaids.items.Dish;
 import seedu.cookingaids.items.Ingredient;
 import seedu.cookingaids.items.Recipe;
-import seedu.cookingaids.ui.CalendarPrinter;
+
 import seedu.cookingaids.ui.Ui;
 
-import java.time.LocalDate;
-import java.time.Month;
+
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,9 +21,22 @@ public class ListCommand {
     public static final String COMMAND_WORD = "list";
 
     public static void displayDishList(String receivedString) {
-
         ArrayList<Dish> listOfDish = DishCalendar.getDishCalendar();
-        Ui.printDishListView(listOfDish);
+
+        // Separate valid dishes from invalid ones
+        List<Dish> validDishes = listOfDish.stream()
+                .filter(dish -> dish.getDishDate() != null && dish.getDishDate().getDateLocalDate() != null)
+                .toList();
+
+        List<Dish> invalidDishes = listOfDish.stream()
+                .filter(dish -> dish.getDishDate() == null || dish.getDishDate().getDateLocalDate() == null)
+                .toList();
+
+        // Sort and print valid dishes
+        Ui.printDishListView(ViewCommand.sortDishesByDateStream(validDishes));
+        Ui.printDishListView(invalidDishes);
+
+
 
     }
 

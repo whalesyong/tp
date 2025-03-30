@@ -46,5 +46,10 @@ public class ViewCommand {
                 .sorted(Comparator.comparing(dish -> dish.getDishDate().getDateLocalDate()))
                 .toList();
     }
+    public static List<Dish> sortDishesByDateStream(List<Dish> dishes) {
+        return dishes.stream()
+                .sorted(Comparator.comparing(dish -> dish.getDishDate().getDateLocalDate()))
+                .toList();
+    }
 
 }
