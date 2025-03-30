@@ -10,11 +10,11 @@ import java.util.ArrayList;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Recipe {
     private String recipeName;
-    private ArrayList<String> ingredients;
+    private ArrayList<Ingredient> ingredients;
 
     @JsonCreator
     public Recipe(@JsonProperty("name") String recipeName,
-                  @JsonProperty("ingredients") ArrayList<String> ingredients) {
+                  @JsonProperty("ingredients") ArrayList<Ingredient> ingredients) {
         this.recipeName = recipeName;
         this.ingredients = (ingredients != null) ? ingredients : new ArrayList<>();
     }
@@ -32,11 +32,11 @@ public class Recipe {
         this.recipeName = recipeName;
     }
 
-    public ArrayList<String> getIngredients() {
+    public ArrayList<Ingredient> getIngredients() {
         return this.ingredients;
     }
 
-    public void setIngredients(ArrayList<String> ingredients) {
+    public void setIngredients(ArrayList<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
