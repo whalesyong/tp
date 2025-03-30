@@ -46,17 +46,14 @@ With CookingAids, you can:
 
 ### **1. Viewing Help: `help`** {#viewing-help-help}  
 
-Displays a message showing how to access the help page.  
-
+Displays a link to this guide. 
 **Format:**  
 ```plaintext
 help
 ```
 
-**Expected Output:**  
-```plaintext
-help: <photo of CLI showing the link to User Guide on GitHub>
-```
+**Expected Output:**  \
+![alt text](help_image.png)
 
 ---
 

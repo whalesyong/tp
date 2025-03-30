@@ -6,15 +6,17 @@ public class Ingredient extends Food{
     public ExpiryDate expiryDate;
     private int quantity;
     private boolean expiringSoon = false;
-
+    private  String name;
     public Ingredient(int id, String name) {
         super(id, name);
+        this.name = name;
     }
 
     public Ingredient(int id, String name, int quantity ) {
         super(id, name);
         this.quantity = quantity;
         expiryDate = new ExpiryDate("None");
+        this.name = name;
     }
     @JsonCreator
     public Ingredient(@JsonProperty("id") int id, @JsonProperty("name") String name,
@@ -22,6 +24,7 @@ public class Ingredient extends Food{
         super(id, name);
         this.expiryDate = new ExpiryDate(expiryDate);
         this.quantity = quantity;
+        this.name = name;
     }
     public void setQuantity(int quantity){
         this.quantity = quantity;
@@ -35,6 +38,8 @@ public class Ingredient extends Food{
         return expiryDate;
     }
 
+    public String getName() { return name; }
+
     public void addQuantity(int quantity) {
         this.quantity += quantity;
     }
@@ -46,6 +51,7 @@ public class Ingredient extends Food{
     public void setExpiringSoon(boolean b) {
         this.expiringSoon = b;
     }
+
 
     @Override
     public void displayInfo() {
