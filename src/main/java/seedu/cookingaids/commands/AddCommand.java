@@ -16,6 +16,8 @@ public class AddCommand {
     public static final String COMMAND_WORD = "add";
     private static final int SPACE = 1;
     private static final String INGREDIENT_SEPARATOR = ",";
+    private static int nextId = 1;
+
 
     public static String removeCommandWord(String receivedText) {
         assert receivedText != null : "Received text should not be null";
@@ -102,7 +104,6 @@ public class AddCommand {
     }
 
     // Helper method to generate IDs for ingredients
-    private static int nextId = 1;
     private static int generateNextId() {
         return nextId++;
     }

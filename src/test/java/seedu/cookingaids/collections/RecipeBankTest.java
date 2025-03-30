@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.cookingaids.items.Ingredient;
 import seedu.cookingaids.items.Recipe;
 
 import java.util.ArrayList;
@@ -26,10 +27,21 @@ class RecipeBankTest {
 
         // Create test recipes
         testRecipe1 = new Recipe("Spaghetti Carbonara");
-        testRecipe1.setIngredients(new ArrayList<>(Arrays.asList("Pasta", "Eggs", "Pancetta", "Cheese")));
+        testRecipe1.setIngredients(new ArrayList<>(Arrays.asList(
+                new Ingredient(0, "Pasta"),
+                new Ingredient(1, "Eggs"),
+                new Ingredient(2, "Cheese")
+        )));
 
         testRecipe2 = new Recipe("Chocolate Cake");
-        testRecipe2.setIngredients(new ArrayList<>(Arrays.asList("Flour", "Sugar", "Cocoa", "Eggs", "Butter")));
+        testRecipe1.setIngredients(new ArrayList<>(Arrays.asList(
+                new Ingredient(0, "Flour"),
+                new Ingredient(1, "Sugar"),
+                new Ingredient(2, "Cocoa"),
+                new Ingredient(3, "Eggs"),
+                new Ingredient(4, "Butter")
+        )));
+
 
         testRecipes = Arrays.asList(testRecipe1, testRecipe2);
     }

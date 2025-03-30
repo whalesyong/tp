@@ -1,6 +1,5 @@
 package seedu.cookingaids.commands;
 
-import java.awt.desktop.SystemEventListener;
 
 public class HelpCommand {
 
