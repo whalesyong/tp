@@ -77,7 +77,7 @@ class AddCommandTest {
 
         AddCommand.addRecipe("add -recipe=Pizza -needs=Tomato,Cheese");
 
-        assertTrue(RecipeBank.contains("Pizza"));
+        assertTrue(RecipeBank.contains("pizza"));
     }
 
     @Test

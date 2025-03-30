@@ -34,25 +34,28 @@ public class DishCalendar {
 
             assert ingredientList != null;
             for (Ingredient ingredient : ingredientList) {
-                System.out.println(ingredient.getName());
+
                 int requiredQuantity = ingredient.getQuantity();
                 if (IngredientStorage.contains(ingredient.getName())) {
                     int totalQuantity = getTotalQuantity(ingredient);
                     if (totalQuantity > requiredQuantity) {
-                        System.out.println("case 1" + ingredient.getName());
+
                         IngredientStorage.useIngredients(ingredient.getName(), requiredQuantity);
                     }
                     if (totalQuantity < requiredQuantity) {
-                        System.out.println("case 2" + ingredient.getName());
+
                         IngredientStorage.removeIngredient(ingredient.getName());
                         ingredient.setQuantity(requiredQuantity - totalQuantity);
                         ShoppingList.addToShoppingList(ingredient);
 
                     }
                     if (totalQuantity == requiredQuantity) {
-                        System.out.println("case 3" + ingredient.getName());
+
                         IngredientStorage.removeIngredient(ingredient.getName());
                     }
+
+                } else {
+                    ShoppingList.addToShoppingList(ingredient);
                 }
             }
 
@@ -66,7 +69,6 @@ public class DishCalendar {
     private static int getTotalQuantity(Ingredient ingredient) {
         List<Ingredient> storedIngredients = IngredientStorage.getIngredients(ingredient.getName());
         int totalQuantity = 0;
-        System.out.println(ingredient.getName());
         for (Ingredient storedIngredient : storedIngredients) {
 
             totalQuantity += storedIngredient.getQuantity();
@@ -107,9 +109,30 @@ public class DishCalendar {
     }
 
     public static void removeDishInCalendar(Dish dish) {
+        if (RecipeBank.contains(dish.getName())) {
+            // Get the ingredient list for the dish from the RecipeBank
+            List<Ingredient> ingredientList = getIngredientList(dish);
 
+            // Ensure the ingredient list is not null
+            assert ingredientList != null;
+
+            // Loop through all the ingredients in the dish
+            for (Ingredient ingredient : ingredientList) {
+
+
+                // Check if the ingredient is in the shopping list
+                if (ShoppingList.contains(ingredient.getName())) {
+                    ShoppingList.removeFromShoppingList(ingredient);
+                } else {
+                    IngredientStorage.addToStorage(ingredient);
+                }
+
+
+            }
+
+        }
+        // Finally, remove the dish from the calendar
         dishCalendar.remove(dish);
-
     }
 
 

@@ -12,6 +12,28 @@ public class ShoppingList {
         return shoppingList;
     }
 
+    public static int getIngredientQuantity(String ingredientName) {
+        for (Ingredient item : shoppingList) {
+            if (item.getName().equals(ingredientName)) ;
+            {// Update quantity
+                return item.getQuantity();
+            }
+
+        }
+        return 0;
+
+    }
+
+    public static void removeQuantity(String ingredientName, int quantity) {
+        for (Ingredient item : shoppingList) {
+            if (item.getName().equals(ingredientName)) {// Update quantity
+                item.removeQuantity(quantity);
+            }
+
+        }
+
+    }
+
 
     public static void addToShoppingList(Ingredient ingredient) {
         for (Ingredient item : shoppingList) {
@@ -20,8 +42,12 @@ public class ShoppingList {
                 return;
             }
         }
-        System.out.println("added");
+
         shoppingList.add(ingredient);
+    }
+
+    public static boolean contains(String ingredientName) {
+        return shoppingList.stream().anyMatch(ingredient -> ingredient.getName().equalsIgnoreCase(ingredientName));
     }
 
     public static Ingredient removeFromShoppingList(Ingredient ingredient) {
