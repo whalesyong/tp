@@ -97,7 +97,7 @@ class SuggestTest {
         List<Recipe> suggestedRecipes = Suggest.suggestRecipes();
 
         assertEquals(1, suggestedRecipes.size());
-        assertEquals("Grilled Cheese", suggestedRecipes.get(0).getName());
+        assertEquals("Grilled Cheese", suggestedRecipes.get(0).getRecipeName());
     }
 
     @Test
@@ -132,7 +132,7 @@ class SuggestTest {
         assertEquals(2, suggestedRecipes.size());
         List<String> suggestedRecipeNames = new ArrayList<>();
         for (Recipe recipe : suggestedRecipes) {
-            suggestedRecipeNames.add(recipe.getName());
+            suggestedRecipeNames.add(recipe.getRecipeName());
         }
         assertTrue(suggestedRecipeNames.contains("Grilled Cheese"));
         assertTrue(suggestedRecipeNames.contains("Tomato Sandwich"));

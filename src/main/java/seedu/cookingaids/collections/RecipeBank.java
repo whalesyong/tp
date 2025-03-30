@@ -23,11 +23,11 @@ public class RecipeBank {
 
     public static void removeRecipeFromRecipeBank(String command) {
         String recipeName = command.replace("delete -recipe=", "").trim();  // Extract name
-        recipeBank.removeIf(recipe -> recipe.getName().equalsIgnoreCase(recipeName));
+        recipeBank.removeIf(recipe -> recipe.getRecipeName().equalsIgnoreCase(recipeName));
     }
 
     public static boolean contains(String recipeName) {
-        return recipeBank.stream().anyMatch(recipe -> recipe.getName().equalsIgnoreCase(recipeName));
+        return recipeBank.stream().anyMatch(recipe -> recipe.getRecipeName().equalsIgnoreCase(recipeName));
     }
 
     public static void clear() {
