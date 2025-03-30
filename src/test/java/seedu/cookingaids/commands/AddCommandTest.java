@@ -75,7 +75,7 @@ class AddCommandTest {
         ingredients.add(new Ingredient(2, "Pizza"));
         Recipe newRecipe = new Recipe("Pizza", ingredients);
 
-        AddCommand.addRecipe("add -recipe=Pizza -needs=Tomato,Cheese");
+        AddCommand.addRecipe("add -recipe=Pizza -needs=Tomato, 1 ,Cheese, 1");
 
         assertTrue(RecipeBank.contains("Pizza"));
     }
@@ -116,7 +116,7 @@ class AddCommandTest {
         ingredients.add(new Ingredient(1, "Bread"));
         Recipe incompleteRecipe = new Recipe("Toast", ingredients);
 
-        AddCommand.addRecipe("add -recipe=Toast -needs=Bread");
+        AddCommand.addRecipe("add -recipe=Toast -needs=Bread, 1");
 
         assertAddRecipeSuccessful("Toast");
     }

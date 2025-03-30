@@ -49,8 +49,6 @@ public class Storage {
         File file = new File(FILE_PATH);
         file.getParentFile().mkdirs();
 
-        //print map. FOR DEBUGGING
-        //TODO: remove debug statememt
 
 
         try {

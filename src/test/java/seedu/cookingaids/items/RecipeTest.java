@@ -53,7 +53,7 @@ class RecipeTest {
 
     @Test
     void setRecipeName() {
-        String newName = "Spaghetti Carbonara";
+        String newName = "Spaghetti_Carbonara";
         testRecipe.setRecipeName(newName);
         assertEquals(newName, testRecipe.getRecipeName());
     }
@@ -61,8 +61,11 @@ class RecipeTest {
     @Test
     void getIngredients() {
         assertEquals(ingredients, testRecipe.getIngredients());
-        assertEquals(5, testRecipe.getIngredients().size());
-        assertTrue(testRecipe.getIngredients().contains("Eggs"));
+        assertEquals(4, testRecipe.getIngredients().size());
+        assertTrue(testRecipe.getIngredients()
+                .stream()
+                .anyMatch(ingredient -> ingredient.getName().equals("Egg")));
+
     }
 
     @Test
@@ -77,14 +80,19 @@ class RecipeTest {
         testRecipe.setIngredients(newIngredients);
         assertEquals(newIngredients, testRecipe.getIngredients());
         assertEquals(4, testRecipe.getIngredients().size());
-        assertTrue(testRecipe.getIngredients().contains("Flour"));
-        assertFalse(testRecipe.getIngredients().contains("Spaghetti"));
+        assertTrue(testRecipe.getIngredients()
+                .stream()
+                .anyMatch(ingredient -> ingredient.getName().equals("Flour")));
+
+        assertFalse(testRecipe.getIngredients()
+                .stream()
+                .anyMatch(ingredient -> ingredient.getName().equals("Spaghetti")));
+
     }
 
     @Test
     void testToString() {
-        String expected = "Recipe named 'Pasta Carbonara' needs ingredients " +
-                "[Spaghetti, Eggs, Pancetta, Parmesan, Black Pepper]";
+        String expected = "Recipe named 'Pasta Carbonara' needs ingredients [Spaghetti (0, Expiring Soon: []), Egg (0, Expiring Soon: []), Parmesan (0, Expiring Soon: []), Black Pepper (0, Expiring Soon: [])]";
         assertEquals(expected, testRecipe.toString());
     }
 }
