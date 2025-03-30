@@ -33,7 +33,11 @@ public class ListCommand {
                 .toList();
 
         // Sort and print valid dishes
+        System.out.println("All dishes:");
         Ui.printDishListView(ViewCommand.sortDishesByDateStream(validDishes));
+        if(!invalidDishes.isEmpty()){
+            System.out.println("Unscheduled Dishes:");
+        }
         Ui.printDishListView(invalidDishes);
 
 
