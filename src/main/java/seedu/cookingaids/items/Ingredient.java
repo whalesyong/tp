@@ -53,6 +53,7 @@ public class Ingredient extends Food {
     }
 
     public void removeQuantity(int quantity) {
+        assert quantity > 0 : "Quantity should be more than 0";
         this.quantity -= quantity;
     }
 
