@@ -16,6 +16,37 @@
       "expiryDate" : {
         "dateString" : "None"
       }
+    } ],
+    "mee -exp" : [ {
+      "id" : 1,
+      "name" : "mee -exp",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ],
+    "tomato" : [ {
+      "id" : 1,
+      "name" : "tomato",
+      "quantity" : 5,
+      "expiryDate" : {
+        "dateString" : "03/04/2025"
+      }
+    }, {
+      "id" : 1,
+      "name" : "tomato",
+      "quantity" : 5,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ],
+    "mee" : [ {
+      "id" : 1,
+      "name" : "mee",
+      "quantity" : 3,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
     } ]
   },
   "dishes" : [ {
@@ -67,6 +98,11 @@
     "name" : "digglets",
     "dishDate" : {
       "dateString" : "01/03/2025"
+    }
+  }, {
+    "name" : "pasta",
+    "dishDate" : {
+      "dateString" : "None"
     }
   } ]
 }
