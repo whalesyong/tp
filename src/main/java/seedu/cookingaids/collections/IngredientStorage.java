@@ -20,6 +20,11 @@ public class IngredientStorage {
         ingredients = newIngredients;
     }
     public static void addToStorage(Ingredient newIngredient) {
+        newIngredient = ShoppingList.removeFromShoppingList(newIngredient);
+        if(newIngredient == null){
+            return;
+        }
+        
         String name = newIngredient.getName();
         List<Ingredient> ingredientList = ingredients.getOrDefault(name, new ArrayList<>());
 
@@ -190,6 +195,16 @@ public class IngredientStorage {
             }
         }
         return expiringSoonQuantity;
+    }
+    public static int getTotalIngredientQuantity(Ingredient ingredient) {
+        List<Ingredient> storedIngredients = IngredientStorage.getIngredients(ingredient.getName());
+        int totalQuantity = 0;
+        for (Ingredient storedIngredient : storedIngredients) {
+
+            totalQuantity += storedIngredient.getQuantity();
+
+        }
+        return totalQuantity;
     }
 
     //FOR DEBUGGING. TODO remove statement

@@ -2,18 +2,15 @@ package seedu.cookingaids.collections;
 
 import seedu.cookingaids.items.Dish;
 import seedu.cookingaids.items.DishDate;
+import seedu.cookingaids.items.Ingredient;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class DishCalendar {
-    public static ArrayList<Dish> dishCalendar = new ArrayList<>();
-    private static int currentId = 1; // Keeps track of the latest assigned ID
+    private static ArrayList<Dish> dishCalendar = new ArrayList<>();
 
-    public static synchronized int generateNewDishId() {
-        return currentId++; // Increment and return the next ID
-    }
     public static void initializeDishCalendar(List<Dish> dishes) {
         dishCalendar.addAll(dishes);
     }
@@ -21,18 +18,54 @@ public class DishCalendar {
     public static ArrayList<Dish> getDishCalendar() {
         return dishCalendar;
     }
-    public static List<Dish> getAllDishes() {
-        return new ArrayList<>(dishCalendar);
-    }
+
     public static void setDishCalendar(ArrayList<Dish> dishCalendar) {
         DishCalendar.dishCalendar = dishCalendar;
     }
 
     public static void addDishToCalendar(Dish dish) {
+        if (RecipeBank.contains(dish.getName())) {
+            List<Ingredient> ingredientList = RecipeBank.getIngredientList(dish);
+            if (ingredientList != null) {
+
+                assert ingredientList != null;
+                for (Ingredient ingredient : ingredientList) {
+
+                    int requiredQuantity = ingredient.getQuantity();
+                    if (IngredientStorage.contains(ingredient.getName())) {
+                        int totalQuantity = IngredientStorage.getTotalIngredientQuantity(ingredient);
+                        if (totalQuantity > requiredQuantity) {
+
+                            IngredientStorage.useIngredients(ingredient.getName(), requiredQuantity);
+                        }
+                        if (totalQuantity < requiredQuantity) {
+
+                            IngredientStorage.removeIngredient(ingredient.getName());
+                            ingredient.setQuantity(requiredQuantity - totalQuantity);
+                            ShoppingList.addToShoppingList(ingredient);
+
+                        }
+                        if (totalQuantity == requiredQuantity) {
+
+                            IngredientStorage.removeIngredient(ingredient.getName());
+                        }
+
+                    } else {
+                        ShoppingList.addToShoppingList(ingredient);
+                    }
+                }
+
+            }
+        }
 
         dishCalendar.add(dish);
 
+
     }
+
+
+
+
 
     public static List<Dish> getDishesByName(String dishName) {
         List<Dish> matchingDishes = new ArrayList<>();
@@ -43,6 +76,7 @@ public class DishCalendar {
         }
         return matchingDishes;
     }
+
     public static List<Dish> getDishesByDate(String date) {
         List<Dish> matchingDishes = new ArrayList<>();
         for (Dish dish : dishCalendar) {
@@ -54,22 +88,32 @@ public class DishCalendar {
     }
 
     public static void removeDishInCalendar(Dish dish) {
+        if (RecipeBank.contains(dish.getName())) {
+            // Get the ingredient list for the dish from the RecipeBank
+            List<Ingredient> ingredientList = RecipeBank.getIngredientList(dish);
 
-        dishCalendar.remove(dish);
+            // Ensure the ingredient list is not null
+            assert ingredientList != null;
 
-    }
+            // Loop through all the ingredients in the dish
+            for (Ingredient ingredient : ingredientList) {
 
-    public void removeDishInCalendarByDate(String date) {
-        date = date.trim().toLowerCase();
-        ArrayList<Dish> dishesToBeRemoved = new ArrayList<Dish>();
-        for(Dish d : dishCalendar){
-            DishDate dishDate = d.getDishDate();
-            if (date.equals(dishDate.toString().toLowerCase())){
-                dishesToBeRemoved.add(d);
+
+                // Check if the ingredient is in the shopping list
+                if (ShoppingList.contains(ingredient.getName())) {
+                    ShoppingList.removeFromShoppingList(ingredient);
+                } else {
+                    IngredientStorage.addToStorage(ingredient);
+                }
+
+
             }
+
         }
-        dishCalendar.remove(dishesToBeRemoved);
+        // Finally, remove the dish from the calendar
+        dishCalendar.remove(dish);
     }
+
 
     public boolean containsDish(String dishName) {
         for (Dish dish : dishCalendar) {

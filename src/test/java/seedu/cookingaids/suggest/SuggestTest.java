@@ -34,11 +34,11 @@ class SuggestTest {
 
         // Prepare test ingredients
         List<Ingredient> testIngredients = List.of(
-                new Ingredient(0, "pasta", 1),
-                new Ingredient(0, "chicken", 2),
-                new Ingredient(0, "sauce", 3),
-                new Ingredient(0, "milk", 4),
-                new Ingredient(0, "cheese", 5)
+                new Ingredient( "pasta", 1),
+                new Ingredient( "chicken", 2),
+                new Ingredient( "sauce", 3),
+                new Ingredient( "milk", 4),
+                new Ingredient("cheese", 5)
         );
 
         // Simulate a real storage by using a HashMap
@@ -74,21 +74,21 @@ class SuggestTest {
     void suggestRecipes_someIngredientsMissing_returnsMatchingRecipesOnly() {
         // Mock ingredient storage with missing ingredients
         HashMap<String, List<Ingredient>> ingredientMap = new HashMap<>();
-        ingredientMap.put("Cheese", List.of(new Ingredient(0,"Cheese", 1)));
-        ingredientMap.put("Bread", List.of(new Ingredient(0, "Bread", 1)));
+        ingredientMap.put("Cheese", List.of(new Ingredient("Cheese", 1)));
+        ingredientMap.put("Bread", List.of(new Ingredient( "Bread", 1)));
         mockedIngredientStorage.when(IngredientStorage::getStorage).thenReturn(ingredientMap);
 
         // Mock recipe bank
         Recipe recipe1 = new Recipe("Grilled Cheese", new ArrayList<Ingredient>(
                 List.of(
-                        new Ingredient(1, "cheese"),
-                        new Ingredient(2, "bread")
+                        new Ingredient("cheese"),
+                        new Ingredient( "bread")
                 )
         ));
         Recipe recipe2 = new Recipe("Tomato Sandwich", new ArrayList<>(
                 List.of(
-                        new Ingredient(1, "tomato"),
-                        new Ingredient(2, "bread")
+                        new Ingredient( "tomato"),
+                        new Ingredient( "bread")
                 )
         ));
         ArrayList<Recipe> recipes = new ArrayList<>(List.of(recipe1, recipe2));
@@ -97,29 +97,29 @@ class SuggestTest {
         List<Recipe> suggestedRecipes = Suggest.suggestRecipes();
 
         assertEquals(1, suggestedRecipes.size());
-        assertEquals("Grilled Cheese", suggestedRecipes.get(0).getName());
+        assertEquals("Grilled Cheese", suggestedRecipes.get(0).getRecipeName());
     }
 
     @Test
     void suggestRecipes_allIngredientsPresent_returnsMatchingRecipes() {
         // Set up the ingredient storage with all required ingredients
         HashMap<String, List<Ingredient>> ingredientMap = new HashMap<>();
-        ingredientMap.put("Cheese", List.of(new Ingredient(0, "Cheese", 1)));
-        ingredientMap.put("Bread", List.of(new Ingredient(0, "Bread", 1)));
-        ingredientMap.put("Tomato", List.of(new Ingredient(0, "Tomato", 1)));
+        ingredientMap.put("Cheese", List.of(new Ingredient( "Cheese", 1)));
+        ingredientMap.put("Bread", List.of(new Ingredient( "Bread", 1)));
+        ingredientMap.put("Tomato", List.of(new Ingredient( "Tomato", 1)));
         mockedIngredientStorage.when(IngredientStorage::getStorage).thenReturn(ingredientMap);
 
         // Set up the recipe bank
         Recipe recipe1 = new Recipe("Grilled Cheese", new ArrayList<Ingredient>(
                 List.of(
-                        new Ingredient(1, "cheese"),
-                        new Ingredient(2, "bread")
+                        new Ingredient( "cheese"),
+                        new Ingredient( "bread")
                 )
         ));
         Recipe recipe2 = new Recipe("Tomato Sandwich", new ArrayList<>(
                 List.of(
-                        new Ingredient(1, "Tomato"),
-                        new Ingredient(2, "bread")
+                        new Ingredient( "Tomato"),
+                        new Ingredient( "bread")
                 )
         ));
         ArrayList<Recipe> recipes = new ArrayList<>(List.of(recipe1, recipe2));
@@ -132,7 +132,7 @@ class SuggestTest {
         assertEquals(2, suggestedRecipes.size());
         List<String> suggestedRecipeNames = new ArrayList<>();
         for (Recipe recipe : suggestedRecipes) {
-            suggestedRecipeNames.add(recipe.getName());
+            suggestedRecipeNames.add(recipe.getRecipeName());
         }
         assertTrue(suggestedRecipeNames.contains("Grilled Cheese"));
         assertTrue(suggestedRecipeNames.contains("Tomato Sandwich"));

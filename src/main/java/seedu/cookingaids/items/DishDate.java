@@ -9,7 +9,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 
-
 /**
  * represents date of a task
  * holds date as string and as LocalDate type
@@ -18,8 +17,8 @@ import java.time.format.DateTimeParseException;
 public class DishDate {
 
     @JsonIgnore
-    public LocalDate dateLocalDate;
-    public String dateString;
+    private LocalDate dateLocalDate;
+    private String dateString;
 
     /**
      * creates a new instance of dishDate
@@ -34,9 +33,12 @@ public class DishDate {
         this.dateString = date;
         try {
             dateLocalDate = parseDate(date);
-
             dateString = dateLocalDate == null ? "None" : //None set here to match format
                     dateLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            assert dateString != null : "Date string should not be null";
+            assert (dateLocalDate == null || dateLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                    .equals(dateString))
+                    : "dateLocalDate and dateString should be consistent";
 
         } catch (DateTimeParseException e) {
 
@@ -45,7 +47,7 @@ public class DishDate {
     }
 
     private void tryDateFormats() {
-        LocalDate formattedDate = parseDateFormat(dateString);
+        LocalDate formattedDate = parseOtherDateFormat(dateString);
 
         if (formattedDate != null) {
 
@@ -70,8 +72,23 @@ public class DishDate {
         dateString = dateLocalDate == null ? "None" : //None set here to match format
                 dateLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
+    /**
+     * Parses a string into a LocalDate object.
+     * If the string is "none", it returns null.
+     *
+     * @param receivedText The date string to be parsed.
+     * @return The LocalDate corresponding to the parsed string, or null if the string is "none" or invalid.
+     */
+    private LocalDate parseDate(String receivedText) {
+        if (receivedText == null || receivedText.equalsIgnoreCase("none")) {
+            return null;
+        }
+        // Expecting the pattern dd/MM/yyyy as per your formatting
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return LocalDate.parse(receivedText, formatter);
+    }
 
-    public LocalDate parseDateFormat(String dateString) {
+    private LocalDate parseOtherDateFormat(String dateString) {
 
         DateTimeFormatter[] formatters = {
                 DateTimeFormatter.ofPattern("dd/MM/yyyy"),
@@ -90,7 +107,7 @@ public class DishDate {
                 date = LocalDate.parse(dateString, formatter);
                 return date;
             } catch (DateTimeParseException e) {
-               //intentionally left empty for logic purposes
+                //intentionally left empty for logic purposes
 
                 // Tries next format
             }
@@ -122,21 +139,7 @@ public class DishDate {
         return dateString;
     }
 
-    /**
-     * Parses a string into a LocalDate object.
-     * If the string is "none", it returns null.
-     *
-     * @param receivedText The date string to be parsed.
-     * @return The LocalDate corresponding to the parsed string, or null if the string is "none" or invalid.
-     */
-    public static LocalDate parseDate(String receivedText) {
-        if (receivedText == null || receivedText.equalsIgnoreCase("none")) {
-            return null;
-        }
-        // Expecting the pattern dd/MM/yyyy as per your formatting
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return LocalDate.parse(receivedText, formatter);
-    }
+
 
 
 }

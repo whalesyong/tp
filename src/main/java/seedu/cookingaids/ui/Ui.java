@@ -3,6 +3,7 @@ package seedu.cookingaids.ui;
 import seedu.cookingaids.collections.DishCalendar;
 import seedu.cookingaids.collections.IngredientStorage;
 import seedu.cookingaids.collections.RecipeBank;
+import seedu.cookingaids.collections.ShoppingList;
 import seedu.cookingaids.items.Dish;
 import seedu.cookingaids.items.Ingredient;
 import seedu.cookingaids.items.Recipe;
@@ -75,6 +76,14 @@ public class Ui {
         final List<String> formattedItems = new ArrayList<>();
         for (Dish d : dishes) {
             formattedItems.add(d.toString());
+        }
+        printAsIndexedList(formattedItems);
+    }
+    public static void printShoppingListView(ArrayList<Ingredient> shoppingList) {
+        //prints TaskList on console
+        final List<String> formattedItems = new ArrayList<>();
+        for (Ingredient ingredients : shoppingList) {
+            formattedItems.add(ingredients.toString());
         }
         printAsIndexedList(formattedItems);
     }
@@ -160,7 +169,9 @@ public class Ui {
         }
 
         //store list
-        Storage.storeData(DishCalendar.getDishCalendar(), RecipeBank.getRecipeBank(), IngredientStorage.getStorage());
+        Storage.storeData(DishCalendar.getDishCalendar(),
+                RecipeBank.getRecipeBank(), IngredientStorage.getStorage(),
+                ShoppingList.getShoppingList());
     }
 
 

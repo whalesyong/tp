@@ -16,8 +16,6 @@ public class AddCommand {
     public static final String COMMAND_WORD = "add";
     private static final int SPACE = 1;
     private static final String INGREDIENT_SEPARATOR = ",";
-    private static int nextId = 1;
-
 
     public static String removeCommandWord(String receivedText) {
         assert receivedText != null : "Received text should not be null";
@@ -51,6 +49,7 @@ public class AddCommand {
     }
 
     public static void addRecipe(String receivedText) {
+
         try {
             receivedText = removeCommandWord(receivedText);
             String[] recipeFields = Parser.parseRecipe(receivedText);
@@ -79,7 +78,7 @@ public class AddCommand {
                     try {
                         int quantity = Integer.parseInt(quantityStr);
                         // Assuming a static counter or method to generate IDs
-                        Ingredient ingredient = new Ingredient(generateNextId(), ingredientName, quantity);
+                        Ingredient ingredient = new Ingredient(ingredientName, quantity);
                         ingredients.add(ingredient);
                     } catch (NumberFormatException e) {
                         throw new InvalidInputException();
@@ -102,13 +101,12 @@ public class AddCommand {
             System.out.println("Invalid format, recipe should have ingredients and quantities in pairs" +
                     " (use -needs=ingredient_1,quantity_1,ingredient_2,quantity_2)");
 
+            System.out.println("Invalid format, " +
+                    "recipe should have at least one ingredient (use -needs=ingredientName)");
         }
     }
 
-    // Helper method to generate IDs for ingredients
-    private static int generateNextId() {
-        return nextId++;
-    }
+
 
     private static ArrayList<String> parseIngredients(String ingredientsString) {
         ArrayList<String> ingredients = new ArrayList<>();
@@ -151,7 +149,7 @@ public class AddCommand {
                 throw new IllegalArgumentException("Quantity must be a valid number");
             }
             assert quantity > 0 : "Quantity should be greater than zero";
-            Ingredient ingredient = new Ingredient(1, ingredientName, expiryDate, quantity);
+            Ingredient ingredient = new Ingredient( ingredientName, expiryDate, quantity);
             IngredientStorage.addToStorage(ingredient);
             System.out.println("Added Ingredient: " + ingredient);
         } catch (IllegalArgumentException e) {
