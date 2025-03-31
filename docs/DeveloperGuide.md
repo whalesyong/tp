@@ -33,11 +33,13 @@ the command add -ingredient=tomato -quantity=5 -expiry=2025-04-03
 ## Product scope
 ### Target user profile
 
-{Describe the target user profile}
+Students who have to cook meals on a tight budget and have limited free time.
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
+Our app, _COOKING AIDS_ helps students who are studying abroad who have to live on a tight budget plan and prepare 
+their meals effectively. The value our app brings to such students are that they no longer have to spend time and effort
+planning their meals with their limited budget and time.
 
 ## User Stories
 
