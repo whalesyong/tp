@@ -23,15 +23,6 @@ public class ShoppingList {
 
     }
 
-    public static void removeQuantity(String ingredientName, int quantity) {
-        for (Ingredient item : shoppingList) {
-            if (item.getName().equals(ingredientName)) {// Update quantity
-                item.removeQuantity(quantity);
-            }
-
-        }
-
-    }
 
 
     public static void addToShoppingList(Ingredient ingredient) {
