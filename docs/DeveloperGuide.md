@@ -28,16 +28,46 @@ the command add -ingredient=tomato -quantity=5 -expiry=2025-04-03
 
 ![img.png](img.png)
 
+### Collections
 
+#### <ins>Overview</ins>
+
+The Collections component contains classes that perform operations requested by the User on their respective Items
+
+#### <ins>Implementation</ins>
+
+Contains the classes and their respective purposes:
+* `DishCalendar` manages dishes assigned to a respective date
+* `RecipeBank` manages list of recipes learnt
+* `IngredientStorage` manages current inventory of ingredients
+* `ShoppingList` manages ingredients needed to be purchased
+
+These classes all contain temporary storage to hold the result after the operations.
+
+#### <ins>Design Considerations</ins>
+
+We used this design for easier modularity. There are many different items such as Dishes, Recipes, Ingredients
+and they each have their unique purposes and attributes. Hence, we decided to create separate classes that will handle 
+operations on items separately and keep a temporary storage of the results of operations, before storing them in a JSON 
+file.
+
+The following is a class diagram of one of the classes `IngredientStorage`
+![img_2.png](img_2.png)
+
+# Appendix: Requirements
 
 ## Product scope
 ### Target user profile
 
-{Describe the target user profile}
+* Students busy studying abroad 
+* Students on a budget
+* Students who want to meal plan
+
+This product is for students who are busy studying overseas, are on budget and may want to plan their meals
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
+This product helps busy students living overseas on a budget save time and effort when planning and cooking meals.
 
 ## User Stories
 
