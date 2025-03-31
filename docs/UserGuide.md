@@ -95,15 +95,16 @@ add -ingredient={ingredientName} [-expiry={expiryDate}] [-qty={quantity}]
 **Expected Output:**  
 - `add -ingredient={ingredientName}`:  
   ```plaintext
-  {ingredientName} has been added to your available ingredients!
+  Added Ingredient: {ingredientName} (1, Expiry: None, Expiring Soon: No, Expired: No)
   ```
 - `add -ingredient={ingredientName} -qty{quantity}`:  
   ```plaintext
-  Nice, {quantity} {ingredientName} has been added to your ingredients list! (WARNING: This ingredient will not expire)
+  Added Ingredient: {ingredientName} ({quantity}, Expiry: None, Expiring Soon: No, Expired: No)
   ```
 - `add -ingredient={ingredientName} -expiry={expiryDate}`:  
   ```plaintext
-  Nice, {ingredientName} has been added to your ingredients list with an expiry date: {expiryDate}!
+  Added Ingredient: {ingredientName} (1, Expiry: {expiryDate}, Expiring Soon: Yes/No depends on expiryDate, Expired: Yes
+  /No depends on expiryDate)
   ```
 
 ---
@@ -146,10 +147,12 @@ list -ingredient
 
 **Expected Output:**  
 ```plaintext
-All ingredients:  
-1 - {ingredientName1}  
-2 - {ingredientName2}  
-3 - {ingredientName3}
+{ingredientName1}
+  List of ingredients with {ingredientName1} and different expiry dates
+{ingredientName2}
+  List of ingredients with {ingredientName2} and different expiry dates  
+{ingredientName3}
+  List of ingredients with {ingredientName3} and different expiry dates
 ```
 
 ---
@@ -219,7 +222,7 @@ delete -dish={dishName} -when={when}
 
 ### **9. Delete Ingredient: `delete -ingredient={ingredientName}`** 
 
-Deletes an ingredient from the list of available ingredients.  
+Deletes ingredient from the list of available ingredients.  
 
 **Format:**  
 ```plaintext

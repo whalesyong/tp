@@ -30,6 +30,13 @@
       "expiryDate" : {
         "dateString" : "01/12/2025"
       }
+    } ],
+    "tomato" : [ {
+      "name" : "tomato",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "03/05/2024"
+      }
     } ]
   },
   "dishes" : [ {
