@@ -37,19 +37,7 @@ public class DishCalendarTest {
         assertTrue(DishCalendar.getDishCalendar().contains(dish1));
         assertTrue(DishCalendar.getDishCalendar().contains(dish2));
     }
-    @Test
-    public void testGetAllDishes_expectListOfDishes() {
-        // Add dishes to calendar
-        DishCalendar.addDishToCalendar(this.dish1);
-        DishCalendar.addDishToCalendar(this.dish2);
 
-        // Test getting all dishes (should return a copy of the list)
-        List<Dish> allDishes = DishCalendar.getAllDishes();
-        assertEquals(2, allDishes.size());
-        assertTrue(allDishes.contains(dish1));
-        assertTrue(allDishes.contains(dish2));
-
-    }
     @Test
     public void testAddDishToCalendar_expectCalendarContainsAddedDishes() {
         // Test adding dishes one by one

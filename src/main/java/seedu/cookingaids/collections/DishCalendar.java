@@ -3,14 +3,13 @@ package seedu.cookingaids.collections;
 import seedu.cookingaids.items.Dish;
 import seedu.cookingaids.items.DishDate;
 import seedu.cookingaids.items.Ingredient;
-import seedu.cookingaids.items.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class DishCalendar {
-    public static ArrayList<Dish> dishCalendar = new ArrayList<>();
+    private static ArrayList<Dish> dishCalendar = new ArrayList<>();
 
     public static void initializeDishCalendar(List<Dish> dishes) {
         dishCalendar.addAll(dishes);
@@ -20,17 +19,13 @@ public class DishCalendar {
         return dishCalendar;
     }
 
-    public static List<Dish> getAllDishes() {
-        return new ArrayList<>(dishCalendar);
-    }
-
     public static void setDishCalendar(ArrayList<Dish> dishCalendar) {
         DishCalendar.dishCalendar = dishCalendar;
     }
 
     public static void addDishToCalendar(Dish dish) {
         if (RecipeBank.contains(dish.getName())) {
-            List<Ingredient> ingredientList = getIngredientList(dish);
+            List<Ingredient> ingredientList = RecipeBank.getIngredientList(dish);
             if (ingredientList != null) {
 
                 assert ingredientList != null;
@@ -38,7 +33,7 @@ public class DishCalendar {
 
                     int requiredQuantity = ingredient.getQuantity();
                     if (IngredientStorage.contains(ingredient.getName())) {
-                        int totalQuantity = getTotalQuantity(ingredient);
+                        int totalQuantity = IngredientStorage.getTotalIngredientQuantity(ingredient);
                         if (totalQuantity > requiredQuantity) {
 
                             IngredientStorage.useIngredients(ingredient.getName(), requiredQuantity);
@@ -68,27 +63,9 @@ public class DishCalendar {
 
     }
 
-    private static int getTotalQuantity(Ingredient ingredient) {
-        List<Ingredient> storedIngredients = IngredientStorage.getIngredients(ingredient.getName());
-        int totalQuantity = 0;
-        for (Ingredient storedIngredient : storedIngredients) {
 
-            totalQuantity += storedIngredient.getQuantity();
 
-        }
-        return totalQuantity;
-    }
 
-    public static List<Ingredient> getIngredientList(Dish dish) {
-        ArrayList<Recipe> recipeBank = RecipeBank.getRecipeBank();
-        for (Recipe item : recipeBank) {
-            if (item.getName().equals(dish.getName())) {
-                return item.getIngredients();
-            }
-
-        }
-        return null;
-    }
 
     public static List<Dish> getDishesByName(String dishName) {
         List<Dish> matchingDishes = new ArrayList<>();
@@ -113,7 +90,7 @@ public class DishCalendar {
     public static void removeDishInCalendar(Dish dish) {
         if (RecipeBank.contains(dish.getName())) {
             // Get the ingredient list for the dish from the RecipeBank
-            List<Ingredient> ingredientList = getIngredientList(dish);
+            List<Ingredient> ingredientList = RecipeBank.getIngredientList(dish);
 
             // Ensure the ingredient list is not null
             assert ingredientList != null;

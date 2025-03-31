@@ -196,6 +196,16 @@ public class IngredientStorage {
         }
         return expiringSoonQuantity;
     }
+    public static int getTotalIngredientQuantity(Ingredient ingredient) {
+        List<Ingredient> storedIngredients = IngredientStorage.getIngredients(ingredient.getName());
+        int totalQuantity = 0;
+        for (Ingredient storedIngredient : storedIngredients) {
+
+            totalQuantity += storedIngredient.getQuantity();
+
+        }
+        return totalQuantity;
+    }
 
     //FOR DEBUGGING. TODO remove statement
     public static void printMap(){
