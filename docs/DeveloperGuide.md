@@ -26,7 +26,7 @@ The bulk of the app's work is done by the following components:
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues 
 the command add -ingredient=tomato -quantity=5 -expiry=2025-04-03
 
-![img.png](img.png)
+![img.png](images/img.png)
 
 ### Collections
 
@@ -52,7 +52,7 @@ operations on items separately and keep a temporary storage of the results of op
 file.
 
 The following is a class diagram of one of the classes `IngredientStorage`
-![img_2.png](img_2.png)
+![img_2.png](images/img_2.png)
 
 # Appendix: Requirements
 
