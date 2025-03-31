@@ -1,0 +1,70 @@
+@startuml
+
+class ExpiryDate {
+    +ExpiryDate(dateString: String)
+    +isExpiringSoon(): boolean
+    +isExpired(): boolean
+}
+
+class DishDate {
+    +DishDate(dateString: String)
+    +setDate(dateString: String)
+    +getDateLocalDate(): LocalDate
+    +toString(): String
+}
+
+class Food {
+    - static Map<Integer, Food> foodDatabase
+    - int id
+    - String name
+    + Food(name: String)
+    + static void deleteFood(int id)
+    + abstract void displayInfo()
+    + getName(): String
+    + toString(): String
+}
+
+class Ingredient {
+    - ExpiryDate expiryDate
+    - int quantity
+    - String name
+    + Ingredient(name: String)
+    + Ingredient(name: String, quantity: int)
+    + Ingredient(name: String, expiry: String, quantity: int)
+    + setQuantity(quantity: int)
+    + getQuantity(): int
+    + getExpiryDate(): ExpiryDate
+    + getName(): String
+    + addQuantity(quantity: int)
+    + removeQuantity(quantity: int)
+    + displayInfo()
+    + toString(): String
+}
+
+class IngredientStorage {
+    -  static HashMap<String, List<Ingredient>> ingredients
+    + static void initializeIngredientStorage(HashMap<String, List<Ingredient>> newIngredients)
+    + static void addToStorage(Ingredient newIngredient)
+    + static void removeIngredient(String ingredientName)
+    + static HashMap<String, List<Ingredient>> getStorage()
+    + static boolean contains(String ingredientName)
+    + static void clear()
+    + void displayStorage()
+    + static List<Ingredient> getIngredients(String name)
+    - static void checkExpiringSoon(String name)
+    - static void checkExpiredIngredients(String name)
+    - static void removeExpiredIngredients(String name)
+    + static void useIngredients(String name, int amount)
+    + static int getUnexpiredIngredients(String ingredientName)
+    + static int getExpiringSoonIngredients(String ingredientName)
+    + static int getTotalIngredientQuantity(Ingredient ingredient)
+    + static void printMap()
+}
+
+ExpiryDate --|> DishDate
+Ingredient --|> Food
+Ingredient *--> "1" ExpiryDate
+IngredientStorage "1" --> "*" Ingredient : works on
+
+
+@enduml
