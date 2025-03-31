@@ -63,14 +63,6 @@ public class Ui {
      *
      * @param dishes a list of dishes to be displayed in the console
      */
-    public static void printDishListView(ArrayList<Dish> dishes) {
-        //prints TaskList on console
-        final List<String> formattedItems = new ArrayList<>();
-        for (Dish d : dishes) {
-            formattedItems.add(d.toString());
-        }
-        printAsIndexedList(formattedItems);
-    }
     public static void printDishListView(List<Dish> dishes) {
         //prints TaskList on console
         final List<String> formattedItems = new ArrayList<>();

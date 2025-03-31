@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public class DishCalendar {
-    private static ArrayList<Dish> dishCalendar = new ArrayList<>();
+    public static ArrayList<Dish> dishCalendar = new ArrayList<>();
 
     public static void initializeDishCalendar(List<Dish> dishes) {
         dishCalendar.addAll(dishes);
@@ -18,6 +18,10 @@ public class DishCalendar {
     public static ArrayList<Dish> getDishCalendar() {
         return dishCalendar;
     }
+    public static List<Dish> getAllDishes() {
+        return new ArrayList<>(dishCalendar);
+    }
+
 
     public static void setDishCalendar(ArrayList<Dish> dishCalendar) {
         DishCalendar.dishCalendar = dishCalendar;
