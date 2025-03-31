@@ -17,8 +17,8 @@ import java.time.format.DateTimeParseException;
 public class DishDate {
 
     @JsonIgnore
-    private LocalDate dateLocalDate;
-    private String dateString;
+    public LocalDate dateLocalDate;
+    public String dateString;
 
     /**
      * creates a new instance of dishDate

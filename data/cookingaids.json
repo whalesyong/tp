@@ -93,11 +93,5 @@
       "dateString" : "None"
     }
   } ],
-  "shopping" : [ {
-    "name" : "tomato",
-    "quantity" : 2,
-    "expiryDate" : {
-      "dateString" : "None"
-    }
-  } ]
+  "shopping" : [ ]
 }
