@@ -55,7 +55,7 @@ help
 ```
 
 **Expected Output:**  \
-![alt text](help_image.png)
+![alt text](images/help_image.png)
 
 ---
 
@@ -188,7 +188,7 @@ view -month=   (for current month)
 
 **Expected Output:**
 
-![viewMonth.png](viewMonth.png)
+![viewMonth.png](images/viewMonth.png)
 
 
 ---
