@@ -1,6 +1,5 @@
 package seedu.cookingaids.commands;
 
-
 import seedu.cookingaids.collections.DishCalendar;
 import seedu.cookingaids.collections.IngredientStorage;
 import seedu.cookingaids.collections.RecipeBank;
@@ -15,10 +14,21 @@ public class DeleteCommand {
     public static final String COMMAND_WORD = "delete";
     static final int SPACE = 1;
 
+    /**
+     * Removes the command word from the received input text.
+     *
+     * @param receivedText The full command input from the user.
+     * @return The input text without the command word.
+     */
     public static String removeCommandWord(String receivedText) {
         return receivedText.substring(COMMAND_WORD.length() + SPACE);
     }
 
+    /**
+     * Deletes a dish from the dish calendar.
+     *
+     * @param receivedText The user input containing the dish name and optional date.
+     */
     public static void deleteDish(String receivedText) {
         try {
             receivedText = removeCommandWord(receivedText);
@@ -70,6 +80,11 @@ public class DeleteCommand {
         }
     }
 
+    /**
+     * Deletes a dish based on its date.
+     *
+     * @param receivedText The user input containing the dish name and date.
+     */
     public static void deleteDishWithWhen(String receivedText) {
         try {
             String[] parsedDish = Parser.parseDish(receivedText);
@@ -97,6 +112,11 @@ public class DeleteCommand {
         }
     }
 
+    /**
+     * Deletes all dishes scheduled for a given date.
+     *
+     * @param receivedText The date for which all dishes should be deleted.
+     */
     public static void deleteDishByWhen(String receivedText) {
         String date = receivedText.trim();
 
@@ -114,6 +134,11 @@ public class DeleteCommand {
         System.out.println("Deleted all dishes scheduled for " + date);
     }
 
+    /**
+     * Deletes an ingredient from the ingredient storage.
+     *
+     * @param receivedText The name of the ingredient to be deleted.
+     */
     public static void deleteIngredient(String receivedText) {
         String ingredientName = Parser.parseIngredientForDeletion(receivedText);
 
@@ -121,6 +146,11 @@ public class DeleteCommand {
         System.out.println("Deleted " + ingredientName + " from the list of available ingredients.");
     }
 
+    /**
+     * Deletes a recipe from the recipe bank.
+     *
+     * @param receivedText The name of the recipe to be deleted.
+     */
     public static void deleteRecipe(String receivedText) {
         String recipeName = Parser.parseRecipeForDeletion(receivedText);
 
