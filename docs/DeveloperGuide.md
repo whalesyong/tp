@@ -2,16 +2,15 @@
 
 ## Acknowledgements
 
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- 
+include links to the original source as well}
 
 ## Design & implementation
-
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
 Given below is a quick overview of main components and how they interact with each other.
 
 ### Main components of the architecture
-`Cooking Aids` is in charge of the app launch and shut down.
+The class `CookingAids` is in charge of the app launch and shut down.
 * At it initializes the other components in the correct sequence, and connects them up with each other.
 * At shut down, it shuts down the other components and invokes cleanup methods where necessary.
 
@@ -75,6 +74,30 @@ file.
 
 The following is a class diagram of one of the classes `IngredientStorage`
 ![img_2.png](images/img_2.png)
+
+### Items
+
+#### <ins>Overview</ins>
+
+The Items component contains classes that represent the smallest unit of functionality for this project.
+
+#### <ins>Implementation</ins>
+
+* `Food` is an abstract class.
+* `Ingredient` extends from Food and contains information related to ingredients (name, expiry)
+* `Recipe` contains the information of one recipe (name, ingredients)
+* `DishDate` represents the date of a `Dish`
+* `ExpiryDate` extends from DishDate and represents the expiry date of ingredients
+* `Dish` denotes when a `Recipe` is scheduled for a certain `DishDate`
+
+#### <ins>Design Considerations</ins>
+
+The following is the class diagram for the classes Recipe and RecipeBank.
+
+![Items.png](images/Items.png)
+
+The Items classes follow the above design consideration of modularity. Each class in this package serves as building 
+blocks for the rest of the project. 
 
 # Appendix: Requirements
 

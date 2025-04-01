@@ -1,0 +1,36 @@
+@startuml
+'package Items {
+    class Recipe {
+        - String recipeName
+        - ArrayList<Ingredient> ingredients
+
+        + Recipe(String recipeName)
+        + Recipe(String recipeName, ArrayList<Ingredient> ingredients)
+        + String getRecipeName()
+        + void setRecipeName(String recipeName)
+        + ArrayList<Ingredient> getIngredients()
+        + void setIngredients(ArrayList<Ingredient> ingredients)
+        + String getName()
+        + String toString()
+    }
+'}
+
+'package Collections {
+    class RecipeBank {
+        - static ArrayList<Recipe> recipeBank
+
+        + static void initializeRecipeBank(List<Recipe> recipesList)
+        + static void addRecipeToRecipeBank(Recipe recipe)
+        + static ArrayList<Recipe> getRecipeBank()
+        + static void removeRecipeFromRecipeBank(String command)
+        + static boolean contains(String recipeName)
+        + static List<Ingredient> getIngredientList(Dish dish)
+        + static void clear()
+    }
+'}
+
+RecipeBank "1" *-- "many" Recipe : contains
+Recipe --* Ingredient : has
+RecipeBank -- Dish : references
+
+@enduml
