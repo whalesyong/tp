@@ -25,7 +25,7 @@ public class ViewCommand {
 
         int year = LocalDate.now().getYear();
         LocalDate startOfMonth = LocalDate.of(year, month, 1);
-        int lengthOfMonth = LocalDate.now().lengthOfMonth();
+        int lengthOfMonth = startOfMonth.lengthOfMonth();
         LocalDate endOfMonth = startOfMonth.plusDays(lengthOfMonth);
 
         ArrayList<Dish> listOfDish = DishCalendar.getDishCalendar();
@@ -37,7 +37,10 @@ public class ViewCommand {
             }
         }
         CalendarPrinter.printMonthCalendar(year, Month.of(month), filteredList);
-        Ui.printDishListView(sortDishesByDateStream(filteredList));
+        if (!filteredList.isEmpty()) {
+            System.out.println("Dishes not displayed in calendar");
+            Ui.printDishListView(sortDishesByDateStream(filteredList));
+        }
 
     }
 
