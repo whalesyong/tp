@@ -7,14 +7,14 @@
   1. [Viewing Help: `help`](#1-viewing-help-help-)
   2. [Adding Dish to Schedule: `add -dish`](#2-adding-dish-to-schedule-add--dishdishname-)
   3. [Adding an Ingredient: `add -ingredient`](#3-adding-an-ingredient-add--ingredientingredientname-)  
-  4. [View Scheduled Dishes: `list -dish`](#4-view-scheduled-dishes-list--dish)  
-  5. [View Available Ingredients: `list -ingredient`](#5-view-available-ingredients-list--ingredient) 
-  6. [View Shopping List: `list -shopping`](#6-view-shopping-list-list--shopping)
-  7. [View Dishes for the Month: `view -month=`](#7-view-dishes-for-the-month-view--month1-12blank)
-  8. [Delete Dish from Schedule: `delete -dish`](#8-delete-dish-from-schedule-delete--dishdishname-)
-  9. [Delete Ingredient: `delete -ingredient`](#9-delete-ingredient-delete--ingredientingredientname-)
-  10. [Adding Recipe to Recipe Bank: `add -recipe`](#10-adding-recipe-to-recipe-bank-add--reciperecipename-) 
-  11. [View Available Recipes: `list -recipe`](#11-view-available-recipes-list--recipe-)
+  4. [Adding Recipe to Recipe Bank: `add -recipe`](#4-adding-recipe-to-recipe-bank-add--reciperecipename)
+  5. [View Scheduled Dishes: `list -dish`](#5-view-scheduled-dishes-list--dish)  
+  6. [View Available Ingredients: `list -ingredient`](#6-view-available-ingredients-list--ingredient) 
+  7. [View Shopping List: `list -shopping`](#7-view-shopping-list-list--shopping)
+  8. [View Dishes for the Month: `view -month=`](#8-view-dishes-for-the-month-view--month1-12blank)
+  9. [View Available Recipes: `list -recipe`](#9-view-available-recipes-list--recipe)
+  10. [Delete Dish from Schedule: `delete -dish`](#10-delete-dish-from-schedule-delete--dishdishname-)
+  11. [Delete Ingredient: `delete -ingredient`](#11-delete-ingredient-delete--ingredientingredientname-)
   12. [Delete Recipe from Recipe Bank: `delete -recipe`](#12-delete-recipe-from-recipe-bank-delete--reciperecipename-)
   13. [Suggest Dishes: `suggest`](#13-suggest-dishes-suggest)
 - [Command List](#command-list-)
@@ -41,6 +41,8 @@ With CookingAids, you can:
 >   - Example: `add -dish={dishName} -when{when}` is equivalent to `add -when{when} -dish={dishName}`.  
 > - Extraneous parameters for commands that do not take parameters (e.g., `help`) will be ignored.  
 >   - Example: `help 123` will be interpreted as `help`.  
+> - Recipes, dishes and ingredients should be named in snake case (ie lowercase words with underscores)
+>   - Example: `chicken_rice` instead of `ChickenRice`
 
 ---
 
@@ -109,7 +111,26 @@ add -ingredient={ingredientName} [-expiry={expiryDate}] [-qty={quantity}]
 
 ---
 
-### **4. View Scheduled Dishes: `list -dish`**
+### **4. Adding Recipe to Recipe Bank: `add -recipe={recipeName}`**
+
+Adds a recipe to the recipe bank.
+
+**Format:**
+```plaintext
+add -recipe={recipeName} -needs=ingredient_1,quantity_1,ingredient_2,quantity_2
+```
+
+**Expected Output:**
+
+- `add -recipe={recipeName} -needs=ingredient_1,quantity_1,ingredient_2,quantity_2`:
+  ```plaintext
+  Added Recipe: {recipeName} 
+  Ingredients: [ingredient_1 (quantity_1), ingredient_2 (quantity_2)]
+  ```
+
+---
+
+### **5. View Scheduled Dishes: `list -dish`**
 
 Displays a list of scheduled dishes.  
 
@@ -136,7 +157,7 @@ list -dish
 
 ---
 
-### **5. View Available Ingredients: `list -ingredient`**
+### **6. View Available Ingredients: `list -ingredient`**
 
 Displays a list of available ingredients.  
 
@@ -157,7 +178,7 @@ list -ingredient
 
 ---
 
-### **6. View Shopping List: `list -shopping`**
+### **7. View Shopping List: `list -shopping`**
 
 Displays Shopping List.
 
@@ -175,7 +196,7 @@ list -shopping
 ```
 
 ---
-### **7. View Dishes for the Month: `view -month={1-12/BLANK}`**
+### **8. View Dishes for the Month: `view -month={1-12/BLANK}`**
 
 Displays a list of available ingredients.
 
@@ -190,10 +211,37 @@ view -month=   (for current month)
 
 ![viewMonth.png](images/viewMonth.png)
 
+---
+
+### **9. View Available Recipes: `list -recipe`**
+
+Displays a list of available recipes and/or their ingredients.
+
+**Format:**
+```plaintext
+list -recipe  
+list -recipe={recipeName}
+```
+
+**Expected Output:**
+- `list -recipe`:
+  ```plaintext
+  Recipes:  
+  - recipeName1  
+  - recipeName2  
+  - ...
+  ```
+- `list -recipe={recipeName}`:
+  ```plaintext
+  recipeName:  
+  - ingredientName1  
+  - ingredientName2  
+  - ...
+  ```
 
 ---
 
-### **8. Delete Dish from Schedule: `delete -dish={dishName}`** 
+### **10. Delete Dish from Schedule: `delete -dish={dishName}`** 
 
 Deletes a dish from the schedule.  
 
@@ -220,7 +268,7 @@ delete -dish={dishName} -when={when}
 
 ---
 
-### **9. Delete Ingredient: `delete -ingredient={ingredientName}`** 
+### **11. Delete Ingredient: `delete -ingredient={ingredientName}`** 
 
 Deletes ingredient from the list of available ingredients.  
 
@@ -233,58 +281,6 @@ delete -ingredient={ingredientName}
 ```plaintext
 Deleted {ingredientName} from the list of available ingredients.
 ```
-
----
-
-### **10. Adding Recipe to Recipe Bank: `add -recipe={recipeName}`** 
-
-Adds a recipe to the recipe bank.  
-
-> **Warning:** Ingredients *must* be surrounded by quotation marks (`"`) and comma-separated to be processed properly.  
-
-**Format:**  
-```plaintext
-add -recipe={recipeName}  
-add -recipe={recipeName} [-callsfor="{ingredient1, ingredient2, ingredient3}"]
-```
-
-**Expected Output:**  
-- `add -recipe={recipeName}`:  
-  ```plaintext
-  {recipeName} has been added to the recipe bank!
-  ```
-- `add -recipe={recipeName} -callsfor="{ingredient1, ingredient2, ingredient3}"`:  
-  ```plaintext
-  {recipeName} has been added to the recipe bank! It uses the following ingredients: (1) {ingredient1}, (2) {ingredient2}, (3) {ingredient3}
-  ```
-
----
-
-### **11. View Available Recipes: `list -recipe`**   
-
-Displays a list of available recipes and/or their ingredients.  
-
-**Format:**  
-```plaintext
-list -recipe  
-list -recipe={recipeName}
-```
-
-**Expected Output:**  
-- `list -recipe`:  
-  ```plaintext
-  Recipes:  
-  - recipeName1  
-  - recipeName2  
-  - ...
-  ```
-- `list -recipe={recipeName}`:  
-  ```plaintext
-  recipeName:  
-  - ingredientName1  
-  - ingredientName2  
-  - ...
-  ```
 
 ---
 
@@ -319,12 +315,12 @@ You have enough ingredients to make:
 
 ## **Command List**  
 
-| **Action** | **Format, Examples**                                                                                                                              |  
-| :---- |:--------------------------------------------------------------------------------------------------------------------------------------------------|  
-| **Add** | `add -ingredient`, `add -dish`, `add -recipe` <br> Example: `add -ingredient=tomato -expiry=today -quantity=2`, `add -dish=tomato_soup -when=tmr` |  
-| **Delete** | `delete -ingredient`, `delete -dish`, `delete -recipe` <br> Example: `delete -ingredient=tomato`, `delete -dish=tomato soup`                      |  
-| **List** | `list -ingredient`, `list -dish`, `list -recipe`,`list -shopping`, <br> Example: `list -ingredient`                                               |  
-|**View**| `view -month` <br> Example:`view -month=2`, `view -month=`                                                                                        |
-| **Help** | `help`                                                                                                                                            |
+| **Action** | **Format, Examples**                                                                                                                                                                                 |  
+| :---- |:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|  
+| **Add** | `add -ingredient`, `add -dish`, `add -recipe` <br> Example: `add -ingredient=tomato -expiry=today -quantity=2`, `add -dish=tomato_soup -when=tmr`, `add -recipe=tomato_soup -needs=tomato,5,onion,2` |  
+| **Delete** | `delete -ingredient`, `delete -dish`, `delete -recipe` <br> Example: `delete -ingredient=tomato`, `delete -dish=tomato soup`                                                                         |  
+| **List** | `list -ingredient`, `list -dish`, `list -recipe`,`list -shopping`, <br> Example: `list -ingredient`                                                                                                  |  
+|**View**| `view -month` <br> Example:`view -month=2`, `view -month=`                                                                                                                                           |
+| **Help** | `help`                                                                                                                                                                                               |
 
 
