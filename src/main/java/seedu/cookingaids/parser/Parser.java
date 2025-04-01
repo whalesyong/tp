@@ -63,14 +63,8 @@ public class Parser {
 
             int month;
             if (matcher.find()) {
-                try {
-                    month = Integer.parseInt(matcher.group(1));
-                    ViewCommand.displayDishMonth(month);
-                } catch (InvalidInputException e) {
-                    System.out.println(
-                            "Invalid month input. Use: view -month={1-12} or leave blank for the current month.");
-                    return;
-                }
+
+                month = Integer.parseInt(matcher.group(1));
             } else {
                 month = LocalDate.now().getMonthValue(); // Default to current month
             }
