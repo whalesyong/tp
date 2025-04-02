@@ -27,6 +27,7 @@ the command add -ingredient=tomato -quantity=5 -expiry=2025-04-03
 
 
 ![img.png](img.png)
+
 ### UI 
 
 #### <ins>Overview</ins>

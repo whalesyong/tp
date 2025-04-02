@@ -13,12 +13,26 @@ import java.util.Objects;
 import java.util.Iterator;
 import java.util.Comparator;
 
+/***
+ * This class represents the ingredient inventory of the user.
+ * This class contains the ingredients in a hashmap with the key as the name of the ingredient
+ * and the value as list of ingredient objects of that name with different expiry dates
+ * This class contains methods to work on the inventory, given commands from the user
+ */
 public class IngredientStorage {
     private static HashMap<String, List<Ingredient>> ingredients = new HashMap<>();
 
     public static void initializeIngredientStorage(HashMap<String, List<Ingredient>> newIngredients) {
         ingredients = newIngredients;
     }
+    /**
+     * takes ingredient input to be added from shopping list
+     * checks if the ingredient of the same expiry date is in the hashmap, if it is, adding the quantity to it
+     * else creating a new entry to the list of Ingredient objects under that name and adding to it
+     * Ingredients under that name are also checked if they are expiring soon or expired
+     *
+     * @param newIngredient is the ingredient to be added
+     */
     public static void addToStorage(Ingredient newIngredient) {
         newIngredient = ShoppingList.removeFromShoppingList(newIngredient);
         if(newIngredient == null){
@@ -80,7 +94,13 @@ public class IngredientStorage {
     public static List<Ingredient> getIngredients(String name) {
         return ingredients.getOrDefault(name, new ArrayList<>());
     }
-
+    /**
+     * Goes through the ingredients with same name as input
+     * and checks if their expiry date matches date to be deemed expiring soon
+     * Currently, expiring soon date is set to the next day upon method call
+     *
+     * @param name is the name of ingredient to be checked
+     */
     private static void checkExpiringSoon(String name){
         LocalDate tomorrow = LocalDate.now().plusDays(1);
         List<Ingredient> ingredientList = ingredients.get(name);
@@ -100,6 +120,12 @@ public class IngredientStorage {
         }
     }
 
+    /**
+     * Goes through the ingredients with the same name as input
+     * and checks if their expiry date has passed upon method call
+     *
+     * @param name is the name of ingredient to be checked
+     */
     private static void checkExpiredIngredients(String name) {
         LocalDate today = LocalDate.now();
         List<Ingredient> ingredientList = ingredients.get(name);
@@ -118,6 +144,12 @@ public class IngredientStorage {
         }
     }
 
+    /**
+     * Goes through list of Ingredients with the same name as input
+     * Removes the ingredients which have expired as of method call
+     *
+     * @param name is the name of ingredient to be checked
+     */
     private static void removeExpiredIngredients(String name) {
         List<Ingredient> ingredientList = ingredients.getOrDefault(name, new ArrayList<>());
 
@@ -135,6 +167,14 @@ public class IngredientStorage {
         }
     }
 
+    /**
+     * Goes through the ingredients of the same name as String input
+     * Removes expired ingredients
+     * Reduces quantity from unexpired Ingredient objects
+     *
+     * @param name is the name of ingredient to be checked
+     * @param amount is the amount of ingredient to be used
+     */
     public static void useIngredients(String name, int amount) {
         if (!ingredients.containsKey(name)) {
             System.out.println("Ingredient not found: " + name);
@@ -168,6 +208,12 @@ public class IngredientStorage {
         }
     }
 
+    /**
+     * Goes through the ingredients of the same name as String input
+     * returns number of unexpired ingredients
+     *
+     * @param ingredientName is the name of ingredient to be checked
+     */
     public static int getUnexpiredIngredients(String ingredientName) {
         List<Ingredient> ingredientList = ingredients.getOrDefault(ingredientName, new ArrayList<>());
         int unexpiredQuantity = 0;
@@ -182,6 +228,12 @@ public class IngredientStorage {
         return unexpiredQuantity;
     }
 
+    /**
+     * Goes through the ingredients of the same name as String input
+     * returns number of ingredients expiring soon
+     *
+     * @param ingredientName is the name of ingredient to be checked
+     */
     public static int getExpiringSoonIngredients(String ingredientName) {
         List<Ingredient> ingredientList = ingredients.getOrDefault(ingredientName, new ArrayList<>());
         int expiringSoonQuantity = 0;
@@ -196,6 +248,13 @@ public class IngredientStorage {
         }
         return expiringSoonQuantity;
     }
+
+    /**
+     * Goes through the ingredients of the same name as String input
+     * returns number of ingredients
+     *
+     * @param ingredient is the ingredient object to be checked
+     */
     public static int getTotalIngredientQuantity(Ingredient ingredient) {
         List<Ingredient> storedIngredients = IngredientStorage.getIngredients(ingredient.getName());
         int totalQuantity = 0;
