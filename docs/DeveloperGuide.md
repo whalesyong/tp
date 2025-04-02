@@ -100,6 +100,44 @@ The following is the class diagram for the classes Recipe and RecipeBank.
 The Items classes follow the above design consideration of modularity. Each class in this package serves as building 
 blocks for the rest of the project. 
 
+### Parser
+
+#### <ins>Overview</ins>
+
+The Parser component is responsible for interpreting user input and executing the corresponding commands. It ensures that user instructions are correctly formatted and directs them to the appropriate operations.
+
+#### <ins>Implementation</ins>
+
+The `Parser` class contains methods to process and handle different user commands:
+* `decipherCommand(String receivedText)`: Identifies the command type from user input and executes the relevant method.
+* `handleViewCommand(String receivedText)`: Handles requests to view data based on user-specified parameters.
+* `handleDisplayCommand(String receivedText)`: Manages the display of lists such as recipes, dishes, ingredients, and shopping lists.
+* `handleAddCommand(String receivedText)`: Directs the addition of new recipes, dishes, or ingredients to their respective storages.
+* `handleDeleteCommand(String receivedText)`: Manages the removal of recipes, dishes, or ingredients based on user input.
+* `parseDish(String input)`: Extracts dish details from a given command.
+* `parseRecipe(String receivedText)`: Extracts recipe details and its required ingredients.
+* `parseIngredient(String command)`: Parses an ingredient command into a structured data format.
+
+The `Parser` class interacts with the following command classes:
+* `AddCommand` - Adds recipes, dishes, or ingredients.
+* `DeleteCommand` - Removes recipes, dishes, or ingredients.
+* `ListCommand` - Displays stored recipes, dishes, ingredients, or shopping lists.
+* `HelpCommand` - Shows available user commands.
+* `SuggestCommand` - Provides cooking suggestions.
+* `ViewCommand` - Displays information based on date or ingredient filters.
+
+#### <ins>Design Considerations</ins>
+
+The design choice of the `Parser` class emphasizes modularity and maintainability. By having separate handler methods for different command types, the system can be easily extended with new commands while keeping parsing logic clear. This approach ensures:
+
+1. **Separation of concerns**: Each command type is processed independently.
+2. **Scalability**: New commands can be integrated without affecting existing logic.
+3. **Error handling**: Unrecognized commands are identified, preventing incorrect execution.
+
+The following is a class diagram of the `Parser` class and its interactions:
+
+![Parser.png](images/Parser.png)
+
 # Appendix: Requirements
 
 ## Product scope
