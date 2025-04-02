@@ -219,6 +219,7 @@ view -month=   # Current month
 
 **Expected Output:**
 - `view -month=`:
+
 ![viewMonth.png](images/viewMonth.png)
 
 ---
