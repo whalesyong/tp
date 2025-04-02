@@ -1,0 +1,54 @@
+@startuml
+
+package "commands" {
+
+    class AddCommand {
+        + static String COMMAND_WORD
+        - static int SPACE
+        - static String INGREDIENT_SEPARATOR
+        + static String removeCommandWord(String receivedText)
+        + static void addDish(String receivedText)
+        + static void addRecipe(String receivedText)
+        + static void addIngredient(String receivedText)
+        - static ArrayList<String> parseIngredients(String ingredientsString)
+        - static String replaceSpaceWithUnderscore(String input)
+    }
+
+    class DeleteCommand {
+        + static String COMMAND_WORD
+        - static int SPACE
+        + static String removeCommandWord(String receivedText)
+        + static void deleteDish(String receivedText)
+        + static void deleteDishWithWhen(String receivedText)
+        + static void deleteDishByWhen(String receivedText)
+        + static void deleteIngredient(String receivedText)
+        + static void deleteRecipe(String receivedText)
+    }
+
+    class HelpCommand {
+        + static String COMMAND_WORD
+        + static void showHelp()
+    }
+
+    class ListCommand {
+        + static String COMMAND_WORD
+        + static void listDishes()
+        + static void listRecipes()
+        + static void listIngredients()
+    }
+
+    class SuggestCommand {
+        + static String COMMAND_WORD
+        + static void suggestRecipes()
+    }
+
+    class ViewCommand {
+        + static String COMMAND_WORD
+        + static void viewDish(String receivedText)
+        + static void viewRecipe(String receivedText)
+        + static void viewIngredient(String receivedText)
+    }
+
+}
+
+@enduml
