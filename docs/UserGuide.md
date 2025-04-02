@@ -176,14 +176,15 @@ list -ingredient
 ```
 
 **Expected Output:**  
-```plaintext
-{ingredientName1}
-  List of ingredients with {ingredientName1} and different expiry dates
-{ingredientName2}
-  List of ingredients with {ingredientName2} and different expiry dates  
-{ingredientName3}
-  List of ingredients with {ingredientName3} and different expiry dates
-```
+- `list -ingredient`:
+  ```plaintext
+  {ingredientName1}
+    List of ingredients with {ingredientName1} and different expiry dates
+  {ingredientName2}
+    List of ingredients with {ingredientName2} and different expiry dates  
+  {ingredientName3}
+    List of ingredients with {ingredientName3} and different expiry dates
+  ```
 
 ---
 
@@ -197,12 +198,12 @@ list -shopping
 ```
 
 **Expected Output:**
-```plaintext
-
-1 - {ingredientName1}  
-2 - {ingredientName2}  
-3 - {ingredientName3}
-```
+- `list -shopping`:
+  ```plaintext
+  1 - {ingredientName1}  
+  2 - {ingredientName2}  
+  3 - {ingredientName3}
+  ```
 
 ---
 ### **8. View Dishes for the Month: `view -month={1-12/BLANK}`**
@@ -217,7 +218,7 @@ view -month=   # Current month
 ```
 
 **Expected Output:**
-
+- `view -month=`:
 ![viewMonth.png](images/viewMonth.png)
 
 ---
@@ -287,9 +288,10 @@ delete -ingredient={ingredientName}
 ```
 
 **Expected Output:**  
-```plaintext
-Deleted {ingredientName} from the list of available ingredients.
-```
+- `delete -ingredient={ingredientName}`:
+  ```plaintext
+  Deleted {ingredientName} from the list of available ingredients.
+  ```
 
 ---
 
@@ -302,10 +304,11 @@ Deletes a recipe from the recipe bank.
 delete -recipe={recipeName}
 ```
 
-**Expected Output:**  
-```plaintext
-{recipeName} has been deleted from the recipe bank!
-```
+**Expected Output:**
+- `delete -recipe={recipeName}`:
+  ```plaintext
+  {recipeName} has been deleted from the recipe bank!
+  ```
 
 ---
 
@@ -316,11 +319,12 @@ Suggests dishes based on available ingredients.
 suggest
 ``` 
 **Expected Output:**
-```
-You have enough ingredients to make: 
-1: carbonara
-2: garlic_bread
-```
+- `suggest`:
+  ```plaintext
+  You have enough ingredients to make: 
+  1: carbonara
+  2: garlic_bread
+  ```
 
 ## **Command List**  
 
