@@ -99,7 +99,7 @@ add -ingredient={ingredientName} [-expiry={expiryDate}] [-qty={quantity}]
   ```plaintext
   Added Ingredient: {ingredientName} (1, Expiry: None, Expiring Soon: No, Expired: No)
   ```
-- `add -ingredient={ingredientName} -qty{quantity}`:  
+- `add -ingredient={ingredientName} -quantity={quantity}`:  
   ```plaintext
   Added Ingredient: {ingredientName} ({quantity}, Expiry: None, Expiring Soon: No, Expired: No)
   ```
@@ -108,7 +108,11 @@ add -ingredient={ingredientName} [-expiry={expiryDate}] [-qty={quantity}]
   Added Ingredient: {ingredientName} (1, Expiry: {expiryDate}, Expiring Soon: Yes/No depends on expiryDate, Expired: Yes
   /No depends on expiryDate)
   ```
-
+- `add -ingredient={ingredientName} -quantity={quantity} -expiry={expiryDate}`:
+  ```plaintext
+  Added Ingredient: {ingredientName} ({quantity}, Expiry: {expiryDate}, Expiring Soon: Yes/No depends on expiryDate, 
+  Expired: Yes/No depends on expiryDate)
+  ```
 ---
 
 ### **4. Adding Recipe to Recipe Bank: `add -recipe={recipeName}`**

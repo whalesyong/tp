@@ -3,6 +3,12 @@ package seedu.cookingaids.items;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * represents an Ingredient class
+ * attributes include expiryDate as ExpiryDate type, quantity as an integer, name as a string
+ * expiringSoon and expired flags as boolean
+ * hold methods necessary to manipulate task Date
+ */
 public class Ingredient extends Food {
     public ExpiryDate expiryDate;
     private int quantity;
@@ -21,7 +27,15 @@ public class Ingredient extends Food {
         expiryDate = new ExpiryDate("None");
         this.name = name;
     }
-
+    /**
+     * creates a new instance of Ingredient
+     * saves string input as name
+     * calls ExpiryDate constructor to convert second string input into ExpiryDate object and save it to expiryDate
+     * saves integer input as quantity
+     * @param name is the name of Ingredient
+     * @param expiryDate is the expiry date of the ingredient
+     * @param quantity is the amount of ingredients added
+     */
     @JsonCreator
     public Ingredient(@JsonProperty("name") String name,
                       @JsonProperty("expiry") String expiryDate, @JsonProperty("quantity") int quantity) {
