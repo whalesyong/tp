@@ -100,6 +100,33 @@ The following is the class diagram for the classes Recipe and RecipeBank.
 The Items classes follow the above design consideration of modularity. Each class in this package serves as building 
 blocks for the rest of the project. 
 
+### Commands
+
+#### <ins>Overview</ins>
+
+The Commands component contains classes that execute specific actions on their respective Collections based on user input. These commands facilitate modifications, retrieval, and processing of data within the system.
+
+#### <ins>Implementation</ins>
+
+Contains the classes and their respective purposes:
+* `AddDishCommand` adds a dish to the DishCalendar.
+* `RemoveDishCommand` removes a dish from the DishCalendar.
+* `AddRecipeCommand` adds a recipe to the RecipeBank.
+* `RemoveRecipeCommand` removes a recipe from the RecipeBank.
+* `AddIngredientCommand` adds an ingredient to the IngredientStorage.
+* `RemoveIngredientCommand` removes an ingredient from the IngredientStorage.
+* `AddShoppingItemCommand` adds an item to the ShoppingList.
+* `RemoveShoppingItemCommand` removes an item from the ShoppingList.
+
+Each command modifies a specific collection and ensures the necessary updates are performed before storing changes in the system.
+
+#### <ins>Design Considerations</ins>
+
+We used this design to maintain a clear separation of concerns. Commands act as intermediaries between user input and data manipulation, ensuring that modifications to collections are structured and easily extendable. This modular approach allows for easy addition of new commands in the future without interfering with existing functionality.
+
+The following is a UML diagram of the `commands` package:
+![Commands.png](images/Commands.png)
+
 ### Parser
 
 #### <ins>Overview</ins>
