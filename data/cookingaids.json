@@ -33,7 +33,7 @@
     } ],
     "tomato" : [ {
       "name" : "tomato",
-      "quantity" : 1,
+      "quantity" : 2,
       "expiryDate" : {
         "dateString" : "None"
       }
