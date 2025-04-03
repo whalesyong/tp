@@ -37,6 +37,13 @@
       "expiryDate" : {
         "dateString" : "None"
       }
+    } ],
+    "rice" : [ {
+      "name" : "rice",
+      "quantity" : 1500,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
     } ]
   },
   "dishes" : [ {
