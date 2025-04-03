@@ -1,16 +1,32 @@
 @startuml
 actor User
-participant Parser
-participant ViewCommand
-participant CalendarPrinter
-participant DishCalendar
+participant ":UI" as UI
+participant ":Parser" as Parser
+participant ":ViewCommand" as ViewCommand
+participant ":CalendarPrinter" as CalendarPrinter
+participant ":DishCalendar" as DishCalendar
 
-User -> Parser: decipherCommand("view -month=5")
+User -> UI: Start Application
+activate UI
+UI -> UI: waitForCommand()
+User -> UI: Enter "view -month=5"
+
+UI -> Parser: decipherCommand("view -month=5")
+activate Parser
 Parser -> ViewCommand: displayDishMonth(5)
+deactivate Parser
+
+activate ViewCommand
 ViewCommand -> DishCalendar: getDishesForMonth(5)
+activate DishCalendar
 DishCalendar --> ViewCommand: List<Dish>
+deactivate DishCalendar
+
 ViewCommand -> CalendarPrinter: printMonthCalendar(2025, MAY, List<Dish>)
-CalendarPrinter -> CalendarPrinter: Generate calendar view
-CalendarPrinter --> User: Display formatted calendar
+activate CalendarPrinter
+deactivate ViewCommand
+deactivate CalendarPrinter
+UI -> User:Shows Calendar
+deactivate UI
 
 @enduml
