@@ -87,7 +87,8 @@ add -dish={dishName} [-when={date}]
 
 ### **3. Adding an Ingredient: `add -ingredient={ingredientName}`** 
 
-Adds an ingredient to the ingredient database. If no quantity is specified, it defaults to 1.  
+Adds an ingredient to the ingredient database. If no quantity is specified, it defaults to 1. If no expiry date is 
+specifed, it defaults to None. Expiry date format is to be in YYYY/MM/DD
 
 > **Warning:** Ingredients will not expire if no expiry date is set.  
 
