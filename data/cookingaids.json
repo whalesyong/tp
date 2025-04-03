@@ -23,6 +23,20 @@
       "expiryDate" : {
         "dateString" : "None"
       }
+    } ],
+    "pasta" : [ {
+      "name" : "pasta",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ],
+    "tomato" : [ {
+      "name" : "tomato",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
     } ]
   },
   "dishes" : [ {
@@ -91,11 +105,5 @@
       "dateString" : "None"
     }
   } ],
-  "shopping" : [ {
-    "name" : "tomato",
-    "quantity" : 1,
-    "expiryDate" : {
-      "dateString" : "None"
-    }
-  } ]
+  "shopping" : [ ]
 }
