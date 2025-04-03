@@ -3,7 +3,7 @@
     "name" : "tomato_pasta",
     "ingredients" : [ {
       "name" : "tomato",
-      "quantity" : 2,
+      "quantity" : 1,
       "expiryDate" : {
         "dateString" : "None"
       }
@@ -22,20 +22,6 @@
       "quantity" : 1,
       "expiryDate" : {
         "dateString" : "None"
-      }
-    } ],
-    "pasta" : [ {
-      "name" : "pasta",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "01/12/2025"
-      }
-    } ],
-    "tomato" : [ {
-      "name" : "tomato",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "03/05/2024"
       }
     } ]
   },
@@ -99,6 +85,17 @@
     "dishDate" : {
       "dateString" : "None"
     }
+  }, {
+    "name" : "tomato_pasta",
+    "dishDate" : {
+      "dateString" : "None"
+    }
   } ],
-  "shopping" : [ ]
+  "shopping" : [ {
+    "name" : "tomato",
+    "quantity" : 1,
+    "expiryDate" : {
+      "dateString" : "None"
+    }
+  } ]
 }

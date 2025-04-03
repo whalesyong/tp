@@ -1,0 +1,35 @@
+@startuml
+
+hide circle
+skinparam classAttributeIconSize 0
+
+class CalendarPrinter {
+    + static final String BLANK_SPACE
+    + static void printMonthCalendar(int year, Month month, ArrayList<Dish> list)
+    - static void printCalendarRow(int year, Month month, int startDate, int daysInMonth, ArrayList<Dish> list)
+    - static void printFoodRows(int year, Month month, int startDate, int daysInMonth, ArrayList<Dish> list)
+    - static void printFirstCalendarRow(int year, Month month, ArrayList<Dish> list, int firstDayOfWeek, LocalDate today)
+    - static void printFirstFoodRows(int year, Month month, ArrayList<Dish> list, int firstDayOfWeek)
+}
+
+
+class Ui {
+    + static final int DISPLAYED_INDEX_OFFSET
+    + static final String LINE_DIVIDER
+    + static final String WELCOME_MESSAGE
+    + static final String ASCII_MESSAGE
+    + static final String MESSAGE_INDEXED_LIST_ITEM
+    + void printLineDivider()
+    + void showWelcomeMessage()
+    + void printItems(String... messages)
+    + void printDishListView(List<Dish> dishes)
+    + void printShoppingListView(ArrayList<Ingredient> shoppingList)
+    + void printRecipeListView(ArrayList<Recipe> recipes)
+    + void printIngredientListView(HashMap<String, List<Ingredient>> ingredients)
+    - void printAsIndexedList(List<String> list)
+    - String getIndexedListForViewing(List<String> listItems)
+    - String getIndexedListItem(int visibleIndex, String listItem)
+    + void waitForCommand()
+}
+@enduml
+

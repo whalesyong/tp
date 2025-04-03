@@ -29,6 +29,10 @@ public class Parser {
     private static final String MONTH_FLAG = "-month=";
     private static final String DAY_FLAG = "-day=";
     private static final String SHOPPING_FLAG = "-shopping";
+    private static final int LENGTH_INGREDIENT_FLAG = 11;
+    private static final int LENGTH_QUANTITY_FLAG = 9;
+    private static final int LENGTH_EXPIRY_FLAG = 7;
+
 
     /**
      * Deciphers the user's input for commands and executes the corresponding method.
@@ -63,14 +67,8 @@ public class Parser {
 
             int month;
             if (matcher.find()) {
-                try {
-                    month = Integer.parseInt(matcher.group(1));
-                    ViewCommand.displayDishMonth(month);
-                } catch (InvalidInputException e) {
-                    System.out.println(
-                            "Invalid month input. Use: view -month={1-12} or leave blank for the current month.");
-                    return;
-                }
+
+                month = Integer.parseInt(matcher.group(1));
             } else {
                 month = LocalDate.now().getMonthValue(); // Default to current month
             }
@@ -257,13 +255,13 @@ public class Parser {
         String[] parts = command.split("-");
         for (String part : parts) {
             if (part.startsWith("ingredient=")) {
-                String ingredient = part.substring(11).trim();
+                String ingredient = part.substring(LENGTH_INGREDIENT_FLAG).trim();
                 data.put("ingredient", ingredient);
             } else if (part.startsWith("quantity=")) {
-                String quantity = part.substring(9).trim();
+                String quantity = part.substring(LENGTH_QUANTITY_FLAG).trim();
                 data.put("quantity", quantity);
             } else if (part.startsWith("expiry=")) {
-                String expiry = part.substring(7).trim();
+                String expiry = part.substring(LENGTH_EXPIRY_FLAG).trim();
                 data.put("expiry_date", expiry);
             } else if (!part.isEmpty()) {
                 return null;

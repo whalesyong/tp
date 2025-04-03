@@ -1,0 +1,97 @@
+@startuml
+actor User
+participant ":Parser" as Parser
+participant ":AddCommand" as AddCommand
+participant ":DeleteCommand" as DeleteCommand
+participant ":HelpCommand" as HelpCommand
+participant ":ListCommand" as ListCommand
+participant ":SuggestCommand" as SuggestCommand
+participant ":ViewCommand" as ViewCommand
+
+User -> Parser: decipherCommand("<command> <args>")
+activate Parser
+
+Parser -> AddCommand: addDish(String receivedText)
+activate AddCommand
+AddCommand --> Parser: Dish added
+deactivate AddCommand
+
+Parser -> AddCommand: addRecipe(String receivedText)
+activate AddCommand
+AddCommand --> Parser: Recipe added
+deactivate AddCommand
+
+Parser -> AddCommand: addIngredient(String receivedText)
+activate AddCommand
+AddCommand --> Parser: Ingredient added
+deactivate AddCommand
+
+Parser -> DeleteCommand: deleteDish(String receivedText)
+activate DeleteCommand
+DeleteCommand --> Parser: Dish deleted
+deactivate DeleteCommand
+
+Parser -> DeleteCommand: deleteDishWithWhen(String receivedText)
+activate DeleteCommand
+DeleteCommand --> Parser: Dish deleted (with time)
+deactivate DeleteCommand
+
+Parser -> DeleteCommand: deleteDishByWhen(String receivedText)
+activate DeleteCommand
+DeleteCommand --> Parser: Dish deleted (by time)
+deactivate DeleteCommand
+
+Parser -> DeleteCommand: deleteIngredient(String receivedText)
+activate DeleteCommand
+DeleteCommand --> Parser: Ingredient deleted
+deactivate DeleteCommand
+
+Parser -> DeleteCommand: deleteRecipe(String receivedText)
+activate DeleteCommand
+DeleteCommand --> Parser: Recipe deleted
+deactivate DeleteCommand
+
+Parser -> HelpCommand: showHelp()
+activate HelpCommand
+HelpCommand --> Parser: Help displayed
+deactivate HelpCommand
+
+Parser -> ListCommand: listDishes()
+activate ListCommand
+ListCommand --> Parser: List of dishes
+deactivate ListCommand
+
+Parser -> ListCommand: listRecipes()
+activate ListCommand
+ListCommand --> Parser: List of recipes
+deactivate ListCommand
+
+Parser -> ListCommand: listIngredients()
+activate ListCommand
+ListCommand --> Parser: List of ingredients
+deactivate ListCommand
+
+Parser -> SuggestCommand: suggestRecipes()
+activate SuggestCommand
+SuggestCommand --> Parser: Suggested recipes
+deactivate SuggestCommand
+
+Parser -> ViewCommand: viewDish(String receivedText)
+activate ViewCommand
+ViewCommand --> Parser: Dish details
+deactivate ViewCommand
+
+Parser -> ViewCommand: viewRecipe(String receivedText)
+activate ViewCommand
+ViewCommand --> Parser: Recipe details
+deactivate ViewCommand
+
+Parser -> ViewCommand: viewIngredient(String receivedText)
+activate ViewCommand
+ViewCommand --> Parser: Ingredient details
+deactivate ViewCommand
+
+Parser --> User: Action result displayed
+
+deactivate Parser
+@enduml

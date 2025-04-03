@@ -17,6 +17,12 @@ public class AddCommand {
     private static final int SPACE = 1;
     private static final String INGREDIENT_SEPARATOR = ",";
 
+    /**
+     * Removes the command word from the received input string.
+     *
+     * @param receivedText The full command input from the user.
+     * @return The input string without the command word.
+     */
     public static String removeCommandWord(String receivedText) {
         assert receivedText != null : "Received text should not be null";
         assert receivedText.length() > COMMAND_WORD.length() + SPACE : "Received text is too short to process";
@@ -24,6 +30,11 @@ public class AddCommand {
         return receivedText.substring(COMMAND_WORD.length() + SPACE);
     }
 
+    /**
+     * Adds a dish to the DishCalendar.
+     *
+     * @param receivedText The user input containing dish details.
+     */
     public static void addDish(String receivedText) {
         try {
             receivedText = removeCommandWord(receivedText);
@@ -48,6 +59,11 @@ public class AddCommand {
         }
     }
 
+    /**
+     * Adds a recipe to the RecipeBank.
+     *
+     * @param receivedText The user input containing recipe details.
+     */
     public static void addRecipe(String receivedText) {
 
         try {
@@ -98,13 +114,20 @@ public class AddCommand {
             System.out.println("Ingredients: " + ingredients);
         } catch (InvalidInputException e) {
 
-            System.out.println("Invalid format, recipe should have at least one ingredient, with ingredients and " +
-                    "quantities in pairs (use -needs=ingredient_1,quantity_1,ingredient_2,quantity_2)");
+            System.out.println("Invalid format, recipe should have ingredients and quantities in pairs" +
+                    " (use -needs=ingredient_1,quantity_1,ingredient_2,quantity_2)");
+
+            System.out.println("Invalid format, " +
+                    "recipe should have at least one ingredient (use -needs=ingredientName)");
         }
     }
 
-
-
+    /**
+     * Parses the ingredients string into an ArrayList.
+     *
+     * @param ingredientsString The string containing ingredient details.
+     * @return A list of parsed ingredient names.
+     */
     private static ArrayList<String> parseIngredients(String ingredientsString) {
         ArrayList<String> ingredients = new ArrayList<>();
         if (!ingredientsString.isEmpty()) {
@@ -116,6 +139,11 @@ public class AddCommand {
         return ingredients;
     }
 
+    /**
+     * Adds an ingredient to the IngredientStorage.
+     *
+     * @param receivedText The user input containing ingredient details.
+     */
     public static void addIngredient(String receivedText) {
         try {
             String inputs = removeCommandWord(receivedText);
@@ -153,6 +181,13 @@ public class AddCommand {
             System.out.println(e.getMessage());
         }
     }
+
+    /**
+     * Replaces spaces in a string with underscores.
+     *
+     * @param input The input string.
+     * @return The modified string with spaces replaced by underscores.
+     */
     private static String replaceSpaceWithUnderscore(String input){
         return input.replace(" ", "_");
     }

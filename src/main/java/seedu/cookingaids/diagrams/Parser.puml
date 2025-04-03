@@ -1,54 +1,56 @@
 @startuml
+
 hide circle
 skinparam classAttributeIconSize 0
+
 class Parser {
-    +decipherCommand(String receivedText)
-    -handleViewCommand(String receivedText)
-    -handleDisplayCommand(String receivedText)
-    -handleAddCommand(String receivedText)
-    -handleDeleteCommand(String receivedText)
-    +parseDishNameForDeletion(String receivedText): String
-    +parseWhenForDeletion(String receivedText): String
-    +parseDishAndWhenForDeletion(String receivedText): String[]
-    +parseIngredientForDeletion(String receivedText): String
-    +parseRecipeForDeletion(String receivedText): String
-    +parseDish(String input): String[]
-    +parseRecipe(String receivedText): String[]
-    +parseIngredient(String command): HashMap<String, String>
-    +isDate(String input): boolean
++ decipherCommand(String receivedText)
+- handleViewCommand(String receivedText)
+- handleDisplayCommand(String receivedText)
+- handleAddCommand(String receivedText)
+- handleDeleteCommand(String receivedText)
++ parseDishNameForDeletion(String receivedText): String
++ parseWhenForDeletion(String receivedText): String
++ parseDishAndWhenForDeletion(String receivedText): String[]
++ parseIngredientForDeletion(String receivedText): String
++ parseRecipeForDeletion(String receivedText): String
++ parseDish(String input): String[]
++ parseRecipe(String receivedText): String[]
++ parseIngredient(String command): HashMap<String, String>
++ isDate(String input): boolean
 }
 
 class AddCommand {
-    +static addRecipe(String receivedText)
-    +static addDish(String receivedText)
-    +static addIngredient(String receivedText)
++ static addRecipe(String receivedText)
++ static addDish(String receivedText)
++ static addIngredient(String receivedText)
 }
 
 class DeleteCommand {
-    +static deleteRecipe(String receivedText)
-    +static deleteDishWithWhen(String receivedText)
-    +static deleteDish(String receivedText)
-    +static deleteDishByWhen(String receivedText)
-    +static deleteIngredient(String receivedText)
++ static deleteRecipe(String receivedText)
++ static deleteDishWithWhen(String receivedText)
++ static deleteDish(String receivedText)
++ static deleteDishByWhen(String receivedText)
++ static deleteIngredient(String receivedText)
 }
 
 class ListCommand {
-    +static displayRecipeBank()
-    +static displayDishList(String receivedText)
-    +static displayIngredients()
-    +static displayShoppingList()
++ static displayRecipeBank()
++ static displayDishList(String receivedText)
++ static displayIngredients()
++ static displayShoppingList()
 }
 
 class HelpCommand {
-    +static showHelp()
++ static showHelp()
 }
 
 class SuggestCommand {
-    +static printSuggestions()
++ static printSuggestions()
 }
 
 class ViewCommand {
-    +static displayDishMonth(int month)
++ static displayDishMonth(int month)
 }
 
 Parser --> AddCommand
