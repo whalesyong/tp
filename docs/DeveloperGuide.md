@@ -45,7 +45,7 @@ These classes facilitate user interaction by providing formatted output and hand
 Below is a Sequence Diagram of an example of how a User performs command view -month=5 to view his dishes for the month of May
 ![img.png](images/sequenceView.png)
 The class diagrams of UI and Calendar printer are seen below
-![img.png](images/classUI.png)
+
 #### <ins>Design Considerations</ins>
 
 We designed the UI package to provide clear and structured user interactions. Separating UI functions from logic ensures modularity, making it easier to maintain and update. The `Ui` class handles receiving commands and user interaction, while `CalendarPrinter` focuses on structured visual representation of scheduled dishes.

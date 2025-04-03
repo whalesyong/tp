@@ -65,6 +65,7 @@ help
 ### **2. Adding Dish to Schedule: `add -dish={dishName}`** 
 
 Adds a dish to the calendar. If no date is specified, it defaults to today.
+<br> _add dishes in lower_snake_case form_
 
 **Usage:**  
 ```plaintext
@@ -88,7 +89,9 @@ add -dish={dishName} [-when={date}]
 ### **3. Adding an Ingredient: `add -ingredient={ingredientName}`** 
 
 Adds an ingredient to the ingredient database. If no quantity is specified, it defaults to 1. If no expiry date is 
-specifed, it defaults to None. Expiry date format is to be in YYYY/MM/DD
+specifed, it defaults to None. 
+<br> _Expiry date format is to be in YYYY/MM/DD_
+<br> _add ingredients in lower_snake_case form_ 
 
 > **Warning:** Ingredients will not expire if no expiry date is set.  
 
@@ -125,6 +128,7 @@ add -ingredient={ingredientName} [-expiry={expiryDate}] [-qty={quantity}]
 ### **4. Adding Recipe to Recipe Bank: `add -recipe={recipeName}`**
 
 Adds a new recipe to the recipe bank.
+<br> _add recipes in lower_snake_case form_
 
 **Usage:**
 ```plaintext

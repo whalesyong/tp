@@ -114,22 +114,5 @@ public class StorageTest {
         assertEquals(2, curryStock.size(), "Curry should have 2 ingredients");
     }
 
-    //    /**
-    //     * This test would be better with dependency injection, but we'll test what we can
-    //     * with the current design.
-    //     */
-    //    @Test
-    //    public void testLoadDataHandlesEmptyOrMissingFile() {
-    //        // When loading from a non-existent file, it should return empty lists
-    //
-    //        Storage.DataWrapper result = Storage.loadData();
-    //
-    //        // We can't guarantee the file doesn't exist, but we can test that the method returns
-    //        // a valid DataWrapper object in any case
-    //        assertNotNull(result, "LoadData should always return a non-null DataWrapper");
-    //        assertNotNull(result.dishes, "Dishes list should not be null");
-    //        assertNotNull(result.recipes, "Recipes list should not be null");
-    //        assertEquals(testIngredients.size(), result.ingredients.size(),
-    //                "Loaded ingredients should match stored ingredients");}
 
 }
