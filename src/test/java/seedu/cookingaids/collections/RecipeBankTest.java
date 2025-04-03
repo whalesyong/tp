@@ -103,7 +103,7 @@ class RecipeBankTest {
         assertEquals(2, RecipeBank.getRecipeBank().size());
 
         // When removing a recipe
-        RecipeBank.removeRecipeFromRecipeBank("delete -recipe=Spaghetti Carbonara");
+        RecipeBank.removeRecipeFromRecipeBank("delete -recipe=1");
 
         // Then the recipe bank should no longer contain that recipe
         assertEquals(1, RecipeBank.getRecipeBank().size());
@@ -111,7 +111,7 @@ class RecipeBankTest {
         assertTrue(RecipeBank.getRecipeBank().contains(testRecipe2));
 
         // When removing a recipe that doesn't exist
-        RecipeBank.removeRecipeFromRecipeBank("delete -recipe=Nonexistent Recipe");
+        RecipeBank.removeRecipeFromRecipeBank("delete -recipe=50");
 
         // Then the recipe bank should remain unchanged
         assertEquals(1, RecipeBank.getRecipeBank().size());
