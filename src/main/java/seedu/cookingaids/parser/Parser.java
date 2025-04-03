@@ -21,6 +21,8 @@ import java.util.regex.Pattern;
  * that can be understood by other methods.
  */
 public class Parser {
+    public static final String NEW_INGREDIENTS_FLAG = "-newingredients=";
+    public static final String NEW_NAME_FLAG = "-newname=";
     private static final String UNKNOWN_COMMAND_STR = "Unknown command: %s";
     private static final String RECIPE_FLAG = "-recipe=";
     private static final String NEEDS_FLAG = "-needs=";
@@ -30,8 +32,6 @@ public class Parser {
     private static final String MONTH_FLAG = "-month=";
     private static final String DAY_FLAG = "-day=";
     private static final String SHOPPING_FLAG = "-shopping";
-    public static final String NEW_NAME_FLAG = "-newname=";
-    public static final String NEW_INGREDIENTS_FLAG = "-newingredients=";
     private static final int LENGTH_INGREDIENT_FLAG = 11;
     private static final int LENGTH_QUANTITY_FLAG = 9;
     private static final int LENGTH_EXPIRY_FLAG = 7;

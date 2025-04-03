@@ -8,8 +8,6 @@ import seedu.cookingaids.parser.Parser;
 import seedu.cookingaids.exception.InvalidInputException;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class UpdateCommand {
 
