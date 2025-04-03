@@ -1,4 +1,8 @@
 @startuml
+
+hide circle
+skinparam classAttributeIconSize 0
+
 class CalendarPrinter {
     + static final String BLANK_SPACE
     + static void printMonthCalendar(int year, Month month, ArrayList<Dish> list)
@@ -7,9 +11,6 @@ class CalendarPrinter {
     - static void printFirstCalendarRow(int year, Month month, ArrayList<Dish> list, int firstDayOfWeek, LocalDate today)
     - static void printFirstFoodRows(int year, Month month, ArrayList<Dish> list, int firstDayOfWeek)
 }
-
-
-
 
 
 class Ui {

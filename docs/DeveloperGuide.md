@@ -78,7 +78,7 @@ operations on items separately and keep a temporary storage of the results of op
 file.
 
 The following is a class diagram of one of the classes `IngredientStorage`
-![img_2.png](images/img_2.png)
+![img_3.png](images/img_3.png)
 
 ### Items
 
