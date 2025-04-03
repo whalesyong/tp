@@ -154,6 +154,7 @@ public class Ui {
         DishCalendar.initializeDishCalendar(wrapper.dishes);
         RecipeBank.initializeRecipeBank(wrapper.recipes);
         IngredientStorage.initializeIngredientStorage(wrapper.ingredients);
+        ShoppingList.initializeShoppingList(wrapper.shopping);
         Scanner scanner = new Scanner(System.in);
         String scannedText;
         while (!(scannedText = scanner.nextLine()).equals("bye")) {     //bye breaks the while loop

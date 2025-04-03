@@ -1,0 +1,16 @@
+@startuml
+actor User
+participant Parser
+participant ViewCommand
+participant CalendarPrinter
+participant DishCalendar
+
+User -> Parser: decipherCommand("view -month=5")
+Parser -> ViewCommand: displayDishMonth(5)
+ViewCommand -> DishCalendar: getDishesForMonth(5)
+DishCalendar --> ViewCommand: List<Dish>
+ViewCommand -> CalendarPrinter: printMonthCalendar(2025, MAY, List<Dish>)
+CalendarPrinter -> CalendarPrinter: Generate calendar view
+CalendarPrinter --> User: Display formatted calendar
+
+@enduml

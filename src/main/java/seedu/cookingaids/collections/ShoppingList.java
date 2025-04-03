@@ -1,13 +1,17 @@
 package seedu.cookingaids.collections;
 
+
 import seedu.cookingaids.items.Ingredient;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ShoppingList {
     private static ArrayList<Ingredient> shoppingList = new ArrayList<>();
-
+    public static void initializeShoppingList(List<Ingredient> ingredients) {
+        shoppingList.addAll(ingredients);
+    }
     public static ArrayList<Ingredient> getShoppingList() {
         return shoppingList;
     }
