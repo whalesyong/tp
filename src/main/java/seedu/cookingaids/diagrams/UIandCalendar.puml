@@ -25,6 +25,7 @@ class Ui {
     + void printShoppingListView(ArrayList<Ingredient> shoppingList)
     + void printRecipeListView(ArrayList<Recipe> recipes)
     + void printIngredientListView(HashMap<String, List<Ingredient>> ingredients)
+    - void formatIngredientsForList(Ingredient ingredient)
     - void printAsIndexedList(List<String> list)
     - String getIndexedListForViewing(List<String> listItems)
     - String getIndexedListItem(int visibleIndex, String listItem)
