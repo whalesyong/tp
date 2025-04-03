@@ -114,7 +114,10 @@ public class Suggest {
                 + recipe.getRecipeName() + MESSAGE_MISSING_INGREDIENTS_SUFFIX);
 
         for (Ingredient ingredient : missingIngredients) {
-            message.append("\n").append(ingredient.getQuantity()).append(" ").append(ingredient.getName().toLowerCase());
+            message.append("\n")
+                    .append(ingredient.getQuantity())
+                    .append(" ")
+                    .append(ingredient.getName().toLowerCase());
         }
 
         Ui.printItems(message.toString());
