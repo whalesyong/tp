@@ -35,7 +35,7 @@ public class Dish {
         if (dishDate.toString().equals("None")) {
             return  dishName ;
         } else {
-            return dishName + ", Scheduled for:" + dishDate.toString();
+            return String.format("%-15s", dishName) + ", Scheduled for:" + dishDate.toString();
         }
     }
 
