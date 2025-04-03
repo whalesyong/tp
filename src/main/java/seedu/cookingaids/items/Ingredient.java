@@ -2,6 +2,7 @@ package seedu.cookingaids.items;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import seedu.cookingaids.config.UnitConfig;
 
 /**
  * represents an Ingredient class
@@ -87,8 +88,8 @@ public class Ingredient extends Food {
 
     @Override
     public String toString() {
-        String expiryFlag = expiringSoon ? "[X]" : "[]";
-        return name + " (" + quantity + ", Expiry: " + expiryDate + ", Expiring Soon: " +
+        String unit = UnitConfig.getUnit(name);
+        return name + " (" + quantity + unit + ", Expiry: " + expiryDate + ", Expiring Soon: " +
                 (expiringSoon ? "Yes" : "No") + ", Expired: " + (expired ? "Yes" : "No") + ")";
     }
 }
