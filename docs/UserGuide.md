@@ -281,22 +281,30 @@ delete -dish={dishName} -when={date}
 **Expected Output:**  
 - If multiple dishes are scheduled:  
   ```plaintext
-  1. {date1} - {dishName}  
-  2. {date2} - {dishName}  
-  Which would you like to delete?  
-  Input a number.  
+  Multiple dishes found:
+  1, Date: {date1} - {dishName}
+  2, Date: {date2} - {dishName}
+  Which would you like to delete? Input a number.
   {date} - {dishName} Successfully deleted!
   ```
 - If only one dish is scheduled:  
   ```plaintext
   {date} - {dishName} Successfully deleted!
   ```
+- If dish is not found:
+  ```plaintext
+  No scheduled dishes found for: {dishName}
+  ```
+- If invalid input:
+  ```plaintext
+  Invalid input
+  ```
 
 ---
 
 ### **11. Delete Ingredient: `delete -ingredient={ingredientName}`** 
 
-Removes an ingredient from the list of available ingredients.  
+Removes an ingredient and all its quantities from the storage.
 
 **Usage:**  
 ```plaintext
@@ -313,17 +321,22 @@ delete -ingredient={ingredientName}
 
 ### **12. Delete Recipe from Recipe Bank: `delete -recipe={recipeIndex}`** 
 
-Deletes a recipe from the recipe bank.  
+Deletes a recipe from the recipe bank using its index number.
 
 **Usage:**  
 ```plaintext
 delete -recipe={recipeIndex}
 ```
+> Note: {recipeIndex} refers to the recipe's position number in the recipe bank (1-based indexing)
 
 **Expected Output:**
-- `delete -recipe={recipeIndex}`:
+- On successful deletion:
   ```plaintext
-  {recipeIndex} has been deleted from the recipe bank!
+  {recipeName} has been deleted from the recipe bank!
+  ```
+- If invalid index:
+  ```plaintext
+  Please provide a valid recipe index!
   ```
 
 ---
