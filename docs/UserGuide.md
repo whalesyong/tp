@@ -13,10 +13,11 @@
   7. [View Shopping List: `list -shopping`](#7-view-shopping-list-list--shopping)
   8. [View Dishes for the Month: `view -month=`](#8-view-dishes-for-the-month-view--month1-12blank)
   9. [View Available Recipes: `list -recipe`](#9-view-available-recipes-list--recipe)
-  10. [Delete Dish from Schedule: `delete -dish`](#10-delete-dish-from-schedule-delete--dishdishname-)
-  11. [Delete Ingredient: `delete -ingredient`](#11-delete-ingredient-delete--ingredientingredientname-)
-  12. [Delete Recipe from Recipe Bank: `delete -recipe`](#12-delete-recipe-from-recipe-bank-delete--reciperecipeindex-)
-  13. [Suggest Dishes: `suggest`](#13-suggest-dishes-suggest)
+  10. [Update Recipes: `update -recipe`](#10-update-recipes-update--recipe)
+  10. [Delete Dish from Schedule: `delete -dish`](#11-delete-dish-from-schedule-delete--dishdishname-)
+  11. [Delete Ingredient: `delete -ingredient`](#12-delete-ingredient-delete--ingredientingredientname-)
+  12. [Delete Recipe from Recipe Bank: `delete -recipe`](#13-delete-recipe-from-recipe-bank-delete--reciperecipeindex-)
+  13. [Suggest Dishes: `suggest`](#14-suggest-dishes-suggest)
 - [Command List](#command-list-)
 
 ---
@@ -266,8 +267,30 @@ list -recipe={recipeName}
   - ingredientName2  
   - ...
   ```
+### **10. Update Recipes: `update -recipe`**
+
+Displays a list of available recipes and/or their required ingredients.
+
+**Usage:**
+```plaintext
+update -recipe={recipeIndex} -newname={newName}
+update -recipe={recipeIndex} -newingredients={new_ingredient_1,quantity_1,new_ingredient_2,quantity_2}
+update -recipe={recipeIndex} -newname={newName} -newingredients={new_ingredient_1,quantity_1,new_ingredient_2,quantity_2}
+```
+
+**Expected Output:**
+- `update -recipe={recipeIndex} -newname={newName}`:
+  ```plaintext
+  Recipe name updated to: {newName}
+  ```
+- `update -recipe={recipeIndex} -newingredients={new_ingredient_1,quantity_1,new_ingredient_2,quantity_2}`:
+  ```plaintext
+  "Recipe ingredients updated successfully!"
+  ```
+
 ---
-### **10. Delete Dish from Schedule: `delete -dish={dishName}`** 
+
+### **11. Delete Dish from Schedule: `delete -dish={dishName}`** 
 
 Removes a dish from the schedule.  
 
@@ -302,7 +325,7 @@ delete -dish={dishName} -when={date}
 
 ---
 
-### **11. Delete Ingredient: `delete -ingredient={ingredientName}`** 
+### **12. Delete Ingredient: `delete -ingredient={ingredientName}`** 
 
 Removes an ingredient and all its quantities from the storage.
 
@@ -319,7 +342,7 @@ delete -ingredient={ingredientName}
 
 ---
 
-### **12. Delete Recipe from Recipe Bank: `delete -recipe={recipeIndex}`** 
+### **13. Delete Recipe from Recipe Bank: `delete -recipe={recipeIndex}`** 
 
 Deletes a recipe from the recipe bank using its index number.
 
@@ -341,7 +364,7 @@ delete -recipe={recipeIndex}
 
 ---
 
-### **13. Suggest Dishes: `suggest`**
+### **14. Suggest Dishes: `suggest`**
 Suggests dishes based on available ingredients. 
 **Usage:**
 ```
