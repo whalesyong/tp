@@ -73,9 +73,13 @@ public class Ui {
         //prints TaskList on console
         final List<String> formattedItems = new ArrayList<>();
         for (Ingredient ingredients : shoppingList) {
-            formattedItems.add(ingredients.toString());
+            formattedItems.add(formatIngredientForList(ingredients));
         }
         printAsIndexedList(formattedItems);
+    }
+
+    private static String formatIngredientForList(Ingredient ingredients) {
+        return String.format("%-15s", ingredients.getName()) + " qty: " + ingredients.getQuantity();
     }
 
     /**

@@ -21,6 +21,9 @@
 
 ---
 
+<div style="page-break-after: always;"></div>
+
+
 ## **Introduction**  
 
 CookingAids is an app designed to help busy students living overseas on a budget save time and effort when planning and cooking meals.  
@@ -46,6 +49,8 @@ With CookingAids, you can:
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ## **Features**  
 
 ### **1. Viewing Help: `help`** 
@@ -65,6 +70,7 @@ help
 ### **2. Adding Dish to Schedule: `add -dish={dishName}`** 
 
 Adds a dish to the calendar. If no date is specified, it defaults to today.
+<br> _add dishes in lower_snake_case form_
 
 **Usage:**  
 ```plaintext
@@ -84,11 +90,14 @@ add -dish={dishName} [-when={date}]
   ```
 
 ---
+<div style="page-break-after: always;"></div>
 
 ### **3. Adding an Ingredient: `add -ingredient={ingredientName}`** 
 
 Adds an ingredient to the ingredient database. If no quantity is specified, it defaults to 1. If no expiry date is 
-specifed, it defaults to None. Expiry date format is to be in YYYY/MM/DD
+specifed, it defaults to None. 
+<br> _Expiry date format is to be in YYYY/MM/DD_
+<br> _add ingredients in lower_snake_case form_ 
 
 > **Warning:** Ingredients will not expire if no expiry date is set.  
 
@@ -121,10 +130,12 @@ add -ingredient={ingredientName} [-expiry={expiryDate}] [-qty={quantity}]
   ```
   
 ---
+<div style="page-break-after: always;"></div>
 
 ### **4. Adding Recipe to Recipe Bank: `add -recipe={recipeName}`**
 
 Adds a new recipe to the recipe bank.
+<br> _add recipes in lower_snake_case form_
 
 **Usage:**
 ```plaintext
@@ -166,6 +177,7 @@ list -dish={dishName}
   ```
 
 ---
+<div style="page-break-after: always;"></div>
 
 ### **6. View Available Ingredients: `list -ingredient`**
 
@@ -207,6 +219,9 @@ list -shopping
   ```
 
 ---
+
+<div style="page-break-after: always;"></div>
+
 ### **8. View Dishes for the Month: `view -month={1-12/BLANK}`**
 
 Displays dishes scheduled for a specific month or the current month.
@@ -225,6 +240,8 @@ view -month=   # Current month
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ### **9. View Available Recipes: `list -recipe`**
 
 Displays a list of available recipes and/or their required ingredients.
@@ -234,7 +251,6 @@ Displays a list of available recipes and/or their required ingredients.
 list -recipe  
 list -recipe={recipeName}
 ```
-
 **Expected Output:**
 - `list -recipe`:
   ```plaintext
@@ -250,9 +266,7 @@ list -recipe={recipeName}
   - ingredientName2  
   - ...
   ```
-
 ---
-
 ### **10. Delete Dish from Schedule: `delete -dish={dishName}`** 
 
 Removes a dish from the schedule.  
@@ -340,6 +354,7 @@ suggest
   1: carbonara
   2: garlic_bread
   ```
+<div style="page-break-after: always;"></div>
 
 ## **Command List**  
 
