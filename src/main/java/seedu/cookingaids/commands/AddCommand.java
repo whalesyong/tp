@@ -55,7 +55,9 @@ public class AddCommand {
                 System.out.println("Added Dish: " + dish.getName() + ", Scheduled for: " + date);
             }
         } catch (InvalidInputException e) {
-            System.out.println("Invalid format. Use: add -dish=dish_name -when=YYYY-MM-DD");
+            System.out.println("Invalid format. Use: add -dish=dish_name -when=YYYY-MM-DD " +
+                    "\ndish name should be in lower_snake_case");
+
         }
     }
 
@@ -149,8 +151,8 @@ public class AddCommand {
             String inputs = removeCommandWord(receivedText);
             HashMap<String, String> ingredientFields = Parser.parseIngredient(inputs);
             if (ingredientFields == null) {
-                System.out.println("Invalid format. Please make sure your flags are spelled correctly, and date is in "
-                        + "YYYY/MM/DD format");
+                System.out.println("Invalid format. Use: add -ingredient=ingredient_name -expiry=YYYY/MM/DD " +
+                        "-quantity=quantity, the only dashes should be for the flags");
                 return;
             }
             assert ingredientFields.containsKey("ingredient") : "Missing 'ingredient' key";
@@ -168,10 +170,10 @@ public class AddCommand {
             try {
                 quantity = Integer.parseInt(ingredientFields.get("quantity"));
                 if (quantity < 0) {
-                    throw new IllegalArgumentException("Quantity must be a positive number");
+                    throw new IllegalArgumentException("Quantity must be a positive integer");
                 }
             } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("Quantity must be a valid number");
+                throw new IllegalArgumentException("Quantity must be a positive integer");
             }
             assert quantity > 0 : "Quantity should be greater than zero";
             Ingredient ingredient = new Ingredient( ingredientName, expiryDate, quantity);

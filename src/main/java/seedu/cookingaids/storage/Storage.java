@@ -6,6 +6,7 @@ import seedu.cookingaids.items.Dish;
 import seedu.cookingaids.items.Recipe;
 import seedu.cookingaids.items.Ingredient;
 import seedu.cookingaids.collections.IngredientStorage;
+import seedu.cookingaids.ui.Ui;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +22,11 @@ public class Storage {
     private static final String INGREDIENT_STORAGE_FIELD_NAME = "ingredients";
     private static final String SHOPPING_LIST_FIELD_NAME = "shopping";
     private static final String FILE_PATH = "./data/cookingaids.json";
+
+    private static final String MESSAGE_STORE_SUCCESS = "Stored Dish List successfully in: ";
+    private static final String MESSAGE_STORE_FAILURE = "Failed to store Dish List in: ";
+    private static final String MESSAGE_NO_DATA_FOUND = "No data found, creating new lists.";
+    private static final String MESSAGE_LOAD_FAILURE = "Failed to load Dish list from: %s, loading new list.";
 
 
     /**
@@ -58,9 +64,9 @@ public class Storage {
 
         try {
             mapper.writeValue(file, dataMap);
-            System.out.println("Stored Dish List successfully in: " + FILE_PATH);
+            Ui.printItems(MESSAGE_STORE_SUCCESS + FILE_PATH);
         } catch (IOException e) {
-            System.err.println("Failed to store Dish List in: " + FILE_PATH);
+            Ui.printItems(MESSAGE_STORE_FAILURE + FILE_PATH);
         }
     }
 
@@ -72,13 +78,11 @@ public class Storage {
      * @return A DataWrapper containing the lists of dishes and recipes.
      */
     public static DataWrapper loadData() {
-
-
         ObjectMapper mapper = new ObjectMapper();
         File file = new File(FILE_PATH);
 
         if (!file.exists()) {
-            System.out.println("No data found, creating new lists.");
+            Ui.printItems(MESSAGE_NO_DATA_FOUND);
             IngredientStorage.clear();
             return new DataWrapper(new ArrayList<>(), new ArrayList<>(), new HashMap<>(), new ArrayList<>());
         }
@@ -86,20 +90,15 @@ public class Storage {
         try {
             return mapper.readValue(file, DataWrapper.class);
         } catch (IOException e) {
-            System.err.println("Failed to load Dish list from: " + FILE_PATH + ", loading new list.");
-            System.err.println(e.getMessage());
+            Ui.printItems(String.format(MESSAGE_LOAD_FAILURE, FILE_PATH));
+            Ui.printItems(e.getMessage());
             return new DataWrapper(new ArrayList<>(), new ArrayList<>(), new HashMap<>(), new ArrayList<>());
         }
-
-
     }
 
     /**
-     * Loads the list of dishes and recipes from a JSON file.
-     * This method reads a JSON file containing dishes and recipes and deserializes the data into appropriate objects.
-     * If the file doesn't exist or fails to load, it returns empty lists of dishes and recipes.
-     *
-     * @return A DataWrapper containing the lists of dishes and recipes.
+     * DataWrapper class to handle serialization and deserialization of application data.
+     * This class contains lists of dishes and recipes and methods to manipulate them.
      */
     public static class DataWrapper {
         public List<Dish> dishes;
@@ -121,11 +120,7 @@ public class Storage {
 
         //for debugging
         public static void printData() {
-            System.out.println("All data obtained: ");
-            // System.out.println("All dishes: " + dishes);
-            // System.out.println("All recipes: " + recipes);
-            //System.out.println("All ingredients: " + ingredients);
+            Ui.printItems("All data obtained: ");
         }
     }
-
 }

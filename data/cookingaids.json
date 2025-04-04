@@ -15,8 +15,37 @@
       }
     } ],
     "recipeName" : "tomato_pasta"
+  }, {
+    "name" : "garlic_bread",
+    "ingredients" : [ {
+      "name" : "garlic",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    }, {
+      "name" : "bread",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    }, {
+      "name" : "butter",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ],
+    "recipeName" : "garlic_bread"
   } ],
   "ingredients" : {
+    "garlic" : [ {
+      "name" : "garlic",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ],
     "chicken" : [ {
       "name" : "chicken",
       "quantity" : 1,
@@ -33,7 +62,14 @@
     } ],
     "tomato" : [ {
       "name" : "tomato",
-      "quantity" : 1,
+      "quantity" : 2,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ],
+    "rice" : [ {
+      "name" : "rice",
+      "quantity" : 1500,
       "expiryDate" : {
         "dateString" : "None"
       }

@@ -4,6 +4,7 @@ import seedu.cookingaids.collections.IngredientStorage;
 import seedu.cookingaids.collections.RecipeBank;
 import seedu.cookingaids.items.Ingredient;
 import seedu.cookingaids.items.Recipe;
+import seedu.cookingaids.ui.Ui;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +12,10 @@ import java.util.List;
 import java.util.Set;
 
 public class Suggest {
+
+    private static final String MESSAGE_NO_AVAILABLE_RECIPES = "There are no available recipes.";
+    private static final String MESSAGE_MISSING_INGREDIENTS_PREFIX = "Not enough ingredients for ";
+    private static final String MESSAGE_MISSING_INGREDIENTS_SUFFIX = "! Here's what you're missing: ";
 
     /**
      * suggests recipes based on user's available ingredients
@@ -22,7 +27,7 @@ public class Suggest {
         ArrayList<Recipe> availableRecipes = RecipeBank.getRecipeBank();
 
         if (availableRecipes.isEmpty()) {
-            System.out.println("There are no available recipes.");
+            Ui.printItems(MESSAGE_NO_AVAILABLE_RECIPES);
             return new ArrayList<>();
         }
 
@@ -105,9 +110,16 @@ public class Suggest {
      * @param missingIngredients List of missing ingredients
      */
     private static void printMissingIngredients(Recipe recipe, ArrayList<Ingredient> missingIngredients) {
-        System.out.println("Not enough ingredients for " + recipe.getRecipeName() + "! Here's what you're missing: ");
+        StringBuilder message = new StringBuilder(MESSAGE_MISSING_INGREDIENTS_PREFIX
+                + recipe.getRecipeName() + MESSAGE_MISSING_INGREDIENTS_SUFFIX);
+
         for (Ingredient ingredient : missingIngredients) {
-            System.out.println(ingredient.getQuantity() + " " + ingredient.getName().toLowerCase());
+            message.append("\n")
+                    .append(ingredient.getQuantity())
+                    .append(" ")
+                    .append(ingredient.getName().toLowerCase());
         }
+
+        Ui.printItems(message.toString());
     }
 }

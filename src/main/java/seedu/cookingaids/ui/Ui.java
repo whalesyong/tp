@@ -39,9 +39,7 @@ public class Ui {
             ░▒▓████████▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░ \s
             ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░\s
             ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░\s
-            ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓███████▓▒░░▒▓███████▓▒░ \s
-                                                          \s
-                                                          \s""";
+            ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓███████▓▒░░▒▓███████▓▒░ \s""";;
     private static final String MESSAGE_INDEXED_LIST_ITEM = "\t%1$d. %2$s";
 
     public static void printLineDivider() {
@@ -75,9 +73,13 @@ public class Ui {
         //prints TaskList on console
         final List<String> formattedItems = new ArrayList<>();
         for (Ingredient ingredients : shoppingList) {
-            formattedItems.add(ingredients.toString());
+            formattedItems.add(formatIngredientForList(ingredients));
         }
         printAsIndexedList(formattedItems);
+    }
+
+    private static String formatIngredientForList(Ingredient ingredients) {
+        return String.format("%-15s", ingredients.getName()) + " qty: " + ingredients.getQuantity();
     }
 
     /**

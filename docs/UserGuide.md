@@ -22,6 +22,9 @@
 
 ---
 
+<div style="page-break-after: always;"></div>
+
+
 ## **Introduction**  
 
 CookingAids is an app designed to help busy students living overseas on a budget save time and effort when planning and cooking meals.  
@@ -47,6 +50,8 @@ With CookingAids, you can:
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ## **Features**  
 
 ### **1. Viewing Help: `help`** 
@@ -66,6 +71,7 @@ help
 ### **2. Adding Dish to Schedule: `add -dish={dishName}`** 
 
 Adds a dish to the calendar. If no date is specified, it defaults to today.
+<br> _add dishes in lower_snake_case form_
 
 **Usage:**  
 ```plaintext
@@ -85,10 +91,14 @@ add -dish={dishName} [-when={date}]
   ```
 
 ---
+<div style="page-break-after: always;"></div>
 
 ### **3. Adding an Ingredient: `add -ingredient={ingredientName}`** 
 
-Adds an ingredient to the ingredient database. If no quantity is specified, it defaults to 1.  
+Adds an ingredient to the ingredient database. If no quantity is specified, it defaults to 1. If no expiry date is 
+specifed, it defaults to None. 
+<br> _Expiry date format is to be in YYYY/MM/DD_
+<br> _add ingredients in lower_snake_case form_ 
 
 > **Warning:** Ingredients will not expire if no expiry date is set.  
 
@@ -121,10 +131,12 @@ add -ingredient={ingredientName} [-expiry={expiryDate}] [-qty={quantity}]
   ```
   
 ---
+<div style="page-break-after: always;"></div>
 
 ### **4. Adding Recipe to Recipe Bank: `add -recipe={recipeName}`**
 
 Adds a new recipe to the recipe bank.
+<br> _add recipes in lower_snake_case form_
 
 **Usage:**
 ```plaintext
@@ -166,6 +178,7 @@ list -dish={dishName}
   ```
 
 ---
+<div style="page-break-after: always;"></div>
 
 ### **6. View Available Ingredients: `list -ingredient`**
 
@@ -207,6 +220,9 @@ list -shopping
   ```
 
 ---
+
+<div style="page-break-after: always;"></div>
+
 ### **8. View Dishes for the Month: `view -month={1-12/BLANK}`**
 
 Displays dishes scheduled for a specific month or the current month.
@@ -225,6 +241,8 @@ view -month=   # Current month
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ### **9. View Available Recipes: `list -recipe`**
 
 Displays a list of available recipes and/or their required ingredients.
@@ -234,7 +252,6 @@ Displays a list of available recipes and/or their required ingredients.
 list -recipe  
 list -recipe={recipeName}
 ```
-
 **Expected Output:**
 - `list -recipe`:
   ```plaintext
@@ -250,9 +267,6 @@ list -recipe={recipeName}
   - ingredientName2  
   - ...
   ```
-
----
-
 ### **10. Update Recipes: `update -recipe`**
 
 Displays a list of available recipes and/or their required ingredients.
@@ -290,22 +304,30 @@ delete -dish={dishName} -when={date}
 **Expected Output:**  
 - If multiple dishes are scheduled:  
   ```plaintext
-  1. {date1} - {dishName}  
-  2. {date2} - {dishName}  
-  Which would you like to delete?  
-  Input a number.  
+  Multiple dishes found:
+  1, Date: {date1} - {dishName}
+  2, Date: {date2} - {dishName}
+  Which would you like to delete? Input a number.
   {date} - {dishName} Successfully deleted!
   ```
 - If only one dish is scheduled:  
   ```plaintext
   {date} - {dishName} Successfully deleted!
   ```
+- If dish is not found:
+  ```plaintext
+  No scheduled dishes found for: {dishName}
+  ```
+- If invalid input:
+  ```plaintext
+  Invalid input
+  ```
 
 ---
 
 ### **12. Delete Ingredient: `delete -ingredient={ingredientName}`** 
 
-Removes an ingredient from the list of available ingredients.  
+Removes an ingredient and all its quantities from the storage.
 
 **Usage:**  
 ```plaintext
@@ -322,17 +344,22 @@ delete -ingredient={ingredientName}
 
 ### **13. Delete Recipe from Recipe Bank: `delete -recipe={recipeIndex}`** 
 
-Deletes a recipe from the recipe bank.  
+Deletes a recipe from the recipe bank using its index number.
 
 **Usage:**  
 ```plaintext
 delete -recipe={recipeIndex}
 ```
+> Note: {recipeIndex} refers to the recipe's position number in the recipe bank (1-based indexing)
 
 **Expected Output:**
-- `delete -recipe={recipeIndex}`:
+- On successful deletion:
   ```plaintext
-  {recipeIndex} has been deleted from the recipe bank!
+  {recipeName} has been deleted from the recipe bank!
+  ```
+- If invalid index:
+  ```plaintext
+  Please provide a valid recipe index!
   ```
 
 ---
@@ -350,6 +377,7 @@ suggest
   1: carbonara
   2: garlic_bread
   ```
+<div style="page-break-after: always;"></div>
 
 ## **Command List**  
 
