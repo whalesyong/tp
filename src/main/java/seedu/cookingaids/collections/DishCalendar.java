@@ -31,7 +31,6 @@ public class DishCalendar {
         if (RecipeBank.contains(dish.getName())) {
             List<Ingredient> ingredientList = RecipeBank.getIngredientList(dish);
             if (ingredientList != null) {
-
                 assert ingredientList != null;
                 for (Ingredient ingredient : ingredientList) {
 
@@ -58,18 +57,10 @@ public class DishCalendar {
                         ShoppingList.addToShoppingList(ingredient);
                     }
                 }
-
             }
         }
-
         dishCalendar.add(dish);
-
-
     }
-
-
-
-
 
     public static List<Dish> getDishesByName(String dishName) {
         List<Dish> matchingDishes = new ArrayList<>();
@@ -101,18 +92,13 @@ public class DishCalendar {
 
             // Loop through all the ingredients in the dish
             for (Ingredient ingredient : ingredientList) {
-
-
                 // Check if the ingredient is in the shopping list
                 if (ShoppingList.contains(ingredient.getName())) {
                     ShoppingList.removeFromShoppingList(ingredient);
                 } else {
                     IngredientStorage.addToStorage(ingredient);
                 }
-
-
             }
-
         }
         // Finally, remove the dish from the calendar
         dishCalendar.remove(dish);
@@ -127,7 +113,6 @@ public class DishCalendar {
         }
         return false;
     }
-
     public static void clear() {
         dishCalendar.clear();
     }
