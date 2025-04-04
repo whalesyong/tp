@@ -111,7 +111,7 @@ The Items component contains classes that represent the smallest unit of functio
 
 #### <ins>Design Considerations</ins>
 
-The following is the class diagram for the classes Recipe and RecipeBank.
+The following is the class diagram for the classes `Recipe` and `RecipeBank`.
 
 ![Items.png](images/Items.png)
 
@@ -148,6 +148,7 @@ Each command modifies a specific collection and ensures the necessary updates ar
 We used this design to maintain a clear separation of concerns. Commands act as intermediaries between user input and data manipulation, ensuring that modifications to collections are structured and easily extendable. This modular approach allows for easy addition of new commands in the future without interfering with existing functionality.
 
 The following is a UML diagram of the `commands` package:
+
 ![Commands.png](images/Commands.png)
 
 <div style="page-break-after: always;"></div>
