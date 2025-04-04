@@ -245,12 +245,30 @@ planning their meals with their limited budget and time.
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
-
-## Glossary
-
-* *glossary item* - Definition
+* Runs on any Java 17-compatible environment.
+* Uses standard Java libraries and Jackson ObjectMapper for JSON serialisation.
+* Supports fast startup (<1 second).
+* A user with above average typing speed should be able to accomplish most of the tasks faster using commands than using a mouse.
 
 ## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+1. Ensure you have Java 17 installed.
+2. Run using:
+
+```java
+java -jar tp.jar
+```
+
+### Test Cases
+
+1. Start Cooking AIDS
+
+Follow the instructions given in our User Guide Quick Start
+Expected: A welcome message and a prompt for user input.
+
+- Test case: help
+  Expected: List of all possible commands user may enter should be displayed.
+- Test case: any non-command string
+  Expected: Error for an unrecognized command should appear.
+
+{to add more manual test cases for developers}
