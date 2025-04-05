@@ -257,7 +257,7 @@ list -shopping
 
 <div style="page-break-after: always;"></div>
 
-### **8. View Dishes for the Month: `view -month={1-12/BLANK}`**
+### **8. View Dishes for the Month: `view -month={1-12/BLANK} [-year={2015-2035}]`**
 
 Displays dishes scheduled for a specific month or the current month.
 <br> Current date will be highlighted in red
@@ -265,9 +265,10 @@ Displays dishes scheduled for a specific month or the current month.
 
 **Usage:**
 ```plaintext
-view -month=1  # January  
-view -month=11 # November  
-view -month=   # Current month
+view -month=1       //January  
+view -month=11      //November  
+view -month=        //Current month 
+view -month=1 -year=2026
 ```
 
 **Expected Output:**
