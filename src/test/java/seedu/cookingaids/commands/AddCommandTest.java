@@ -155,7 +155,7 @@ class AddCommandTest {
 
 
         String commandOutput = outputStream.toString().trim();
-        assertEquals("Invalid format. Use: add -dish=dish_name -when=YYYY-MM-DD " +
+        assertEquals("Invalid format. Use: add -dish=dish_name -when=YYYY/MM/DD " +
                 "\ndish name should be in lower_snake_case", commandOutput);
     }
 
@@ -165,7 +165,7 @@ class AddCommandTest {
         AddCommand.addDish("add -dish=Lasagna -when=" + invalidDate);
 
         String commandOutput = outputStream.toString().trim();
-        assertEquals("Invalid format. Use: add -dish=dish_name -when=YYYY-MM-DD " +
+        assertEquals("Invalid format. Use: add -dish=dish_name -when=YYYY/MM/DD " +
                 "\ndish name should be in lower_snake_case", commandOutput);
     }
 
