@@ -30,8 +30,7 @@ public class Parser {
     private static final String WHEN_FLAG = "-when=";
     private static final String INGREDIENT_FLAG = "-ingredient=";
     private static final String MONTH_FLAG = "-month=";
-    private static final String DAY_FLAG = "-day=";
-    private static final String SHOPPING_FLAG = "-shopping";
+    private static final String YEAR_FLAG = "-year=";
     private static final int LENGTH_INGREDIENT_FLAG = 11;
     private static final int LENGTH_QUANTITY_FLAG = 9;
     private static final int LENGTH_EXPIRY_FLAG = 7;
@@ -63,34 +62,89 @@ public class Parser {
     }
 
     private static void handleViewCommand(String receivedText) {
+        if (!receivedText.contains(MONTH_FLAG)) {
+            System.out.println("Missing month flag, try \"view -month=\"");
+            return;
 
+        }
+        if (receivedText.contains(YEAR_FLAG)) {
 
-        if (receivedText.contains(MONTH_FLAG)) {
-            Pattern pattern = Pattern.compile("-month=(\\d{1,2})");
-            Matcher matcher = pattern.matcher(receivedText);
-
-            int month;
-            if (matcher.find()) {
-
-                month = Integer.parseInt(matcher.group(1));
-            } else {
-                month = LocalDate.now().getMonthValue(); // Default to current month
-            }
             try {
+                int year = extractYear(receivedText);
+                int month = extractMonth(receivedText);
+                ViewCommand.displayDishMonth(month, year);
+
+            } catch (InvalidInputException e) {
+                System.out.println(
+                        "Invalid month or year input. Use: view -year={2015-2035} or leave blank for the current year.");
+                System.out.println(
+                        "Use: view -month={1-12} or leave blank for the current month.");
+
+            }
+        } else {
+
+
+            try {
+                int month = extractMonth(receivedText);
                 ViewCommand.displayDishMonth(month); // Assuming ViewCommand has an overloaded method
             } catch (InvalidInputException e) {
                 System.out.println(
                         "Invalid month input. Use: view -month={1-12} or leave blank for the current month.");
-
             }
         }
 
+    }
 
-        if (receivedText.contains(DAY_FLAG)) {
-            //TODO
+    private static Integer extractMonth(String receivedText) throws InvalidInputException {
+        Pattern pattern = Pattern.compile("-month=([\\w\\s]+)");
+        Matcher matcher = pattern.matcher(receivedText);
+
+        int month;
+        if (matcher.find()) {
+            if (matcher.group(1).isBlank()) {
+                month = LocalDate.now().getMonthValue(); // Default to current month
+            } else {
+
+                try {
+                    month = Integer.parseInt(matcher.group(1).trim());
+                } catch (NumberFormatException e) {
+
+                    throw new InvalidInputException();
+
+                }
+            }
+
+        } else {
+            month = LocalDate.now().getMonthValue(); // Default to current month
         }
+        return month;
+    }
 
+    private static int extractYear(String receivedText) throws InvalidInputException {
+        Pattern pattern = Pattern.compile("-year=([\\w\\s]+)");
+        Matcher matcher = pattern.matcher(receivedText); //TODO
 
+        int year;
+        if (matcher.find()) {
+            if (matcher.group(1).isBlank()) {
+                year = LocalDate.now().getYear(); // Default to current year
+            } else {
+
+                try {
+                    year = Integer.parseInt(matcher.group(1).trim());
+                    if (year > 2035 || year < 2015) {
+                        throw new InvalidInputException();
+                    }
+                } catch (NumberFormatException e) {
+
+                    throw new InvalidInputException();
+                }
+            }
+
+        } else {
+            year = LocalDate.now().getYear(); // Default to current year
+        }
+        return year;
     }
 
 

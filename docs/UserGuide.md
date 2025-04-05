@@ -40,9 +40,7 @@ With CookingAids, you can:
 
 > **Command Format Notes:**  
 > - Items in square brackets are optional.  
->   - Example: `add -dish={dishName} [-when{date}]` can be used as `add -dish={dishName}`.  
-> - Parameters can be in any order.  
->   - Example: `add -dish={dishName} -when{date}` is equivalent to `add -when{date} -dish={dishName}`.  
+>   - Example: `add -dish={dishName} [-when{date}]` can be used as `add -dish={dishName}`.
 > - Extraneous parameters for commands that do not take parameters (e.g., `help`) will be ignored.  
 >   - Example: `help 123` will be interpreted as `help`.  
 > - Recipes, dishes and ingredients should be named in snake case (ie lowercase words with underscores)
@@ -81,6 +79,9 @@ Adds a dish to the calendar.
 add -dish={dishName}  
 add -dish={dishName} [-when={date}]
 ```
+<br> If no dish date is unrecognised, it defaults to None. 
+
+
 **Example:**
 ```plaintext
 add -dish=pizza
@@ -92,11 +93,16 @@ add -dish=fries -when=tmr  //(tomorrow,today,td,tdy also works)
 
 - `add -dish={dishName}`:  
   ```plaintext
-  {dishName} has been added to today’s cooking list!
+  Added Dish: {dishName}, No scheduled date yet
   ```
 - `add -dish={dishName} -when={date}`:  
   ```plaintext
-  {dishName} has been added to your cooking list on {date}!
+  Added Dish: {dishName}, Scheduled for: {date}
+  ```
+- `add -dish={dishName} -when={unrecognised date}`:
+  ```plaintext
+  Could not recognise date! Saving without date
+  Added Dish: {dishName}, No scheduled date yet
   ```
 
 ---
@@ -104,8 +110,9 @@ add -dish=fries -when=tmr  //(tomorrow,today,td,tdy also works)
 
 ### **3. Adding an Ingredient: `add -ingredient={ingredientName}`** 
 
-Adds an ingredient to the ingredient database. If no quantity is specified, it defaults to 1. If no expiry date is 
-specifed, it defaults to None. 
+Adds an ingredient to the ingredient database.
+<br> If no quantity is specified, it defaults to 1.
+<br> If no expiry date is specified, it defaults to None. 
 <br> _Expiry date format is to be in YYYY/MM/DD_
 <br> _add ingredients in lower_snake_case form_ 
 
@@ -164,11 +171,13 @@ add -recipe={recipeName} -needs={ingredient1},{quantity_1},{ingredient2},{quanti
 
 ### **5. View Scheduled Dishes: `list -dish`**
 
-Displays a list of scheduled dishes sorted by month
+Displays a list of all dishes in dishList sorted by date
+<br> add a -u flag to view upcoming dishes filtered by date
 
 **Usage:**  
 ```plaintext
 list -dish  
+list -dish -u
 ```
 
 **Expected Output:**  
@@ -179,10 +188,22 @@ list -dish
   2. {dishName2} Scheduled for {date2}
   3. {dishName2} Scheduled for {date3}
   
-  Unscheduled
+  Dishes with no scheduled date:
   1. {dishName3}   
   2. {dishName4} 
   3. {dishName5}   
+  ```
+- `list -dish -u`:
+  ```plaintext
+  Todays dishes:
+  1. {dishName1} Scheduled for {date1}  
+  2. {dishName2} Scheduled for {date2}
+  3. {dishName2} Scheduled for {date3}
+  
+  Upcoming dishes:
+  1. {dishName1} Scheduled for {date1}  
+  2. {dishName2} Scheduled for {date2}
+  3. {dishName2} Scheduled for {date3}
   ```
 
 ---
@@ -236,7 +257,7 @@ list -shopping
 
 <div style="page-break-after: always;"></div>
 
-### **8. View Dishes for the Month: `view -month={1-12/BLANK}`**
+### **8. View Dishes for the Month: `view -month={1-12/BLANK} [-year={2015-2035}]`**
 
 Displays dishes scheduled for a specific month or the current month.
 <br> Current date will be highlighted in red
@@ -244,9 +265,10 @@ Displays dishes scheduled for a specific month or the current month.
 
 **Usage:**
 ```plaintext
-view -month=1  # January  
-view -month=11 # November  
-view -month=   # Current month
+view -month=1       //January  
+view -month=11      //November  
+view -month=        //Current month 
+view -month=1 -year=2026
 ```
 
 **Expected Output:**
@@ -417,9 +439,9 @@ bye
 
 | **Action**  | **Format, Examples**                                                                                                                                                                                 |  
 |:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|  
-| **Help**    | `help`                                                                                                                                                                                               |
-| **Add**     | `add -ingredient`, `add -dish`, `add -recipe` <br> Example: `add -ingredient=tomato -expiry=today -quantity=2`, `add -dish=tomato_soup -when=tmr`, `add -recipe=tomato_soup -needs=tomato,5,onion,2` | 
-| **List**    | `list -ingredient`, `list -dish`, `list -recipe`,`list -shopping`, <br> Example: `list -ingredient`                                                                                                  |
+| **Add**     | `add -ingredient`, `add -dish`, `add -recipe` <br> Example: `add -ingredient=tomato -expiry=today -quantity=2`, `add -dish=tomato_soup -when=tmr`, `add -recipe=tomato_soup -needs=tomato,5,onion,2` |  
+| **Delete**  | `delete -ingredient`, `delete -dish`, `delete -recipe` <br> Example: `delete -ingredient=tomato`, `delete -dish=tomato soup`                                                                         |  
+| **List**    | `list -ingredient`, `list -dish`, `list -recipe`,`list -shopping`, <br> Example: `list -ingredient`                                                                                                  |  
 | **View**    | `view -month` <br> Example:`view -month=2`, `view -month=`                                                                                                                                           |
 | **Update**  | `update -recipe` <br> Example:`update -recipe=toast -newname=sandwich -newingredients=bread,2,egg,1,ham,1`                                                                                           |
 | **Delete**  | `delete -ingredient`, `delete -dish`, `delete -recipe` <br> Example: `delete -ingredient=tomato`, `delete -dish=tomato soup`                                                                         |  
