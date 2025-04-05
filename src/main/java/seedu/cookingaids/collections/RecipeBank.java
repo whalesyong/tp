@@ -29,20 +29,20 @@ public class RecipeBank {
         return recipeBank.size();
     }
 
-    public static String removeRecipeFromRecipeBank(String command) {
-        //        String recipeName = command.replace("delete -recipe=", "").trim();  // Extract name
-        //        recipeBank.removeIf(recipe -> recipe.getRecipeName().equalsIgnoreCase(recipeName));
+    public static void removeRecipeFromRecipeBank(Recipe recipe) {
+        recipeBank.remove(recipe);
+    }
 
-        // big assumption
+    public static List<Recipe> getRecipeByName(String recipeName) {
+        List<Recipe> recipeList = new ArrayList<>();
 
-        int recipeIndex = Integer.parseInt(command.replace("delete -recipe=", "").trim()) - 1;
-        if (recipeIndex < 0 || recipeIndex >= recipeBank.size()) {
-            return "Sorry, invalid recipe index";
-        } else {
-            String recipeName = recipeBank.get(recipeIndex).getName();
-            recipeBank.remove(recipeIndex);
-            return recipeName;
+        for (Recipe recipe : recipeBank) {
+            if (recipe.getRecipeName().equalsIgnoreCase(recipeName)) {
+                recipeList.add(recipe);
+            }
         }
+
+        return recipeList;
     }
 
     public static boolean contains(String recipeName) {

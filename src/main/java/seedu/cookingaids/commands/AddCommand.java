@@ -110,10 +110,11 @@ public class AddCommand {
             Recipe recipe = ingredients.isEmpty()
                     ? new Recipe(replaceSpaceWithUnderscore(recipeName))
                     : new Recipe(replaceSpaceWithUnderscore(recipeName), ingredients);
+
             RecipeBank.addRecipeToRecipeBank(recipe);
 
-            System.out.println("Added Recipe: " + recipeName);
-            System.out.println("Ingredients: " + ingredients);
+            System.out.println("Added Recipe: " + recipe.getName());
+            System.out.println("Ingredients: " + recipe.getIngredientsString());
         } catch (InvalidInputException e) {
 
             System.out.println("Invalid format, recipe should have ingredients and quantities in pairs" +

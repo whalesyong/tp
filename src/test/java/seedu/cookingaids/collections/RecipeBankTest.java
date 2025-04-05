@@ -3,10 +3,14 @@ package seedu.cookingaids.collections;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+//import static org.junit.jupiter.api.Assertions.assertNotNull;
+//import static org.junit.jupiter.api.Assertions.assertNull;
+
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+//import seedu.cookingaids.items.Dish;
 import seedu.cookingaids.items.Ingredient;
 import seedu.cookingaids.items.Recipe;
 
@@ -23,25 +27,24 @@ class RecipeBankTest {
     @BeforeEach
     void setUp() {
         // Clear the recipe bank before each test to ensure independence
-        RecipeBank.getRecipeBank().clear();
+        RecipeBank.clear();
 
         // Create test recipes
-        testRecipe1 = new Recipe("Spaghetti Carbonara");
-        testRecipe1.setIngredients(new ArrayList<>(Arrays.asList(
-                new Ingredient( "Pasta"),
-                new Ingredient( "Eggs"),
-                new Ingredient( "Cheese")
-        )));
+        ArrayList<Ingredient> ingredients1 = new ArrayList<>(Arrays.asList(
+                new Ingredient("Pasta", 2),
+                new Ingredient("Eggs", 3),
+                new Ingredient("Cheese", 1)
+        ));
+        testRecipe1 = new Recipe("Spaghetti Carbonara", ingredients1);
 
-        testRecipe2 = new Recipe("Chocolate Cake");
-        testRecipe1.setIngredients(new ArrayList<>(Arrays.asList(
-                new Ingredient( "Flour"),
-                new Ingredient( "Sugar"),
-                new Ingredient( "Cocoa"),
-                new Ingredient( "Eggs"),
-                new Ingredient( "Butter")
-        )));
-
+        ArrayList<Ingredient> ingredients2 = new ArrayList<>(Arrays.asList(
+                new Ingredient("Flour", 2),
+                new Ingredient("Sugar", 1),
+                new Ingredient("Cocoa", 1),
+                new Ingredient("Eggs", 3),
+                new Ingredient("Butter", 1)
+        ));
+        testRecipe2 = new Recipe("Chocolate Cake", ingredients2);
 
         testRecipes = Arrays.asList(testRecipe1, testRecipe2);
     }
@@ -96,6 +99,19 @@ class RecipeBankTest {
     }
 
     @Test
+    void getRecipeBankSize() {
+        // Given an empty recipe bank
+        assertEquals(0, RecipeBank.getRecipeBankSize());
+
+        // When adding recipes
+        RecipeBank.addRecipeToRecipeBank(testRecipe1);
+        assertEquals(1, RecipeBank.getRecipeBankSize());
+
+        RecipeBank.addRecipeToRecipeBank(testRecipe2);
+        assertEquals(2, RecipeBank.getRecipeBankSize());
+    }
+
+    @Test
     void removeRecipeFromRecipeBank() {
         // Given a recipe bank with test recipes
         RecipeBank.addRecipeToRecipeBank(testRecipe1);
@@ -103,19 +119,35 @@ class RecipeBankTest {
         assertEquals(2, RecipeBank.getRecipeBank().size());
 
         // When removing a recipe
-        RecipeBank.removeRecipeFromRecipeBank("delete -recipe=1");
+        RecipeBank.removeRecipeFromRecipeBank(testRecipe1);
 
         // Then the recipe bank should no longer contain that recipe
         assertEquals(1, RecipeBank.getRecipeBank().size());
         assertFalse(RecipeBank.getRecipeBank().contains(testRecipe1));
         assertTrue(RecipeBank.getRecipeBank().contains(testRecipe2));
+    }
 
-        // When removing a recipe that doesn't exist
-        RecipeBank.removeRecipeFromRecipeBank("delete -recipe=50");
+    @Test
+    void getRecipeByName() {
+        // Given a recipe bank with test recipes
+        RecipeBank.addRecipeToRecipeBank(testRecipe1);
+        RecipeBank.addRecipeToRecipeBank(testRecipe2);
 
-        // Then the recipe bank should remain unchanged
-        assertEquals(1, RecipeBank.getRecipeBank().size());
-        assertTrue(RecipeBank.getRecipeBank().contains(testRecipe2));
+        // When getting recipes by name
+        List<Recipe> foundRecipes = RecipeBank.getRecipeByName("Spaghetti Carbonara");
+
+        // Then it should return the correct recipes
+        assertEquals(1, foundRecipes.size());
+        assertEquals(testRecipe1, foundRecipes.get(0));
+
+        // Test case insensitivity
+        List<Recipe> caseInsensitiveRecipes = RecipeBank.getRecipeByName("spaghetti carbonara");
+        assertEquals(1, caseInsensitiveRecipes.size());
+        assertEquals(testRecipe1, caseInsensitiveRecipes.get(0));
+
+        // Test non-existent recipe
+        List<Recipe> nonExistentRecipes = RecipeBank.getRecipeByName("Nonexistent Recipe");
+        assertTrue(nonExistentRecipes.isEmpty());
     }
 
     @Test
@@ -134,5 +166,40 @@ class RecipeBankTest {
         // Test case insensitivity
         boolean containsCaseInsensitive = RecipeBank.contains("spaghetti carbonara");
         assertTrue(containsCaseInsensitive);
+    }
+
+    //    @Test
+    //    void getIngredientList() {
+    //        // Given a recipe bank with a recipe
+    //        RecipeBank.addRecipeToRecipeBank(testRecipe1);
+    //
+    //        // When getting ingredients for a dish with matching recipe
+    //        Dish dish = new Dish("Spaghetti Carbonara", "2025-04-05");
+    //        List<Ingredient> ingredients = RecipeBank.getIngredientList(dish);
+    //
+    //        // Then it should return the correct ingredients
+    //        assertNotNull(ingredients);
+    //        assertEquals(3, ingredients.size());
+    //        assertTrue(ingredients.stream().anyMatch(i -> i.getName().equals("Pasta")));
+    //
+    //        // Test with non-existent dish
+    //        Dish nonExistentDish = new Dish("Nonexistent Dish", "2025-04-05");
+    //        List<Ingredient> nonExistentIngredients = RecipeBank.getIngredientList(nonExistentDish);
+    //        assertNull(nonExistentIngredients);
+    //    }
+
+    @Test
+    void clear() {
+        // Given a recipe bank with test recipes
+        RecipeBank.addRecipeToRecipeBank(testRecipe1);
+        RecipeBank.addRecipeToRecipeBank(testRecipe2);
+        assertEquals(2, RecipeBank.getRecipeBank().size());
+
+        // When clearing the recipe bank
+        RecipeBank.clear();
+
+        // Then it should be empty
+        assertEquals(0, RecipeBank.getRecipeBank().size());
+        assertTrue(RecipeBank.getRecipeBank().isEmpty());
     }
 }

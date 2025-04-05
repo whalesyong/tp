@@ -14,10 +14,10 @@
   8. [View Dishes for the Month: `view -month=`](#8-view-dishes-for-the-month-view--month1-12blank)
   9. [View Available Recipes: `list -recipe`](#9-view-available-recipes-list--recipe)
   10. [Update Recipes: `update -recipe`](#10-update-recipes-update--recipe)
-  10. [Delete Dish from Schedule: `delete -dish`](#11-delete-dish-from-schedule-delete--dishdishname-)
-  11. [Delete Ingredient: `delete -ingredient`](#12-delete-ingredient-delete--ingredientingredientname-)
-  12. [Delete Recipe from Recipe Bank: `delete -recipe`](#13-delete-recipe-from-recipe-bank-delete--reciperecipeindex-)
-  13. [Suggest Dishes: `suggest`](#14-suggest-dishes-suggest)
+  11. [Delete Dish from Schedule: `delete -dish`](#11-delete-dish-from-schedule-delete--dishdishname-)
+  12. [Delete Ingredient: `delete -ingredient`](#12-delete-ingredient-delete--ingredientingredientname-)
+  13. [Delete Recipe from Recipe Bank: `delete -recipe`](#13-delete-recipe-from-recipe-bank-delete--reciperecipename-)
+  14. [Suggest Dishes: `suggest`](#14-suggest-dishes-suggest)
 - [Command List](#command-list-)
 
 ---
@@ -148,7 +148,7 @@ add -recipe={recipeName} -needs={ingredient1},{quantity_1},{ingredient2},{quanti
 - `add -recipe={recipeName} -needs={ingredient1},{quantity_1},{ingredient2},{quantity_2}`:
   ```plaintext
   Added Recipe: {recipeName} 
-  Ingredients: [ingredient_1 (quantity_1), ingredient_2 (quantity_2)]
+  Ingredients: ingredient_1 (quantity_1), ingredient_2 (quantity_2)
   ```
 
 ---
@@ -342,26 +342,28 @@ delete -ingredient={ingredientName}
 
 ---
 
-### **13. Delete Recipe from Recipe Bank: `delete -recipe={recipeIndex}`** 
+### **13. Delete Recipe from Recipe Bank: `delete -recipe={recipeName}`** 
 
 Deletes a recipe from the recipe bank using its index number.
 
 **Usage:**  
 ```plaintext
-delete -recipe={recipeIndex}
+delete -recipe={recipeName}
 ```
-> Note: {recipeIndex} refers to the recipe's position number in the recipe bank (1-based indexing)
 
 **Expected Output:**
 - On successful deletion:
   ```plaintext
   {recipeName} has been deleted from the recipe bank!
   ```
-- If invalid index:
+- If multiple recipes with same name:
   ```plaintext
-  Please provide a valid recipe index!
+  Multiple recipes found:
+  1, {recipeName}, Ingredients: {ingredient_list_1}
+  2, {recipeName}, Ingredients: {ingredient_list_2}
+  Which recipe would you like to delete? Input a number.
   ```
-
+  
 ---
 
 ### **14. Suggest Dishes: `suggest`**

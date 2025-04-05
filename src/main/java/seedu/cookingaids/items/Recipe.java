@@ -36,6 +36,14 @@ public class Recipe {
         return this.ingredients;
     }
 
+    public String getIngredientsString() {
+        String ingredientsString = "";
+        for (Ingredient ingredient : this.ingredients) {
+            ingredientsString += ingredient.getName() + " (" + ingredient.getQuantity() + "), ";
+        }
+        return ingredientsString.substring(0, ingredientsString.length() - 2);
+    }
+
     public void setIngredients(ArrayList<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
@@ -43,7 +51,7 @@ public class Recipe {
     @java.lang.Override
     public java.lang.String toString() {
         return "Recipe named '" + recipeName + "'" +
-                " needs ingredients " + ingredients ;
+                " needs ingredients " + getIngredientsString() ;
     }
 
 
