@@ -55,7 +55,7 @@ public class AddCommand {
                 System.out.println("Added Dish: " + dish.getName() + ", Scheduled for: " + date);
             }
         } catch (InvalidInputException e) {
-            System.out.println("Invalid format. Use: add -dish=dish_name -when=YYYY-MM-DD " +
+            System.out.println("Invalid format. Use: add -dish=dish_name -when=YYYY/MM/DD " +
                     "\ndish name should be in lower_snake_case");
 
         }
@@ -110,17 +110,15 @@ public class AddCommand {
             Recipe recipe = ingredients.isEmpty()
                     ? new Recipe(replaceSpaceWithUnderscore(recipeName))
                     : new Recipe(replaceSpaceWithUnderscore(recipeName), ingredients);
+
             RecipeBank.addRecipeToRecipeBank(recipe);
 
-            System.out.println("Added Recipe: " + recipeName);
-            System.out.println("Ingredients: " + ingredients);
+            System.out.println("Added Recipe: " + recipe.getName());
+            System.out.println("Ingredients: " + recipe.getIngredientsString());
         } catch (InvalidInputException e) {
 
             System.out.println("Invalid format, recipe should have ingredients and quantities in pairs" +
                     " (use -needs=ingredient_1,quantity_1,ingredient_2,quantity_2)");
-
-            System.out.println("Invalid format, " +
-                    "recipe should have at least one ingredient (use -needs=ingredientName)");
         }
     }
 

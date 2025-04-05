@@ -5,6 +5,7 @@ import seedu.cookingaids.collections.IngredientStorage;
 import seedu.cookingaids.collections.RecipeBank;
 import seedu.cookingaids.exception.InvalidInputException;
 import seedu.cookingaids.items.Dish;
+import seedu.cookingaids.items.Recipe;
 import seedu.cookingaids.parser.Parser;
 
 import java.util.List;
@@ -52,7 +53,7 @@ public class DeleteCommand {
             if (dishes.size() == 1) {
                 removeDish(dishes.get(0), dishName);
             } else {
-                promptUserForDeletion(dishes, dishName);
+                promptUserForDishDeletion(dishes, dishName);
             }
         } catch (InvalidInputException e) {
             System.out.println("Invalid input");
@@ -64,7 +65,7 @@ public class DeleteCommand {
         System.out.println(dish.getDishDate().toString() + " - " + dishName + " Successfully deleted!");
     }
 
-    private static void promptUserForDeletion(List<Dish> dishes, String dishName) {
+    private static void promptUserForDishDeletion(List<Dish> dishes, String dishName) {
         System.out.println("Multiple dishes found:");
         for (int i = 0; i < dishes.size(); i++) {
             System.out.println((i + 1) + ", Date: " + dishes.get(i).getDishDate().toString() + " - " + dishName);
@@ -150,20 +151,38 @@ public class DeleteCommand {
         }
     }
 
-    /**
-     * Deletes a recipe from the recipe bank.
-     *
-     * @param receivedText The name of the recipe to be deleted.
-     */
+    public static void removeRecipe(Recipe recipe) {
+        RecipeBank.removeRecipeFromRecipeBank(recipe);
+    }
+
     public static void deleteRecipe(String receivedText) {
-        String recipeIndex = Parser.parseRecipeForDeletion(receivedText);
+        String recipeName = Parser.parseRecipeForDeletion(receivedText);
 
-        try {
-            String recipeName = RecipeBank.removeRecipeFromRecipeBank(recipeIndex);
-            System.out.println(recipeName + " has been deleted from the recipe bank!");
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Please provide a valid recipe index");
+        List<Recipe> recipes = RecipeBank.getRecipeByName(recipeName);
 
+        if (recipes.isEmpty()) {
+            System.out.println("No recipe found: " + recipeName);
+        } else if (recipes.size() == 1) {
+            removeRecipe(recipes.get(0));
+        } else {
+            promptUserForRecipeDeletion(recipes, recipeName);
+        }
+    }
+
+    public static void promptUserForRecipeDeletion(List<Recipe> recipes, String recipeName) {
+        System.out.println("Multiple recipes found:");
+        for (int i = 0; i < recipes.size(); i++) {
+            System.out.println((i+1) + ", Ingredients: " + recipes.get(i).getIngredientsString());
+        }
+
+        System.out.println("Which recipe would you like to delete? Input a number.");
+
+        Scanner scanner = new Scanner(System.in);
+        int choice = scanner.nextInt();
+        if (choice > 0 && choice <= recipes.size()) {
+            removeRecipe(recipes.get(choice-1));
+        } else {
+            System.out.println("Invalid choice. No recipe deleted.");
         }
     }
 }

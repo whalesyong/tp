@@ -6,6 +6,7 @@ import seedu.cookingaids.commands.AddCommand;
 import seedu.cookingaids.commands.DeleteCommand;
 import seedu.cookingaids.commands.ListCommand;
 import seedu.cookingaids.commands.SuggestCommand;
+import seedu.cookingaids.commands.UpdateCommand;
 import seedu.cookingaids.commands.HelpCommand;
 import seedu.cookingaids.exception.InvalidInputException;
 import seedu.cookingaids.ui.Ui;
@@ -20,6 +21,8 @@ import java.util.regex.Pattern;
  * that can be understood by other methods.
  */
 public class Parser {
+    public static final String NEW_INGREDIENTS_FLAG = "-newingredients=";
+    public static final String NEW_NAME_FLAG = "-newname=";
     private static final String UNKNOWN_COMMAND_STR = "Unknown command: %s";
     private static final String RECIPE_FLAG = "-recipe=";
     private static final String NEEDS_FLAG = "-needs=";
@@ -32,7 +35,7 @@ public class Parser {
     private static final int LENGTH_INGREDIENT_FLAG = 11;
     private static final int LENGTH_QUANTITY_FLAG = 9;
     private static final int LENGTH_EXPIRY_FLAG = 7;
-
+    private static final int LENGTH_NEW_EXPIRY_FLAG = 11;
 
     /**
      * Deciphers the user's input for commands and executes the corresponding method.
@@ -47,6 +50,7 @@ public class Parser {
         case ListCommand.COMMAND_WORD -> handleDisplayCommand(receivedText);
         case AddCommand.COMMAND_WORD -> handleAddCommand(receivedText);
         case DeleteCommand.COMMAND_WORD -> handleDeleteCommand(receivedText);
+        case UpdateCommand.COMMAND_WORD -> handleUpdateCommand(receivedText);
         case HelpCommand.COMMAND_WORD -> HelpCommand.showHelp();
         case SuggestCommand.COMMAND_WORD -> SuggestCommand.printSuggestions();
         case ViewCommand.COMMAND_WORD -> handleViewCommand(receivedText);
@@ -130,6 +134,92 @@ public class Parser {
         } else {
             System.out.println("Invalid delete command: " + receivedText);
         }
+    }
+
+    /**
+     * Deciphers the user's input for commands and executes the corresponding method.
+     * If the command is not recognized, an error message is displayed.
+     *
+     * @param receivedText Entire command input received from the user.
+     */
+
+    private static void handleUpdateCommand(String receivedText) {
+        if (receivedText.contains(RECIPE_FLAG)) {
+            UpdateCommand.updateRecipe(receivedText);
+        } else if (receivedText.contains(INGREDIENT_FLAG)) {
+            UpdateCommand.updateIngredient(receivedText);
+        } else {
+            System.out.println("Invalid update command: " + receivedText);
+            System.out.println("Use 'update -recipe=INDEX -newname=NAME -newingredients=INGREDIENTS'");
+        }
+    }
+
+    // Other existing methods...
+
+    /**
+     * Parses the recipe index from an update command.
+     *
+     * @param receivedText The update command string.
+     * @return The recipe index as a string.
+     */
+    public static String parseRecipeIndexForUpdate(String receivedText) {
+        if (!receivedText.contains(RECIPE_FLAG)) {
+            return "";
+        }
+        int startIndex = receivedText.indexOf(RECIPE_FLAG) + RECIPE_FLAG.length();
+        int endIndex = receivedText.indexOf(" ", startIndex);
+        if (endIndex == -1) {
+            endIndex = receivedText.length();
+        }
+
+        return receivedText.substring(startIndex, endIndex).trim();
+    }
+
+    /**
+     * Parses the new name for a recipe from an update command.
+     *
+     * @param receivedText The update command string.
+     * @return The new recipe name.
+     */
+    public static String parseNewNameForUpdate(String receivedText) {
+        if (!receivedText.contains(NEW_NAME_FLAG)) {
+            return "";
+        }
+        int startIndex = receivedText.indexOf(NEW_NAME_FLAG) + NEW_NAME_FLAG.length();
+        int endIndex;
+
+        if (receivedText.contains(NEW_INGREDIENTS_FLAG) &&
+                receivedText.indexOf(NEW_INGREDIENTS_FLAG) > startIndex) {
+            endIndex = receivedText.indexOf(NEW_INGREDIENTS_FLAG);
+        } else {
+            endIndex = receivedText.length();
+        }
+
+        return receivedText.substring(startIndex, endIndex).trim();
+    }
+
+    /**
+     * Parses the new ingredients for a recipe from an update command.
+     *
+     * @param receivedText The update command string.
+     * @return The new ingredients
+     */
+    public static String parseNewIngredientsForUpdate(String receivedText) {
+        if (!receivedText.contains(NEW_INGREDIENTS_FLAG)) {
+            return "";
+        }
+        int startIndex = receivedText.indexOf(NEW_INGREDIENTS_FLAG) + NEW_INGREDIENTS_FLAG.length();
+        int endIndex;
+
+        if (receivedText.contains(NEW_NAME_FLAG) &&
+                receivedText.indexOf(NEW_NAME_FLAG) > startIndex) {
+            endIndex = receivedText.indexOf(NEW_NAME_FLAG);
+        } else {
+            endIndex = receivedText.length();
+        }
+
+        // Return the raw string without trimming to preserve exact format
+        return receivedText.substring(startIndex, endIndex);
     }
 
     public static String parseDishNameForDeletion(String receivedText) {
@@ -269,6 +359,33 @@ public class Parser {
         }
         data.putIfAbsent("quantity", "1");
         data.putIfAbsent("expiry_date", "None");
+        return data;
+    }
+
+    public static HashMap<String, String> parseIngredientUpdate(String command) {
+        HashMap<String, String> data = new HashMap<>();
+        // Split by "-" but keep the first part (command) intact
+        String[] parts = command.split("-");
+        for (String part : parts) {
+            if (part.startsWith("ingredient=")) {
+                String ingredient = part.substring(LENGTH_INGREDIENT_FLAG).trim();
+                data.put("ingredient", ingredient);
+            } else if (part.startsWith("quantity=")) {
+                String quantity = part.substring(LENGTH_QUANTITY_FLAG).trim();
+                data.put("quantity", quantity);
+            } else if (part.startsWith("expiry=")) {
+                String expiry = part.substring(LENGTH_EXPIRY_FLAG).trim();
+                data.put("expiry_date", expiry);
+            } else if (part.startsWith("new_expiry=")) {
+                String newExpiry = part.substring(LENGTH_NEW_EXPIRY_FLAG).trim();
+                data.put("new_expiry", newExpiry);
+            } else if (!part.isEmpty()) {
+                return null;
+            }
+        }
+        data.putIfAbsent("quantity", "1");
+        data.putIfAbsent("expiry_date", "None");
+        data.putIfAbsent("new_expiry", "None");
         return data;
     }
 
