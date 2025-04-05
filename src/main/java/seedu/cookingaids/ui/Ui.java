@@ -104,8 +104,8 @@ public class Ui {
     public static void printIngredientListView(HashMap<String, List<Ingredient>> ingredients) {
         for (String name : ingredients.keySet()) {
             System.out.println(name + ":");
-            for (Ingredient ing : ingredients.get(name)) {
-                System.out.println("  " + ing);
+            for (Ingredient ingredient : ingredients.get(name)) {
+                System.out.println("  " + ingredient);
             }
         }
     }
