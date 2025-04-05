@@ -49,7 +49,10 @@ public class AddCommand {
             String date = dish.getDishDate().toString();
             assert date != null : "Dish date should not be null";
 
-            if (date.isEmpty()) {
+            if (date.equals("None") && !dishFields[1].isEmpty()) {
+                System.out.println("Could not recognise date! Saving without date");
+                System.out.println("Added Dish: " + dish.getName() + ", No scheduled date yet");
+            } else if (date.equals("None")) {
                 System.out.println("Added Dish: " + dish.getName() + ", No scheduled date yet");
             } else {
                 System.out.println("Added Dish: " + dish.getName() + ", Scheduled for: " + date);
@@ -110,17 +113,15 @@ public class AddCommand {
             Recipe recipe = ingredients.isEmpty()
                     ? new Recipe(replaceSpaceWithUnderscore(recipeName))
                     : new Recipe(replaceSpaceWithUnderscore(recipeName), ingredients);
+
             RecipeBank.addRecipeToRecipeBank(recipe);
 
-            System.out.println("Added Recipe: " + recipeName);
-            System.out.println("Ingredients: " + ingredients);
+            System.out.println("Added Recipe: " + recipe.getName());
+            System.out.println("Ingredients: " + recipe.getIngredientsString());
         } catch (InvalidInputException e) {
 
             System.out.println("Invalid format, recipe should have ingredients and quantities in pairs" +
                     " (use -needs=ingredient_1,quantity_1,ingredient_2,quantity_2)");
-
-            System.out.println("Invalid format, " +
-                    "recipe should have at least one ingredient (use -needs=ingredientName)");
         }
     }
 
@@ -176,7 +177,7 @@ public class AddCommand {
                 throw new IllegalArgumentException("Quantity must be a positive integer");
             }
             assert quantity > 0 : "Quantity should be greater than zero";
-            Ingredient ingredient = new Ingredient( ingredientName, expiryDate, quantity);
+            Ingredient ingredient = new Ingredient(ingredientName, expiryDate, quantity);
             IngredientStorage.addToStorage(ingredient);
             System.out.println("Added Ingredient: " + ingredient);
         } catch (IllegalArgumentException e) {
@@ -190,7 +191,7 @@ public class AddCommand {
      * @param input The input string.
      * @return The modified string with spaces replaced by underscores.
      */
-    private static String replaceSpaceWithUnderscore(String input){
+    private static String replaceSpaceWithUnderscore(String input) {
         return input.replace(" ", "_");
     }
 }

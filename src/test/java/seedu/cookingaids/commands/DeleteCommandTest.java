@@ -12,23 +12,27 @@ import seedu.cookingaids.items.Recipe;
 
 import java.util.ArrayList;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DeleteCommandTest {
 
     private DishCalendar dishCalendar;
+    private RecipeBank recipeBank;
 
     @BeforeEach
     void setUp() {
         dishCalendar = new DishCalendar();
         Dish spaghetti = new Dish( "spaghetti", "20/03/2025");
         DishCalendar.addDishToCalendar(spaghetti);
+        recipeBank = new RecipeBank();
     }
 
     @AfterEach
     void tearDown() {
         dishCalendar.clear();
+        recipeBank.clear();
     }
 
     @Test
@@ -61,12 +65,52 @@ class DeleteCommandTest {
     @Test
     void execute_validRecipe_deletesSuccessfully() {
         ArrayList<Ingredient> ingredients = new ArrayList<>();
-        ingredients.add(new Ingredient( "Bread"));
-        ingredients.add( new Ingredient("Tomato"));
-        ingredients.add(new Ingredient( "Egg"));
+        ingredients.add(new Ingredient("Bread", 2));
+        ingredients.add(new Ingredient("Tomato", 1));
+        ingredients.add(new Ingredient("Egg", 1));
         Recipe sandwich = new Recipe("Sandwich", ingredients);
         RecipeBank.addRecipeToRecipeBank(sandwich);
-        //assertDeletionSuccessfulRecipe("Sandwich");
+
+        assertTrue(RecipeBank.contains("Sandwich"));
+        assertEquals(1, RecipeBank.getRecipeBankSize());
+
+        DeleteCommand.removeRecipe(sandwich);
+
+        assertFalse(RecipeBank.contains("Sandwich"));
+        assertEquals(0, RecipeBank.getRecipeBankSize());
+
+    }
+
+    @Test
+    void execute_nonExistentRecipe_printsNoRecipeFoundMessage() {
+        DeleteCommand.deleteRecipe("delete -recipe=NonExistentRecipe");
+    }
+
+    @Test
+    void execute_deleteFromEmptyRecipeBank_returnsRecipeNotFoundMessage() {
+        recipeBank.clear();
+        DeleteCommand.deleteRecipe("delete -recipe=AnyRecipe");
+
+    }
+
+    @Test
+    void execute_multipleRecipesWithSameName_promptsUserToChoose() {
+        // Add two recipes with the same name but different ingredients
+        ArrayList<Ingredient> ingredients1 = new ArrayList<>();
+        ingredients1.add(new Ingredient("Bread", 2));
+        ingredients1.add(new Ingredient("Tomato", 1));
+        Recipe sandwich1 = new Recipe("Sandwich", ingredients1);
+
+        ArrayList<Ingredient> ingredients2 = new ArrayList<>();
+        ingredients2.add(new Ingredient("Bread", 2));
+        ingredients2.add(new Ingredient("Ham", 1));
+        ingredients2.add(new Ingredient("Cheese", 1));
+        Recipe sandwich2 = new Recipe("Sandwich", ingredients2);
+
+        RecipeBank.addRecipeToRecipeBank(sandwich1);
+        RecipeBank.addRecipeToRecipeBank(sandwich2);
+
+        assertEquals(2, RecipeBank.getRecipeByName("Sandwich").size());
     }
 
     @Test
@@ -78,12 +122,6 @@ class DeleteCommandTest {
     void execute_afterDishCalendarCleared_returnsDishNotFoundMessage() {
         dishCalendar.clear();
         assertDeletionFailsDueToNoSuchDish("2", dishCalendar);
-    }
-
-    @Test
-    void execute_deleteFromEmptyRecipeBank_returnsRecipeNotFoundMessage() {
-        RecipeBank.clear();
-        assertDeletionFailsDueToNoSuchRecipe("1");
     }
 
     @Test

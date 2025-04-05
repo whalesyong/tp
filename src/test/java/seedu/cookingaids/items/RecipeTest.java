@@ -22,10 +22,10 @@ class RecipeTest {
         // Create test data before each test
         recipeName = "Pasta Carbonara";
         ingredients = new ArrayList<>(Arrays.asList(
-                new Ingredient( "Spaghetti"),
-                new Ingredient( "Egg"),
-                new Ingredient("Parmesan"),
-                new Ingredient( "Black Pepper")
+                new Ingredient("Spaghetti", 2),
+                new Ingredient("Egg", 3),
+                new Ingredient("Parmesan", 1),
+                new Ingredient("Black Pepper", 1)
         ));
 
         testRecipe = new Recipe(recipeName, ingredients);
@@ -52,10 +52,16 @@ class RecipeTest {
     }
 
     @Test
+    void getName() {
+        assertEquals(recipeName, testRecipe.getName());
+    }
+
+    @Test
     void setRecipeName() {
         String newName = "Spaghetti_Carbonara";
         testRecipe.setRecipeName(newName);
         assertEquals(newName, testRecipe.getRecipeName());
+        assertEquals(newName, testRecipe.getName());
     }
 
     @Test
@@ -65,16 +71,21 @@ class RecipeTest {
         assertTrue(testRecipe.getIngredients()
                 .stream()
                 .anyMatch(ingredient -> ingredient.getName().equals("Egg")));
+    }
 
+    @Test
+    void getIngredientsString() {
+        String expected = "Spaghetti (2), Egg (3), Parmesan (1), Black Pepper (1)";
+        assertEquals(expected, testRecipe.getIngredientsString());
     }
 
     @Test
     void setIngredients() {
         ArrayList<Ingredient> newIngredients = new ArrayList<>(Arrays.asList(
-            new Ingredient("Flour"),
-            new Ingredient( "Sugar"),
-            new Ingredient( "Egg"),
-            new Ingredient( "Butter")
+                new Ingredient("Flour", 2),
+                new Ingredient("Sugar", 1),
+                new Ingredient("Egg", 4),
+                new Ingredient("Butter", 1)
         ));
 
         testRecipe.setIngredients(newIngredients);
@@ -87,15 +98,12 @@ class RecipeTest {
         assertFalse(testRecipe.getIngredients()
                 .stream()
                 .anyMatch(ingredient -> ingredient.getName().equals("Spaghetti")));
-
     }
 
     @Test
     void testToString() {
-        String expected = "Recipe named 'Pasta Carbonara' needs ingredients [Spaghetti (0pcs, Expiry: null, " +
-                "Expiring Soon: No, Expired: No), Egg (0pcs, Expiry: null, Expiring Soon: No, Expired: No), " +
-                "Parmesan (0pcs, Expiry: null, Expiring Soon: No, Expired: No), " +
-                "Black Pepper (0pcs, Expiry: null, Expiring Soon: No, Expired: No)]";
+        String expected = "Recipe named 'Pasta Carbonara' needs ingredients Spaghetti (2), " +
+                "Egg (3), Parmesan (1), Black Pepper (1)";
         assertEquals(expected, testRecipe.toString());
     }
 }
