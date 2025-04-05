@@ -8,6 +8,9 @@ import seedu.cookingaids.items.Dish;
 import seedu.cookingaids.items.Recipe;
 import seedu.cookingaids.items.Ingredient;
 import seedu.cookingaids.parser.Parser;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +35,15 @@ public class AddCommand {
         return receivedText.substring(COMMAND_WORD.length() + SPACE);
     }
 
-
+    public static boolean isValidDate(String dateString) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            LocalDate.parse(dateString, formatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
 
     /**
      * Adds a dish to the DishCalendar.
@@ -50,6 +61,10 @@ public class AddCommand {
 
             assert dishFields != null : "Dish fields should not be null";
             assert dishFields.length == 2 : "Dish fields should contain exactly two elements";
+
+            if (!dishFields[1].isEmpty() && !isValidDate(dishFields[1])) {
+                throw new InvalidInputException();
+            }
 
             Dish dish = new Dish(dishFields[0], dishFields[1]);
             DishCalendar.addDishToCalendar(dish);
