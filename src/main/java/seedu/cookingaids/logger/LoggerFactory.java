@@ -14,7 +14,7 @@ import java.util.logging.SimpleFormatter;
 public class LoggerFactory {
     private static final int BUFFER_SIZE = 1024;
     private static final Level DEFAULT_LEVEL = Level.FINE;
-    private static final Level MEMORY_FLUSH_LEVEL = Level.WARNING;
+    private static final Level MEMORY_FLUSH_LEVEL = Level.INFO;
     private static final Level CONSOLE_LEVEL = Level.SEVERE; // Only show severe errors to users
     private static final String LOG_FOLDER = "./data/log";
     private static final String LOG_FILE_PREFIX = "cookingaids";

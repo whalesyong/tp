@@ -24,12 +24,12 @@ import seedu.cookingaids.storage.Storage;
  */
 public class Ui {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Ui.class);
-
     /**
      * Offset required to convert between 1-indexing and 0-indexing.
      */
     public static final int DISPLAYED_INDEX_OFFSET = 1;
+
+
 
     public static final String LINE_DIVIDER =
             "______________________________________________________________________________";
@@ -43,9 +43,10 @@ public class Ui {
             ░▒▓████████▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░ \s
             ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░\s
             ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░\s
-            ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓███████▓▒░░▒▓███████▓▒░ \s""";;
-    private static final String MESSAGE_INDEXED_LIST_ITEM = "\t%1$d. %2$s";
+            ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓███████▓▒░░▒▓███████▓▒░ \s""";
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Ui.class);
+    private static final String MESSAGE_INDEXED_LIST_ITEM = "\t%1$d. %2$s";
     public static void printLineDivider() {
         System.out.println(LINE_DIVIDER);
     }

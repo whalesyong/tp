@@ -108,7 +108,11 @@ public class Suggest {
             LOGGER.log(Level.INFO, "Recipe {0} can be made with available ingredients", recipe.getRecipeName());
             suggestedRecipes.add(recipe);
         } else if (availableCount < neededIngredients.size()) {
-            LOGGER.log(Level.FINE, "Recipe {0} is missing {1} ingredients", new Object[]{recipe.getRecipeName(), missingIngredients.size()});
+            LOGGER.log(
+                    Level.FINE,
+                    "Recipe {0} is missing {1} ingredients",
+                    new Object[]{recipe.getRecipeName(),
+                            missingIngredients.size()});
             printMissingIngredients(recipe, missingIngredients);
         }
     }

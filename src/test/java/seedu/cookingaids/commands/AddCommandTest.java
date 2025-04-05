@@ -99,8 +99,8 @@ class AddCommandTest {
 
 
         String commandOutput = outputStream.toString().trim();
-        assertEquals("Invalid format. Use: add -dish=dish_name -when=YYYY-MM-DD " +
-                "\ndish name should be in lower_snake_case", commandOutput);
+        assertEquals("Invalid format. Use: add -dish=dish_name -when=YYYY/MM/DD \n" +
+                "dish name should be in lower_snake_case", commandOutput);
     }
 
     @Test
@@ -109,8 +109,8 @@ class AddCommandTest {
         AddCommand.addDish("add -dish=Lasagna -when=" + invalidDate);
 
         String commandOutput = outputStream.toString().trim();
-        assertEquals("Invalid format. Use: add -dish=dish_name -when=YYYY-MM-DD " +
-                "\ndish name should be in lower_snake_case", commandOutput);
+        assertEquals("Invalid format. Use: add -dish=dish_name -when=YYYY/MM/DD \n" +
+                "dish name should be in lower_snake_case", commandOutput);
     }
 
     @Test
