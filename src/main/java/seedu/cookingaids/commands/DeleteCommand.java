@@ -149,7 +149,6 @@ public class DeleteCommand {
 
     public static void removeRecipe(Recipe recipe) {
         RecipeBank.removeRecipeFromRecipeBank(recipe);
-        System.out.println(recipe.getName() + " has been deleted from the recipe bank!");
     }
 
     public static void deleteRecipe(String receivedText) {

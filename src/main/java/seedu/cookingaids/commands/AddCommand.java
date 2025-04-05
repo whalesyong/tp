@@ -119,9 +119,6 @@ public class AddCommand {
 
             System.out.println("Invalid format, recipe should have ingredients and quantities in pairs" +
                     " (use -needs=ingredient_1,quantity_1,ingredient_2,quantity_2)");
-
-            System.out.println("Invalid format, " +
-                    "recipe should have at least one ingredient (use -needs=ingredientName)");
         }
     }
 
