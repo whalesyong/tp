@@ -56,7 +56,7 @@ public class DishDate {
 
             LocalDate today = LocalDate.now();
             switch (dateString) {
-            case "today", "td":
+            case "today", "td","tdy":
                 dateLocalDate = today;
                 break;
             case "tomorrow", "tmr":
