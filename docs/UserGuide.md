@@ -84,7 +84,11 @@ add -dish={dishName}
 add -dish={dishName} [-when={date}]
 ```
 <br> If no dish date is unrecognised, it defaults to None. 
-<br> add date in YYYY/MM/DD format
+<br> add date in YYYY/MM/DD format 
+<br> if you add a date that exceeds the number of days in the
+month but it is still within 31 days we will autocorrect it to the last day for you 
+<br> e.g 2022/04/31 -> 2022/04/30
+<br> e.g 2022/02/31 -> 2022/02/28
 
 **Example:**
 ```plaintext
