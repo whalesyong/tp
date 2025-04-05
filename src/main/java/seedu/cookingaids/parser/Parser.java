@@ -35,7 +35,7 @@ public class Parser {
     private static final int LENGTH_INGREDIENT_FLAG = 11;
     private static final int LENGTH_QUANTITY_FLAG = 9;
     private static final int LENGTH_EXPIRY_FLAG = 7;
-
+    private static final int LENGTH_NEW_EXPIRY_FLAG = 11;
 
     /**
      * Deciphers the user's input for commands and executes the corresponding method.
@@ -146,6 +146,8 @@ public class Parser {
     private static void handleUpdateCommand(String receivedText) {
         if (receivedText.contains(RECIPE_FLAG)) {
             UpdateCommand.updateRecipe(receivedText);
+        } else if (receivedText.contains(INGREDIENT_FLAG)) {
+            UpdateCommand.updateIngredient(receivedText);
         } else {
             System.out.println("Invalid update command: " + receivedText);
             System.out.println("Use 'update -recipe=INDEX -newname=NAME -newingredients=INGREDIENTS'");
@@ -357,6 +359,33 @@ public class Parser {
         }
         data.putIfAbsent("quantity", "1");
         data.putIfAbsent("expiry_date", "None");
+        return data;
+    }
+
+    public static HashMap<String, String> parseIngredientUpdate(String command) {
+        HashMap<String, String> data = new HashMap<>();
+        // Split by "-" but keep the first part (command) intact
+        String[] parts = command.split("-");
+        for (String part : parts) {
+            if (part.startsWith("ingredient=")) {
+                String ingredient = part.substring(LENGTH_INGREDIENT_FLAG).trim();
+                data.put("ingredient", ingredient);
+            } else if (part.startsWith("quantity=")) {
+                String quantity = part.substring(LENGTH_QUANTITY_FLAG).trim();
+                data.put("quantity", quantity);
+            } else if (part.startsWith("expiry=")) {
+                String expiry = part.substring(LENGTH_EXPIRY_FLAG).trim();
+                data.put("expiry_date", expiry);
+            } else if (part.startsWith("new_expiry=")) {
+                String newExpiry = part.substring(LENGTH_NEW_EXPIRY_FLAG).trim();
+                data.put("new_expiry", newExpiry);
+            } else if (!part.isEmpty()) {
+                return null;
+            }
+        }
+        data.putIfAbsent("quantity", "1");
+        data.putIfAbsent("expiry_date", "None");
+        data.putIfAbsent("new_expiry", "None");
         return data;
     }
 

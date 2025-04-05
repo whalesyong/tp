@@ -1,5 +1,6 @@
 package seedu.cookingaids.commands;
 
+import seedu.cookingaids.collections.IngredientStorage;
 import seedu.cookingaids.collections.RecipeBank;
 import seedu.cookingaids.items.Ingredient;
 import seedu.cookingaids.items.Recipe;
@@ -8,6 +9,7 @@ import seedu.cookingaids.parser.Parser;
 import seedu.cookingaids.exception.InvalidInputException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class UpdateCommand {
 
@@ -100,5 +102,41 @@ public class UpdateCommand {
      */
     public static String removeCommandWord(String receivedText) {
         return receivedText.substring(COMMAND_WORD.length() + SPACE);
+    }
+
+    public static void updateIngredient(String receivedText) {
+        try {
+            String inputs = removeCommandWord(receivedText);
+            HashMap<String, String> ingredientFields = Parser.parseIngredientUpdate(inputs);
+            if (ingredientFields == null) {
+                System.out.println("Invalid format. Use: update -ingredient=ingredient_name -expiry=YYYY/MM/DD " +
+                        "-quantity=quantity, the only dashes should be for the flags");
+                return;
+            }
+            String ingredientName = ingredientFields.get("ingredient");
+            if (ingredientName.isEmpty()) {
+                throw new IllegalArgumentException("Ingredient name cannot be empty");
+            }
+            String expiryDate = ingredientFields.get("expiry_date");
+            if (expiryDate.isEmpty()) {
+                throw new IllegalArgumentException("Expiry date cannot be empty");
+            }
+            String newExpiry = ingredientFields.get("new_expiry");
+            if (newExpiry.isEmpty()) {
+                throw new IllegalArgumentException("New expiry date cannot be empty");
+            }
+            int quantity;
+            try {
+                quantity = Integer.parseInt(ingredientFields.get("quantity"));
+                if (quantity < 0) {
+                    throw new IllegalArgumentException("Quantity must be a positive integer");
+                }
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("Quantity must be a positive integer");
+            }
+            IngredientStorage.updateIngredient(ingredientName,expiryDate,quantity, newExpiry);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
