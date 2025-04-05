@@ -55,7 +55,7 @@ public class AddCommand {
                 System.out.println("Added Dish: " + dish.getName() + ", Scheduled for: " + date);
             }
         } catch (InvalidInputException e) {
-            System.out.println("Invalid format. Use: add -dish=dish_name -when=YYYY-MM-DD " +
+            System.out.println("Invalid format. Use: add -dish=dish_name -when=YYYY/MM/DD " +
                     "\ndish name should be in lower_snake_case");
 
         }
