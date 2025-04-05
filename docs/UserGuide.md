@@ -69,10 +69,14 @@ help
 ### **2. Adding Dish to Schedule: `add -dish={dishName}`** 
 
 Adds a dish to the calendar.
-<br> if the dish name matches a recipe exactly, it will check if you have enough ingredients from the ingredients list and subtract accordingly. Any ingredient debts will be added to the shopping list.
-<br> _add dishes in lower_snake_case form_
+<br> if the dish name matches a recipe exactly, 
+it will check if you have enough ingredients from the ingredients list and subtract accordingly.
+<br> Any ingredient debts will be added to the shopping list.
 <br> here is a rough flowchart of what goes on when adding dish
 ![img.png](images/addDishFlow.png)
+
+> **Warning:** __add dishes in lower_snake_case form__ 
+> <br> If your dish contains multiple strings it will add the first string only
 
 **Usage:**  
 ```plaintext
@@ -80,7 +84,11 @@ add -dish={dishName}
 add -dish={dishName} [-when={date}]
 ```
 <br> If no dish date is unrecognised, it defaults to None. 
-
+<br> add date in YYYY/MM/DD format 
+<br> if you add a date that exceeds the number of days in the
+month but it is still within 31 days we will autocorrect it to the last day for you 
+<br> e.g 2022/04/31 -> 2022/04/30
+<br> e.g 2022/02/31 -> 2022/02/28
 
 **Example:**
 ```plaintext

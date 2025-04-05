@@ -15,6 +15,8 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static seedu.cookingaids.parser.Parser.*;
+
 public class AddCommand {
     public static final String COMMAND_WORD = "add";
     private static final int SPACE = 1;
@@ -50,6 +52,10 @@ public class AddCommand {
      */
     public static void addDish(String receivedText) {
         try {
+            if(receivedText.contains(RECIPE_FLAG) || receivedText.contains(INGREDIENT_FLAG)){
+                System.out.println("Other commands found, I can only process one at a time");
+                return;
+            }
             receivedText = removeCommandWord(receivedText);
             String[] dishFields = Parser.parseDish(receivedText);
 
@@ -89,6 +95,10 @@ public class AddCommand {
     public static void addRecipe(String receivedText) {
 
         try {
+            if(receivedText.contains(DISH_FLAG) || receivedText.contains(INGREDIENT_FLAG)){
+                System.out.println("Other commands found, I can only process one at a time");
+                return;
+            }
             receivedText = removeCommandWord(receivedText);
             String[] recipeFields = Parser.parseRecipe(receivedText);
 
