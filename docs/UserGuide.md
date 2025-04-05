@@ -81,6 +81,12 @@ Adds a dish to the calendar.
 add -dish={dishName}  
 add -dish={dishName} [-when={date}]
 ```
+**Example:**
+```plaintext
+add -dish=pizza
+add -dish=tomato_pasta -when=2025/05/01
+add -dish=fries -when=tmr  //(tomorrow,today,td,tdy also works)
+```
 
 **Expected Output:**  
 
