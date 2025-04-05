@@ -23,12 +23,12 @@ import java.util.regex.Pattern;
 public class Parser {
     public static final String NEW_INGREDIENTS_FLAG = "-newingredients=";
     public static final String NEW_NAME_FLAG = "-newname=";
+    public static final String RECIPE_FLAG = "-recipe=";
+    public static final String NEEDS_FLAG = "-needs=";
+    public static final String DISH_FLAG = "-dish=";
+    public static final String WHEN_FLAG = "-when=";
+    public static final String INGREDIENT_FLAG = "-ingredient=";
     private static final String UNKNOWN_COMMAND_STR = "Unknown command: %s";
-    private static final String RECIPE_FLAG = "-recipe=";
-    private static final String NEEDS_FLAG = "-needs=";
-    private static final String DISH_FLAG = "-dish=";
-    private static final String WHEN_FLAG = "-when=";
-    private static final String INGREDIENT_FLAG = "-ingredient=";
     private static final String MONTH_FLAG = "-month=";
     private static final String YEAR_FLAG = "-year=";
     private static final int LENGTH_INGREDIENT_FLAG = 11;
@@ -163,14 +163,14 @@ public class Parser {
     }
 
     private static void handleAddCommand(String receivedText) {
-        if (receivedText.contains(RECIPE_FLAG)) {
-            AddCommand.addRecipe(receivedText);
-        } else if (receivedText.contains(DISH_FLAG)) {
+        if (receivedText.contains(DISH_FLAG)) {
             AddCommand.addDish(receivedText);
+        } else if (receivedText.contains(RECIPE_FLAG)) {
+            AddCommand.addRecipe(receivedText);
         } else if (receivedText.contains(INGREDIENT_FLAG)) {
             AddCommand.addIngredient(receivedText);
         } else {
-            System.out.println("I DO NOT UNDERSTAND " + receivedText);
+            System.out.printf((UNKNOWN_COMMAND_STR) + "%n", receivedText);
         }
     }
 

@@ -26,6 +26,10 @@ public class ListCommand {
      */
     public static void displayDishList(String receivedString) {
         ArrayList<Dish> listOfDish = DishCalendar.getDishCalendar();
+        if(listOfDish.isEmpty()){
+            System.out.println("You have no dishes planned!");
+            return;
+        }
         List<Dish> validDishes = listOfDish.stream()
                 .filter(dish -> dish.getDishDate() != null && dish.getDishDate().getDateLocalDate() != null)
                 .toList();
@@ -86,7 +90,14 @@ public class ListCommand {
      * Displays all ingredients currently in the shopping list.
      */
     public static void displayShoppingList() {
+
         ArrayList<Ingredient> shoppingList = ShoppingList.getShoppingList();
-        Ui.printShoppingListView(shoppingList);
+        if(shoppingList.isEmpty()){
+            System.out.println("Your shopping list is empty!");
+        }
+        else {
+            System.out.println("Shopping List:");
+            Ui.printShoppingListView(shoppingList);
+        }
     }
 }
