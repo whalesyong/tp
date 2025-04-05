@@ -1,5 +1,12 @@
 package seedu.cookingaids.ui;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import seedu.cookingaids.collections.DishCalendar;
 import seedu.cookingaids.collections.IngredientStorage;
 import seedu.cookingaids.collections.RecipeBank;
@@ -7,13 +14,9 @@ import seedu.cookingaids.collections.ShoppingList;
 import seedu.cookingaids.items.Dish;
 import seedu.cookingaids.items.Ingredient;
 import seedu.cookingaids.items.Recipe;
+import seedu.cookingaids.logger.LoggerFactory;
 import seedu.cookingaids.parser.Parser;
 import seedu.cookingaids.storage.Storage;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
 
 /**
  * Ui class holds methods relating to the User interface of the program
@@ -21,6 +24,7 @@ import java.util.Scanner;
  */
 public class Ui {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Ui.class);
 
     /**
      * Offset required to convert between 1-indexing and 0-indexing.
@@ -47,10 +51,12 @@ public class Ui {
     }
 
     public static void showWelcomeMessage() {
+        LOGGER.info("Showing welcome message");
         System.out.println(WELCOME_MESSAGE + '\n' + ASCII_MESSAGE);
     }
 
     public static void printItems(String... messages) { //print items to console
+        LOGGER.log(Level.FINE, "Printing {0} message(s)", messages.length);
         for (String s : messages) {
             System.out.println(s.replace("\n", System.lineSeparator()));
         }
@@ -62,6 +68,7 @@ public class Ui {
      * @param dishes a list of dishes to be displayed in the console
      */
     public static void printDishListView(List<Dish> dishes) {
+        LOGGER.log(Level.FINE, "Displaying {0} dishes", dishes.size());
         //prints TaskList on console
         final List<String> formattedItems = new ArrayList<>();
         for (Dish d : dishes) {
@@ -70,6 +77,7 @@ public class Ui {
         printAsIndexedList(formattedItems);
     }
     public static void printShoppingListView(ArrayList<Ingredient> shoppingList) {
+        LOGGER.log(Level.FINE, "Displaying shopping list with {0} items", shoppingList.size());
         //prints TaskList on console
         final List<String> formattedItems = new ArrayList<>();
         for (Ingredient ingredients : shoppingList) {
@@ -150,23 +158,36 @@ public class Ui {
      * It initializes the required data structures, processes commands, and then stores the data before terminating.
      */
     public static void waitForCommand() {
+        LOGGER.info("Starting command input loop");
 
-        //initialize list
-        Storage.DataWrapper wrapper = Storage.loadData();
-        DishCalendar.initializeDishCalendar(wrapper.dishes);
-        RecipeBank.initializeRecipeBank(wrapper.recipes);
-        IngredientStorage.initializeIngredientStorage(wrapper.ingredients);
-        ShoppingList.initializeShoppingList(wrapper.shopping);
-        Scanner scanner = new Scanner(System.in);
-        String scannedText;
-        while (!(scannedText = scanner.nextLine()).equals("bye")) {     //bye breaks the while loop
-            Parser.decipherCommand(scannedText);
+        try {
+            //initialize list
+            Storage.DataWrapper wrapper = Storage.loadData();
+            LOGGER.info("Data loaded successfully");
+
+            DishCalendar.initializeDishCalendar(wrapper.dishes);
+            RecipeBank.initializeRecipeBank(wrapper.recipes);
+            IngredientStorage.initializeIngredientStorage(wrapper.ingredients);
+            ShoppingList.initializeShoppingList(wrapper.shopping);
+
+            Scanner scanner = new Scanner(System.in);
+            String scannedText;
+            while (!(scannedText = scanner.nextLine()).equals("bye")) {     //bye breaks the while loop
+                LOGGER.log(Level.FINE, "Processing command: {0}", scannedText);
+                Parser.decipherCommand(scannedText);
+                System.out.print(">>> ");
+
+            }
+
+            LOGGER.info("Saving data before exit");
+            Storage.storeData(DishCalendar.getDishCalendar(),
+                    RecipeBank.getRecipeBank(), IngredientStorage.getStorage(),
+                    ShoppingList.getShoppingList());
+
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error in command processing: {0}", e.getMessage());
+            throw e;
         }
-
-        //store list
-        Storage.storeData(DishCalendar.getDishCalendar(),
-                RecipeBank.getRecipeBank(), IngredientStorage.getStorage(),
-                ShoppingList.getShoppingList());
     }
 
 

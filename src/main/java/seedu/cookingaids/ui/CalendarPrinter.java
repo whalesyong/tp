@@ -1,8 +1,5 @@
 package seedu.cookingaids.ui;
 
-import seedu.cookingaids.items.Dish;
-
-
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.TextStyle;
@@ -10,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+
+import seedu.cookingaids.items.Dish;
 
 public class CalendarPrinter {
     public static final String BLANK_SPACE = "          ";
