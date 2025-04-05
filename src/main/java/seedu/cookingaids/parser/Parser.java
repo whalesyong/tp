@@ -66,13 +66,25 @@ public class Parser {
 
 
         if (receivedText.contains(MONTH_FLAG)) {
-            Pattern pattern = Pattern.compile("-month=(\\d{1,2})");
+            Pattern pattern = Pattern.compile("-month=([\\w\\s]+)");
             Matcher matcher = pattern.matcher(receivedText);
 
             int month;
             if (matcher.find()) {
+                if (matcher.group(1).isBlank()) {
+                    month = LocalDate.now().getMonthValue(); // Default to current month
+                } else {
 
-                month = Integer.parseInt(matcher.group(1));
+                    try {
+                        month = Integer.parseInt(matcher.group(1));
+                    } catch (NumberFormatException e) {
+                        System.out.println(
+                                "Invalid month input. Use: view -month={1-12} or leave blank for the current month.");
+                        return;
+
+                    }
+                }
+
             } else {
                 month = LocalDate.now().getMonthValue(); // Default to current month
             }
