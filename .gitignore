@@ -17,3 +17,6 @@ bin/
 /text-ui-test/data/
 /text-ui-test/data/cookingaids.json
 text-ui-test/EXPECTED-UNIX.TXT
+
+# any log files
+/data/log/*.log
