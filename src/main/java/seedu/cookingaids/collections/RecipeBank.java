@@ -1,7 +1,5 @@
 package seedu.cookingaids.collections;
 
-import static seedu.cookingaids.collections.DishCalendar.dishCalendar;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
