@@ -143,8 +143,12 @@ public class DeleteCommand {
     public static void deleteIngredient(String receivedText) {
         String ingredientName = Parser.parseIngredientForDeletion(receivedText);
 
-        IngredientStorage.removeIngredient(ingredientName);
-        System.out.println("Deleted " + ingredientName + " from the list of available ingredients.");
+        if (IngredientStorage.contains(ingredientName)) {
+            IngredientStorage.removeIngredient(ingredientName);
+            System.out.println("Deleted " + ingredientName + " from the list of available ingredients.");
+        } else {
+            System.out.println("Please provide a valid ingredient name");
+        }
     }
 
     public static void removeRecipe(Recipe recipe) {
