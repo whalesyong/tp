@@ -8,7 +8,7 @@ welcome to cooking
 ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓███████▓▒░░▒▓███████▓▒░
 
 
-CookingAIDS v1.0. Type "help" to see available commands
+CookingAIDS v2.0. Type "help" to see available commands
 No data found, creating new lists.
 For help, visit our User Guide at:
 https://ay2425s2-cs2113-t11b-1.github.io/tp/UserGuide.html

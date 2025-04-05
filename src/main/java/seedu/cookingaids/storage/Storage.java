@@ -1,22 +1,25 @@
 package seedu.cookingaids.storage;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import seedu.cookingaids.items.Dish;
-import seedu.cookingaids.items.Recipe;
-import seedu.cookingaids.items.Ingredient;
-import seedu.cookingaids.collections.IngredientStorage;
-import seedu.cookingaids.ui.Ui;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Logger;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
+import seedu.cookingaids.collections.IngredientStorage;
+import seedu.cookingaids.items.Dish;
+import seedu.cookingaids.items.Ingredient;
+import seedu.cookingaids.items.Recipe;
+import seedu.cookingaids.logger.LoggerFactory;
+import seedu.cookingaids.ui.Ui;
 
 public class Storage {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Storage.class);
     private static final String RECIPE_LIST_FIELD_NAME = "recipes";
     private static final String DISH_LIST_FIELD_NAME = "dishes";
     private static final String INGREDIENT_STORAGE_FIELD_NAME = "ingredients";
@@ -28,7 +31,6 @@ public class Storage {
     private static final String MESSAGE_NO_DATA_FOUND = "No data found, creating new lists.";
     private static final String MESSAGE_LOAD_FAILURE = "Failed to load Dish list from: %s, loading new list.";
 
-
     /**
      * Stores the list of dishes and recipes into a JSON file.
      * This method serializes the dish and recipe lists into a JSON format and writes them to the specified file path.
@@ -39,33 +41,41 @@ public class Storage {
     public static void storeData(
             ArrayList<Dish> dishList,
             ArrayList<Recipe> recipeList,
-            HashMap<String,List<Ingredient>> ingredientStorage,
+            HashMap<String, List<Ingredient>> ingredientStorage,
             ArrayList<Ingredient> shoppingList) {
 
-        //check if any inputs are null:\
-        assert dishList != null : "Dish list cannot be null";
-        assert recipeList != null : "Recipe list cannot be null";
-        assert ingredientStorage != null : "Ingredient storage cannot be null";
+        LOGGER.info("Starting data serialization process");
 
-        //get dishList array, store into json.
+        //check if any inputs are null:
+        if (dishList == null || recipeList == null || ingredientStorage == null) {
+            LOGGER.severe("Null input detected during data storage");
+            throw new AssertionError("Input lists cannot be null");
+        }
+
+        LOGGER.fine(String.format("Storing %d dishes, %d recipes, %d ingredient categories",
+                dishList.size(), recipeList.size(), ingredientStorage.size()));
+
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         Map<String, Object> dataMap = new HashMap<>();
-
         dataMap.put(DISH_LIST_FIELD_NAME, dishList);
         dataMap.put(RECIPE_LIST_FIELD_NAME, recipeList);
         dataMap.put(INGREDIENT_STORAGE_FIELD_NAME, ingredientStorage);
         dataMap.put(SHOPPING_LIST_FIELD_NAME, shoppingList);
 
         File file = new File(FILE_PATH);
-        file.getParentFile().mkdirs();
-
+        if (!file.getParentFile().exists()) {
+            LOGGER.warning("Data directory not found, creating new directory");
+            file.getParentFile().mkdirs();
+        }
 
         try {
             mapper.writeValue(file, dataMap);
+            LOGGER.info("Data successfully stored to " + FILE_PATH);
             Ui.printItems(MESSAGE_STORE_SUCCESS + FILE_PATH);
         } catch (IOException e) {
+            LOGGER.severe("Failed to store data: " + e.getMessage());
             Ui.printItems(MESSAGE_STORE_FAILURE + FILE_PATH);
         }
     }
@@ -78,18 +88,34 @@ public class Storage {
      * @return A DataWrapper containing the lists of dishes and recipes.
      */
     public static DataWrapper loadData() {
+        LOGGER.info("Starting data loading process");
+
         ObjectMapper mapper = new ObjectMapper();
         File file = new File(FILE_PATH);
 
         if (!file.exists()) {
+            LOGGER.warning("Data file not found at: " + FILE_PATH);
             Ui.printItems(MESSAGE_NO_DATA_FOUND);
             IngredientStorage.clear();
             return new DataWrapper(new ArrayList<>(), new ArrayList<>(), new HashMap<>(), new ArrayList<>());
         }
 
         try {
-            return mapper.readValue(file, DataWrapper.class);
+            LOGGER.fine("Reading data file: " + FILE_PATH);
+            DataWrapper data = mapper.readValue(file, DataWrapper.class);
+
+            // Validate loaded data
+            if (data.dishes == null || data.recipes == null ||
+                    data.ingredients == null || data.shopping == null) {
+                LOGGER.warning("Corrupted data detected - missing required fields");
+                throw new IOException("Corrupted data format");
+            }
+
+            LOGGER.info(String.format("Successfully loaded %d dishes, %d recipes",
+                    data.dishes.size(), data.recipes.size()));
+            return data;
         } catch (IOException e) {
+            LOGGER.severe("Failed to load data: " + e.getMessage());
             Ui.printItems(String.format(MESSAGE_LOAD_FAILURE, FILE_PATH));
             Ui.printItems(e.getMessage());
             return new DataWrapper(new ArrayList<>(), new ArrayList<>(), new HashMap<>(), new ArrayList<>());

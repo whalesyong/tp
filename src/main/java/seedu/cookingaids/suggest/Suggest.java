@@ -1,18 +1,21 @@
 package seedu.cookingaids.suggest;
 
-import seedu.cookingaids.collections.IngredientStorage;
-import seedu.cookingaids.collections.RecipeBank;
-import seedu.cookingaids.items.Ingredient;
-import seedu.cookingaids.items.Recipe;
-import seedu.cookingaids.ui.Ui;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import seedu.cookingaids.collections.IngredientStorage;
+import seedu.cookingaids.collections.RecipeBank;
+import seedu.cookingaids.items.Ingredient;
+import seedu.cookingaids.items.Recipe;
+import seedu.cookingaids.logger.LoggerFactory;
+import seedu.cookingaids.ui.Ui;
 
 public class Suggest {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(Suggest.class);
     private static final String MESSAGE_NO_AVAILABLE_RECIPES = "There are no available recipes.";
     private static final String MESSAGE_MISSING_INGREDIENTS_PREFIX = "Not enough ingredients for ";
     private static final String MESSAGE_MISSING_INGREDIENTS_SUFFIX = "! Here's what you're missing: ";
@@ -23,17 +26,19 @@ public class Suggest {
      * @return List of available recipes
      */
     public static List<Recipe> suggestRecipes() {
+        LOGGER.info("Starting recipe suggestion process");
         HashMap<String, List<Ingredient>> availableIngredientsMap = IngredientStorage.getStorage();
         ArrayList<Recipe> availableRecipes = RecipeBank.getRecipeBank();
 
         if (availableRecipes.isEmpty()) {
+            LOGGER.warning("No recipes available in RecipeBank");
             Ui.printItems(MESSAGE_NO_AVAILABLE_RECIPES);
             return new ArrayList<>();
         }
 
         ArrayList<String> availableIngredients = getAvailableIngredientNames(availableIngredientsMap.keySet());
+        LOGGER.log(Level.FINE, "Found {0} available ingredients", availableIngredients.size());
         return findRecipesWithAvailableIngredients(availableRecipes, availableIngredients);
-
     }
 
     /**
@@ -62,11 +67,13 @@ public class Suggest {
             ArrayList<String> availableIngredients) {
 
         List<Recipe> suggestedRecipes = new ArrayList<>();
+        LOGGER.log(Level.FINE, "Checking {0} recipes for matches", availableRecipes.size());
 
         for (Recipe recipe : availableRecipes) {
             checkRecipeIngredients(recipe, availableIngredients, suggestedRecipes);
         }
 
+        LOGGER.log(Level.INFO, "Found {0} suggested recipes", suggestedRecipes.size());
         return suggestedRecipes;
     }
 
@@ -84,6 +91,7 @@ public class Suggest {
             ArrayList<String> availableIngredients,
             List<Recipe> suggestedRecipes) {
 
+        LOGGER.log(Level.FINE, "Checking ingredients for recipe: {0}", recipe.getRecipeName());
         ArrayList<Ingredient> neededIngredients = recipe.getIngredients();
         ArrayList<Ingredient> missingIngredients = new ArrayList<>();
         int availableCount = 0;
@@ -97,8 +105,14 @@ public class Suggest {
         }
 
         if (availableCount == neededIngredients.size()) {
+            LOGGER.log(Level.INFO, "Recipe {0} can be made with available ingredients", recipe.getRecipeName());
             suggestedRecipes.add(recipe);
         } else if (availableCount < neededIngredients.size()) {
+            LOGGER.log(
+                    Level.FINE,
+                    "Recipe {0} is missing {1} ingredients",
+                    new Object[]{recipe.getRecipeName(),
+                            missingIngredients.size()});
             printMissingIngredients(recipe, missingIngredients);
         }
     }
