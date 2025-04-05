@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.cookingaids.config.UnitConfig;
 
+import java.time.LocalDate;
+
 /**
  * represents an Ingredient class
  * attributes include expiryDate as ExpiryDate type, quantity as an integer, name as a string
@@ -45,6 +47,8 @@ public class Ingredient extends Food {
         this.expiryDate = new ExpiryDate(expiryDate);
         this.quantity = quantity;
         this.name = name;
+        expiringSoon();
+        expired();
     }
 
     public void setQuantity(int quantity) {
@@ -76,6 +80,30 @@ public class Ingredient extends Food {
         this.expiringSoon = b;
     }
 
+    private void expiringSoon() {
+        LocalDate tomorrow = LocalDate.now().plusDays(1);
+        LocalDate today = LocalDate.now();
+
+        if (expiryDate.getDateLocalDate() != null ) {
+            if (expiryDate.getDateLocalDate().equals(tomorrow) || expiryDate.getDateLocalDate().equals(today)) {
+                this.expiringSoon = true;
+            }
+        } else {
+            this.expiringSoon = false;
+        }
+    }
+
+    private void expired() {
+        LocalDate today = LocalDate.now();
+        if (expiryDate.getDateLocalDate() != null) {
+            if (expiryDate.getDateLocalDate().isBefore(today)) {
+                this.expired = true;
+            }
+        } else {
+            this.expired = false;
+        }
+    }
+
     public void setExpired(boolean b) {
         this.expired = b;
     }
@@ -91,5 +119,11 @@ public class Ingredient extends Food {
         String unit = UnitConfig.getUnit(name);
         return name + " (" + quantity + unit + ", Expiry: " + expiryDate + ", Expiring Soon: " +
                 (expiringSoon ? "Yes" : "No") + ", Expired: " + (expired ? "Yes" : "No") + ")";
+    }
+
+    public void setExpiryDate(ExpiryDate expiryDate) {
+        this.expiryDate = expiryDate;
+        expiringSoon();
+        expired();
     }
 }

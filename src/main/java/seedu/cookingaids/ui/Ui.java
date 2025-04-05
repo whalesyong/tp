@@ -102,10 +102,14 @@ public class Ui {
      * @param ingredients A list of ingredients to be displayed in the console.
      */
     public static void printIngredientListView(HashMap<String, List<Ingredient>> ingredients) {
+        if (ingredients.isEmpty()) {
+            System.out.println("There are no ingredients");
+            return;
+        }
         for (String name : ingredients.keySet()) {
             System.out.println(name + ":");
-            for (Ingredient ing : ingredients.get(name)) {
-                System.out.println("  " + ing);
+            for (Ingredient ingredient : ingredients.get(name)) {
+                System.out.println("  " + ingredient);
             }
         }
     }

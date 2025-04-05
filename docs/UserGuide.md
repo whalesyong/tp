@@ -416,6 +416,23 @@ suggest
   1: carbonara
   2: garlic_bread
   ```
+  
+---
+
+### **15. Exit: `bye`**
+Exits the program. A user can exit the program at any time by typing bye in the command line.
+**Usage:**
+```
+bye
+``` 
+**Expected Output:**
+- `bye`:
+  ```plaintext
+  Stored Dish List successfully in: ./data/cookingaids.json
+  ```
+
+---
+
 <div style="page-break-after: always;"></div>
 
 ## **Command List**  
@@ -426,7 +443,9 @@ suggest
 | **Delete**  | `delete -ingredient`, `delete -dish`, `delete -recipe` <br> Example: `delete -ingredient=tomato`, `delete -dish=tomato soup`                                                                         |  
 | **List**    | `list -ingredient`, `list -dish`, `list -recipe`,`list -shopping`, <br> Example: `list -ingredient`                                                                                                  |  
 | **View**    | `view -month` <br> Example:`view -month=2`, `view -month=`                                                                                                                                           |
+| **Update**  | `update -recipe` <br> Example:`update -recipe=toast -newname=sandwich -newingredients=bread,2,egg,1,ham,1`                                                                                           |
+| **Delete**  | `delete -ingredient`, `delete -dish`, `delete -recipe` <br> Example: `delete -ingredient=tomato`, `delete -dish=tomato soup`                                                                         |  
 | **Suggest** | `suggest`                                                                                                                                                                                            |
-| **Help**    | `help`                                                                                                                                                                                               |
+| **Bye**     | `bye`                                                                                                                                                                                                |
 
 
