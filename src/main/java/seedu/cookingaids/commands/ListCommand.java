@@ -44,8 +44,7 @@ public class ListCommand {
             } else if (afterToday.isEmpty()) {
                 System.out.println("Today's dishes:");
                 Ui.printDishListView(today);
-            }
-            else{
+            } else {
                 System.out.println("Today's dishes:");
                 Ui.printDishListView(today);
                 System.out.println("Upcoming dishes planned:");
