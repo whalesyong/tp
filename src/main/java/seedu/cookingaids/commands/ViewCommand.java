@@ -44,11 +44,26 @@ public class ViewCommand {
 
     }
 
+    public static List<Dish> sortDishesAfterToday(List<Dish> dishes) {
+        return dishes.stream()
+                .filter(dish -> dish.getDishDate().getDateLocalDate().isAfter(LocalDate.now()))
+                .sorted(Comparator.comparing(dish -> dish.getDishDate().getDateLocalDate()))
+                .toList();
+    }
+
+    public static List<Dish> sortDishesToday(List<Dish> dishes) {
+        return dishes.stream()
+                .filter(dish -> dish.getDishDate().getDateLocalDate().equals(LocalDate.now()))
+                .sorted(Comparator.comparing(dish -> dish.getDishDate().getDateLocalDate()))
+                .toList();
+    }
+
     public static List<Dish> sortDishesByDateStream(ArrayList<Dish> dishes) {
         return dishes.stream()
                 .sorted(Comparator.comparing(dish -> dish.getDishDate().getDateLocalDate()))
                 .toList();
     }
+
     public static List<Dish> sortDishesByDateStream(List<Dish> dishes) {
         return dishes.stream()
                 .sorted(Comparator.comparing(dish -> dish.getDishDate().getDateLocalDate()))

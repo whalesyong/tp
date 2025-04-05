@@ -79,7 +79,8 @@ Adds a dish to the calendar.
 add -dish={dishName}  
 add -dish={dishName} [-when={date}]
 ```
-<br> If no dish date is unrecognised, it defaults to None.
+<br> If no dish date is unrecognised, it defaults to None. 
+
 
 **Example:**
 ```plaintext
@@ -170,11 +171,13 @@ add -recipe={recipeName} -needs={ingredient1},{quantity_1},{ingredient2},{quanti
 
 ### **5. View Scheduled Dishes: `list -dish`**
 
-Displays a list of scheduled dishes sorted by month
+Displays a list of all dishes in dishList sorted by date
+<br> add a -u flag to view upcoming dishes filtered by date
 
 **Usage:**  
 ```plaintext
 list -dish  
+list -dish -u
 ```
 
 **Expected Output:**  
@@ -185,10 +188,22 @@ list -dish
   2. {dishName2} Scheduled for {date2}
   3. {dishName2} Scheduled for {date3}
   
-  Unscheduled
+  Dishes with no scheduled date:
   1. {dishName3}   
   2. {dishName4} 
   3. {dishName5}   
+  ```
+- `list -dish -u`:
+  ```plaintext
+  Todays dishes:
+  1. {dishName1} Scheduled for {date1}  
+  2. {dishName2} Scheduled for {date2}
+  3. {dishName2} Scheduled for {date3}
+  
+  Upcoming dishes:
+  1. {dishName1} Scheduled for {date1}  
+  2. {dishName2} Scheduled for {date2}
+  3. {dishName2} Scheduled for {date3}
   ```
 
 ---
@@ -410,7 +425,7 @@ suggest
 | **Delete**  | `delete -ingredient`, `delete -dish`, `delete -recipe` <br> Example: `delete -ingredient=tomato`, `delete -dish=tomato soup`                                                                         |  
 | **List**    | `list -ingredient`, `list -dish`, `list -recipe`,`list -shopping`, <br> Example: `list -ingredient`                                                                                                  |  
 | **View**    | `view -month` <br> Example:`view -month=2`, `view -month=`                                                                                                                                           |
-| **Suggest** | `suggest`                                                                                                                                        |
+| **Suggest** | `suggest`                                                                                                                                                                                            |
 | **Help**    | `help`                                                                                                                                                                                               |
 
 
