@@ -36,7 +36,7 @@ public class Ui {
 
     public static final String WELCOME_MESSAGE = "welcome to cooking";
 
-    public static final String ASCII_MESSAGE = """
+    public static final String ASCII_MESSAGE = """ 
              ░▒▓██████▓▒░░▒▓█▓▒░▒▓███████▓▒░ ░▒▓███████▓▒░\s
             ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░       \s
             ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░       \s
