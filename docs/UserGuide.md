@@ -40,9 +40,7 @@ With CookingAids, you can:
 
 > **Command Format Notes:**  
 > - Items in square brackets are optional.  
->   - Example: `add -dish={dishName} [-when{date}]` can be used as `add -dish={dishName}`.  
-> - Parameters can be in any order.  
->   - Example: `add -dish={dishName} -when{date}` is equivalent to `add -when{date} -dish={dishName}`.  
+>   - Example: `add -dish={dishName} [-when{date}]` can be used as `add -dish={dishName}`.
 > - Extraneous parameters for commands that do not take parameters (e.g., `help`) will be ignored.  
 >   - Example: `help 123` will be interpreted as `help`.  
 > - Recipes, dishes and ingredients should be named in snake case (ie lowercase words with underscores)
@@ -81,6 +79,8 @@ Adds a dish to the calendar.
 add -dish={dishName}  
 add -dish={dishName} [-when={date}]
 ```
+<br> If no dish date is unrecognised, it defaults to None.
+
 **Example:**
 ```plaintext
 add -dish=pizza
@@ -92,11 +92,16 @@ add -dish=fries -when=tmr  //(tomorrow,today,td,tdy also works)
 
 - `add -dish={dishName}`:  
   ```plaintext
-  {dishName} has been added to today’s cooking list!
+  Added Dish: {dishName}, No scheduled date yet
   ```
 - `add -dish={dishName} -when={date}`:  
   ```plaintext
-  {dishName} has been added to your cooking list on {date}!
+  Added Dish: {dishName}, Scheduled for: {date}
+  ```
+- `add -dish={dishName} -when={unrecognised date}`:
+  ```plaintext
+  Could not recognise date! Saving without date
+  Added Dish: {dishName}, No scheduled date yet
   ```
 
 ---
@@ -104,8 +109,9 @@ add -dish=fries -when=tmr  //(tomorrow,today,td,tdy also works)
 
 ### **3. Adding an Ingredient: `add -ingredient={ingredientName}`** 
 
-Adds an ingredient to the ingredient database. If no quantity is specified, it defaults to 1. If no expiry date is 
-specifed, it defaults to None. 
+Adds an ingredient to the ingredient database.
+<br> If no quantity is specified, it defaults to 1.
+<br> If no expiry date is specified, it defaults to None. 
 <br> _Expiry date format is to be in YYYY/MM/DD_
 <br> _add ingredients in lower_snake_case form_ 
 
