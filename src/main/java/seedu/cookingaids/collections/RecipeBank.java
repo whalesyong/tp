@@ -72,6 +72,22 @@ public class RecipeBank {
         return recipeList;
     }
 
+    public static ArrayList<Recipe> getRecipeByTags(ArrayList<String> tags) {
+        ArrayList<Recipe> recipeList = new ArrayList<>();
+
+        for (Recipe recipe : recipeBank) {
+            for (String tag : tags) {
+                if (recipe.getTags().contains(tag)) {
+                    recipeList.add(recipe);
+                    break;
+                }
+            }
+        }
+
+        return recipeList;
+
+    }
+
     public static boolean contains(String recipeName) {
         return recipeBank.stream().anyMatch(recipe -> recipe.getRecipeName().equalsIgnoreCase(recipeName));
     }

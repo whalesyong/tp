@@ -1,31 +1,20 @@
 {
   "recipes" : [ {
-    "name" : "meow",
+    "name" : "Sandwich",
     "ingredients" : [ {
-      "name" : "cat",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
-    } ]
-  }, {
-    "name" : "woof",
-    "ingredients" : [ {
-      "name" : "dog",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
-    } ]
-  }, {
-    "name" : "neigh",
-    "ingredients" : [ {
-      "name" : "horse",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
-    } ]
+      "name" : "Bread",
+      "quantity" : 0,
+      "expiryDate" : null
+    }, {
+      "name" : "Tomato",
+      "quantity" : 0,
+      "expiryDate" : null
+    }, {
+      "name" : "Egg",
+      "quantity" : 0,
+      "expiryDate" : null
+    } ],
+    "recipeName" : "Sandwich"
   } ],
   "ingredients" : { },
   "dishes" : [ {
@@ -35,4 +24,5 @@
     }
   } ],
   "shopping" : [ ]
+
 }
