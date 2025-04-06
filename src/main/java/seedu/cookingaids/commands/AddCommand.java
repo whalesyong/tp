@@ -19,6 +19,8 @@ import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static seedu.cookingaids.parser.Parser.RECIPE_FLAG;
 import static seedu.cookingaids.parser.Parser.INGREDIENT_FLAG;
@@ -43,7 +45,7 @@ public class AddCommand {
 
         return receivedText.substring(COMMAND_WORD.length() + SPACE);
     }
-
+  
     /**
      * Adds a dish to the DishCalendar.
      *
@@ -64,7 +66,6 @@ public class AddCommand {
         } catch (InvalidInputException e) {
             System.out.println("Invalid format. Use: add -dish=dish_name -when=YYYY/MM/DD " +
                     "\ndish name should be in lower_snake_case");
-        }
     }
 
     /**
@@ -83,8 +84,8 @@ public class AddCommand {
 
             // Process ingredients if they exist
             ArrayList<Ingredient> ingredients = parseIngredientPairs(recipeFields[1]);
-            Recipe recipe = createRecipe(recipeFields[0], ingredients);
-
+            Recipe recipe = createRecipe(recipeFields[0], ingredients);\
+              
             // Add recipe to the recipe bank and print confirmation
             RecipeBank.addRecipeToRecipeBank(recipe);
             System.out.println("Added Recipe: " + recipeFields[0]);
