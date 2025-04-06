@@ -18,7 +18,8 @@
   12. [Delete Ingredient: `delete -ingredient`](#12-delete-ingredient-delete--ingredientingredientname-)
   13. [Delete Recipe from Recipe Bank: `delete -recipe`](#13-delete-recipe-from-recipe-bank-delete--reciperecipename-)
   14. [Suggest Dishes: `suggest`](#14-suggest-dishes-suggest)
-  15. [Exit program: `bye`](#15-exit-bye)
+  15. [Search Recipes by Tag: `search -recipetags`](#15-search-recipes-by-tag-search--recipetags)
+  16. [Exit program: `bye`](#16-exit-bye)
 - [Command List](#command-list-)
 
 ---
@@ -431,20 +432,39 @@ suggest
   
 ---
 
-### **15. Search recipes by tag: `search -recipetags=`**
+### **15. Search Recipes by Tag: `search -recipetags=`**
 
-Search recipes by user-defined tag.
+Search recipes by user-defined tag. 
+Tags can be AND-based (results will have all recipes that match all tags) 
+or OR-based (results will have all recipes that match at least one tag).
+If no flag is given, the default is OR-based.
 
 **Usage:**
 ```
-search -recipetags=italian,easy
+search -recipetags=italian,mexican
 ``` 
 **Expected Output:**
 ```plaintext
-Recipes you tagged as italian, easy:
+Recipes that match your tags:
 1: garlic_bread
+2: tacos
 ```
-
+```
+search -recipetags=italian,mexican -type=or
+``` 
+**Expected Output:**
+```plaintext
+Recipes that match your tags:
+1: garlic_bread
+2: tacos
+```
+```
+search -recipetags=italian,mexican -type=and
+``` 
+**Expected Output:**
+```plaintext
+No recipes match your tags.
+```
 ---
 
 ### **16. Exit: `bye`**
@@ -474,4 +494,5 @@ bye
 | **Update**  | `update -recipe` <br> Example:`update -recipe=toast -newname=sandwich -newingredients=bread,2,egg,1,ham,1`                                                                                           |
 | **Delete**  | `delete -ingredient`, `delete -dish`, `delete -recipe` <br> Example: `delete -ingredient=tomato`, `delete -dish=tomato soup`                                                                         |  
 | **Suggest** | `suggest`                                                                                                                                                                                            |
+| **Search**  | `search -recipetags` <br> Example: `search -recipetags=italian`, `search -recipetags=italian,easy -type=and`, `search -recipetags=italian,mexican -type=or`                                          |
 | **Bye**     | `bye`                                                                                                                                                                                                |
