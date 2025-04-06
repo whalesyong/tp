@@ -119,7 +119,7 @@ add -dish=fries -when=tmr  //(tomorrow,today,td,tdy also works)
 
 Adds an ingredient to the ingredient database.
 <br> If no quantity is specified, it defaults to 1.
-<br> If no expiry date is specified, it defaults to None. 
+<br> If no expiry date is specified, it defaults to None.
 <br> _Expiry date format is to be in YYYY/MM/DD_
 <br> _add ingredients in lower_snake_case form_ 
 
@@ -218,7 +218,9 @@ list -dish -u
 
 ### **6. View Available Ingredients: `list -ingredient`**
 
-Displays a list of available ingredients and their expiry dates.  
+Displays a list of available ingredients and their expiry dates.
+<br> If too many ingredients are added, the maximum number will be displayed while still recognising the attempt to add
+
 
 **Usage:**  
 ```plaintext
@@ -381,7 +383,34 @@ update -dish={dishName}
 
 ---
 
-### **12. Delete Dish from Schedule: `delete -dish={dishName}`** 
+### **12. Update Ingredient: `update -ingredient`**
+
+Updates quantity and/or expiry date of an Ingredient in storage
+<br> To update an ingredient, enter its name and current expiry date. If there is no expiry date you can leave it empty
+
+
+**Usage:**
+```plaintext
+update -ingredient={ingredientName} [-expiry={expiryDate}] [-qty={quantity}] [-new_expiry={newExpiryDate]
+```
+
+**Expected Output:**
+- If ingredient to be updated cannot be found:
+  ```plaintext
+  Ingredient not found: {ingredientName}
+  ```
+- If update is successful:
+  ```plaintext
+  Ingredient updated successfully
+  ```
+- If invalid input:
+  ```plaintext
+  Invalid format. Use: update -ingredient=ingredient_name -expiry=YYYY/MM/DD -quantity=quantity, 
+  the only dashes should be for the flags
+  ```
+---
+
+### **13. Delete Dish from Schedule: `delete -dish={dishName}`** 
 
 Removes a dish from the schedule.  
 
@@ -393,14 +422,27 @@ delete -dish={dishName} -when={date}
 ```
 
 **Expected Output:**  
-- If multiple dishes are scheduled:  
+- If multiple dishes with the same name are scheduled:  
   ```plaintext
   Multiple dishes found:
   1, Date: {date1} - {dishName}
   2, Date: {date2} - {dishName}
   Which would you like to delete? Input a number.
-  {date} - {dishName} Successfully deleted!
   ```
+  - Valid input:
+    ```plaintext
+    {date} - {dishName} Successfully deleted!
+    ```
+  - Invalid input:
+    ```plaintext
+    Invalid choice. No dish deleted.
+    ```
+- Bulk delete by when
+  ```plaintext
+  The application supports deletion of dishes on a single date.
+  ```
+  Example usage of `delete -when={date}`:
+  ![bulkDelete](images/bulkDelete.png)
 - If only one dish is scheduled:  
   ```plaintext
   {date} - {dishName} Successfully deleted!
@@ -409,14 +451,11 @@ delete -dish={dishName} -when={date}
   ```plaintext
   No scheduled dishes found for: {dishName}
   ```
-- If invalid input:
-  ```plaintext
-  Invalid input
-  ```
+
 
 ---
 
-### **13. Delete Ingredient: `delete -ingredient={ingredientName}`** 
+### **14. Delete Ingredient: `delete -ingredient={ingredientName}`** 
 
 Removes an ingredient and all its quantities from the storage.
 
@@ -433,7 +472,7 @@ delete -ingredient={ingredientName}
 
 ---
 
-### **14. Delete Recipe from Recipe Bank: `delete -recipe={recipeName}`** 
+### **15. Delete Recipe from Recipe Bank: `delete -recipe={recipeName}`** 
 
 Deletes a recipe from the recipe bank.
 
@@ -457,7 +496,7 @@ delete -recipe={recipeName}
   
 ---
 
-### **15. Suggest Dishes: `suggest`**
+### **16. Suggest Dishes: `suggest`**
 
 Suggests dishes based on available ingredients. 
 
@@ -475,7 +514,7 @@ suggest
   
 ---
 
-### **16. Search Recipes by Tag: `search -recipetags=`**
+### **17. Search Recipes by Tag: `search -recipetags=`**
 
 Search recipes by user-defined tag. 
 Tags can be AND-based (results will have all recipes that match all tags) 
@@ -510,7 +549,7 @@ No recipes match your tags.
 ```
 ---
 
-### **17. Exit: `bye`**
+### **18. Exit: `bye`**
 
 Exits the program.
 

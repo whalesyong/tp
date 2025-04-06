@@ -102,7 +102,7 @@ public class DeleteCommand {
             String dishName = parsedDish[0];
             String date = parsedDish[1];
             if (date.equals("none")) {
-                System.out.println("Invalid format. Use: delete dish_name -when=YYYY-MM-DD");
+                System.out.println("Invalid format. Use: delete dish_name -when=YYYY/MM/DD");
                 return;
             }
             List<Dish> dishes = DishCalendar.getDishesByName(dishName);
@@ -129,12 +129,12 @@ public class DeleteCommand {
      * @param receivedText The date for which all dishes should be deleted.
      */
     public static void deleteDishByWhen(String receivedText) {
-        String date = receivedText.trim();
+        String parsedDate = Parser.parseWhenForDeletion(receivedText);
 
-        List<Dish> dishesToRemove = DishCalendar.getDishesByDate(date);
+        List<Dish> dishesToRemove = DishCalendar.getDishesByDate(parsedDate);
 
         if (dishesToRemove.isEmpty()) {
-            System.out.println("No dishes found on " + date);
+            System.out.println("No dishes found on " + parsedDate);
             return;
         }
 
@@ -142,7 +142,7 @@ public class DeleteCommand {
             DishCalendar.removeDishInCalendar(dish);
         }
 
-        System.out.println("Deleted all dishes scheduled for " + date);
+        System.out.println("Deleted all dishes scheduled for " + parsedDate);
 
         LOGGER.info("Saving to file after bulk dish deletion");
         Storage.storeData(DishCalendar.getDishCalendar(),

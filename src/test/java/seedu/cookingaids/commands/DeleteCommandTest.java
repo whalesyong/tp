@@ -52,31 +52,31 @@ class DeleteCommandTest {
 
     @Test
     void execute_validIngredient_deletesSuccessfully() {
-        Ingredient tomato = new Ingredient("Tomato");
+        Ingredient tomato = new Ingredient("tomato");
         IngredientStorage.addToStorage(tomato);
-        assertDeletionSuccessfulIngredient("Tomato");
+        assertDeletionSuccessfulIngredient("tomato");
     }
 
     @Test
     void execute_nonExistentIngredient_returnsIngredientNotFoundMessage() {
-        assertDeletionFailsDueToNoSuchIngredient("Garlic");
+        assertDeletionFailsDueToNoSuchIngredient("garlic");
     }
 
     @Test
     void execute_validRecipe_deletesSuccessfully() {
         ArrayList<Ingredient> ingredients = new ArrayList<>();
-        ingredients.add(new Ingredient("Bread", 2));
-        ingredients.add(new Ingredient("Tomato", 1));
-        ingredients.add(new Ingredient("Egg", 1));
-        Recipe sandwich = new Recipe("Sandwich", ingredients);
+        ingredients.add(new Ingredient("bread", 2));
+        ingredients.add(new Ingredient("tomato", 1));
+        ingredients.add(new Ingredient("egg", 1));
+        Recipe sandwich = new Recipe("sandwich", ingredients);
         RecipeBank.addRecipeToRecipeBank(sandwich);
 
-        assertTrue(RecipeBank.contains("Sandwich"));
+        assertTrue(RecipeBank.contains("sandwich"));
         assertEquals(1, RecipeBank.getRecipeBankSize());
 
         DeleteCommand.removeRecipe(sandwich);
 
-        assertFalse(RecipeBank.contains("Sandwich"));
+        assertFalse(RecipeBank.contains("sandwich"));
         assertEquals(0, RecipeBank.getRecipeBankSize());
 
     }
@@ -97,20 +97,20 @@ class DeleteCommandTest {
     void execute_multipleRecipesWithSameName_promptsUserToChoose() {
         // Add two recipes with the same name but different ingredients
         ArrayList<Ingredient> ingredients1 = new ArrayList<>();
-        ingredients1.add(new Ingredient("Bread", 2));
-        ingredients1.add(new Ingredient("Tomato", 1));
-        Recipe sandwich1 = new Recipe("Sandwich", ingredients1);
+        ingredients1.add(new Ingredient("bread", 2));
+        ingredients1.add(new Ingredient("tomato", 1));
+        Recipe sandwich1 = new Recipe("sandwich", ingredients1);
 
         ArrayList<Ingredient> ingredients2 = new ArrayList<>();
-        ingredients2.add(new Ingredient("Bread", 2));
-        ingredients2.add(new Ingredient("Ham", 1));
-        ingredients2.add(new Ingredient("Cheese", 1));
-        Recipe sandwich2 = new Recipe("Sandwich", ingredients2);
+        ingredients2.add(new Ingredient("bread", 2));
+        ingredients2.add(new Ingredient("ham", 1));
+        ingredients2.add(new Ingredient("cheese", 1));
+        Recipe sandwich2 = new Recipe("sandwich", ingredients2);
 
         RecipeBank.addRecipeToRecipeBank(sandwich1);
         RecipeBank.addRecipeToRecipeBank(sandwich2);
 
-        assertEquals(2, RecipeBank.getRecipeByName("Sandwich").size());
+        assertEquals(2, RecipeBank.getRecipeByName("sandwich").size());
     }
 
     @Test
