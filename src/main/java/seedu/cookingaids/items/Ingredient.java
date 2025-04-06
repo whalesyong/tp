@@ -68,7 +68,14 @@ public class Ingredient extends Food {
     }
 
     public void addQuantity(int quantity) {
-        this.quantity += quantity;
+        if (quantity > Integer.MAX_VALUE - this.quantity) {
+            this.quantity = Integer.MAX_VALUE;
+            System.out.println("Maximum " + this.name + " added, value will be capped at " +Integer.MAX_VALUE +
+                    " please go use them :D");
+        }
+        else {
+            this.quantity += quantity;
+        }
     }
 
     public void removeQuantity(int quantity) {
