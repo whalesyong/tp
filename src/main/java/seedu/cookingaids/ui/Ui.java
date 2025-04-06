@@ -34,6 +34,7 @@ public class Ui {
     public static final String LINE_DIVIDER =
             "______________________________________________________________________________";
 
+    public static final String USER_MARKER = ">>> ";
     public static final String WELCOME_MESSAGE = "welcome to cooking";
 
     public static final String ASCII_MESSAGE = """ 
@@ -47,6 +48,8 @@ public class Ui {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Ui.class);
     private static final String MESSAGE_INDEXED_LIST_ITEM = "\t%1$d. %2$s";
+    private static final String MESSAGE_STORE_SUCCESS = "Stored Dish List successfully in: ";
+    private static final String FILE_PATH= "./data/cookingaids.json";
     public static void printLineDivider() {
         System.out.println(LINE_DIVIDER);
     }
@@ -177,10 +180,11 @@ public class Ui {
 
             Scanner scanner = new Scanner(System.in);
             String scannedText;
+            System.out.print(USER_MARKER);
             while (!(scannedText = scanner.nextLine()).equals("bye")) {     //bye breaks the while loop
                 LOGGER.log(Level.FINE, "Processing command: {0}", scannedText);
                 Parser.decipherCommand(scannedText);
-                System.out.print(">>> ");
+                System.out.print(USER_MARKER);
 
             }
 
@@ -188,6 +192,8 @@ public class Ui {
             Storage.storeData(DishCalendar.getDishCalendar(),
                     RecipeBank.getRecipeBank(), IngredientStorage.getStorage(),
                     ShoppingList.getShoppingList());
+            printItems(MESSAGE_STORE_SUCCESS + FILE_PATH);
+
 
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Error in command processing: {0}", e.getMessage());
