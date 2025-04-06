@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -113,7 +114,7 @@ public class Storage {
                     data.dishes.size(), data.recipes.size()));
             return data;
         } catch (IOException e) {
-            LOGGER.severe("Failed to load data: " + e.getMessage());
+            LOGGER.log(Level.SEVERE, "Failed to load data: {0}", e.getMessage());
             Ui.printItems(String.format(MESSAGE_LOAD_FAILURE, FILE_PATH));
             Ui.printItems(e.getMessage());
             return new DataWrapper(new ArrayList<>(), new ArrayList<>(), new HashMap<>(), new ArrayList<>());
