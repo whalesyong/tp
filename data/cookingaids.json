@@ -1,37 +1,15 @@
 {
-  "recipes" : [ {
-    "name" : "meow",
-    "ingredients" : [ {
-      "name" : "cat",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
-    } ]
-  }, {
-    "name" : "woof",
-    "ingredients" : [ {
-      "name" : "dog",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
-    } ]
-  }, {
-    "name" : "neigh",
-    "ingredients" : [ {
-      "name" : "horse",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
-    } ]
-  } ],
+  "recipes" : [ ],
   "ingredients" : { },
   "dishes" : [ {
     "name" : "spaghetti",
     "dishDate" : {
-      "dateString" : "20/03/2025"
+      "dateString" : "07/04/2025"
+    }
+  }, {
+    "name" : "spaghetti",
+    "dishDate" : {
+      "dateString" : "None"
     }
   } ],
   "shopping" : [ ]
