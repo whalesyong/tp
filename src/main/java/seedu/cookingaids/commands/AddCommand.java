@@ -7,6 +7,7 @@ import seedu.cookingaids.exception.InvalidInputException;
 import seedu.cookingaids.items.Dish;
 import seedu.cookingaids.items.Recipe;
 import seedu.cookingaids.items.Ingredient;
+
 import seedu.cookingaids.parser.Parser;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -16,9 +17,12 @@ import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static seedu.cookingaids.parser.Parser.RECIPE_FLAG;
-import static seedu.cookingaids.parser.Parser.INGREDIENT_FLAG;
 import static seedu.cookingaids.parser.Parser.DISH_FLAG;
+import static seedu.cookingaids.parser.Parser.INGREDIENT_FLAG;
+import static seedu.cookingaids.parser.Parser.RECIPE_FLAG;
+import static seedu.cookingaids.parser.Parser.parseDish;
+import static seedu.cookingaids.parser.Parser.parseIngredient;
+import static seedu.cookingaids.parser.Parser.parseRecipe;
 
 public class AddCommand {
     public static final String COMMAND_WORD = "add";
@@ -66,7 +70,7 @@ public class AddCommand {
                 return;
             }
             receivedText = removeCommandWord(receivedText);
-            String[] dishFields = Parser.parseDish(receivedText);
+            String[] dishFields = parseDish(receivedText);
 
             assert dishFields != null : "Dish fields should not be null";
             assert dishFields.length == 2 : "Dish fields should contain exactly two elements";
@@ -108,7 +112,7 @@ public class AddCommand {
                 return;
             }
             receivedText = removeCommandWord(receivedText);
-            String[] recipeFields = Parser.parseRecipe(receivedText);
+            String[] recipeFields = parseRecipe(receivedText);
 
             assert recipeFields != null : "Recipe fields should not be null";
             assert recipeFields.length == 2 : "Recipe fields should contain exactly two elements";
@@ -185,7 +189,7 @@ public class AddCommand {
     public static void addIngredient(String receivedText) {
         try {
             String inputs = removeCommandWord(receivedText);
-            HashMap<String, String> ingredientFields = Parser.parseIngredient(inputs);
+            HashMap<String, String> ingredientFields = parseIngredient(inputs);
             if (ingredientFields == null) {
                 System.out.println("Invalid format. Use: add -ingredient=ingredient_name -expiry=YYYY/MM/DD " +
                         "-quantity=quantity, the only dashes should be for the flags");

@@ -40,12 +40,13 @@ public class ListCommand {
         if (receivedString.contains("-u")) {
             List<Dish> today = ViewCommand.sortDishesToday(validDishes);
             List<Dish> afterToday = ViewCommand.sortDishesAfterToday(validDishes);
+
             if (today.isEmpty() && afterToday.isEmpty()) {
                 System.out.println("No upcoming dishes planned!");
-            }else if(today.isEmpty()){
+            } else if(today.isEmpty()) {
                 System.out.println("Upcoming dishes planned:");
                 Ui.printDishListView(afterToday);
-            } else if (afterToday.isEmpty()) {
+            } else if (afterToday.isEmpty()){
                 System.out.println("Today's dishes:");
                 Ui.printDishListView(today);
             } else {
@@ -54,7 +55,6 @@ public class ListCommand {
                 System.out.println("Upcoming dishes planned:");
                 Ui.printDishListView(afterToday);
             }
-
 
         } else {
             // Separate valid dishes from invalid ones
@@ -82,7 +82,11 @@ public class ListCommand {
      */
     public static void displayRecipeBank() {
         ArrayList<Recipe> listOfRecipes = RecipeBank.getRecipeBank();
-        Ui.printRecipeListView(listOfRecipes);
+        if (listOfRecipes.isEmpty()) {
+            System.out.println("You have no recipes currently!");
+        } else {
+            Ui.printRecipeListView(listOfRecipes);
+        }
     }
 
     /**
