@@ -68,7 +68,7 @@ public class Parser {
 
     private static void handleViewCommand(String receivedText) {
         if (receivedText.contains("-shopping")) {
-            if(receivedText.contains(MONTH_FLAG)||receivedText.contains(YEAR_FLAG)){
+            if (receivedText.contains(MONTH_FLAG) || receivedText.contains(YEAR_FLAG)) {
                 System.out.println("remove month and year flag from command to view shopping list. try view -shopping");
                 return;
             }
@@ -211,10 +211,13 @@ public class Parser {
      */
 
     private static void handleUpdateCommand(String receivedText) {
-        if (receivedText.contains(RECIPE_FLAG)) {
+        if (receivedText.contains(DISH_FLAG)) {
+            UpdateCommand.updateDish(receivedText);
+        } else if (receivedText.contains(RECIPE_FLAG)) {
             UpdateCommand.updateRecipe(receivedText);
         } else if (receivedText.contains(INGREDIENT_FLAG)) {
             UpdateCommand.updateIngredient(receivedText);
+
         } else {
             System.out.println("Invalid update command: " + receivedText);
             System.out.println("Use 'update -recipe=INDEX -newname=NAME -newingredients=INGREDIENTS'");
