@@ -1,6 +1,35 @@
 {
   "recipes" : [ ],
-  "ingredients" : { },
+  "ingredients" : {
+    "11111" : [ {
+      "name" : "11111",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ],
+    "pork" : [ {
+      "name" : "pork",
+      "quantity" : 2147483647,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ],
+    "pie" : [ {
+      "name" : "pie",
+      "quantity" : 2147483647,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ],
+    "chilli" : [ {
+      "name" : "chilli",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ]
+  },
   "dishes" : [ {
     "name" : "spaghetti",
     "dishDate" : {

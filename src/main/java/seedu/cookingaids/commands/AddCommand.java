@@ -245,7 +245,8 @@ public class AddCommand {
                     throw new IllegalArgumentException("Quantity must be a positive integer");
                 }
             } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("Quantity must be a positive integer");
+                throw new IllegalArgumentException("Quantity must be a positive integer and less than " +
+                        Integer.MAX_VALUE);
             }
             assert quantity > 0 : "Quantity should be greater than zero";
             Ingredient ingredient = new Ingredient(ingredientName, expiryDate, quantity);
