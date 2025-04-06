@@ -1,7 +1,6 @@
 package seedu.cookingaids.parser;
 
 
-
 import seedu.cookingaids.commands.ViewCommand;
 import seedu.cookingaids.commands.AddCommand;
 import seedu.cookingaids.commands.DeleteCommand;
@@ -63,6 +62,14 @@ public class Parser {
     }
 
     private static void handleViewCommand(String receivedText) {
+        if (receivedText.contains("-shopping")) {
+            if(receivedText.contains(MONTH_FLAG)||receivedText.contains(YEAR_FLAG)){
+                System.out.println("remove month and year flag from command to view shopping list. try view -shopping");
+                return;
+            }
+            ViewCommand.displayShoppingList();
+            return;
+        }
         if (!receivedText.contains(MONTH_FLAG)) {
             System.out.println("Missing month flag, try \"view -month=\"");
             return;
@@ -79,7 +86,7 @@ public class Parser {
                 System.out.println(
                         "Invalid month or year input. Use: view -year={2015-2035} " +
                                 "or leave blank for the current year.");
-              
+
                 System.out.println(
                         "Use: view -month={1-12} or leave blank for the current month.");
 
@@ -158,8 +165,6 @@ public class Parser {
             ListCommand.displayDishList(receivedText);
         } else if (receivedText.contains("-ingredient")) {
             ListCommand.displayIngredients();
-        } else if (receivedText.contains("-shopping")) {
-            ListCommand.displayShoppingList();
         } else {
             System.out.printf((UNKNOWN_COMMAND_STR) + "%n", receivedText);
         }

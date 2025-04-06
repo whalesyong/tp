@@ -3,7 +3,6 @@ package seedu.cookingaids.commands;
 import seedu.cookingaids.collections.DishCalendar;
 import seedu.cookingaids.collections.RecipeBank;
 import seedu.cookingaids.collections.IngredientStorage;
-import seedu.cookingaids.collections.ShoppingList;
 import seedu.cookingaids.items.Dish;
 import seedu.cookingaids.items.Ingredient;
 import seedu.cookingaids.items.Recipe;
@@ -26,7 +25,7 @@ public class ListCommand {
      */
     public static void displayDishList(String receivedString) {
         ArrayList<Dish> listOfDish = DishCalendar.getDishCalendar();
-        if(listOfDish.isEmpty()){
+        if (listOfDish.isEmpty()) {
             System.out.println("You have no dishes planned!");
             return;
         }
@@ -43,10 +42,10 @@ public class ListCommand {
 
             if (today.isEmpty() && afterToday.isEmpty()) {
                 System.out.println("No upcoming dishes planned!");
-            } else if(today.isEmpty()) {
+            } else if (today.isEmpty()) {
                 System.out.println("Upcoming dishes planned:");
                 Ui.printDishListView(afterToday);
-            } else if (afterToday.isEmpty()){
+            } else if (afterToday.isEmpty()) {
                 System.out.println("Today's dishes:");
                 Ui.printDishListView(today);
             } else {
@@ -88,18 +87,7 @@ public class ListCommand {
             Ui.printRecipeListView(listOfRecipes);
         }
     }
-
-    /**
-     * Displays all ingredients currently in the shopping list.
-     */
-    public static void displayShoppingList() {
-
-        ArrayList<Ingredient> shoppingList = ShoppingList.getShoppingList();
-        if(shoppingList.isEmpty()){
-            System.out.println("Your shopping list is empty!");
-        } else {
-            System.out.println("Shopping List:");
-            Ui.printShoppingListView(shoppingList);
-        }
-    }
 }
+
+
+
