@@ -52,7 +52,7 @@ class AddCommandTest {
     void execute_addDishToEmptyDishCalendar_addsSuccessfully() {
         DishCalendar emptyDishCalendar = new DishCalendar();
         String dishName = "Pizza";
-        Dish newDish = new Dish(dishName, "22/03/2025");
+        Dish newDish = new Dish(dishName, "2025/03/22");
 
         AddCommand.addDish("add -dish=" + dishName + " -when=2025/03/22");
 
