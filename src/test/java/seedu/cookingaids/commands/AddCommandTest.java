@@ -38,7 +38,7 @@ class AddCommandTest {
     @BeforeEach
     void setUp() {
         dishCalendar = new DishCalendar();
-        Dish spaghetti = new Dish( "Spaghetti", "20/03/2025");
+        Dish spaghetti = new Dish( "spaghetti", "20/03/2025");
         DishCalendar.addDishToCalendar(spaghetti);
     }
 
@@ -51,8 +51,7 @@ class AddCommandTest {
     @Test
     void execute_addDishToEmptyDishCalendar_addsSuccessfully() {
         DishCalendar emptyDishCalendar = new DishCalendar();
-        String dishName = "Pizza";
-        Dish newDish = new Dish(dishName, "2025/03/22");
+        String dishName = "pizza";
 
         AddCommand.addDish("add -dish=" + dishName + " -when=2025/03/22");
 
@@ -62,31 +61,31 @@ class AddCommandTest {
     @Test
     void execute_addIngredientToEmptyStorage_addsSuccessfully() {
         IngredientStorage.clear();
-        String ingredientName = "Tomato";
-        Ingredient newIngredient = new Ingredient( ingredientName);
+        String ingredientName = "tomato";
 
         AddCommand.addIngredient("add -ingredient=" + ingredientName);
 
         assertTrue(IngredientStorage.contains(ingredientName));
+        assertEquals(1, IngredientStorage.getStorage().size());
     }
 
     @Test
     void execute_addRecipeToEmptyRecipeBank_addsSuccessfully() {
         RecipeBank.clear();
 
-        AddCommand.addRecipe("add -recipe=Pizza -needs=Tomato,1,Cheese,1");
+        AddCommand.addRecipe("add -recipe=pizza -needs=tomato,1,cheese,1");
 
-        assertTrue(RecipeBank.contains("Pizza"));
+        assertTrue(RecipeBank.contains("pizza"));
 
-        List<Recipe> pizzaRecipes = RecipeBank.getRecipeByName("Pizza");
+        List<Recipe> pizzaRecipes = RecipeBank.getRecipeByName("pizza");
         assertEquals(1, pizzaRecipes.size());
         Recipe pizzaRecipe = pizzaRecipes.get(0);
 
         assertEquals(2, pizzaRecipe.getIngredients().size());
         assertTrue(pizzaRecipe.getIngredients().stream()
-                .anyMatch(i -> i.getName().equals("Tomato") && i.getQuantity() == 1));
+                .anyMatch(i -> i.getName().equals("tomato") && i.getQuantity() == 1));
         assertTrue(pizzaRecipe.getIngredients().stream()
-                .anyMatch(i -> i.getName().equals("Cheese") && i.getQuantity() == 1));
+                .anyMatch(i -> i.getName().equals("cheese") && i.getQuantity() == 1));
     }
 
     @Test
@@ -94,20 +93,20 @@ class AddCommandTest {
         RecipeBank.clear();
 
         ArrayList<Ingredient> ingredients = new ArrayList<>();
-        ingredients.add(new Ingredient("Tomato", 1));
-        ingredients.add(new Ingredient("Bread", 2));
-        Recipe sandwichRecipe = new Recipe("Sandwich", ingredients);
+        ingredients.add(new Ingredient("tomato", 1));
+        ingredients.add(new Ingredient("bread", 2));
+        Recipe sandwichRecipe = new Recipe("sandwich", ingredients);
         RecipeBank.addRecipeToRecipeBank(sandwichRecipe);
 
-        assertTrue(RecipeBank.contains("Sandwich"));
+        assertTrue(RecipeBank.contains("sandwich"));
         assertEquals(1, RecipeBank.getRecipeBankSize());
 
-        AddCommand.addRecipe("add -recipe=Sandwich -needs=Mayo,1,Lettuce,1,Turkey,2");
+        AddCommand.addRecipe("add -recipe=sandwich -needs=mayo,1,lettuce,1,turkey,2");
 
-        assertTrue(RecipeBank.contains("Sandwich"));
+        assertTrue(RecipeBank.contains("sandwich"));
         assertEquals(2, RecipeBank.getRecipeBankSize());
 
-        List<Recipe> sandwiches = RecipeBank.getRecipeByName("Sandwich");
+        List<Recipe> sandwiches = RecipeBank.getRecipeByName("sandwich");
         assertEquals(2, sandwiches.size());
     }
 
@@ -120,7 +119,7 @@ class AddCommandTest {
         System.setOut(new PrintStream(outputStream));
 
         try {
-            AddCommand.addRecipe("add -recipe=Toast -needs=Bread,1,Butter");
+            AddCommand.addRecipe("add -recipe=toast -needs=bread,1,butter");
 
             String output = outputStream.toString().trim();
             assertTrue(output.contains("Invalid format"));
@@ -139,7 +138,7 @@ class AddCommandTest {
 
         try {
             // Try to add recipe with no ingredients
-            AddCommand.addRecipe("add -recipe=Toast -needs=");
+            AddCommand.addRecipe("add -recipe=toast -needs=");
 
             String output = outputStream.toString().trim();
             assertTrue(output.contains("Invalid format"));
@@ -175,9 +174,9 @@ class AddCommandTest {
         ingredients.add(new Ingredient( "Bread"));
         Recipe incompleteRecipe = new Recipe("Toast", ingredients);
 
-        AddCommand.addRecipe("add -recipe=Toast -needs=Bread, 1");
+        AddCommand.addRecipe("add -recipe=toast -needs=bread, 1");
 
-        assertAddRecipeSuccessful("Toast");
+        assertAddRecipeSuccessful("toast");
     }
 
     private void assertAddDishSuccessful(String dishName, DishCalendar dishCalendar) {
