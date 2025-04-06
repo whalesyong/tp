@@ -40,22 +40,21 @@ public class ListCommand {
         if (receivedString.contains("-u")) {
             List<Dish> today = ViewCommand.sortDishesToday(validDishes);
             List<Dish> afterToday = ViewCommand.sortDishesAfterToday(validDishes);
+
             if (today.isEmpty() && afterToday.isEmpty()) {
                 System.out.println("No upcoming dishes planned!");
-            }else if(today.isEmpty()){
+            } else if(today.isEmpty()) {
                 System.out.println("Upcoming dishes planned:");
                 Ui.printDishListView(afterToday);
-            } else if (afterToday.isEmpty()) {
+            } else if (afterToday.isEmpty()){
                 System.out.println("Today's dishes:");
                 Ui.printDishListView(today);
-            }
-            else{
+            } else{
                 System.out.println("Today's dishes:");
                 Ui.printDishListView(today);
                 System.out.println("Upcoming dishes planned:");
                 Ui.printDishListView(afterToday);
             }
-
 
         } else {
             // Separate valid dishes from invalid ones
@@ -98,8 +97,7 @@ public class ListCommand {
         ArrayList<Ingredient> shoppingList = ShoppingList.getShoppingList();
         if(shoppingList.isEmpty()){
             System.out.println("Your shopping list is empty!");
-        }
-        else {
+        } else {
             System.out.println("Shopping List:");
             Ui.printShoppingListView(shoppingList);
         }
