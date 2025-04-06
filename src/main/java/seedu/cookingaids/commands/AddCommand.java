@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -36,6 +37,10 @@ public class AddCommand {
     }
 
     public static boolean isValidDate(String dateString) {
+        switch(dateString){
+        case "tdy","td","today","tomorrow","tmr","nxtwk":
+            return true;
+        }
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
             LocalDate.parse(dateString, formatter);
