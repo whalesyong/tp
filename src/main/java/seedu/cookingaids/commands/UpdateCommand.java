@@ -10,8 +10,11 @@ import seedu.cookingaids.items.Recipe;
 import seedu.cookingaids.parser.Parser;
 
 import seedu.cookingaids.exception.InvalidInputException;
-
-import java.util.*;
+import java.util.InputMismatchException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -236,7 +239,9 @@ public class UpdateCommand {
                     " remove additional flags");
             System.out.println("ensure that date is in YYYY/MM/DD format ");
         }catch(InputMismatchException e){
-            System.out.println("input an integer");
+
+                System.out.println("input an integer");
+
         }
     }
 
