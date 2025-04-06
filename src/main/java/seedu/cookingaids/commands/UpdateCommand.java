@@ -11,6 +11,7 @@ import seedu.cookingaids.parser.Parser;
 
 import seedu.cookingaids.exception.InvalidInputException;
 
+import java.net.Inet4Address;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -186,7 +187,8 @@ public class UpdateCommand {
                     throw new IllegalArgumentException("Quantity must be a positive integer");
                 }
             } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("Quantity must be a positive integer");
+                throw new IllegalArgumentException("Quantity must be a positive integer and less than "
+                        + Integer.MAX_VALUE);
             }
             IngredientStorage.updateIngredient(ingredientName, expiryDate, quantity, newExpiry);
         } catch (IllegalArgumentException e) {
