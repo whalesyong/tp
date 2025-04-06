@@ -182,7 +182,7 @@ public class AddCommand {
             RecipeBank.addRecipeToRecipeBank(recipe);
 
             System.out.println("Added Recipe: " + recipeName);
-            System.out.println("Ingredients: " + ingredients);
+            System.out.println("Ingredients: " + recipe.getIngredientsString());
 
             LOGGER.info("Saving to file now");
             Storage.storeData(DishCalendar.getDishCalendar(),

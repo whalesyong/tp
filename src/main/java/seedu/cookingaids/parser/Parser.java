@@ -27,6 +27,7 @@ public class Parser {
     public static final String NEW_TAGS_FLAG = "-newtags=";
     public static final String RECIPE_FLAG = "-recipe=";
     public static final String RECIPE_TAGS_FLAG = "-recipetags=";
+    public static final String TYPE_FLAG = "-type=";
     public static final String NEEDS_FLAG = "-needs=";
     public static final String DISH_FLAG = "-dish=";
     public static final String WHEN_FLAG = "-when=";
@@ -220,14 +221,12 @@ public class Parser {
         }
     }
 
-    /**
-     * Handles
-    */
 
     private static void handleSearchCommand(String receivedText) {
         if (receivedText.contains(RECIPE_TAGS_FLAG)) {
             String tags = parseTagsForSearch(receivedText);
-            SearchCommand.printSearchResult(tags);
+            String searchType = parseSearchType(receivedText);
+            SearchCommand.printSearchResult(tags, searchType);
         }
     }
 
@@ -236,9 +235,34 @@ public class Parser {
             return "";
         }
         int startIndex = receivedText.indexOf(RECIPE_TAGS_FLAG) + RECIPE_TAGS_FLAG.length();
-        int endIndex = receivedText.length();
+        int endIndex;
+
+        // If there's a -type flag, only get tags up to that point
+        if (receivedText.contains(TYPE_FLAG)) {
+            endIndex = receivedText.indexOf(TYPE_FLAG);
+        } else {
+            endIndex = receivedText.length();
+        }
 
         return receivedText.substring(startIndex, endIndex).trim();
+    }
+
+    public static String parseSearchType(String receivedText) {
+        if (!receivedText.contains(TYPE_FLAG)) {
+            return "or"; // Default to OR search if no type is specified
+        }
+        int startIndex = receivedText.indexOf(TYPE_FLAG) + TYPE_FLAG.length();
+        int endIndex = receivedText.length();
+
+        String searchType = receivedText.substring(startIndex, endIndex).trim().toLowerCase();
+
+        // Validate search type and default to "or" if invalid
+        if (!"and".equals(searchType) && !"or".equals(searchType)) {
+            //System.out.println("Invalid search type. Using default type: OR");
+            return "or";
+        }
+
+        return searchType;
     }
 
     /**

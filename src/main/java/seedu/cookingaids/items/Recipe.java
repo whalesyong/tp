@@ -33,6 +33,7 @@ public class Recipe {
         return this.recipeName;
     }
 
+    @JsonIgnore
     public void setRecipeName(String recipeName) {
         this.recipeName = recipeName;
     }
@@ -56,8 +57,14 @@ public class Recipe {
 
     @java.lang.Override
     public java.lang.String toString() {
-        return "Recipe named " + recipeName +
-                " needs ingredients: " + getIngredientsString() + "\ntagged as: " + tags;
+        String toReturn = "Recipe named '" + recipeName +
+                "' needs ingredients: " + getIngredientsString();
+
+        if (!tags.isEmpty()) {
+            toReturn += "\ntagged as: " + tags;
+        }
+
+        return  toReturn;
     }
 
     @JsonProperty("name")
@@ -70,7 +77,7 @@ public class Recipe {
     }
 
     public void setTags(ArrayList<String> tags) {
-//        this.tags = tags;
+        //this.tags = tags;
         ArrayList<String> newTags = new ArrayList<>();
         for (String tag : tags) {
             newTags.add(tag.toLowerCase());
