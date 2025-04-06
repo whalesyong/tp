@@ -222,6 +222,7 @@ public class UpdateCommand {
                 throw new InvalidInputException();
             }
             dish.setDishDate(new DishDate(choice));
+            System.out.println("Change successful \n" + dish );
 
         }
 
