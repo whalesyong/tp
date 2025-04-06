@@ -162,7 +162,7 @@ public class DeleteCommand {
             IngredientStorage.removeIngredient(ingredientName);
             System.out.println("Deleted " + ingredientName + " from the list of available ingredients.");
             LOGGER.info("Saving to file after ingredient deletion");
-          Storage.storeData(DishCalendar.getDishCalendar(),
+            Storage.storeData(DishCalendar.getDishCalendar(),
                 RecipeBank.getRecipeBank(), IngredientStorage.getStorage(),
                 ShoppingList.getShoppingList());
         } else {

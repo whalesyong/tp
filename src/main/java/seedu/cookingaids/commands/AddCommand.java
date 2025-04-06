@@ -21,7 +21,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
-import static seedu.cookingaids.parser.Parser.*;
+import static seedu.cookingaids.parser.Parser.RECIPE_FLAG;
+import static seedu.cookingaids.parser.Parser.INGREDIENT_FLAG;
+import static seedu.cookingaids.parser.Parser.DISH_FLAG;
+
 
 public class AddCommand {
     public static final String COMMAND_WORD = "add";
@@ -65,7 +68,6 @@ public class AddCommand {
             receivedText = removeCommandWord(receivedText);
             String[] dishFields = Parser.parseDish(receivedText);
 
-            assert dishFields != null : "Dish fields should not be null";
             assert dishFields.length == 2 : "Dish fields should contain exactly two elements";
 
             if (!dishFields[1].isEmpty() && !isValidDate(dishFields[1])) {
