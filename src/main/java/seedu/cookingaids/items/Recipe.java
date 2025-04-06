@@ -12,17 +12,20 @@ import java.util.ArrayList;
 public class Recipe {
     private String recipeName;
     private ArrayList<Ingredient> ingredients;
+    private ArrayList<String> tags;
 
     @JsonCreator
     public Recipe(@JsonProperty("name") String recipeName,
                   @JsonProperty("ingredients") ArrayList<Ingredient> ingredients) {
         this.recipeName = recipeName;
         this.ingredients = (ingredients != null) ? ingredients : new ArrayList<>();
+        this.tags = (tags != null) ? tags : new ArrayList<>();
     }
 
     public Recipe(String recipeName) {
         this.recipeName = recipeName;
         this.ingredients = new ArrayList<>();
+        this.tags = new ArrayList<>();
     }
 
     @JsonIgnore
@@ -30,6 +33,7 @@ public class Recipe {
         return this.recipeName;
     }
 
+    @JsonIgnore
     public void setRecipeName(String recipeName) {
         this.recipeName = recipeName;
     }
@@ -53,13 +57,31 @@ public class Recipe {
 
     @java.lang.Override
     public java.lang.String toString() {
-        return "Recipe named '" + recipeName + "'" +
-                " needs ingredients " + getIngredientsString() ;
-    }
+        String toReturn = "Recipe named '" + recipeName +
+                "' needs ingredients: " + getIngredientsString();
 
+        if (!tags.isEmpty()) {
+            toReturn += "\ntagged as: " + tags;
+        }
+
+        return  toReturn;
+    }
 
     @JsonProperty("name")
     public String getName() {
         return this.recipeName;
+    }
+
+    public ArrayList<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(ArrayList<String> tags) {
+        //this.tags = tags;
+        ArrayList<String> newTags = new ArrayList<>();
+        for (String tag : tags) {
+            newTags.add(tag.toLowerCase());
+        }
+        this.tags = newTags;
     }
 }

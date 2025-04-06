@@ -73,7 +73,7 @@ public class AddCommand {
      */
     public static void addDish(String receivedText) {
         try {
-            if (receivedText.contains(RECIPE_FLAG) || receivedText.contains(INGREDIENT_FLAG)) {
+            if(receivedText.contains(RECIPE_FLAG) || receivedText.contains(INGREDIENT_FLAG)){
                 System.out.println("Other commands found, I can only process one at a time");
                 return;
             }
@@ -181,7 +181,7 @@ public class AddCommand {
 
             RecipeBank.addRecipeToRecipeBank(recipe);
 
-            System.out.println("Added Recipe: " + recipe.getName());
+            System.out.println("Added Recipe: " + recipeName);
             System.out.println("Ingredients: " + recipe.getIngredientsString());
 
             LOGGER.info("Saving to file now");

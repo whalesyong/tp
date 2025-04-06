@@ -7,7 +7,8 @@
       "expiryDate" : {
         "dateString" : "None"
       }
-    } ]
+    } ],
+    "tags" : [ ]
   }, {
     "name" : "woof",
     "ingredients" : [ {
@@ -16,27 +17,14 @@
       "expiryDate" : {
         "dateString" : "None"
       }
-    } ]
-  }, {
-    "name" : "neigh",
-    "ingredients" : [ {
-      "name" : "horse",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
-    } ]
+    } ],
+    "tags" : [ ]
   } ],
   "ingredients" : { },
   "dishes" : [ {
     "name" : "spaghetti",
     "dishDate" : {
       "dateString" : "20/03/2025"
-    }
-  }, {
-    "name" : "dishy",
-    "dishDate" : {
-      "dateString" : "None"
     }
   } ],
   "shopping" : [ ]
