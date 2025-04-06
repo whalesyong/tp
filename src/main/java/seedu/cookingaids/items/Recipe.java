@@ -3,6 +3,7 @@ package seedu.cookingaids.items;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
 
@@ -24,6 +25,7 @@ public class Recipe {
         this.ingredients = new ArrayList<>();
     }
 
+    @JsonIgnore
     public String getRecipeName() {
         return this.recipeName;
     }
@@ -36,6 +38,7 @@ public class Recipe {
         return this.ingredients;
     }
 
+    @JsonIgnore
     public String getIngredientsString() {
         String ingredientsString = "";
         for (Ingredient ingredient : this.ingredients) {
@@ -55,6 +58,7 @@ public class Recipe {
     }
 
 
+    @JsonProperty("name")
     public String getName() {
         return this.recipeName;
     }

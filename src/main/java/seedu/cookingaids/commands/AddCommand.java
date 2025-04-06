@@ -120,8 +120,7 @@ public class AddCommand {
         } catch (InvalidInputException e) {
             System.out.println("Invalid format. Use: add -dish=dish_name -when=YYYY/MM/DD " +
                     "\ndish name should be in lower_snake_case");
-        }
-        catch(IllegalArgumentException e){
+        } catch(IllegalArgumentException e){
             System.out.println("Invalid command. Use: add -dish=dish_name -when=YYYY/MM/DD ");
         }
     }
@@ -182,8 +181,8 @@ public class AddCommand {
 
             RecipeBank.addRecipeToRecipeBank(recipe);
 
-            System.out.println("Added Recipe: " + recipeName);
-            System.out.println("Ingredients: " + ingredients);
+            System.out.println("Added Recipe: " + recipe.getName());
+            System.out.println("Ingredients: " + recipe.getIngredientsString());
 
             LOGGER.info("Saving to file now");
             Storage.storeData(DishCalendar.getDishCalendar(),
