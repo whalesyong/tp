@@ -1,5 +1,6 @@
 package seedu.cookingaids.commands;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -62,6 +63,8 @@ public class DeleteCommand {
             }
         } catch (InvalidInputException e) {
             System.out.println("Invalid input");
+        }catch(InputMismatchException e){
+            System.out.println("input an integer");
         }
     }
 

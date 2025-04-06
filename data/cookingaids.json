@@ -6,6 +6,11 @@
     "dishDate" : {
       "dateString" : "2025/03/20"
     }
+  }, {
+    "name" : "spaghetti",
+    "dishDate" : {
+      "dateString" : "None"
+    }
   } ],
   "shopping" : [ ]
 }
