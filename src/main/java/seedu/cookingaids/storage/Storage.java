@@ -26,7 +26,6 @@ public class Storage {
     private static final String SHOPPING_LIST_FIELD_NAME = "shopping";
     private static final String FILE_PATH = "./data/cookingaids.json";
 
-    private static final String MESSAGE_STORE_SUCCESS = "Stored Dish List successfully in: ";
     private static final String MESSAGE_STORE_FAILURE = "Failed to store Dish List in: ";
     private static final String MESSAGE_NO_DATA_FOUND = "No data found, creating new lists.";
     private static final String MESSAGE_LOAD_FAILURE = "Failed to load Dish list from: %s, loading new list.";
@@ -73,7 +72,6 @@ public class Storage {
         try {
             mapper.writeValue(file, dataMap);
             LOGGER.info("Data successfully stored to " + FILE_PATH);
-            Ui.printItems(MESSAGE_STORE_SUCCESS + FILE_PATH);
         } catch (IOException e) {
             LOGGER.severe("Failed to store data: " + e.getMessage());
             Ui.printItems(MESSAGE_STORE_FAILURE + FILE_PATH);
