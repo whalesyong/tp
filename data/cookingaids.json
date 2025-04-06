@@ -1,32 +1,46 @@
 {
-  "recipes" : [ {
-    "name" : "yomama",
-    "ingredients" : [ {
-      "name" : "mama",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
-    }, {
-      "name" : "yo",
+  "recipes" : [ ],
+  "ingredients" : {
+    "11111" : [ {
+      "name" : "11111",
       "quantity" : 1,
       "expiryDate" : {
         "dateString" : "None"
       }
     } ],
-    "tags" : [ ]
+    "pork" : [ {
+      "name" : "pork",
+      "quantity" : 2147483647,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ],
+    "pie" : [ {
+      "name" : "pie",
+      "quantity" : 2147483647,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ],
+    "chilli" : [ {
+      "name" : "chilli",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ]
+  },
+  "dishes" : [ {
+    "name" : "spaghetti",
+    "dishDate" : {
+      "dateString" : "07/04/2025"
+    }
   }, {
-    "name" : "yoMAMA",
-    "ingredients" : [ {
-      "name" : "mama",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
-    } ],
-    "tags" : [ ]
+    "name" : "spaghetti",
+    "dishDate" : {
+      "dateString" : "None"
+    }
   } ],
-  "ingredients" : { },
-  "dishes" : [ ],
   "shopping" : [ ]
+
 }

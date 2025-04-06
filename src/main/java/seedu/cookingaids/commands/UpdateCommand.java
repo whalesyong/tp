@@ -11,6 +11,7 @@ import seedu.cookingaids.parser.Parser;
 
 import seedu.cookingaids.exception.InvalidInputException;
 
+import java.net.Inet4Address;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -80,8 +81,8 @@ public class UpdateCommand {
         }
 
         if (!receivedText.contains(Parser.NEW_NAME_FLAG) &&
-            !receivedText.contains(Parser.NEW_INGREDIENTS_FLAG) &&
-            !receivedText.contains(Parser.NEW_TAGS_FLAG)) {
+                !receivedText.contains(Parser.NEW_INGREDIENTS_FLAG) &&
+                !receivedText.contains(Parser.NEW_TAGS_FLAG)) {
 
             System.out.println("No updates specified. Use -newname=, -newingredients= or -newtags= flags.");
         }
@@ -90,7 +91,7 @@ public class UpdateCommand {
     public static Recipe promptUserForRecipeUpdate(List<Recipe> recipes) {
         System.out.println("Multiple recipes found:");
         for (int i = 0; i < recipes.size(); i++) {
-            System.out.println((i+1) + ", Ingredients: " + recipes.get(i).getIngredientsString());
+            System.out.println((i + 1) + ", Ingredients: " + recipes.get(i).getIngredientsString());
         }
 
         System.out.println("Which recipe would you like to update? Input a number.");
@@ -102,7 +103,7 @@ public class UpdateCommand {
             System.out.println("Please enter a valid number.");
         }
 
-        return recipes.get(choice-1);
+        return recipes.get(choice - 1);
 
     }
 
@@ -186,84 +187,88 @@ public class UpdateCommand {
                     throw new IllegalArgumentException("Quantity must be a positive integer");
                 }
             } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("Quantity must be a positive integer");
+                throw new IllegalArgumentException("Quantity must be a positive integer and less than "
+                        + Integer.MAX_VALUE);
             }
-            IngredientStorage.updateIngredient(ingredientName,expiryDate,quantity, newExpiry);
+            IngredientStorage.updateIngredient(ingredientName, expiryDate, quantity, newExpiry);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
     }
 
 
-        public static void updateDish(String receivedText) {
-            try {
-                if (receivedText.contains(RECIPE_FLAG) || receivedText.contains(INGREDIENT_FLAG)) {
-                    System.out.println("Other commands found, I can only process one at a time");
+    public static void updateDish(String receivedText) {
+        try {
+            if (receivedText.contains(RECIPE_FLAG) || receivedText.contains(INGREDIENT_FLAG)) {
+                System.out.println("Other commands found, I can only process one at a time");
+                return;
+            }
+            receivedText = removeCommandWord(receivedText);
+            Pattern pattern = Pattern.compile("-(\\w+)=");
+            Matcher matcher = pattern.matcher(receivedText);
+            while (matcher.find()) {
+                String key = matcher.group(1);
+
+                if (!key.equals("dish")) {
+                    throw new IllegalArgumentException("Unexpected key: " + key);
+                }
+            }
+            Pattern pattern1 = Pattern.compile("-dish=(\\S+)");
+            Matcher matcher1 = pattern1.matcher(receivedText);
+
+            if (matcher1.find()) {
+                String dishName = matcher1.group(1);
+                List<Dish> dishes = DishCalendar.getDishesByName(dishName);
+                if (dishes.isEmpty()) {
+                    System.out.println("No scheduled dishes found for: " + dishName);
                     return;
                 }
-                receivedText = removeCommandWord(receivedText);
-                Pattern pattern = Pattern.compile("-(\\w+)=");
-                Matcher matcher = pattern.matcher(receivedText);
-                while (matcher.find()) {
-                    String key = matcher.group(1);
-
-                    if (!key.equals("dish")) {
-                        throw new IllegalArgumentException("Unexpected key: " + key);
-                    }
-                }
-                Pattern pattern1 = Pattern.compile("-dish=(\\S+)");
-                Matcher matcher1 = pattern1.matcher(receivedText);
-
-                if (matcher1.find()) {
-                    String dishName = matcher1.group(1);
-                    List<Dish> dishes = DishCalendar.getDishesByName(dishName);
-                    if (dishes.isEmpty()) {
-                        System.out.println("No scheduled dishes found for: " + dishName);
-                        return;
-                    }
-                    if (dishes.size() == 1) {
-                        promptNewDate(dishes.get(0));
-                    } else {
-                        promptUserForDishUpdate(dishes, dishName);
-                    }
-
+                if (dishes.size() == 1) {
+                    promptNewDate(dishes.get(0));
                 } else {
-                    throw new InvalidInputException();
+                    promptUserForDishUpdate(dishes, dishName);
                 }
 
-
-            } catch (InvalidInputException e) {
-                System.out.println("Format error ensure you do not have additional flags. use update -dish={dishName} only, remove additional flags");
-                System.out.println("ensure that date is in YYYY/MM/DD format ");
-            }
-        }
-
-        private static void promptNewDate(Dish dish) throws InvalidInputException {
-            System.out.println("Type New date in YYYY/MM/DD format.");
-            Scanner scanner = new Scanner(System.in);
-            String choice = scanner.next();
-
-            if (!choice.isEmpty() && !isValidDate(choice)) {
+            } else {
                 throw new InvalidInputException();
             }
-            dish.setDishDate(new DishDate(choice));
 
-        }
 
-        private static void promptUserForDishUpdate(List<Dish> dishes, String dishName) throws InvalidInputException {
-            System.out.println("Multiple dishes found:");
-            for (int i = 0; i < dishes.size(); i++) {
-                System.out.println((i + 1) + ", Date: " + dishes.get(i).getDishDate().toString() + " - " + dishName);
-            }
-            System.out.println("Which would dish would you like to reschedule? Input a number.");
-
-            Scanner scanner = new Scanner(System.in);
-            int choice = scanner.nextInt();
-            if (choice > 0 && choice <= dishes.size()) {
-                promptNewDate(dishes.get(choice - 1));
-            } else {
-                System.out.println("Invalid choice. No dish deleted.");
-            }
+        } catch (InvalidInputException e) {
+            System.out.println("" +
+                    "Format error ensure you do not have additional flags. use update -dish={dishName} only," +
+                    " remove additional flags");
+            System.out.println("ensure that date is in YYYY/MM/DD format ");
         }
     }
+
+    private static void promptNewDate(Dish dish) throws InvalidInputException {
+        System.out.println("Type New date in YYYY/MM/DD format.");
+        Scanner scanner = new Scanner(System.in);
+        String choice = scanner.next();
+
+        if (!choice.isEmpty() && !isValidDate(choice)) {
+            throw new InvalidInputException();
+        }
+        dish.setDishDate(new DishDate(choice));
+        System.out.println("Change successful \n" + dish);
+
+    }
+
+    private static void promptUserForDishUpdate(List<Dish> dishes, String dishName) throws InvalidInputException {
+        System.out.println("Multiple dishes found:");
+        for (int i = 0; i < dishes.size(); i++) {
+            System.out.println((i + 1) + ", Date: " + dishes.get(i).getDishDate().toString() + " - " + dishName);
+        }
+        System.out.println("Which would dish would you like to reschedule? Input a number.");
+
+        Scanner scanner = new Scanner(System.in);
+        int choice = scanner.nextInt();
+        if (choice > 0 && choice <= dishes.size()) {
+            promptNewDate(dishes.get(choice - 1));
+        } else {
+            System.out.println("Invalid choice. No dish deleted.");
+        }
+    }
+}
 
