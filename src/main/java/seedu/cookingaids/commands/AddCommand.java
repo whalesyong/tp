@@ -10,7 +10,7 @@ import seedu.cookingaids.items.Recipe;
 import seedu.cookingaids.items.Ingredient;
 import seedu.cookingaids.logger.LoggerFactory;
 
-import seedu.cookingaids.parser.Parser;
+
 import seedu.cookingaids.storage.Storage;
 
 import java.time.LocalDate;
@@ -27,9 +27,7 @@ import static seedu.cookingaids.parser.Parser.RECIPE_FLAG;
 import static seedu.cookingaids.parser.Parser.INGREDIENT_FLAG;
 import static seedu.cookingaids.parser.Parser.DISH_FLAG;
 
-import static seedu.cookingaids.parser.Parser.DISH_FLAG;
-import static seedu.cookingaids.parser.Parser.INGREDIENT_FLAG;
-import static seedu.cookingaids.parser.Parser.RECIPE_FLAG;
+
 import static seedu.cookingaids.parser.Parser.parseDish;
 import static seedu.cookingaids.parser.Parser.parseIngredient;
 import static seedu.cookingaids.parser.Parser.parseRecipe;

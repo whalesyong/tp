@@ -1,9 +1,25 @@
 # Developer Guide
 
-## Acknowledgements
+## Table of Contents
+- [Acknowledgements](#acknowledgements)
+- [Design & Implementation](#design--implementation)
+  - [Main Components](#main-components-of-the-architecture)
+  - [Architecture Interactions](#how-the-architecture-components-interact-with-each-other)
+  - [UI Component](#ui)
+  - [Collections Component](#collections)
+  - [Items Component](#items)
+  - [Commands Component](#commands)
+  - [Parser Component](#parser)
+  - [Storage Component](#storage)
+- [Appendix: Requirements](#appendix-requirements)
+  - [Product Scope](#product-scope)
+  - [User Stories](#user-stories)
+  - [Non-Functional Requirements](#non-functional-requirements)
+  - [Instructions for Manual Testing](#instructions-for-manual-testing)
 
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries --
-include links to the original source as well}
+## Acknowledgements
+<!-- -->
+
 
 ## Design & implementation
 
@@ -19,7 +35,7 @@ The class `CookingAids` is in charge of the app launch and shut down.
 The bulk of the app's work is done by the following components:
 
 * `UI`: The UI of the App.
-* `Command`:The command executor.
+* `Command`: The command executor.
 * `Collections`: Operates on data of the App in memory.
 * `Storage`: Reads data from, and writes data to, the hard disk.
 * `Items`: Represents a collection of classes used by other components.
@@ -29,7 +45,10 @@ The bulk of the app's work is done by the following components:
 ### How the architecture components interact with each other
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues
-the command add -ingredient=tomato -quantity=5 -expiry=2025-04-03
+the command: 
+```
+add -ingredient=tomato -quantity=5 -expiry=2025-04-03
+```
 
 ![img.png](images/img.png)
 
@@ -87,7 +106,7 @@ operations on items separately and keep a temporary storage of the results of op
 file.
 
 The following is a class diagram of one of the classes `IngredientStorage`.
-
+ 
 ![ingredientStorage.png](images/ingredientStorage.png)
 
 <div style="page-break-after: always;"></div>
@@ -124,7 +143,7 @@ blocks for the rest of the project.
 
 #### <ins>Overview</ins>
 
-The Commands component contains classes that execute specific actions on their respective Collections based on user input. These commands facilitate modifications, retrieval, and processing of data within the system.
+The Commands component contains classes that execute specific actions on their respective Collections based on user input. These commands facilitate modifications, retrieval, and processing of data within the system. The command `suggest` is covered in its [own section](#suggest) for conciseness.
 
 #### <ins>Implementation</ins>
 
@@ -197,6 +216,68 @@ The following is a class diagram of the `Parser` class and its interactions:
 
 <div style="page-break-after: always;"></div>
 
+### Storage
+
+#### <ins>Overview</ins>
+
+The Storage component is responsible for reading data from and writing data to the hard disk. It does this by serializing a `DataWrapper` class that contains all objects to be serialized with Jackson, a JSON serializing library. 
+
+#### <ins>Implementation</ins>
+
+* Handles persistence of application data using JSON format
+* Manages file I/O operations for:
+  - Recipes
+  - Ingredients
+  - Dishes
+  - Scheduled dishes
+  - Shopping lists
+
+Below is a class diagram showing the interactions between the `Storage` and `DataWrapper` classes, with all other components:
+
+
+
+![alt text](images/storage.png)
+The Storage class handles two main operations:
+1. **Loading**. The loading of data is done only once, when the program is launched.
+2. **Storing**. The storing of data occurs every time any of its fields are updated, which includes the adding and deleting of dishes, ingredients, and recipes. 
+Below is a sequence diagram of how the main components interact with the Storage class throughout its lifecycle—startup, data modification, and exit.
+![alt text](images/storage_seq.png)
+#### <ins>Design Considerations</ins>
+
+The Storage component uses JSON format for data persistence. This is for a few reasons:
+- Human-readable format makes debugging easier
+- Built-in support via Jackson ObjectMapper
+- Flexible schema allows for future extensions
+
+<div style="page-break-after: always;"></div>
+
+### Suggest
+#### <ins>Overview</ins>
+The Suggest component helps users discover recipes they can make with currently available ingredients. 
+#### <ins>Implementation</ins>
+The `Suggest` class contains a method that obtains the suggestions, and a few other helper methods:
+
+
+* `suggestRecipes()`: Main method that returns a list of recipes that can be made with available ingredients
+* `getAvailableIngredientNames()`: Gets all ingredient names from storage (case-insensitive)
+* `findRecipesWithAvailableIngredients()`: Matches available ingredients against recipe requirements
+* `checkRecipeIngredients()`: Validates if a specific recipe can be made with available ingredients
+* `printMissingIngredients()`: Shows which ingredients are missing for recipes that can't be made
+
+Below is a sequence diagram detailing the control flow:
+![suggest sequence](images/suggest_seq.png)
+
+#### <ins>Design Considerations</ins>
+1. **Case Insensitivity**: Ingredient matching is case-insensitive to improve user experience
+2. **Helpful Feedback**: When recipes can't be made, the system shows which ingredients are missing
+3. **Separation of Concerns**: The suggestion logic is separated from ingredient storage and recipe management
+
+The component follows SOLID principles: 
+- Single Responsibility: Focuses solely on recipe suggestions
+- Open for Extension: New suggestion algorithms can be added 
+- Depends on abstractions: Works weith ingredient and recipe interfaces
+
+
 # Appendix: Requirements
 
 ## Product scope
@@ -252,23 +333,32 @@ planning their meals with their limited budget and time.
 
 ## Instructions for manual testing
 
+### Basic Testing 
+Here we provide some basic testing, and is meant to be a starting point for testers. For more comprehensive or exploratory testing, visit the [automation testing](#automation-testing) section.
+#### Launching and Shutdown
 1. Ensure you have Java 17 installed.
 2. Run using:
+  ```shell
+  java -jar tp.jar
+  ```
+> Note that CookingAids does not support double clicking on the `.jar` file is not supported on all operating systems. For reliability, we recommend launching the application through a terminal. 
 
-```java
-java -jar tp.jar
+Shutdown and save data by typing `bye` in the terminal window. 
+
+### Adding and Saving Data 
+Add a sample item:
+```text
+add -ingredient=tomato -quantity=5 -expiry=2025-04-03
 ```
+Test that the saving of data works either by performing `Ctrl+C` (`Command+C` on MacOS) or by typing `bye` in ther terminal window.Ensure that file data is stored in `./data/cookingaids.json`.
+Some other sample items you may try:
+<!-- TODO: Add more sample commands-->
 
-### Test Cases
+### Automation Testing
+We have written some test cases for automation testing. Below are some steps to perform this test in IntelliJ IDEA. 
+1. Ensure you have the JUnit plugin installed. We will be using this to conduct our unit testing. 
+2. In IntelliJ, navigate to `src/test`. A snippet of the project structure is shown below:
+<img src="images/structure.png" alt="structure" width="300"/>
+3. Right click the "test" folder, and click on "Run all tests in tp.test", if successful, a window should appear detailing the results of the test:
+<img src="images/tests.png" alt="tests" width="500"/>
 
-1. Start Cooking AIDS
-
-Follow the instructions given in our User Guide Quick Start
-Expected: A welcome message and a prompt for user input.
-
-- Test case: help
-  Expected: List of all possible commands user may enter should be displayed.
-- Test case: any non-command string
-  Expected: Error for an unrecognized command should appear.
-
-{to add more manual test cases for developers}
