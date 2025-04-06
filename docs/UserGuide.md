@@ -14,12 +14,13 @@
   8. [View Dishes for the Month: `view -month=`](#8-view-dishes-for-the-month-view--month1-12blank)
   9. [View Available Recipes: `list -recipe`](#9-view-available-recipes-list--recipe)
   10. [Update Recipes: `update -recipe`](#10-update-recipes-update--recipe)
-  11. [Delete Dish from Schedule: `delete -dish`](#11-delete-dish-from-schedule-delete--dishdishname-)
-  12. [Delete Ingredient: `delete -ingredient`](#12-delete-ingredient-delete--ingredientingredientname-)
-  13. [Delete Recipe from Recipe Bank: `delete -recipe`](#13-delete-recipe-from-recipe-bank-delete--reciperecipename-)
-  14. [Suggest Dishes: `suggest`](#14-suggest-dishes-suggest)
-  15. [Search Recipes by Tag: `search -recipetags`](#15-search-recipes-by-tag-search--recipetags)
-  16. [Exit program: `bye`](#16-exit-bye)
+  11. [Update Dish: `update -dish`](#11-update-dish-update--dish)
+  12. [Delete Dish from Schedule: `delete -dish`](#12-delete-dish-from-schedule-delete--dishdishname-)
+  13. [Delete Ingredient: `delete -ingredient`](#13-delete-ingredient-delete--ingredientingredientname-)
+  14. [Delete Recipe from Recipe Bank: `delete -recipe`](#14-delete-recipe-from-recipe-bank-delete--reciperecipename-)
+  15. [Suggest Dishes: `suggest`](#15-suggest-dishes-suggest)
+  16. [Search Recipes by Tag: `search -recipetags`](#16-search-recipes-by-tag-search--recipetags)
+  17. [Exit program: `bye`](#17-exit-bye)
 - [Command List](#command-list-)
 
 ---
@@ -348,18 +349,39 @@ update -dish={dishName}
 ```
 
 **Expected Output:**
-- `update -dish={dishName}`:
+- If multiple dishes are scheduled:
   ```plaintext
-  Recipe name updated to: {newName}
+  Multiple dishes found:
+  1, Date: {date1} - {dishName}
+  2, Date: {date2} - {dishName}
+  
+  Which would dish would you like to reschedule? Input a number.
+  
+  Type New date in YYYY/MM/DD format.
+  
+  Change successful 
+  {dishName}      , Scheduled for:{newDate}
   ```
-- `update -recipe={recipeIndex} -newingredients={new_ingredient_1,quantity_1,new_ingredient_2,quantity_2}`:
+- If only one dish is scheduled:
   ```plaintext
-  "Recipe ingredients updated successfully!"
+   Type New date in YYYY/MM/DD format.
+  
+  Change successful 
+  {dishName}      , Scheduled for:{newDate}
+  ```
+- If dish is not found:
+  ```plaintext
+  No scheduled dishes found for: {dishName}
+  ```
+- If invalid input:
+  ```plaintext
+  Format error ensure you do not have additional flags. use update -dish={dishName} only, remove additional flags
+  ensure that date is in YYYY/MM/DD format
   ```
 
 ---
 
-### **11. Delete Dish from Schedule: `delete -dish={dishName}`** 
+### **12. Delete Dish from Schedule: `delete -dish={dishName}`** 
 
 Removes a dish from the schedule.  
 
@@ -394,7 +416,7 @@ delete -dish={dishName} -when={date}
 
 ---
 
-### **12. Delete Ingredient: `delete -ingredient={ingredientName}`** 
+### **13. Delete Ingredient: `delete -ingredient={ingredientName}`** 
 
 Removes an ingredient and all its quantities from the storage.
 
@@ -411,7 +433,7 @@ delete -ingredient={ingredientName}
 
 ---
 
-### **13. Delete Recipe from Recipe Bank: `delete -recipe={recipeName}`** 
+### **14. Delete Recipe from Recipe Bank: `delete -recipe={recipeName}`** 
 
 Deletes a recipe from the recipe bank.
 
@@ -435,7 +457,7 @@ delete -recipe={recipeName}
   
 ---
 
-### **14. Suggest Dishes: `suggest`**
+### **15. Suggest Dishes: `suggest`**
 
 Suggests dishes based on available ingredients. 
 
@@ -453,7 +475,7 @@ suggest
   
 ---
 
-### **15. Search Recipes by Tag: `search -recipetags=`**
+### **16. Search Recipes by Tag: `search -recipetags=`**
 
 Search recipes by user-defined tag. 
 Tags can be AND-based (results will have all recipes that match all tags) 
@@ -488,7 +510,7 @@ No recipes match your tags.
 ```
 ---
 
-### **16. Exit: `bye`**
+### **17. Exit: `bye`**
 
 Exits the program.
 
