@@ -1,18 +1,23 @@
 package seedu.cookingaids.commands;
 
+import java.util.List;
+import java.util.Scanner;
+import java.util.logging.Logger;
+
 import seedu.cookingaids.collections.DishCalendar;
 import seedu.cookingaids.collections.IngredientStorage;
 import seedu.cookingaids.collections.RecipeBank;
+import seedu.cookingaids.collections.ShoppingList;
 import seedu.cookingaids.exception.InvalidInputException;
 import seedu.cookingaids.items.Dish;
+import seedu.cookingaids.logger.LoggerFactory;
 import seedu.cookingaids.parser.Parser;
-
-import java.util.List;
-import java.util.Scanner;
+import seedu.cookingaids.storage.Storage;
 
 public class DeleteCommand {
     public static final String COMMAND_WORD = "delete";
     static final int SPACE = 1;
+    private static final Logger LOGGER = LoggerFactory.getLogger(DeleteCommand.class);
 
     /**
      * Removes the command word from the received input text.
@@ -62,6 +67,11 @@ public class DeleteCommand {
     private static void removeDish(Dish dish, String dishName) {
         DishCalendar.removeDishInCalendar(dish);
         System.out.println(dish.getDishDate().toString() + " - " + dishName + " Successfully deleted!");
+
+        LOGGER.info("Saving to file after dish deletion");
+        Storage.storeData(DishCalendar.getDishCalendar(),
+                RecipeBank.getRecipeBank(), IngredientStorage.getStorage(),
+                ShoppingList.getShoppingList());
     }
 
     private static void promptUserForDeletion(List<Dish> dishes, String dishName) {
@@ -132,6 +142,11 @@ public class DeleteCommand {
         }
 
         System.out.println("Deleted all dishes scheduled for " + date);
+
+        LOGGER.info("Saving to file after bulk dish deletion");
+        Storage.storeData(DishCalendar.getDishCalendar(),
+                RecipeBank.getRecipeBank(), IngredientStorage.getStorage(),
+                ShoppingList.getShoppingList());
     }
 
     /**
@@ -144,6 +159,11 @@ public class DeleteCommand {
 
         IngredientStorage.removeIngredient(ingredientName);
         System.out.println("Deleted " + ingredientName + " from the list of available ingredients.");
+
+        LOGGER.info("Saving to file after ingredient deletion");
+        Storage.storeData(DishCalendar.getDishCalendar(),
+                RecipeBank.getRecipeBank(), IngredientStorage.getStorage(),
+                ShoppingList.getShoppingList());
     }
 
     /**
@@ -157,9 +177,13 @@ public class DeleteCommand {
         try {
             String recipeName = RecipeBank.removeRecipeFromRecipeBank(recipeIndex);
             System.out.println(recipeName + " has been deleted from the recipe bank!");
+
+            LOGGER.info("Saving to file after recipe deletion");
+            Storage.storeData(DishCalendar.getDishCalendar(),
+                    RecipeBank.getRecipeBank(), IngredientStorage.getStorage(),
+                    ShoppingList.getShoppingList());
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Please provide a valid recipe index!");
-
         }
     }
 }

@@ -1,144 +1,26 @@
 {
   "recipes" : [ {
-    "name" : "tomato_pasta",
+    "name" : "Sandwich",
     "ingredients" : [ {
-      "name" : "tomato",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
+      "name" : "Bread",
+      "quantity" : 0,
+      "expiryDate" : null
     }, {
-      "name" : "pasta",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
+      "name" : "Tomato",
+      "quantity" : 0,
+      "expiryDate" : null
+    }, {
+      "name" : "Egg",
+      "quantity" : 0,
+      "expiryDate" : null
     } ],
-    "recipeName" : "tomato_pasta"
-  }, {
-    "name" : "garlic_bread",
-    "ingredients" : [ {
-      "name" : "garlic",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
-    }, {
-      "name" : "bread",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
-    }, {
-      "name" : "butter",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
-    } ],
-    "recipeName" : "garlic_bread"
+    "recipeName" : "Sandwich"
   } ],
-  "ingredients" : {
-    "garlic" : [ {
-      "name" : "garlic",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
-    } ],
-    "chicken" : [ {
-      "name" : "chicken",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
-    } ],
-    "pasta" : [ {
-      "name" : "pasta",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
-    } ],
-    "tomato" : [ {
-      "name" : "tomato",
-      "quantity" : 2,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
-    } ],
-    "rice" : [ {
-      "name" : "rice",
-      "quantity" : 1500,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
-    } ]
-  },
+  "ingredients" : { },
   "dishes" : [ {
-    "name" : "chicken_pasta",
+    "name" : "spaghetti",
     "dishDate" : {
-      "dateString" : "24/03/2025"
-    }
-  }, {
-    "name" : "chicken_rice",
-    "dishDate" : {
-      "dateString" : "25/03/2025"
-    }
-  }, {
-    "name" : "cai_fan",
-    "dishDate" : {
-      "dateString" : "25/03/2025"
-    }
-  }, {
-    "name" : "pasta",
-    "dishDate" : {
-      "dateString" : "25/03/2025"
-    }
-  }, {
-    "name" : "soup",
-    "dishDate" : {
-      "dateString" : "22/04/2025"
-    }
-  }, {
-    "name" : "guo_tie",
-    "dishDate" : {
-      "dateString" : "23/02/2025"
-    }
-  }, {
-    "name" : "chee_chiong_fun",
-    "dishDate" : {
-      "dateString" : "01/03/2025"
-    }
-  }, {
-    "name" : "porridge",
-    "dishDate" : {
-      "dateString" : "01/03/2025"
-    }
-  }, {
-    "name" : "soup",
-    "dishDate" : {
-      "dateString" : "01/03/2025"
-    }
-  }, {
-    "name" : "digglets",
-    "dishDate" : {
-      "dateString" : "01/03/2025"
-    }
-  }, {
-    "name" : "tomato_pasta",
-    "dishDate" : {
-      "dateString" : "31/03/2025"
-    }
-  }, {
-    "name" : "tomato_pasta",
-    "dishDate" : {
-      "dateString" : "None"
-    }
-  }, {
-    "name" : "tomato_pasta",
-    "dishDate" : {
-      "dateString" : "None"
+      "dateString" : "20/03/2025"
     }
   } ],
   "shopping" : [ ]
