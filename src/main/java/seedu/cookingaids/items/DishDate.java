@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 
 /**
@@ -133,7 +134,17 @@ public class DishDate {
         return dateString;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        DishDate dishDate = (DishDate) object;
+        return this.dateString.equals(dishDate.dateString); // or whatever field stores the date
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(dateString);
+    }
 
 }

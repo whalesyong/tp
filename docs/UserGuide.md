@@ -343,14 +343,27 @@ delete -dish={dishName} -when={date}
 ```
 
 **Expected Output:**  
-- If multiple dishes are scheduled:  
+- If multiple dishes with the same name are scheduled:  
   ```plaintext
   Multiple dishes found:
   1, Date: {date1} - {dishName}
   2, Date: {date2} - {dishName}
   Which would you like to delete? Input a number.
-  {date} - {dishName} Successfully deleted!
   ```
+  - Valid input:
+    ```plaintext
+    {date} - {dishName} Successfully deleted!
+    ```
+  - Invalid input:
+    ```plaintext
+    Invalid choice. No dish deleted.
+    ```
+- Bulk delete by when
+  ```plaintext
+  The application supports deletion of dishes on a single date.
+  ```
+  Example usage of `delete -when={date}`:
+  ![bulkDelete](images/bulkDelete.png)
 - If only one dish is scheduled:  
   ```plaintext
   {date} - {dishName} Successfully deleted!
@@ -359,10 +372,7 @@ delete -dish={dishName} -when={date}
   ```plaintext
   No scheduled dishes found for: {dishName}
   ```
-- If invalid input:
-  ```plaintext
-  Invalid input
-  ```
+
 
 ---
 
