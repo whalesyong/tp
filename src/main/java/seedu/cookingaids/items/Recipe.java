@@ -33,6 +33,7 @@ public class Recipe {
         return this.recipeName;
     }
 
+    @JsonIgnore
     public void setRecipeName(String recipeName) {
         this.recipeName = recipeName;
     }
