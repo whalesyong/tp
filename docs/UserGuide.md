@@ -84,11 +84,7 @@ add -dish={dishName}
 add -dish={dishName} [-when={date}]
 ```
 <br> If no dish date is unrecognised, it defaults to None. 
-<br> add date in YYYY/MM/DD format 
-<br> if you add a date that exceeds the number of days in the
-month but it is still within 31 days we will autocorrect it to the last day for you 
-<br> e.g 2022/04/31 -> 2022/04/30
-<br> e.g 2022/02/31 -> 2022/02/28
+<br> Please add date in YYYY/MM/DD format 
 
 **Example:**
 ```plaintext
@@ -314,7 +310,7 @@ list -recipe={recipeName}
   ```
 ### **10. Update Recipes: `update -recipe`**
 
-Displays a list of available recipes and/or their required ingredients.
+Updates the name of a recipe and/or the required ingredients.
 
 **Usage:**
 ```plaintext
@@ -389,7 +385,7 @@ delete -ingredient={ingredientName}
 
 ### **13. Delete Recipe from Recipe Bank: `delete -recipe={recipeName}`** 
 
-Deletes a recipe from the recipe bank using its index number.
+Deletes a recipe from the recipe bank.
 
 **Usage:**  
 ```plaintext
@@ -412,7 +408,9 @@ delete -recipe={recipeName}
 ---
 
 ### **14. Suggest Dishes: `suggest`**
+
 Suggests dishes based on available ingredients. 
+
 **Usage:**
 ```
 suggest
@@ -428,7 +426,9 @@ suggest
 ---
 
 ### **15. Exit: `bye`**
-Exits the program. A user can exit the program at any time by typing bye in the command line.
+
+Exits the program.
+
 **Usage:**
 ```
 bye
@@ -448,12 +448,9 @@ bye
 | **Action**  | **Format, Examples**                                                                                                                                                                                 |  
 |:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|  
 | **Add**     | `add -ingredient`, `add -dish`, `add -recipe` <br> Example: `add -ingredient=tomato -expiry=today -quantity=2`, `add -dish=tomato_soup -when=tmr`, `add -recipe=tomato_soup -needs=tomato,5,onion,2` |  
-| **Delete**  | `delete -ingredient`, `delete -dish`, `delete -recipe` <br> Example: `delete -ingredient=tomato`, `delete -dish=tomato soup`                                                                         |  
 | **List**    | `list -ingredient`, `list -dish`, `list -recipe`,`list -shopping`, <br> Example: `list -ingredient`                                                                                                  |  
-| **View**    | `view -month` <br> Example:`view -month=2`, `view -month=`                                                                                                                                           |
+| **View**    | `view -month`, `view -shopping` <br> Example:`view -month=2`, `view -month=`, `view -shopping`                                                                                                        |
 | **Update**  | `update -recipe` <br> Example:`update -recipe=toast -newname=sandwich -newingredients=bread,2,egg,1,ham,1`                                                                                           |
 | **Delete**  | `delete -ingredient`, `delete -dish`, `delete -recipe` <br> Example: `delete -ingredient=tomato`, `delete -dish=tomato soup`                                                                         |  
 | **Suggest** | `suggest`                                                                                                                                                                                            |
 | **Bye**     | `bye`                                                                                                                                                                                                |
-
-

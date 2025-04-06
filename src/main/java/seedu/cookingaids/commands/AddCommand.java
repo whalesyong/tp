@@ -11,11 +11,14 @@ import seedu.cookingaids.parser.Parser;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static seedu.cookingaids.parser.Parser.*;
+import static seedu.cookingaids.parser.Parser.RECIPE_FLAG;
+import static seedu.cookingaids.parser.Parser.INGREDIENT_FLAG;
+import static seedu.cookingaids.parser.Parser.DISH_FLAG;
 
 public class AddCommand {
     public static final String COMMAND_WORD = "add";
@@ -36,12 +39,18 @@ public class AddCommand {
     }
 
     public static boolean isValidDate(String dateString) {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-            LocalDate.parse(dateString, formatter);
+        switch(dateString){
+        case "tdy","td","today","tomorrow","tmr":
             return true;
-        } catch (DateTimeParseException e) {
-            return false;
+        default:
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu/MM/dd")
+                        .withResolverStyle(ResolverStyle.STRICT);
+                LocalDate.parse(dateString, formatter);
+                return true;
+            } catch (DateTimeParseException e) {
+                return false;
+            }
         }
     }
 
@@ -83,7 +92,6 @@ public class AddCommand {
         } catch (InvalidInputException e) {
             System.out.println("Invalid format. Use: add -dish=dish_name -when=YYYY/MM/DD " +
                     "\ndish name should be in lower_snake_case");
-
         }
     }
 
@@ -191,8 +199,8 @@ public class AddCommand {
                 throw new IllegalArgumentException("Ingredient name cannot be empty");
             }
             String expiryDate = ingredientFields.get("expiry_date");
-            if (expiryDate.isEmpty()) {
-                throw new IllegalArgumentException("Expiry date cannot be empty");
+            if (expiryDate.isEmpty() && !isValidDate(expiryDate)) {
+                throw new IllegalArgumentException("Expiry date is invalid");
             }
             int quantity;
             try {

@@ -93,8 +93,7 @@ public class ListCommand {
         ArrayList<Ingredient> shoppingList = ShoppingList.getShoppingList();
         if(shoppingList.isEmpty()){
             System.out.println("Your shopping list is empty!");
-        }
-        else {
+        } else {
             System.out.println("Shopping List:");
             Ui.printShoppingListView(shoppingList);
         }
