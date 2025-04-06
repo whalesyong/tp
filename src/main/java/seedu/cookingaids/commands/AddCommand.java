@@ -12,9 +12,16 @@ import seedu.cookingaids.logger.LoggerFactory;
 import seedu.cookingaids.parser.Parser;
 import seedu.cookingaids.storage.Storage;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Logger;
+
+import static seedu.cookingaids.parser.Parser.*;
 
 public class AddCommand {
     public static final String COMMAND_WORD = "add";
@@ -34,6 +41,16 @@ public class AddCommand {
         return receivedText.substring(COMMAND_WORD.length() + SPACE);
     }
 
+    public static boolean isValidDate(String dateString) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            LocalDate.parse(dateString, formatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
     /**
      * Adds a dish to the DishCalendar.
      *
@@ -41,11 +58,19 @@ public class AddCommand {
      */
     public static void addDish(String receivedText) {
         try {
+            if(receivedText.contains(RECIPE_FLAG) || receivedText.contains(INGREDIENT_FLAG)){
+                System.out.println("Other commands found, I can only process one at a time");
+                return;
+            }
             receivedText = removeCommandWord(receivedText);
             String[] dishFields = Parser.parseDish(receivedText);
 
             assert dishFields != null : "Dish fields should not be null";
             assert dishFields.length == 2 : "Dish fields should contain exactly two elements";
+
+            if (!dishFields[1].isEmpty() && !isValidDate(dishFields[1])) {
+                throw new InvalidInputException();
+            }
 
             Dish dish = new Dish(dishFields[0], dishFields[1]);
             DishCalendar.addDishToCalendar(dish);
@@ -53,7 +78,10 @@ public class AddCommand {
             String date = dish.getDishDate().toString();
             assert date != null : "Dish date should not be null";
 
-            if (date.isEmpty()) {
+            if (date.equals("None") && !dishFields[1].isEmpty()) {
+                System.out.println("Could not recognise date! Saving without date");
+                System.out.println("Added Dish: " + dish.getName() + ", No scheduled date yet");
+            } else if (date.equals("None")) {
                 System.out.println("Added Dish: " + dish.getName() + ", No scheduled date yet");
             } else {
                 System.out.println("Added Dish: " + dish.getName() + ", Scheduled for: " + date);
@@ -78,6 +106,10 @@ public class AddCommand {
     public static void addRecipe(String receivedText) {
 
         try {
+            if(receivedText.contains(DISH_FLAG) || receivedText.contains(INGREDIENT_FLAG)){
+                System.out.println("Other commands found, I can only process one at a time");
+                return;
+            }
             receivedText = removeCommandWord(receivedText);
             String[] recipeFields = Parser.parseRecipe(receivedText);
 
@@ -119,6 +151,7 @@ public class AddCommand {
             Recipe recipe = ingredients.isEmpty()
                     ? new Recipe(replaceSpaceWithUnderscore(recipeName))
                     : new Recipe(replaceSpaceWithUnderscore(recipeName), ingredients);
+
             RecipeBank.addRecipeToRecipeBank(recipe);
 
             System.out.println("Added Recipe: " + recipeName);
@@ -128,13 +161,11 @@ public class AddCommand {
             Storage.storeData(DishCalendar.getDishCalendar(),
                     RecipeBank.getRecipeBank(), IngredientStorage.getStorage(),
                     ShoppingList.getShoppingList());
+
         } catch (InvalidInputException e) {
 
             System.out.println("Invalid format, recipe should have ingredients and quantities in pairs" +
                     " (use -needs=ingredient_1,quantity_1,ingredient_2,quantity_2)");
-
-            System.out.println("Invalid format, " +
-                    "recipe should have at least one ingredient (use -needs=ingredientName)");
         }
     }
 
@@ -190,7 +221,7 @@ public class AddCommand {
                 throw new IllegalArgumentException("Quantity must be a positive integer");
             }
             assert quantity > 0 : "Quantity should be greater than zero";
-            Ingredient ingredient = new Ingredient( ingredientName, expiryDate, quantity);
+            Ingredient ingredient = new Ingredient(ingredientName, expiryDate, quantity);
             IngredientStorage.addToStorage(ingredient);
             System.out.println("Added Ingredient: " + ingredient);
 
@@ -210,7 +241,7 @@ public class AddCommand {
      * @param input The input string.
      * @return The modified string with spaces replaced by underscores.
      */
-    private static String replaceSpaceWithUnderscore(String input){
+    private static String replaceSpaceWithUnderscore(String input) {
         return input.replace(" ", "_");
     }
 }

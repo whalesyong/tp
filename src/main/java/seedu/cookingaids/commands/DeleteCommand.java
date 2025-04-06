@@ -11,6 +11,7 @@ import seedu.cookingaids.collections.ShoppingList;
 import seedu.cookingaids.exception.InvalidInputException;
 import seedu.cookingaids.items.Dish;
 import seedu.cookingaids.logger.LoggerFactory;
+import seedu.cookingaids.items.Recipe;
 import seedu.cookingaids.parser.Parser;
 import seedu.cookingaids.storage.Storage;
 
@@ -57,7 +58,7 @@ public class DeleteCommand {
             if (dishes.size() == 1) {
                 removeDish(dishes.get(0), dishName);
             } else {
-                promptUserForDeletion(dishes, dishName);
+                promptUserForDishDeletion(dishes, dishName);
             }
         } catch (InvalidInputException e) {
             System.out.println("Invalid input");
@@ -74,7 +75,7 @@ public class DeleteCommand {
                 ShoppingList.getShoppingList());
     }
 
-    private static void promptUserForDeletion(List<Dish> dishes, String dishName) {
+    private static void promptUserForDishDeletion(List<Dish> dishes, String dishName) {
         System.out.println("Multiple dishes found:");
         for (int i = 0; i < dishes.size(); i++) {
             System.out.println((i + 1) + ", Date: " + dishes.get(i).getDishDate().toString() + " - " + dishName);
@@ -157,33 +158,58 @@ public class DeleteCommand {
     public static void deleteIngredient(String receivedText) {
         String ingredientName = Parser.parseIngredientForDeletion(receivedText);
 
-        IngredientStorage.removeIngredient(ingredientName);
-        System.out.println("Deleted " + ingredientName + " from the list of available ingredients.");
-
-        LOGGER.info("Saving to file after ingredient deletion");
-        Storage.storeData(DishCalendar.getDishCalendar(),
+        if (IngredientStorage.contains(ingredientName)) {
+            IngredientStorage.removeIngredient(ingredientName);
+            System.out.println("Deleted " + ingredientName + " from the list of available ingredients.");
+            LOGGER.info("Saving to file after ingredient deletion");
+          Storage.storeData(DishCalendar.getDishCalendar(),
                 RecipeBank.getRecipeBank(), IngredientStorage.getStorage(),
                 ShoppingList.getShoppingList());
+        } else {
+            System.out.println("Please provide a valid ingredient name");
+        }
     }
 
-    /**
-     * Deletes a recipe from the recipe bank.
-     *
-     * @param receivedText The name of the recipe to be deleted.
-     */
+    public static void removeRecipe(Recipe recipe) {
+        RecipeBank.removeRecipeFromRecipeBank(recipe);
+    }
+
     public static void deleteRecipe(String receivedText) {
-        String recipeIndex = Parser.parseRecipeForDeletion(receivedText);
+        String recipeName = Parser.parseRecipeForDeletion(receivedText);
 
-        try {
-            String recipeName = RecipeBank.removeRecipeFromRecipeBank(recipeIndex);
-            System.out.println(recipeName + " has been deleted from the recipe bank!");
+        List<Recipe> recipes = RecipeBank.getRecipeByName(recipeName);
 
+        if (recipes.isEmpty()) {
+            System.out.println("No recipe found: " + recipeName);
+        } else if (recipes.size() == 1) {
+            removeRecipe(recipes.get(0));
             LOGGER.info("Saving to file after recipe deletion");
             Storage.storeData(DishCalendar.getDishCalendar(),
                     RecipeBank.getRecipeBank(), IngredientStorage.getStorage(),
                     ShoppingList.getShoppingList());
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Please provide a valid recipe index!");
+        } else {
+            promptUserForRecipeDeletion(recipes, recipeName);
+        }
+    }
+
+    public static void promptUserForRecipeDeletion(List<Recipe> recipes, String recipeName) {
+        System.out.println("Multiple recipes found:");
+        for (int i = 0; i < recipes.size(); i++) {
+            System.out.println((i+1) + ", Ingredients: " + recipes.get(i).getIngredientsString());
+        }
+
+        System.out.println("Which recipe would you like to delete? Input a number.");
+
+        Scanner scanner = new Scanner(System.in);
+        int choice = scanner.nextInt();
+        if (choice > 0 && choice <= recipes.size()) {
+            removeRecipe(recipes.get(choice-1));
+            LOGGER.info("Saving to file after recipe deletion");
+            Storage.storeData(DishCalendar.getDishCalendar(),
+                    RecipeBank.getRecipeBank(), IngredientStorage.getStorage(),
+                    ShoppingList.getShoppingList());
+        } else {
+            System.out.println("Invalid choice. No recipe deleted.");
         }
     }
 }

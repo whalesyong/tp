@@ -14,10 +14,10 @@
   8. [View Dishes for the Month: `view -month=`](#8-view-dishes-for-the-month-view--month1-12blank)
   9. [View Available Recipes: `list -recipe`](#9-view-available-recipes-list--recipe)
   10. [Update Recipes: `update -recipe`](#10-update-recipes-update--recipe)
-  10. [Delete Dish from Schedule: `delete -dish`](#11-delete-dish-from-schedule-delete--dishdishname-)
-  11. [Delete Ingredient: `delete -ingredient`](#12-delete-ingredient-delete--ingredientingredientname-)
-  12. [Delete Recipe from Recipe Bank: `delete -recipe`](#13-delete-recipe-from-recipe-bank-delete--reciperecipeindex-)
-  13. [Suggest Dishes: `suggest`](#14-suggest-dishes-suggest)
+  11. [Delete Dish from Schedule: `delete -dish`](#11-delete-dish-from-schedule-delete--dishdishname-)
+  12. [Delete Ingredient: `delete -ingredient`](#12-delete-ingredient-delete--ingredientingredientname-)
+  13. [Delete Recipe from Recipe Bank: `delete -recipe`](#13-delete-recipe-from-recipe-bank-delete--reciperecipename-)
+  14. [Suggest Dishes: `suggest`](#14-suggest-dishes-suggest)
 - [Command List](#command-list-)
 
 ---
@@ -40,9 +40,7 @@ With CookingAids, you can:
 
 > **Command Format Notes:**  
 > - Items in square brackets are optional.  
->   - Example: `add -dish={dishName} [-when{date}]` can be used as `add -dish={dishName}`.  
-> - Parameters can be in any order.  
->   - Example: `add -dish={dishName} -when{date}` is equivalent to `add -when{date} -dish={dishName}`.  
+>   - Example: `add -dish={dishName} [-when{date}]` can be used as `add -dish={dishName}`.
 > - Extraneous parameters for commands that do not take parameters (e.g., `help`) will be ignored.  
 >   - Example: `help 123` will be interpreted as `help`.  
 > - Recipes, dishes and ingredients should be named in snake case (ie lowercase words with underscores)
@@ -71,16 +69,27 @@ help
 ### **2. Adding Dish to Schedule: `add -dish={dishName}`** 
 
 Adds a dish to the calendar.
-<br> if the dish name matches a recipe exactly, it will check if you have enough ingredients from the ingredients list and subtract accordingly. Any ingredient debts will be added to the shopping list.
-<br> _add dishes in lower_snake_case form_
+<br> if the dish name matches a recipe exactly, 
+it will check if you have enough ingredients from the ingredients list and subtract accordingly.
+<br> Any ingredient debts will be added to the shopping list.
 <br> here is a rough flowchart of what goes on when adding dish
 ![img.png](images/addDishFlow.png)
+
+> **Warning:** __add dishes in lower_snake_case form__ 
+> <br> If your dish contains multiple strings it will add the first string only
 
 **Usage:**  
 ```plaintext
 add -dish={dishName}  
 add -dish={dishName} [-when={date}]
 ```
+<br> If no dish date is unrecognised, it defaults to None. 
+<br> add date in YYYY/MM/DD format 
+<br> if you add a date that exceeds the number of days in the
+month but it is still within 31 days we will autocorrect it to the last day for you 
+<br> e.g 2022/04/31 -> 2022/04/30
+<br> e.g 2022/02/31 -> 2022/02/28
+
 **Example:**
 ```plaintext
 add -dish=pizza
@@ -92,11 +101,16 @@ add -dish=fries -when=tmr  //(tomorrow,today,td,tdy also works)
 
 - `add -dish={dishName}`:  
   ```plaintext
-  {dishName} has been added to today’s cooking list!
+  Added Dish: {dishName}, No scheduled date yet
   ```
 - `add -dish={dishName} -when={date}`:  
   ```plaintext
-  {dishName} has been added to your cooking list on {date}!
+  Added Dish: {dishName}, Scheduled for: {date}
+  ```
+- `add -dish={dishName} -when={unrecognised date}`:
+  ```plaintext
+  Could not recognise date! Saving without date
+  Added Dish: {dishName}, No scheduled date yet
   ```
 
 ---
@@ -104,8 +118,9 @@ add -dish=fries -when=tmr  //(tomorrow,today,td,tdy also works)
 
 ### **3. Adding an Ingredient: `add -ingredient={ingredientName}`** 
 
-Adds an ingredient to the ingredient database. If no quantity is specified, it defaults to 1. If no expiry date is 
-specifed, it defaults to None. 
+Adds an ingredient to the ingredient database.
+<br> If no quantity is specified, it defaults to 1.
+<br> If no expiry date is specified, it defaults to None. 
 <br> _Expiry date format is to be in YYYY/MM/DD_
 <br> _add ingredients in lower_snake_case form_ 
 
@@ -157,18 +172,20 @@ add -recipe={recipeName} -needs={ingredient1},{quantity_1},{ingredient2},{quanti
 - `add -recipe={recipeName} -needs={ingredient1},{quantity_1},{ingredient2},{quantity_2}`:
   ```plaintext
   Added Recipe: {recipeName} 
-  Ingredients: [ingredient_1 (quantity_1), ingredient_2 (quantity_2)]
+  Ingredients: ingredient_1 (quantity_1), ingredient_2 (quantity_2)
   ```
 
 ---
 
 ### **5. View Scheduled Dishes: `list -dish`**
 
-Displays a list of scheduled dishes sorted by month
+Displays a list of all dishes in dishList sorted by date
+<br> add a -u flag to view upcoming dishes filtered by date
 
 **Usage:**  
 ```plaintext
 list -dish  
+list -dish -u
 ```
 
 **Expected Output:**  
@@ -179,10 +196,22 @@ list -dish
   2. {dishName2} Scheduled for {date2}
   3. {dishName2} Scheduled for {date3}
   
-  Unscheduled
+  Dishes with no scheduled date:
   1. {dishName3}   
   2. {dishName4} 
   3. {dishName5}   
+  ```
+- `list -dish -u`:
+  ```plaintext
+  Todays dishes:
+  1. {dishName1} Scheduled for {date1}  
+  2. {dishName2} Scheduled for {date2}
+  3. {dishName2} Scheduled for {date3}
+  
+  Upcoming dishes:
+  1. {dishName1} Scheduled for {date1}  
+  2. {dishName2} Scheduled for {date2}
+  3. {dishName2} Scheduled for {date3}
   ```
 
 ---
@@ -236,7 +265,7 @@ list -shopping
 
 <div style="page-break-after: always;"></div>
 
-### **8. View Dishes for the Month: `view -month={1-12/BLANK}`**
+### **8. View Dishes for the Month: `view -month={1-12/BLANK} [-year={2015-2035}]`**
 
 Displays dishes scheduled for a specific month or the current month.
 <br> Current date will be highlighted in red
@@ -244,9 +273,10 @@ Displays dishes scheduled for a specific month or the current month.
 
 **Usage:**
 ```plaintext
-view -month=1  # January  
-view -month=11 # November  
-view -month=   # Current month
+view -month=1       //January  
+view -month=11      //November  
+view -month=        //Current month 
+view -month=1 -year=2026
 ```
 
 **Expected Output:**
@@ -357,26 +387,28 @@ delete -ingredient={ingredientName}
 
 ---
 
-### **13. Delete Recipe from Recipe Bank: `delete -recipe={recipeIndex}`** 
+### **13. Delete Recipe from Recipe Bank: `delete -recipe={recipeName}`** 
 
 Deletes a recipe from the recipe bank using its index number.
 
 **Usage:**  
 ```plaintext
-delete -recipe={recipeIndex}
+delete -recipe={recipeName}
 ```
-> Note: {recipeIndex} refers to the recipe's position number in the recipe bank (1-based indexing)
 
 **Expected Output:**
 - On successful deletion:
   ```plaintext
   {recipeName} has been deleted from the recipe bank!
   ```
-- If invalid index:
+- If multiple recipes with same name:
   ```plaintext
-  Please provide a valid recipe index!
+  Multiple recipes found:
+  1, {recipeName}, Ingredients: {ingredient_list_1}
+  2, {recipeName}, Ingredients: {ingredient_list_2}
+  Which recipe would you like to delete? Input a number.
   ```
-
+  
 ---
 
 ### **14. Suggest Dishes: `suggest`**
@@ -392,6 +424,23 @@ suggest
   1: carbonara
   2: garlic_bread
   ```
+  
+---
+
+### **15. Exit: `bye`**
+Exits the program. A user can exit the program at any time by typing bye in the command line.
+**Usage:**
+```
+bye
+``` 
+**Expected Output:**
+- `bye`:
+  ```plaintext
+  Stored Dish List successfully in: ./data/cookingaids.json
+  ```
+
+---
+
 <div style="page-break-after: always;"></div>
 
 ## **Command List**  
@@ -402,7 +451,9 @@ suggest
 | **Delete**  | `delete -ingredient`, `delete -dish`, `delete -recipe` <br> Example: `delete -ingredient=tomato`, `delete -dish=tomato soup`                                                                         |  
 | **List**    | `list -ingredient`, `list -dish`, `list -recipe`,`list -shopping`, <br> Example: `list -ingredient`                                                                                                  |  
 | **View**    | `view -month` <br> Example:`view -month=2`, `view -month=`                                                                                                                                           |
-| **Suggest** | `suggest`                                                                                                                                        |
-| **Help**    | `help`                                                                                                                                                                                               |
+| **Update**  | `update -recipe` <br> Example:`update -recipe=toast -newname=sandwich -newingredients=bread,2,egg,1,ham,1`                                                                                           |
+| **Delete**  | `delete -ingredient`, `delete -dish`, `delete -recipe` <br> Example: `delete -ingredient=tomato`, `delete -dish=tomato soup`                                                                         |  
+| **Suggest** | `suggest`                                                                                                                                                                                            |
+| **Bye**     | `bye`                                                                                                                                                                                                |
 
 

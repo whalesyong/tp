@@ -66,8 +66,8 @@ public class IngredientStorage {
 
         ingredients.put(name, ingredientList);
 
-        checkExpiringSoon(name);
-        checkExpiredIngredients(name);
+        //checkExpiringSoon(name);
+        //checkExpiredIngredients(name);
     }
 
     public static void removeIngredient(String ingredientName) {
@@ -112,10 +112,8 @@ public class IngredientStorage {
             }
             LocalDate expiryLocalDate =  expiryDate.getDateLocalDate();
 
-            if (expiryLocalDate != null) {
-                if (expiryLocalDate.equals(tomorrow)) {
-                    ingredient.setExpiringSoon(true);
-                }
+            if (expiryLocalDate != null && expiryLocalDate.equals(tomorrow)) {
+                ingredient.setExpiringSoon(true);
             }
         }
     }
@@ -136,10 +134,8 @@ public class IngredientStorage {
                 break;
             }
             LocalDate expiryLocalDate = expiryDate.getDateLocalDate();
-            if (expiryLocalDate != null) {
-                if (expiryLocalDate.isBefore(today)) {
-                    ingredient.setExpired(true);
-                }
+            if (expiryLocalDate != null && expiryLocalDate.isBefore(today)) {
+                ingredient.setExpired(true);
             }
         }
     }
@@ -238,10 +234,11 @@ public class IngredientStorage {
         List<Ingredient> ingredientList = ingredients.getOrDefault(ingredientName, new ArrayList<>());
         int expiringSoonQuantity = 0;
         LocalDate tomorrow = LocalDate.now().plusDays(1);
+        LocalDate today = LocalDate.now();
         for (Ingredient ingredient : ingredientList) {
             LocalDate expiryDate = ingredient.getExpiryDate().getDateLocalDate();
             if (expiryDate != null) {
-                if (expiryDate.equals(tomorrow)) {
+                if (expiryDate.equals(tomorrow) || expiryDate.equals(today)) {
                     expiringSoonQuantity += ingredient.getQuantity();
                 }
             }
@@ -265,6 +262,64 @@ public class IngredientStorage {
         }
         return totalQuantity;
     }
+
+    /**
+     * Updates an existing ingredient in the storage.
+     * The update can modify the quantity or expiry date of the ingredient.
+     *
+     * @param name        The name of the ingredient to be updated.
+     * @param oldExpiry   The current expiry date of the ingredient to be updated.
+     * @param newQuantity The new quantity for the ingredient (optional: pass -1 to leave unchanged).
+     * @param newExpiry   The new expiry date for the ingredient (optional: pass null to leave unchanged).
+     */
+    public static void updateIngredient(String name, String oldExpiry, int newQuantity, String newExpiry) {
+        // Check if the ingredient exists in storage
+        if (!ingredients.containsKey(name)) {
+            System.out.println("Ingredient not found: " + name);
+            return;
+        }
+
+        List<Ingredient> ingredientList = ingredients.get(name);
+
+        // Find the matching ingredient by expiry date
+        boolean isUpdated = false;
+        ExpiryDate pastExpiry = new ExpiryDate(oldExpiry);
+
+        for (Ingredient ingredient : ingredientList) {
+            ExpiryDate expiryDate = ingredient.getExpiryDate();
+            if (expiryDate != null && Objects.equals(expiryDate.getDateLocalDate(), pastExpiry.getDateLocalDate())) {
+                // Update quantity if provided
+                if (newQuantity >= 0) {
+                    ingredient.setQuantity(newQuantity);
+                }
+
+                // Update expiry date if provided
+                if (newExpiry != null) {
+                    ingredient.setExpiryDate(new ExpiryDate(newExpiry));
+                }
+
+                isUpdated = true;
+                break;
+            }
+        }
+
+        if (!isUpdated) {
+            System.out.println("No matching ingredient found with expiry date: " + oldExpiry);
+            return;
+        }
+
+        // Re-sort the list by expiry date after update
+        ingredientList.sort(Comparator.comparing(
+                Ingredient::getExpiryDate,
+                Comparator.comparing(ExpiryDate::getDateLocalDate, Comparator.nullsLast(Comparator.naturalOrder()))
+        ));
+
+        // Update storage
+        ingredients.put(name, ingredientList);
+
+        System.out.println("Ingredient updated successfully.");
+    }
+
 
     //FOR DEBUGGING. TODO remove statement
     public static void printMap(){

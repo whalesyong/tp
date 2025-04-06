@@ -26,8 +26,10 @@ public class ListCommand {
      */
     public static void displayDishList(String receivedString) {
         ArrayList<Dish> listOfDish = DishCalendar.getDishCalendar();
-
-        // Separate valid dishes from invalid ones
+        if(listOfDish.isEmpty()){
+            System.out.println("You have no dishes planned!");
+            return;
+        }
         List<Dish> validDishes = listOfDish.stream()
                 .filter(dish -> dish.getDishDate() != null && dish.getDishDate().getDateLocalDate() != null)
                 .toList();
@@ -35,14 +37,35 @@ public class ListCommand {
         List<Dish> invalidDishes = listOfDish.stream()
                 .filter(dish -> dish.getDishDate() == null || dish.getDishDate().getDateLocalDate() == null)
                 .toList();
+        if (receivedString.contains("-u")) {
+            List<Dish> today = ViewCommand.sortDishesToday(validDishes);
+            List<Dish> afterToday = ViewCommand.sortDishesAfterToday(validDishes);
+            if (today.isEmpty() && afterToday.isEmpty()) {
+                System.out.println("No upcoming dishes planned!");
+            }else if(today.isEmpty()){
+                System.out.println("Upcoming dishes planned:");
+                Ui.printDishListView(afterToday);
+            } else if (afterToday.isEmpty()) {
+                System.out.println("Today's dishes:");
+                Ui.printDishListView(today);
+            } else {
+                System.out.println("Today's dishes:");
+                Ui.printDishListView(today);
+                System.out.println("Upcoming dishes planned:");
+                Ui.printDishListView(afterToday);
+            }
 
-        // Sort and print valid dishes
-        System.out.println("All dishes:");
-        Ui.printDishListView(ViewCommand.sortDishesByDateStream(validDishes));
 
-        if (!invalidDishes.isEmpty()) {
-            System.out.println("Unscheduled Dishes:");
-            Ui.printDishListView(invalidDishes);
+        } else {
+            // Separate valid dishes from invalid ones
+
+            System.out.println("All dishes:");
+            Ui.printDishListView(ViewCommand.sortDishesByDateStream(validDishes));
+
+            if (!invalidDishes.isEmpty()) {
+                System.out.println("Dishes with no scheduled date:");
+                Ui.printDishListView(invalidDishes);
+            }
         }
     }
 
@@ -66,7 +89,14 @@ public class ListCommand {
      * Displays all ingredients currently in the shopping list.
      */
     public static void displayShoppingList() {
+
         ArrayList<Ingredient> shoppingList = ShoppingList.getShoppingList();
-        Ui.printShoppingListView(shoppingList);
+        if(shoppingList.isEmpty()){
+            System.out.println("Your shopping list is empty!");
+        }
+        else {
+            System.out.println("Shopping List:");
+            Ui.printShoppingListView(shoppingList);
+        }
     }
 }

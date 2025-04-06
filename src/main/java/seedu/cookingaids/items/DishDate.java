@@ -92,13 +92,16 @@ public class DishDate {
 
         DateTimeFormatter[] formatters = {
                 DateTimeFormatter.ofPattern("dd/MM/yyyy"),
+                DateTimeFormatter.ofPattern("yyyy/MM/dd"),
+                DateTimeFormatter.ofPattern("yyyy/MM/d"),
+                DateTimeFormatter.ofPattern("yyyy/M/d"),
                 DateTimeFormatter.ofPattern("d/MM/yyyy"),
                 DateTimeFormatter.ofPattern("d/MM/yy"),
                 DateTimeFormatter.ofPattern("dd/MM/yy"),
                 DateTimeFormatter.ofPattern("MM/d/yyyy"),
                 DateTimeFormatter.ofPattern("yyyy-MM-dd"),
                 DateTimeFormatter.ofPattern("dd-MM-yyyy"),
-                DateTimeFormatter.ofPattern("yyyy/MM/dd"),
+
         };
 
         LocalDate date;
