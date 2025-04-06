@@ -1,6 +1,7 @@
 package seedu.cookingaids.parser;
 
 
+import seedu.cookingaids.commands.SearchCommand;
 import seedu.cookingaids.commands.ViewCommand;
 import seedu.cookingaids.commands.AddCommand;
 import seedu.cookingaids.commands.DeleteCommand;
@@ -25,6 +26,7 @@ public class Parser {
     public static final String NEW_NAME_FLAG = "-newname=";
     public static final String NEW_TAGS_FLAG = "-newtags=";
     public static final String RECIPE_FLAG = "-recipe=";
+    public static final String RECIPE_TAGS_FLAG = "-recipetags=";
     public static final String NEEDS_FLAG = "-needs=";
     public static final String DISH_FLAG = "-dish=";
     public static final String WHEN_FLAG = "-when=";
@@ -53,6 +55,7 @@ public class Parser {
         case UpdateCommand.COMMAND_WORD -> handleUpdateCommand(receivedText);
         case HelpCommand.COMMAND_WORD -> HelpCommand.showHelp();
         case SuggestCommand.COMMAND_WORD -> SuggestCommand.printSuggestions();
+        case SearchCommand.COMMAND_WORD -> handleSearchCommand(receivedText);
         case ViewCommand.COMMAND_WORD -> handleViewCommand(receivedText);
         default -> {
             System.out.println(String.format(UNKNOWN_COMMAND_STR, receivedText));
@@ -217,7 +220,26 @@ public class Parser {
         }
     }
 
-    // Other existing methods...
+    /**
+     * Handles
+    */
+
+    private static void handleSearchCommand(String receivedText) {
+        if (receivedText.contains(RECIPE_TAGS_FLAG)) {
+            String tags = parseTagsForSearch(receivedText);
+            SearchCommand.printSearchResult(tags);
+        }
+    }
+
+    public static String parseTagsForSearch(String receivedText) {
+        if (!receivedText.contains(RECIPE_TAGS_FLAG)) {
+            return "";
+        }
+        int startIndex = receivedText.indexOf(RECIPE_TAGS_FLAG) + RECIPE_TAGS_FLAG.length();
+        int endIndex = receivedText.length();
+
+        return receivedText.substring(startIndex, endIndex).trim();
+    }
 
     /**
      * Parses the recipe index from an update command.
@@ -225,7 +247,7 @@ public class Parser {
      * @param receivedText The update command string.
      * @return The recipe index as a string.
      */
-    public static String parseRecipeIndexForUpdate(String receivedText) {
+    public static String parseRecipeNameForUpdate(String receivedText) {
         if (!receivedText.contains(RECIPE_FLAG)) {
             return "";
         }

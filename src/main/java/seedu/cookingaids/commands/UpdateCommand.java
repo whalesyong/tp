@@ -24,7 +24,7 @@ public class UpdateCommand {
      * @param receivedText The user input containing the recipe index and update details.
      */
     public static void updateRecipe(String receivedText) {
-        String recipeName = Parser.parseRecipeIndexForUpdate(receivedText);
+        String recipeName = Parser.parseRecipeNameForUpdate(receivedText);
 
         List<Recipe> recipesToUpdate = RecipeBank.getRecipeByName(recipeName);
 
@@ -74,7 +74,7 @@ public class UpdateCommand {
             !receivedText.contains(Parser.NEW_INGREDIENTS_FLAG) &&
             !receivedText.contains(Parser.NEW_TAGS_FLAG)) {
 
-            System.out.println("No updates specified. Use -newname= or -newingredients= flags.");
+            System.out.println("No updates specified. Use -newname=, -newingredients= or -newtags= flags.");
         }
     }
 

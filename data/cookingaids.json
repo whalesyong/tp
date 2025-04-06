@@ -7,16 +7,18 @@
       "expiryDate" : {
         "dateString" : "None"
       }
-    } ]
+    } ],
+    "tags" : [ "THIS", "ONE" ]
   }, {
-    "name" : "woof",
+    "name" : "meow",
     "ingredients" : [ {
       "name" : "dog",
       "quantity" : 1,
       "expiryDate" : {
         "dateString" : "None"
       }
-    } ]
+    } ],
+    "tags" : [ ]
   }, {
     "name" : "neigh",
     "ingredients" : [ {
@@ -25,7 +27,8 @@
       "expiryDate" : {
         "dateString" : "None"
       }
-    } ]
+    } ],
+    "tags" : [ "HORSE" ]
   } ],
   "ingredients" : { },
   "dishes" : [ {
@@ -33,6 +36,17 @@
     "dishDate" : {
       "dateString" : "20/03/2025"
     }
+  }, {
+    "name" : "meow",
+    "dishDate" : {
+      "dateString" : "01/04/2025"
+    }
   } ],
-  "shopping" : [ ]
+  "shopping" : [ {
+    "name" : "dog",
+    "quantity" : 1,
+    "expiryDate" : {
+      "dateString" : "None"
+    }
+  } ]
 }

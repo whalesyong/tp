@@ -18,6 +18,7 @@
   12. [Delete Ingredient: `delete -ingredient`](#12-delete-ingredient-delete--ingredientingredientname-)
   13. [Delete Recipe from Recipe Bank: `delete -recipe`](#13-delete-recipe-from-recipe-bank-delete--reciperecipename-)
   14. [Suggest Dishes: `suggest`](#14-suggest-dishes-suggest)
+  15. [Exit program: `bye`](#15-exit-bye)
 - [Command List](#command-list-)
 
 ---
@@ -314,19 +315,24 @@ Updates the name of a recipe and/or the required ingredients.
 
 **Usage:**
 ```plaintext
-update -recipe={recipeIndex} -newname={newName}
-update -recipe={recipeIndex} -newingredients={new_ingredient_1,quantity_1,new_ingredient_2,quantity_2}
-update -recipe={recipeIndex} -newname={newName} -newingredients={new_ingredient_1,quantity_1,new_ingredient_2,quantity_2}
+update -recipe={recipeName} -newname={newName}
+update -recipe={recipeName} -newingredients={new_ingredient_1,quantity_1,new_ingredient_2,quantity_2}
+update -recipe={recipeName} -newname={newName} -newingredients={new_ingredient_1,quantity_1,new_ingredient_2,quantity_2}
+update -recipe={recipeName} -newtags={tag1,tag2}
 ```
 
 **Expected Output:**
-- `update -recipe={recipeIndex} -newname={newName}`:
+- `update -recipe={recipeName} -newname={newName}`:
   ```plaintext
   Recipe name updated to: {newName}
   ```
-- `update -recipe={recipeIndex} -newingredients={new_ingredient_1,quantity_1,new_ingredient_2,quantity_2}`:
+- `update -recipe={recipeName} -newingredients={new_ingredient_1,quantity_1,new_ingredient_2,quantity_2}`:
   ```plaintext
   "Recipe ingredients updated successfully!"
+  ```
+- `update -recipe={recipeName} -newtags={tag1,tag2}`:
+  ```plaintext
+  "Recipe tags updated successfully!"
   ```
 
 ---
@@ -425,7 +431,23 @@ suggest
   
 ---
 
-### **15. Exit: `bye`**
+### **15. Search recipes by tag: `search -recipetags=`**
+
+Search recipes by user-defined tag.
+
+**Usage:**
+```
+search -recipetags=italian,easy
+``` 
+**Expected Output:**
+```plaintext
+Recipes you tagged as italian, easy:
+1: garlic_bread
+```
+
+---
+
+### **16. Exit: `bye`**
 
 Exits the program.
 

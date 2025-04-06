@@ -70,6 +70,11 @@ public class Recipe {
     }
 
     public void setTags(ArrayList<String> tags) {
-        this.tags = tags;
+//        this.tags = tags;
+        ArrayList<String> newTags = new ArrayList<>();
+        for (String tag : tags) {
+            newTags.add(tag.toLowerCase());
+        }
+        this.tags = newTags;
     }
 }
