@@ -21,6 +21,8 @@ import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static seedu.cookingaids.parser.Parser.RECIPE_FLAG;
 import static seedu.cookingaids.parser.Parser.INGREDIENT_FLAG;
@@ -34,6 +36,7 @@ public class AddCommand {
     private static final int SPACE = 1;
     private static final String INGREDIENT_SEPARATOR = ",";
     private static final Logger LOGGER = LoggerFactory.getLogger(AddCommand.class);
+
     /**
      * Removes the command word from the received input string.
      *
@@ -48,8 +51,8 @@ public class AddCommand {
     }
 
     public static boolean isValidDate(String dateString) {
-        switch(dateString){
-        case "tdy","td","today","tomorrow","tmr":
+        switch (dateString) {
+        case "tdy", "td", "today", "tomorrow", "tmr":
             return true;
         default:
             try {
@@ -70,11 +73,23 @@ public class AddCommand {
      */
     public static void addDish(String receivedText) {
         try {
-            if(receivedText.contains(RECIPE_FLAG) || receivedText.contains(INGREDIENT_FLAG)){
+            if (receivedText.contains(RECIPE_FLAG) || receivedText.contains(INGREDIENT_FLAG)) {
                 System.out.println("Other commands found, I can only process one at a time");
                 return;
             }
+
             receivedText = removeCommandWord(receivedText);
+            Pattern pattern = Pattern.compile("-(\\w+)=");
+            Matcher matcher = pattern.matcher(receivedText);
+
+            while (matcher.find()) {
+                String key = matcher.group(1);
+
+
+                if (!(key.equals("dish") || key.equals("when"))) {
+                    throw new IllegalArgumentException("Unexpected key: " + key);
+                }
+            }
             String[] dishFields = parseDish(receivedText);
 
             assert dishFields.length == 2 : "Dish fields should contain exactly two elements";
@@ -106,6 +121,9 @@ public class AddCommand {
             System.out.println("Invalid format. Use: add -dish=dish_name -when=YYYY/MM/DD " +
                     "\ndish name should be in lower_snake_case");
         }
+        catch(IllegalArgumentException e){
+            System.out.println("Invalid command. Use: add -dish=dish_name -when=YYYY/MM/DD ");
+        }
     }
 
     /**
@@ -116,7 +134,7 @@ public class AddCommand {
     public static void addRecipe(String receivedText) {
 
         try {
-            if(receivedText.contains(DISH_FLAG) || receivedText.contains(INGREDIENT_FLAG)){
+            if (receivedText.contains(DISH_FLAG) || receivedText.contains(INGREDIENT_FLAG)) {
                 System.out.println("Other commands found, I can only process one at a time");
                 return;
             }
