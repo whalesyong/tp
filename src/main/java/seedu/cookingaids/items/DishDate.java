@@ -35,9 +35,9 @@ public class DishDate {
         try {
             dateLocalDate = parseDate(date);
             dateString = dateLocalDate == null ? "None" : //None set here to match format
-                    dateLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    dateLocalDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
             assert dateString != null : "Date string should not be null";
-            assert (dateLocalDate == null || dateLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+            assert (dateLocalDate == null || dateLocalDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"))
                     .equals(dateString))
                     : "dateLocalDate and dateString should be consistent";
 
@@ -71,7 +71,7 @@ public class DishDate {
             }
         }
         dateString = dateLocalDate == null ? "None" : //None set here to match format
-                dateLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                dateLocalDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
     }
     /**
      * Parses a string into a LocalDate object.
@@ -85,7 +85,7 @@ public class DishDate {
             return null;
         }
         // Expecting the pattern dd/MM/yyyy as per your formatting
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         return LocalDate.parse(receivedText, formatter);
     }
 
