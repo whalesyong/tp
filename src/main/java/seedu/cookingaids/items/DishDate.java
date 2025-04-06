@@ -62,7 +62,7 @@ public class DishDate {
             case "tomorrow", "tmr":
                 dateLocalDate = today.plusDays(1);
                 break;
-            case "next week", "nxt wk":
+            case "nextweek", "nxt wk":
                 dateLocalDate = today.plusWeeks(1);
                 break;
             default:
@@ -93,15 +93,6 @@ public class DishDate {
         DateTimeFormatter[] formatters = {
                 DateTimeFormatter.ofPattern("dd/MM/yyyy"),
                 DateTimeFormatter.ofPattern("yyyy/MM/dd"),
-                DateTimeFormatter.ofPattern("yyyy/MM/d"),
-                DateTimeFormatter.ofPattern("yyyy/M/d"),
-                DateTimeFormatter.ofPattern("d/MM/yyyy"),
-                DateTimeFormatter.ofPattern("d/MM/yy"),
-                DateTimeFormatter.ofPattern("dd/MM/yy"),
-                DateTimeFormatter.ofPattern("MM/d/yyyy"),
-                DateTimeFormatter.ofPattern("yyyy-MM-dd"),
-                DateTimeFormatter.ofPattern("dd-MM-yyyy"),
-
         };
 
         LocalDate date;

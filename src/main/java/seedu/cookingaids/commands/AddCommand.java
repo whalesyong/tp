@@ -7,7 +7,12 @@ import seedu.cookingaids.exception.InvalidInputException;
 import seedu.cookingaids.items.Dish;
 import seedu.cookingaids.items.Recipe;
 import seedu.cookingaids.items.Ingredient;
-//import seedu.cookingaids.parser.Parser.parseDish;
+
+import seedu.cookingaids.parser.Parser;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +42,21 @@ public class AddCommand {
         return receivedText.substring(COMMAND_WORD.length() + SPACE);
     }
 
-
+    public static boolean isValidDate(String dateString) {
+        switch(dateString){
+        case "tdy","td","today","tomorrow","tmr":
+            return true;
+        default:
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu/MM/dd")
+                        .withResolverStyle(ResolverStyle.STRICT);
+                LocalDate.parse(dateString, formatter);
+                return true;
+            } catch (DateTimeParseException e) {
+                return false;
+            }
+        }
+    }
 
     /**
      * Adds a dish to the DishCalendar.
@@ -56,6 +75,10 @@ public class AddCommand {
             assert dishFields != null : "Dish fields should not be null";
             assert dishFields.length == 2 : "Dish fields should contain exactly two elements";
 
+            if (!dishFields[1].isEmpty() && !isValidDate(dishFields[1])) {
+                throw new InvalidInputException();
+            }
+
             Dish dish = new Dish(dishFields[0], dishFields[1]);
             DishCalendar.addDishToCalendar(dish);
 
@@ -73,7 +96,6 @@ public class AddCommand {
         } catch (InvalidInputException e) {
             System.out.println("Invalid format. Use: add -dish=dish_name -when=YYYY/MM/DD " +
                     "\ndish name should be in lower_snake_case");
-
         }
     }
 
@@ -181,8 +203,8 @@ public class AddCommand {
                 throw new IllegalArgumentException("Ingredient name cannot be empty");
             }
             String expiryDate = ingredientFields.get("expiry_date");
-            if (expiryDate.isEmpty()) {
-                throw new IllegalArgumentException("Expiry date cannot be empty");
+            if (expiryDate.isEmpty() && !isValidDate(expiryDate)) {
+                throw new IllegalArgumentException("Expiry date is invalid");
             }
             int quantity;
             try {
