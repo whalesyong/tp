@@ -54,7 +54,7 @@ class AddCommandTest {
         String dishName = "Pizza";
         Dish newDish = new Dish(dishName, "22/03/2025");
 
-        AddCommand.addDish("add -dish=" + dishName + " -when=22/03/2025");
+        AddCommand.addDish("add -dish=" + dishName + " -when=2025/03/22");
 
         assertTrue(emptyDishCalendar.containsDish(dishName));
     }

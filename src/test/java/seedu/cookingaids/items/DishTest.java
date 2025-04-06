@@ -8,7 +8,7 @@ public class DishTest {
     @Test
     void constructor_inputNameDate_expectReceived(){
 
-        Dish dish1 = new Dish( "Pasta", "2025-03-20");
+        Dish dish1 = new Dish( "Pasta", "2025/03/20");
 
 
         assertEquals("pasta", dish1.getName());
