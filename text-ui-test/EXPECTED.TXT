@@ -8,9 +8,45 @@ welcome to cooking
 ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓███████▓▒░░▒▓███████▓▒░
 CookingAIDS v2.0. Type "help" to see available commands
 No data found, creating new lists.
->>> For help, visit our User Guide at:
+>>> Available commands:
+
+  add - Adds a new recipe, dish or ingredient
+    Usage: add -recipe=<recipe_name>   (Adds a new recipe)
+           add -recipe=<recipe_name> -needs=ingredient1,quantity1,ingredient2,quantity2... (Adds a new recipe with required ingredients)
+           add -dish=<dish_name> -when=<date>      (Adds a new dish to the calendar)
+           add -ingredient=<ingredient_name> -expiry=<expiryDate> -quantity=<quantity>   (Adds a new ingredient to inventory)
+
+  list - Displays all stored recipes, scheduled dishes and available ingredients
+    Usage: list -recipe       (Displays a list of available recipes)
+           list -dish         (Displays a list of scheduled dishes sorted by month)
+           list -ingredient   (Displays all available ingredients)
+
+  view - Displays dishes scheduled and shopping list
+    Usage: view -month=<month_index>   (Displays a calendar showing your scheduled dishes)
+           view -shopping              (Displays Shopping List showing ingredients to obtain for scheduled dishes)
+
+  update - Edits a recipe or ingredient quantity
+    Usage: update -recipe=<recipe_name> -name=<new_name> -ingredients=<new_ingredient_1,quantity_1,new_ingredient_2,quantity_2> (Updates available recipes and/or their required ingredients)
+           update -ingredient=<ingredient_name> -quantity=<new_quantity> (Updates available quantity of selected ingredient)
+
+  delete - Deletes a recipe, dish or ingredient
+    Usage: delete -recipe=<recipe_name>      (Deletes a recipe)
+           delete -dish=<dish_name>          (Removes a dish from the calendar)
+           delete -ingredient=<ingredient_name>   (Removes an ingredient and all its quantities from the storage)
+
+  suggest - Suggests dishes based on available ingredients
+    Usage: suggest
+
+  bye - Exits the program
+    Usage: bye
+
+  help - Shows this help message
+    Usage: help
+
+For more details, visit our User Guide at:
 https://ay2425s2-cs2113-t11b-1.github.io/tp/UserGuide.html
 ______________________________________________________________________________
->>> Added Dish: chicken_rice, Scheduled for: 26/03/2025
+>>> Invalid format. Use: add -dish=dish_name -when=YYYY/MM/DD
+dish name should be in lower_snake_case
 ______________________________________________________________________________
 >>> Stored Dish List successfully in: ./data/cookingaids.json

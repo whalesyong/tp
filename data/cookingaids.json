@@ -1,45 +1,10 @@
 {
-  "recipes" : [ {
-    "name" : "toast",
-    "ingredients" : [ {
-      "name" : "egg",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
-    }, {
-      "name" : "bread",
-      "quantity" : 2,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
-    } ],
-    "recipeName" : "toast",
-    "ingredientsString" : "egg (1), bread (2)"
-  } ],
-  "ingredients" : {
-    "egg" : [ {
-      "name" : "egg",
-      "quantity" : 10,
-      "expiryDate" : {
-        "dateString" : "25/05/2025"
-      }
-    } ]
-  },
+  "recipes" : [ ],
+  "ingredients" : { },
   "dishes" : [ {
     "name" : "spaghetti",
     "dishDate" : {
       "dateString" : "20/03/2025"
-    }
-  }, {
-    "name" : "test",
-    "dishDate" : {
-      "dateString" : "None"
-    }
-  }, {
-    "name" : "test",
-    "dishDate" : {
-      "dateString" : "07/04/2025"
     }
   } ],
   "shopping" : [ ]

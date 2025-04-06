@@ -121,7 +121,7 @@ public class IngredientStorageTest {
 
     @Test
     public void testUseIngredients_handlesMultipleExpiry() {
-        Ingredient earlyExpiry = new Ingredient( "Sugar", "2025-01-01", 200);
+        Ingredient earlyExpiry = new Ingredient( "Sugar", "2025/01/01", 200);
 
         IngredientStorage.addToStorage(earlyExpiry);
         IngredientStorage.addToStorage(ingredient1);
