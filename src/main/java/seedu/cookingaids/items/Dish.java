@@ -28,7 +28,9 @@ public class Dish {
         return dishDate;
     }
 
-
+    public void setDishDate(DishDate dishDate) {
+        this.dishDate = dishDate;
+    }
 
     @Override
     public String toString() {

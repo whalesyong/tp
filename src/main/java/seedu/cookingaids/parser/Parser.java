@@ -206,10 +206,14 @@ public class Parser {
      */
 
     private static void handleUpdateCommand(String receivedText) {
-        if (receivedText.contains(RECIPE_FLAG)) {
+        if (receivedText.contains(DISH_FLAG)) {
+            UpdateCommand.updateDish(receivedText);
+        }
+        else if (receivedText.contains(RECIPE_FLAG)) {
             UpdateCommand.updateRecipe(receivedText);
         } else if (receivedText.contains(INGREDIENT_FLAG)) {
             UpdateCommand.updateIngredient(receivedText);
+
         } else {
             System.out.println("Invalid update command: " + receivedText);
             System.out.println("Use 'update -recipe=INDEX -newname=NAME -newingredients=INGREDIENTS'");
