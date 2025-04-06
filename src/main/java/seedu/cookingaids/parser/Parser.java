@@ -77,8 +77,9 @@ public class Parser {
 
             } catch (InvalidInputException e) {
                 System.out.println(
-                        "Invalid month or year input. Use: view -year={2015-2035} or leave blank for the current year."
-                );
+                        "Invalid month or year input. Use: view -year={2015-2035} " +
+                                "or leave blank for the current year.");
+              
                 System.out.println(
                         "Use: view -month={1-12} or leave blank for the current month.");
 

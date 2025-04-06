@@ -19,5 +19,5 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 
 # any log files
-/data/log/*.log
 /data/log/*.log.lck
+/data/log/

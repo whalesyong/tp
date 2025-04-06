@@ -9,12 +9,14 @@ import seedu.cookingaids.items.Dish;
 import seedu.cookingaids.items.Recipe;
 import seedu.cookingaids.items.Ingredient;
 import seedu.cookingaids.logger.LoggerFactory;
+
 import seedu.cookingaids.parser.Parser;
 import seedu.cookingaids.storage.Storage;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 
 import java.util.ArrayList;
@@ -25,6 +27,12 @@ import static seedu.cookingaids.parser.Parser.RECIPE_FLAG;
 import static seedu.cookingaids.parser.Parser.INGREDIENT_FLAG;
 import static seedu.cookingaids.parser.Parser.DISH_FLAG;
 
+import static seedu.cookingaids.parser.Parser.DISH_FLAG;
+import static seedu.cookingaids.parser.Parser.INGREDIENT_FLAG;
+import static seedu.cookingaids.parser.Parser.RECIPE_FLAG;
+import static seedu.cookingaids.parser.Parser.parseDish;
+import static seedu.cookingaids.parser.Parser.parseIngredient;
+import static seedu.cookingaids.parser.Parser.parseRecipe;
 
 public class AddCommand {
     public static final String COMMAND_WORD = "add";
@@ -45,12 +53,18 @@ public class AddCommand {
     }
 
     public static boolean isValidDate(String dateString) {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-            LocalDate.parse(dateString, formatter);
+        switch(dateString){
+        case "tdy","td","today","tomorrow","tmr":
             return true;
-        } catch (DateTimeParseException e) {
-            return false;
+        default:
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu/MM/dd")
+                        .withResolverStyle(ResolverStyle.STRICT);
+                LocalDate.parse(dateString, formatter);
+                return true;
+            } catch (DateTimeParseException e) {
+                return false;
+            }
         }
     }
 
@@ -66,7 +80,7 @@ public class AddCommand {
                 return;
             }
             receivedText = removeCommandWord(receivedText);
-            String[] dishFields = Parser.parseDish(receivedText);
+            String[] dishFields = parseDish(receivedText);
 
             assert dishFields.length == 2 : "Dish fields should contain exactly two elements";
 
@@ -96,7 +110,6 @@ public class AddCommand {
         } catch (InvalidInputException e) {
             System.out.println("Invalid format. Use: add -dish=dish_name -when=YYYY/MM/DD " +
                     "\ndish name should be in lower_snake_case");
-
         }
     }
 
@@ -113,7 +126,7 @@ public class AddCommand {
                 return;
             }
             receivedText = removeCommandWord(receivedText);
-            String[] recipeFields = Parser.parseRecipe(receivedText);
+            String[] recipeFields = parseRecipe(receivedText);
 
             assert recipeFields != null : "Recipe fields should not be null";
             assert recipeFields.length == 2 : "Recipe fields should contain exactly two elements";
@@ -196,7 +209,7 @@ public class AddCommand {
     public static void addIngredient(String receivedText) {
         try {
             String inputs = removeCommandWord(receivedText);
-            HashMap<String, String> ingredientFields = Parser.parseIngredient(inputs);
+            HashMap<String, String> ingredientFields = parseIngredient(inputs);
             if (ingredientFields == null) {
                 System.out.println("Invalid format. Use: add -ingredient=ingredient_name -expiry=YYYY/MM/DD " +
                         "-quantity=quantity, the only dashes should be for the flags");
@@ -210,8 +223,8 @@ public class AddCommand {
                 throw new IllegalArgumentException("Ingredient name cannot be empty");
             }
             String expiryDate = ingredientFields.get("expiry_date");
-            if (expiryDate.isEmpty()) {
-                throw new IllegalArgumentException("Expiry date cannot be empty");
+            if (expiryDate.isEmpty() && !isValidDate(expiryDate)) {
+                throw new IllegalArgumentException("Expiry date is invalid");
             }
             int quantity;
             try {

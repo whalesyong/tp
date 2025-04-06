@@ -10,6 +10,8 @@ import seedu.cookingaids.exception.InvalidInputException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Scanner;
 
 public class UpdateCommand {
 
@@ -22,44 +24,62 @@ public class UpdateCommand {
      * @param receivedText The user input containing the recipe index and update details.
      */
     public static void updateRecipe(String receivedText) {
-        String recipeIndex = Parser.parseRecipeIndexForUpdate(receivedText);
+        String recipeName = Parser.parseRecipeIndexForUpdate(receivedText);
 
-        try {
-            int index = Integer.parseInt(recipeIndex) - 1;
-            ArrayList<Recipe> recipeBank = RecipeBank.getRecipeBank();
+        List<Recipe> recipesToUpdate = RecipeBank.getRecipeByName(recipeName);
 
-            if (index < 0 || index >= recipeBank.size()) {
-                System.out.println("Invalid recipe index! Please provide a valid index.");
-                return;
-            }
+        Recipe recipeToUpdate ;
 
-            Recipe recipe = recipeBank.get(index);
-
-            // Check what needs to be updated
-            if (receivedText.contains(Parser.NEW_NAME_FLAG)) {
-                String newName = Parser.parseNewNameForUpdate(receivedText);
-                recipe.setRecipeName(newName);
-                System.out.println("Recipe name updated to: " + newName);
-            }
-
-            if (receivedText.contains(Parser.NEW_INGREDIENTS_FLAG)) {
-                try {
-                    String ingredientsStr = Parser.parseNewIngredientsForUpdate(receivedText);
-                    ArrayList<Ingredient> ingredients = parseIngredientsString(ingredientsStr);
-                    recipe.setIngredients(ingredients);
-                    System.out.println("Recipe ingredients updated successfully!");
-                } catch (InvalidInputException e) {
-                    System.out.println("Invalid input!");
-                }
-            }
-
-            if (!receivedText.contains(Parser.NEW_NAME_FLAG) && !receivedText.contains(Parser.NEW_INGREDIENTS_FLAG)) {
-                System.out.println("No updates specified. Use -newname= or -newingredients= flags.");
-            }
-
-        } catch (NumberFormatException e) {
-            System.out.println("Please provide a valid recipe index number!");
+        if (recipesToUpdate.isEmpty()) {
+            System.out.println("No such recipe: " + recipeName);
+            return;
+        } else if (recipesToUpdate.size() != 1) {
+            // prompt
+            recipeToUpdate = promptUserForRecipeUpdate(recipesToUpdate);
+        } else {
+            recipeToUpdate = recipesToUpdate.get(0);
         }
+
+        // Check what needs to be updated
+        if (receivedText.contains(Parser.NEW_NAME_FLAG)) {
+            String newName = Parser.parseNewNameForUpdate(receivedText);
+            recipeToUpdate.setRecipeName(newName);
+            System.out.println("Recipe name updated to: " + newName);
+        }
+
+        if (receivedText.contains(Parser.NEW_INGREDIENTS_FLAG)) {
+            try {
+                String ingredientsStr = Parser.parseNewIngredientsForUpdate(receivedText);
+                System.out.println(ingredientsStr);
+                ArrayList<Ingredient> ingredients = parseIngredientsString(ingredientsStr);
+                recipeToUpdate.setIngredients(ingredients);
+                System.out.println("Recipe ingredients updated successfully!");
+            } catch (InvalidInputException e) {
+                System.out.println("Invalid ingredient input!");
+            }
+        }
+
+        if (!receivedText.contains(Parser.NEW_NAME_FLAG) && !receivedText.contains(Parser.NEW_INGREDIENTS_FLAG)) {
+            System.out.println("No updates specified. Use -newname= or -newingredients= flags.");
+        }
+    }
+
+    public static Recipe promptUserForRecipeUpdate(List<Recipe> recipes) {
+        System.out.println("Multiple recipes found:");
+        for (int i = 0; i < recipes.size(); i++) {
+            System.out.println((i+1) + ", Ingredients: " + recipes.get(i).getIngredientsString());
+        }
+
+        System.out.println("Which recipe would you like to update? Input a number.");
+
+        Scanner scanner = new Scanner(System.in);
+        int choice = scanner.nextInt();
+
+        while (choice <= 0 || choice > recipes.size()) {
+            System.out.println("Please enter a valid number.");
+        }
+
+        return recipes.get(choice-1);
     }
 
     /**
