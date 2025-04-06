@@ -38,7 +38,6 @@ public class StorageTest {
         pastaIngredients.add(new Ingredient("pasta"));
         pastaIngredients.add(new Ingredient("tomato", 2));
 
-
         ArrayList<Ingredient> curryIngredients = new ArrayList<>();
         curryIngredients.add(new Ingredient("chicken"));
         curryIngredients.add(new Ingredient("curry Powder"));

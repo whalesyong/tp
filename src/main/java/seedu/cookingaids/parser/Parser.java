@@ -1,7 +1,7 @@
 package seedu.cookingaids.parser;
 
 
-
+import seedu.cookingaids.commands.SearchCommand;
 import seedu.cookingaids.commands.ViewCommand;
 import seedu.cookingaids.commands.AddCommand;
 import seedu.cookingaids.commands.DeleteCommand;
@@ -24,7 +24,9 @@ import java.util.regex.Pattern;
 public class Parser {
     public static final String NEW_INGREDIENTS_FLAG = "-newingredients=";
     public static final String NEW_NAME_FLAG = "-newname=";
+    public static final String NEW_TAGS_FLAG = "-newtags=";
     public static final String RECIPE_FLAG = "-recipe=";
+    public static final String RECIPE_TAGS_FLAG = "-recipetags=";
     public static final String NEEDS_FLAG = "-needs=";
     public static final String DISH_FLAG = "-dish=";
     public static final String WHEN_FLAG = "-when=";
@@ -53,6 +55,7 @@ public class Parser {
         case UpdateCommand.COMMAND_WORD -> handleUpdateCommand(receivedText);
         case HelpCommand.COMMAND_WORD -> HelpCommand.showHelp();
         case SuggestCommand.COMMAND_WORD -> SuggestCommand.printSuggestions();
+        case SearchCommand.COMMAND_WORD -> handleSearchCommand(receivedText);
         case ViewCommand.COMMAND_WORD -> handleViewCommand(receivedText);
         default -> {
             System.out.println(String.format(UNKNOWN_COMMAND_STR, receivedText));
@@ -63,6 +66,14 @@ public class Parser {
     }
 
     private static void handleViewCommand(String receivedText) {
+        if (receivedText.contains("-shopping")) {
+            if(receivedText.contains(MONTH_FLAG)||receivedText.contains(YEAR_FLAG)){
+                System.out.println("remove month and year flag from command to view shopping list. try view -shopping");
+                return;
+            }
+            ViewCommand.displayShoppingList();
+            return;
+        }
         if (!receivedText.contains(MONTH_FLAG)) {
             System.out.println("Missing month flag, try \"view -month=\"");
             return;
@@ -79,7 +90,7 @@ public class Parser {
                 System.out.println(
                         "Invalid month or year input. Use: view -year={2015-2035} " +
                                 "or leave blank for the current year.");
-              
+
                 System.out.println(
                         "Use: view -month={1-12} or leave blank for the current month.");
 
@@ -158,8 +169,6 @@ public class Parser {
             ListCommand.displayDishList(receivedText);
         } else if (receivedText.contains("-ingredient")) {
             ListCommand.displayIngredients();
-        } else if (receivedText.contains("-shopping")) {
-            ListCommand.displayShoppingList();
         } else {
             System.out.printf((UNKNOWN_COMMAND_STR) + "%n", receivedText);
         }
@@ -211,7 +220,26 @@ public class Parser {
         }
     }
 
-    // Other existing methods...
+    /**
+     * Handles
+    */
+
+    private static void handleSearchCommand(String receivedText) {
+        if (receivedText.contains(RECIPE_TAGS_FLAG)) {
+            String tags = parseTagsForSearch(receivedText);
+            SearchCommand.printSearchResult(tags);
+        }
+    }
+
+    public static String parseTagsForSearch(String receivedText) {
+        if (!receivedText.contains(RECIPE_TAGS_FLAG)) {
+            return "";
+        }
+        int startIndex = receivedText.indexOf(RECIPE_TAGS_FLAG) + RECIPE_TAGS_FLAG.length();
+        int endIndex = receivedText.length();
+
+        return receivedText.substring(startIndex, endIndex).trim();
+    }
 
     /**
      * Parses the recipe index from an update command.
@@ -219,7 +247,7 @@ public class Parser {
      * @param receivedText The update command string.
      * @return The recipe index as a string.
      */
-    public static String parseRecipeIndexForUpdate(String receivedText) {
+    public static String parseRecipeNameForUpdate(String receivedText) {
         if (!receivedText.contains(RECIPE_FLAG)) {
             return "";
         }
@@ -246,6 +274,33 @@ public class Parser {
         int endIndex;
 
         if (receivedText.contains(NEW_INGREDIENTS_FLAG) &&
+                receivedText.indexOf(NEW_INGREDIENTS_FLAG) > startIndex) {
+            endIndex = receivedText.indexOf(NEW_INGREDIENTS_FLAG);
+        } else {
+            endIndex = receivedText.length();
+        }
+
+        return receivedText.substring(startIndex, endIndex).trim();
+    }
+
+    /**
+     * Parses the new tags for a recipe from an update command.
+     *
+     * @param receivedText The update command string.
+     * @return The new tags as a comma-separated string.
+     */
+    public static String parseNewTagsForUpdate(String receivedText) {
+        if (!receivedText.contains(NEW_TAGS_FLAG)) {
+            return "";
+        }
+        int startIndex = receivedText.indexOf(NEW_TAGS_FLAG) + NEW_TAGS_FLAG.length();
+        int endIndex;
+
+        // Find the next flag that could come after the tags, if any
+        if (receivedText.contains(NEW_NAME_FLAG) &&
+                receivedText.indexOf(NEW_NAME_FLAG) > startIndex) {
+            endIndex = receivedText.indexOf(NEW_NAME_FLAG);
+        } else if (receivedText.contains(NEW_INGREDIENTS_FLAG) &&
                 receivedText.indexOf(NEW_INGREDIENTS_FLAG) > startIndex) {
             endIndex = receivedText.indexOf(NEW_INGREDIENTS_FLAG);
         } else {

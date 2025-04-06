@@ -1,8 +1,10 @@
 package seedu.cookingaids.commands;
 
 import seedu.cookingaids.collections.DishCalendar;
+import seedu.cookingaids.collections.ShoppingList;
 import seedu.cookingaids.exception.InvalidInputException;
 import seedu.cookingaids.items.Dish;
+import seedu.cookingaids.items.Ingredient;
 import seedu.cookingaids.ui.CalendarPrinter;
 import seedu.cookingaids.ui.Ui;
 
@@ -98,4 +100,19 @@ public class ViewCommand {
                 .toList();
     }
 
+    /**
+     * Displays all ingredients currently in the shopping list.
+     */
+    public static void displayShoppingList() {
+
+        ArrayList<Ingredient> shoppingList = ShoppingList.getShoppingList();
+        if(shoppingList.isEmpty()){
+            System.out.println("Your shopping list is empty!");
+        } else {
+            System.out.println("Shopping List:");
+            Ui.printShoppingListView(shoppingList);
+        }
+    }
 }
+
+

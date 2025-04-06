@@ -72,19 +72,61 @@ public class RecipeBank {
         return recipeList;
     }
 
+    public static ArrayList<Recipe> getRecipeByTags(ArrayList<String> tags) {
+        ArrayList<Recipe> recipeList = new ArrayList<>();
+
+        for (Recipe recipe : recipeBank) {
+            for (String tag : tags) {
+                if (recipe.getTags().contains(tag)) {
+                    recipeList.add(recipe);
+                    break;
+                }
+            }
+        }
+
+        return recipeList;
+
+    }
+
     public static boolean contains(String recipeName) {
         return recipeBank.stream().anyMatch(recipe -> recipe.getRecipeName().equalsIgnoreCase(recipeName));
     }
 
     public static List<Ingredient> getIngredientList(Dish dish) {
-        ArrayList<Recipe> recipeBank = RecipeBank.getRecipeBank();
+        ArrayList<Recipe> recipeMatch = new ArrayList<>();
+
         for (Recipe item : recipeBank) {
             if (item.getName().equals(dish.getName())) {
-                return item.getIngredients();
+                recipeMatch.add(item);
             }
-
         }
-        return null;
+
+        if (recipeMatch.isEmpty()) {
+            return null;
+        } else if (recipeMatch.size() == 1) {
+            return recipeMatch.get(0).getIngredients();
+        } else {
+            Recipe recipe = promptUserForRecipeDish(recipeMatch);
+            return recipe.getIngredients();
+        }
+    }
+
+    public static Recipe promptUserForRecipeDish(List<Recipe> recipes) {
+        System.out.println("Multiple recipes with this name found:");
+        for (int i = 0; i < recipes.size(); i++) {
+            System.out.println((i+1) + ", Ingredients: " + recipes.get(i).getIngredientsString());
+        }
+
+        System.out.println("Which recipe would you like to use? Input a number.");
+
+        Scanner scanner = new Scanner(System.in);
+        int choice = scanner.nextInt();
+
+        while (choice <= 0 || choice > recipes.size()) {
+            System.out.println("Please enter a valid number.");
+        }
+
+        return recipes.get(choice-1);
     }
 
     public static void clear() {

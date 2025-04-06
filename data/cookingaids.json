@@ -1,5 +1,21 @@
 {
-  "recipes" : [ ],
+  "recipes" : [ {
+    "name" : "Sandwich",
+    "ingredients" : [ {
+      "name" : "Bread",
+      "quantity" : 0,
+      "expiryDate" : null
+    }, {
+      "name" : "Tomato",
+      "quantity" : 0,
+      "expiryDate" : null
+    }, {
+      "name" : "Egg",
+      "quantity" : 0,
+      "expiryDate" : null
+    } ],
+    "recipeName" : "Sandwich"
+  } ],
   "ingredients" : { },
   "dishes" : [ {
     "name" : "spaghetti",
@@ -8,4 +24,5 @@
     }
   } ],
   "shopping" : [ ]
+
 }

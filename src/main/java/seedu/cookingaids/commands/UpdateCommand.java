@@ -24,7 +24,7 @@ public class UpdateCommand {
      * @param receivedText The user input containing the recipe index and update details.
      */
     public static void updateRecipe(String receivedText) {
-        String recipeName = Parser.parseRecipeIndexForUpdate(receivedText);
+        String recipeName = Parser.parseRecipeNameForUpdate(receivedText);
 
         List<Recipe> recipesToUpdate = RecipeBank.getRecipeByName(recipeName);
 
@@ -50,7 +50,7 @@ public class UpdateCommand {
         if (receivedText.contains(Parser.NEW_INGREDIENTS_FLAG)) {
             try {
                 String ingredientsStr = Parser.parseNewIngredientsForUpdate(receivedText);
-                System.out.println(ingredientsStr);
+                //System.out.println(ingredientsStr);
                 ArrayList<Ingredient> ingredients = parseIngredientsString(ingredientsStr);
                 recipeToUpdate.setIngredients(ingredients);
                 System.out.println("Recipe ingredients updated successfully!");
@@ -59,8 +59,22 @@ public class UpdateCommand {
             }
         }
 
-        if (!receivedText.contains(Parser.NEW_NAME_FLAG) && !receivedText.contains(Parser.NEW_INGREDIENTS_FLAG)) {
-            System.out.println("No updates specified. Use -newname= or -newingredients= flags.");
+        if (receivedText.contains(Parser.NEW_TAGS_FLAG)) {
+            try {
+                String tagsStr = Parser.parseNewTagsForUpdate(receivedText);
+                ArrayList<String> tags = parseTagsString(tagsStr);
+                recipeToUpdate.setTags(tags);
+                System.out.println("Recipe tags updated successfully!");
+            } catch (InvalidInputException e) {
+                System.out.println("Invalid ingredient input!");
+            }
+        }
+
+        if (!receivedText.contains(Parser.NEW_NAME_FLAG) &&
+            !receivedText.contains(Parser.NEW_INGREDIENTS_FLAG) &&
+            !receivedText.contains(Parser.NEW_TAGS_FLAG)) {
+
+            System.out.println("No updates specified. Use -newname=, -newingredients= or -newtags= flags.");
         }
     }
 
@@ -80,6 +94,7 @@ public class UpdateCommand {
         }
 
         return recipes.get(choice-1);
+
     }
 
     /**
@@ -113,6 +128,16 @@ public class UpdateCommand {
 
         return ingredients;
     }
+
+    private static ArrayList<String> parseTagsString(String tagsStr) throws InvalidInputException {
+        ArrayList<String> tags = new ArrayList<>();
+        String[] parts = tagsStr.split(",");
+        for (String p : parts) {
+            tags.add(p); // Optional: trim whitespace
+        }
+        return tags;
+    }
+
 
     /**
      * Removes the command word from the received input text.
