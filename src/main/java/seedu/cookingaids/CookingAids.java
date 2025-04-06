@@ -20,7 +20,8 @@ public class CookingAids {
             
             Ui.waitForCommand();
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Application crashed: {0}", e.getMessage());
+            LOGGER.log(Level.SEVERE, "Application crashed: {0;'q" +
+                    "}", e.getMessage());
             throw e;
         }
     }

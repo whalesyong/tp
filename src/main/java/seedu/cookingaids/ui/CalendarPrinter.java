@@ -136,7 +136,7 @@ public class CalendarPrinter {
             for (int i = 1; i < firstDayOfWeek; i++) {
                 System.out.print(BLANK_SPACE);
             }
-            for (int day = 1; day <= 7 - firstDayOfWeek; day++) {
+            for (int day = 1; day <= 8 - firstDayOfWeek; day++) {
                 LocalDate currentDate = LocalDate.of(year, month, day);
                 Optional<Dish> firstDish = list.stream()
                         .filter(dish -> dish.getDishDate().getDateLocalDate().equals(currentDate)).findFirst();
@@ -153,7 +153,7 @@ public class CalendarPrinter {
         for (int i = 1; i < firstDayOfWeek; i++) {
             System.out.print(BLANK_SPACE);
         }
-        for (int day = 1; day <= 7 - firstDayOfWeek; day++) {
+        for (int day = 1; day <= 8 - firstDayOfWeek; day++) {
             LocalDate currentDate = LocalDate.of(year, month, day);
             List<Dish> listDish = list.stream()
                     .filter(dish -> dish.getDishDate().getDateLocalDate().equals(currentDate)).toList();
