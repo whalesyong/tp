@@ -83,7 +83,11 @@ public class ListCommand {
      */
     public static void displayRecipeBank() {
         ArrayList<Recipe> listOfRecipes = RecipeBank.getRecipeBank();
-        Ui.printRecipeListView(listOfRecipes);
+        if (listOfRecipes.isEmpty()) {
+            System.out.println("You have no recipes currently!");
+        } else {
+            Ui.printRecipeListView(listOfRecipes);
+        }
     }
 
     /**
