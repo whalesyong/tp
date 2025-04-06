@@ -1,28 +1,32 @@
 {
   "recipes" : [ {
-    "name" : "Sandwich",
+    "name" : "yomama",
     "ingredients" : [ {
-      "name" : "Bread",
-      "quantity" : 0,
-      "expiryDate" : null
+      "name" : "mama",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
     }, {
-      "name" : "Tomato",
-      "quantity" : 0,
-      "expiryDate" : null
-    }, {
-      "name" : "Egg",
-      "quantity" : 0,
-      "expiryDate" : null
+      "name" : "yo",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
     } ],
-    "recipeName" : "Sandwich"
+    "tags" : [ ]
+  }, {
+    "name" : "yoMAMA",
+    "ingredients" : [ {
+      "name" : "mama",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ],
+    "tags" : [ ]
   } ],
   "ingredients" : { },
-  "dishes" : [ {
-    "name" : "spaghetti",
-    "dishDate" : {
-      "dateString" : "20/03/2025"
-    }
-  } ],
+  "dishes" : [ ],
   "shopping" : [ ]
-
 }
