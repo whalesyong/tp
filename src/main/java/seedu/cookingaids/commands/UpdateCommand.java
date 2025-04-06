@@ -10,6 +10,7 @@ import seedu.cookingaids.items.Recipe;
 import seedu.cookingaids.parser.Parser;
 
 import seedu.cookingaids.exception.InvalidInputException;
+
 import java.util.InputMismatchException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -238,9 +239,9 @@ public class UpdateCommand {
                     "Format error ensure you do not have additional flags. use update -dish={dishName} only," +
                     " remove additional flags");
             System.out.println("ensure that date is in YYYY/MM/DD format ");
-        }catch(InputMismatchException e){
+        } catch (InputMismatchException e) {
 
-                System.out.println("input an integer");
+            System.out.println("input an integer");
 
         }
     }
