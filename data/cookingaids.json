@@ -1,5 +1,32 @@
 {
-  "recipes" : [ ],
+  "recipes" : [ {
+    "name" : "meow",
+    "ingredients" : [ {
+      "name" : "cat",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ]
+  }, {
+    "name" : "woof",
+    "ingredients" : [ {
+      "name" : "dog",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ]
+  }, {
+    "name" : "neigh",
+    "ingredients" : [ {
+      "name" : "horse",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ]
+  } ],
   "ingredients" : { },
   "dishes" : [ {
     "name" : "spaghetti",
