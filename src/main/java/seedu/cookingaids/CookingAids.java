@@ -12,18 +12,22 @@ public class CookingAids {
 
     public static void main(String[] args) {
         LOGGER.info("Starting CookingAids " + VERSION);
-        
+
         try {
             Ui.showWelcomeMessage();
             System.out.println("CookingAIDS " + VERSION + ". Type \"help\" to see available commands");
             LOGGER.info("Application initialized successfully");
-            
-            Ui.waitForCommand();
+
+            if (!isTestEnvironment()) {
+                Ui.waitForCommand();
+            }
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Application crashed: {0;'q" +
-                    "}", e.getMessage());
+            LOGGER.log(Level.SEVERE, "Application crashed: {0;'q" + "}", e.getMessage());
             throw e;
         }
     }
-}
 
+    private static boolean isTestEnvironment() {
+        return Boolean.getBoolean("test.env");
+    }
+}
