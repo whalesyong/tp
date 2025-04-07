@@ -151,14 +151,19 @@ public class Parser {
     }
 
     private static void handleDisplayCommand(String receivedText) {
-        if (receivedText.contains("-recipe")) {
-            ListCommand.displayRecipeBank();
-        } else if (receivedText.contains("-dish")) {
-            ListCommand.displayDishList(receivedText);
-        } else if (receivedText.contains("-ingredient")) {
-            ListCommand.displayIngredients();
-        } else {
-            System.out.printf((UNKNOWN_COMMAND_STR) + "%n", receivedText);
+        try {
+            if (receivedText.contains("-recipe")) {
+                ListCommand.displayRecipeBank();
+            } else if (receivedText.contains("-dish")) {
+                ListCommand.displayDishList(receivedText);
+            } else if (receivedText.contains("-ingredient")) {
+                ListCommand.displayIngredients();
+            } else {
+                System.out.printf((UNKNOWN_COMMAND_STR) + "%n", receivedText);
+            }
+        }
+        catch (InvalidInputException e){
+            System.out.println("Illegal format of commands received");
         }
     }
 
