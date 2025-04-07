@@ -1,12 +1,12 @@
 # **CookingAids User Guide**  
 
 ## **Table of Contents**  
-- [Introduction](#introduction)
-- [Notes About the Command Format](#notes-about-the-command-format)
-- [Features](#features)
-  1. [Viewing Help: `help`](#1-viewing-help-help)
-  2. [Adding Dish to Schedule: `add -dish`](#2-adding-dish-to-schedule-add--dishdishname)
-  3. [Adding an Ingredient: `add -ingredient`](#3-adding-an-ingredient-add--ingredientingredientname)  
+- [Introduction](#introduction-)
+- [Notes About the Command Format](#notes-about-the-command-format-)
+- [Features](#features-)
+  1. [Viewing Help: `help`](#1-viewing-help-help-)
+  2. [Adding Dish to Schedule: `add -dish`](#2-adding-dish-to-schedule-add--dishdishname-)
+  3. [Adding an Ingredient: `add -ingredient`](#3-adding-an-ingredient-add--ingredientingredientname-)  
   4. [Adding Recipe to Recipe Bank: `add -recipe`](#4-adding-recipe-to-recipe-bank-add--reciperecipename)
   5. [View Scheduled Dishes: `list -dish`](#5-view-scheduled-dishes-list--dish)  
   6. [View Available Ingredients: `list -ingredient`](#6-view-available-ingredients-list--ingredient)
@@ -16,13 +16,13 @@
   10. [Update Recipes: `update -recipe`](#10-update-recipes-update--recipe)
   11. [Update Dish: `update -dish`](#11-update-dish-update--dish)
   12. [Update Ingredient: `update -ingredient`](#12-update-ingredient-update--ingredient)
-  13. [Delete Dish from Schedule: `delete -dish`](#13-delete-dish-from-schedule-delete--dishdishname)
-  14. [Delete Ingredient: `delete -ingredient`](#14-delete-ingredient-delete--ingredientingredientname)
-  15. [Delete Recipe from Recipe Bank: `delete -recipe`](#15-delete-recipe-from-recipe-bank-delete--reciperecipename)
+  13. [Delete Dish from Schedule: `delete -dish`](#13-delete-dish-from-schedule-delete--dishdishname-)
+  14. [Delete Ingredient: `delete -ingredient`](#14-delete-ingredient-delete--ingredientingredientname-)
+  15. [Delete Recipe from Recipe Bank: `delete -recipe`](#15-delete-recipe-from-recipe-bank-delete--reciperecipename-)
   16. [Suggest Dishes: `suggest`](#16-suggest-dishes-suggest)
   17. [Search Recipes by Tag: `search -recipetags`](#17-search-recipes-by-tag-search--recipetags)
   18. [Exit program: `bye`](#18-exit-bye)
-- [Command List](#command-list)
+- [Command List](#command-list-)
 
 ---
 
@@ -88,7 +88,7 @@ add -dish={dishName}
 add -dish={dishName} [-when={date}]
 ```
 
-<br> Please add date in YYYY/MM/DD format only future dates will be accepted
+<br> Please add date in YYYY/MM/DD format only dates starting from today will be accepted
 
 **Example:**
 ```plaintext
@@ -181,6 +181,7 @@ add -recipe={recipeName} -needs={ingredient_1},{quantity_1},{ingredient_2},{quan
 
 Displays a list of all dishes in dishList sorted by date
 <br> add a -upcoming flag to view upcoming dishes filtered by date
+
 
 **Usage:**  
 ```plaintext
@@ -338,7 +339,7 @@ update -recipe={recipeName} -newtags={tag1,tag2}
 
 Updates the name of a recipe and/or the required ingredients.
 
-<br> Please add date in YYYY/MM/DD format only future dates will be accepted
+<br> Please add date in YYYY/MM/DD format only dates starting from today will be accepted
 
 **Usage:**
 ```plaintext
@@ -384,7 +385,7 @@ update -dish={dishName}
 Updates quantity and/or expiry date of an Ingredient in storage
 <br> To update an ingredient, enter its name and current expiry date. If there is no expiry date you can leave it empty
 
-<br> Please add date in YYYY/MM/DD format only future dates will be accepted
+<br> Please add date in YYYY/MM/DD format only dates starting from today will be accepted
 
 **Usage:**
 ```plaintext
@@ -570,7 +571,7 @@ bye
 |:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|  
 | **Add**     | `add -ingredient`, `add -dish`, `add -recipe` <br> Example: `add -ingredient=tomato -expiry=today -quantity=2`, `add -dish=tomato_soup -when=tmr`, `add -recipe=tomato_soup -needs=tomato,5,onion,2` |  
 | **View**    | `view -month`, `view -shopping` <br> Example:`view -month=2`, `view -month= -year=2026`, `view -shopping`                                                                                            |
-| **Update**  | `update -recipe`,`update -dish` <br> Example:`update -recipe=toast -newname=sandwich -newingredients=bread,2,egg,1,ham,1`                                                                             |
+| **Update**  | `update -recipe`,`update -dish` <br> Example:`update -recipe=toast -newname=sandwich -newingredients=bread,2,egg,1,ham,1`                                                                            |
 | **Delete**  | `delete -ingredient`, `delete -dish`, `delete -recipe` <br> Example: `delete -ingredient=tomato`, `delete -dish=tomato soup`                                                                         |  
 | **Suggest** | `suggest`                                                                                                                                                                                            |
 | **Search**  | `search -recipetags` <br> Example: `search -recipetags=italian`, `search -recipetags=italian,easy -type=and`, `search -recipetags=italian,mexican -type=or`                                          |

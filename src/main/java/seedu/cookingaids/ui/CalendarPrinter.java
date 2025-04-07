@@ -12,17 +12,19 @@ import seedu.cookingaids.items.Dish;
 
 public class CalendarPrinter {
     public static final String BLANK_SPACE = "          ";
+    public static final int DAYS_IN_WEEK = 7;
+    public static final int SECOND_ROW_OFFSET = 2;
 
     public static void printMonthCalendar(int year, Month month, ArrayList<Dish> list) {
         LocalDate firstDay = LocalDate.of(year, month, 1);
         LocalDate today = LocalDate.now();
         int daysInMonth = firstDay.getMonth().length(firstDay.isLeapYear());
         int firstDayOfWeek = firstDay.getDayOfWeek().getValue();
-        int secondRowFirstDate = 9 - firstDayOfWeek;
-        int thirdRowFirstDate = secondRowFirstDate + 7;
-        int fourthRowFirstDate = thirdRowFirstDate + 7;
-        int fifthRowFirstDate = fourthRowFirstDate + 7;
-        int sixthRowFirstDate = fifthRowFirstDate + 7;
+        int secondRowFirstDate = DAYS_IN_WEEK + SECOND_ROW_OFFSET - firstDayOfWeek;
+        int thirdRowFirstDate = secondRowFirstDate + DAYS_IN_WEEK;
+        int fourthRowFirstDate = thirdRowFirstDate + DAYS_IN_WEEK;
+        int fifthRowFirstDate = fourthRowFirstDate + DAYS_IN_WEEK;
+        int sixthRowFirstDate = fifthRowFirstDate + DAYS_IN_WEEK;
 
 
         // Print header
@@ -52,7 +54,7 @@ public class CalendarPrinter {
 
     private static void printCalendarRow(int year, Month month, int startDate, int daysInMonth, ArrayList<Dish> list) {
 
-        for (int day = startDate; day <= startDate + 6; day++) {
+        for (int day = startDate; day <= startDate + (DAYS_IN_WEEK-1); day++) {
             if (day > daysInMonth) {
                 break;
             }
@@ -71,7 +73,7 @@ public class CalendarPrinter {
 
     private static void printFoodRows(int year, Month month, int startDate, int daysInMonth, ArrayList<Dish> list) {
         for (int row = 0; row < 2; row++) {
-            for (int day = startDate; day <= startDate + 6; day++) {
+            for (int day = startDate; day <= startDate + (DAYS_IN_WEEK-1); day++) {
                 if (day > daysInMonth) {
                     break;
                 }
@@ -119,7 +121,7 @@ public class CalendarPrinter {
         for (int i = 1; i < firstDayOfWeek; i++) {
             System.out.print(BLANK_SPACE);
         }
-        for (int day = 1; day <= 8 - firstDayOfWeek; day++) {
+        for (int day = 1; day <= (DAYS_IN_WEEK+1) - firstDayOfWeek; day++) {
             LocalDate currentDate = LocalDate.of(year, month, day);
             if (currentDate.equals(today)) {
                 System.out.printf("\u001B[1;31m%10d\u001B[0m", day);
@@ -136,7 +138,7 @@ public class CalendarPrinter {
             for (int i = 1; i < firstDayOfWeek; i++) {
                 System.out.print(BLANK_SPACE);
             }
-            for (int day = 1; day <= 8 - firstDayOfWeek; day++) {
+            for (int day = 1; day <= (DAYS_IN_WEEK+1) - firstDayOfWeek; day++) {
                 LocalDate currentDate = LocalDate.of(year, month, day);
                 Optional<Dish> firstDish = list.stream()
                         .filter(dish -> dish.getDishDate().getDateLocalDate().equals(currentDate)).findFirst();
