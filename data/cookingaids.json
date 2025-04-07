@@ -1,46 +1,10 @@
 {
-  "recipes" : [ {
-    "name" : "garlic_bread",
-    "ingredients" : [ {
-      "name" : "garlic",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
-    }, {
-      "name" : "bread",
-      "quantity" : 2,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
-    } ],
-    "tags" : [ ]
-  } ],
-  "ingredients" : {
-    "garlic" : [ {
-      "name" : "garlic",
-      "quantity" : 4,
-      "expiryDate" : {
-        "dateString" : "2025/12/03"
-      }
-    } ],
-    "tomato" : [ {
-      "name" : "tomato",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
-    } ]
-  },
+  "recipes" : [ ],
+  "ingredients" : { },
   "dishes" : [ {
     "name" : "spaghetti",
     "dishDate" : {
       "dateString" : "2025/03/20"
-    }
-  }, {
-    "name" : "garlic_bread",
-    "dishDate" : {
-      "dateString" : "2025/04/08"
     }
   } ],
   "shopping" : [ ]

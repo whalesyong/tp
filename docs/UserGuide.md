@@ -118,7 +118,7 @@ add -dish=fries -when=tmr  //(tomorrow,today,td,tdy also works)
 
 ### **3. Adding an Ingredient: `add -ingredient={ingredientName}`** 
 
-Adds an ingredient to the ingredient database.
+Adds an ingredient to the ingredient database. Ingredients will be displayed with in-built units, the default is pcs.
 <br> If no quantity is specified, it defaults to 1.
 <br> If no expiry date is specified, it defaults to None.
 <br> Please add date in YYYY/MM/DD format only future dates will be accepted
@@ -164,7 +164,7 @@ Adds a new recipe to the recipe bank.
 
 **Usage:**
 ```plaintext
-add -recipe={recipeName} -needs={ingredient1},{quantity_1},{ingredient2},{quantity_2}
+add -recipe={recipeName} -needs={ingredient_1},{quantity_1},{ingredient_2},{quantity_2}
 ```
 
 **Expected Output:**
@@ -247,7 +247,6 @@ Displays a list of available recipes and/or their required ingredients.
 **Usage:**
 ```plaintext
 list -recipe  
-list -recipe={recipeName}
 ```
 **Expected Output:**
 - `list -recipe`:
@@ -257,14 +256,6 @@ list -recipe={recipeName}
   - recipeName2  
   - ...
   ```
-- `list -recipe={recipeName}`:
-  ```plaintext
-  recipeName:  
-  - ingredientName1  
-  - ingredientName2  
-  - ...
-  ```
-
 ---
 
 ### **8. View Shopping List: `view -shopping`**
@@ -508,7 +499,7 @@ delete -recipe={recipeName}
 
 ### **16. Suggest Dishes: `suggest`**
 
-Suggests dishes based on available ingredients. 
+Suggests dishes based on available ingredients.
 
 **Usage:**
 ```

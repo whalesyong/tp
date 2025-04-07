@@ -149,16 +149,16 @@ The Commands component contains classes that execute specific actions on their r
 
 Contains the classes and their respective purposes:
 
-* `AddDishCommand` adds a dish to the DishCalendar.
-* `RemoveDishCommand` removes a dish from the DishCalendar.
-* `AddRecipeCommand` adds a recipe to the RecipeBank.
-* `RemoveRecipeCommand` removes a recipe from the RecipeBank.
-* `AddIngredientCommand` adds an ingredient to the IngredientStorage.
-* `RemoveIngredientCommand` removes an ingredient from the IngredientStorage.
-* `AddShoppingItemCommand` adds an item to the ShoppingList.
-* `RemoveShoppingItemCommand` removes an item from the ShoppingList.
+* `AddCommand` adds Dishes, Recipes, Ingredients and ShoppingList items to their respective collections.
+* `ListCommand` 
+* `ViewCommand` 
+* `UpdateCommand` updates details of Recipes and Ingredients.
+* `DeleteCommand` removes Dishes, Recipes, Ingredients and ShoppingList items from their respective collections.
+* `HelpCommand` displays a manual for the commands and expected outputs.
+* `SuggestCommand` suggests possible Recipes to cook based on current Ingredients.
+* `SearchCommand` searches Recipes based on tags.
 
-Each command modifies a specific collection and ensures the necessary updates are performed before storing changes in the system.
+Each command interacts with a specific collection and ensures the necessary updates are performed before storing changes in the system.
 
 <div style="page-break-after: always;"></div>
 
@@ -275,7 +275,7 @@ Below is a sequence diagram detailing the control flow:
 The component follows SOLID principles: 
 - Single Responsibility: Focuses solely on recipe suggestions
 - Open for Extension: New suggestion algorithms can be added 
-- Depends on abstractions: Works weith ingredient and recipe interfaces
+- Depends on abstractions: Works with ingredient and recipe interfaces
 
 
 # Appendix: Requirements
@@ -391,6 +391,31 @@ add -dish=garlic_bread -when=tmr
 ```
 **Expected Output** (as of performing this test on 2025/04/08: `Added Dish: garlic_bread, Scheduled for: 2025/04/08
 `.
+
+### Test:Viewing Dish Calendar 
+Make sure that you have added some dishes. Given the [above example](#adding-dishes-), we can do 
+`view -month=4` to see our garlic bread dish.
+
+**Expected Output**: 
+
+<img src="images/dish_cal_1.png" alt="structure" width="400"/>
+
+### Test: Suggest 
+Say we only had one ingredient available:
+`  garlic (10pcs, Expiry: 2025/12/03, Expiring Soon: No, Expired: No)`.
+Add a recipe like `garlic_bread`:
+```aiignore
+add -recipe=garlic_bread -needs=garlic,1,bread,2
+```
+
+Performing the `suggest` command should give us the following:
+**Expected Output**: `Not enough ingredients for garlic_bread! Here's what you're missing: 
+2 bread`
+
+Once we add 2 pieces of bread, we should be able to get a suggestion: 
+
+`You have enough ingredients to make: 
+1: garlic_bread`
 
 
 ### Test: Saving and Loading Data 

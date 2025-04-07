@@ -102,10 +102,10 @@ class AddCommandTest {
         AddCommand.addRecipe("add -recipe=sandwich -needs=mayo,1,lettuce,1,turkey,2");
 
         assertAddRecipeSuccessful("sandwich");
-        assertEquals(2, RecipeBank.getRecipeBankSize());
+        assertEquals(1, RecipeBank.getRecipeBankSize());
 
         List<Recipe> sandwiches = RecipeBank.getRecipeByName("sandwich");
-        assertEquals(2, sandwiches.size());
+        assertEquals(1, sandwiches.size());
     }
 
     @Test

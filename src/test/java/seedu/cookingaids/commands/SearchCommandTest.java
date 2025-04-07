@@ -41,8 +41,12 @@ class SearchCommandTest {
         testRecipe2 = new Recipe("Fried Rice", ingredients2, tags2);
 
         // Add recipes to the recipe bank
-        RecipeBank.addRecipeToRecipeBank(testRecipe1);
-        RecipeBank.addRecipeToRecipeBank(testRecipe2);
+        try {
+            RecipeBank.addRecipeToRecipeBank(testRecipe1);
+            RecipeBank.addRecipeToRecipeBank(testRecipe2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @AfterEach

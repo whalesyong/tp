@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -141,8 +142,18 @@ public class AddCommand {
             if (!dishFields[1].isEmpty() && !isValidDate(dishFields[1])) {
                 throw new InvalidInputException();
             }
+            String dishName = dishFields[0];
+            String dishDate = dishFields[1];
+            // check if there are matching recipes. If not, warn the user that
+            // needed ingredients for this might not be added to shopping list
+            List<Recipe> matchingNames = RecipeBank.getRecipeByName(dishName);
 
-            Dish dish = new Dish(dishFields[0], dishFields[1]);
+            if (matchingNames.isEmpty()) {
+                LOGGER.warning("No matching recipe found for name: " + dishName + "," +
+                        " its ingredients may not be added to shopping list" );
+            }
+
+            Dish dish = new Dish(dishName, dishDate);
             DishCalendar.addDishToCalendar(dish);
             printDishResult(dish, dishFields[1]);
             saveAll();
@@ -177,14 +188,18 @@ public class AddCommand {
 
             ArrayList<Ingredient> ingredients = parseIngredients(pairsArray);
             Recipe recipe = new Recipe(replaceSpaceWithUnderscore(recipeFields[0]), ingredients);
-            RecipeBank.addRecipeToRecipeBank(recipe);
 
-            System.out.println("Added Recipe: " + recipeFields[0]);
-            System.out.println("Ingredients: " + recipe.getIngredientsString());
-            saveAll();
+            if (RecipeBank.getRecipeByName(recipeFields[0]).isEmpty()) {
+                RecipeBank.addRecipeToRecipeBank(recipe);
+                System.out.println("Added Recipe: " + recipeFields[0]);
+                System.out.println("Ingredients: " + recipe.getIngredientsString());
+                saveAll();
+            } else {
+                System.out.println("Recipe already exists: " + recipeFields[0]);
+            }
 
         } catch (InvalidInputException e) {
-            System.out.println("Invalid format, ingredients must be pairs: ingredient,quantity,...");
+            System.out.println("Invalid format, try add -recipe=recipeName -ingredients=ingredient_1,quantity_1");
         }
     }
 
