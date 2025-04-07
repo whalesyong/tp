@@ -3,12 +3,7 @@ package seedu.cookingaids.commands;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seedu.cookingaids.collections.DishCalendar;
-import seedu.cookingaids.collections.IngredientStorage;
 import seedu.cookingaids.collections.RecipeBank;
-import seedu.cookingaids.exception.InvalidInputException;
-import seedu.cookingaids.items.Dish;
-import seedu.cookingaids.items.DishDate;
 import seedu.cookingaids.items.Ingredient;
 import seedu.cookingaids.items.Recipe;
 
@@ -20,7 +15,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class UpdateCommandTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -100,7 +97,8 @@ class UpdateCommandTest {
 
     @Test
     void updateRecipe_updateMultipleFields_successfullyUpdatesAllFields() {
-        UpdateCommand.updateRecipe("-recipe=Pasta -newname=PastaDeluxe -newingredients=tomato,5,cheese,200 -newtags=gourmet,special");
+        UpdateCommand.updateRecipe("-recipe=Pasta -newname=PastaDeluxe " +
+                "-newingredients=tomato,5,cheese,200 -newtags=gourmet,special");
 
         // Verify all fields were updated
         List<Recipe> updatedRecipes = RecipeBank.getRecipeByName("PastaDeluxe");
