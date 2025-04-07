@@ -199,7 +199,7 @@ public class AddCommand {
             }
 
         } catch (InvalidInputException e) {
-            System.out.println("Invalid format, try add -recipe=recipeName -ingredients=ingredient_1,quantity_1");
+            System.out.println("Invalid format, try add -recipe=recipeName -needs=ingredient_1,quantity_1");
         }
     }
 
