@@ -47,12 +47,13 @@ public class Ui {
             ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░\s
             ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░\s
             ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓███████▓▒░░▒▓███████▓▒░ \s""";
+    public static Runnable waitForCommand;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Ui.class);
     private static final String MESSAGE_INDEXED_LIST_ITEM = "\t%1$d. %2$s";
     private static final String MESSAGE_STORE_SUCCESS = "Stored Dish List successfully in: ";
     private static final String FILE_PATH= "./data/cookingaids.json";
-    public static Runnable waitForCommand;
+
 
     public static void printLineDivider() {
         System.out.println(LINE_DIVIDER);
