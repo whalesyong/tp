@@ -6,7 +6,7 @@ welcome to cooking
 ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░
 ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░
 ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓███████▓▒░░▒▓███████▓▒░
-CookingAIDS v2.0. Type "help" to see available commands
+CookingAIDS v2.1. Type "help" to see available commands
 No data found, creating new lists.
 >>> Available commands:
 
