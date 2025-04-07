@@ -2,11 +2,11 @@
 
 ## **Table of Contents**  
 - [Introduction](#introduction-)
-- [Notes About the Command Format](#notes-about-the-command-format-)
-- [Features](#features-)
-  1. [Viewing Help: `help`](#1-viewing-help-help-)
-  2. [Adding Dish to Schedule: `add -dish`](#2-adding-dish-to-schedule-add--dishdishname-)
-  3. [Adding an Ingredient: `add -ingredient`](#3-adding-an-ingredient-add--ingredientingredientname-)  
+- [Notes About the Command Format](#notes-about-the-command-format)
+- [Features](#features)
+  1. [Viewing Help: `help`](#1-viewing-help-help)
+  2. [Adding Dish to Schedule: `add -dish`](#2-adding-dish-to-schedule-add--dishdishname)
+  3. [Adding an Ingredient: `add -ingredient`](#3-adding-an-ingredient-add--ingredientingredientname)  
   4. [Adding Recipe to Recipe Bank: `add -recipe`](#4-adding-recipe-to-recipe-bank-add--reciperecipename)
   5. [View Scheduled Dishes: `list -dish`](#5-view-scheduled-dishes-list--dish)  
   6. [View Available Ingredients: `list -ingredient`](#6-view-available-ingredients-list--ingredient)
@@ -15,14 +15,14 @@
   9. [View Dishes for the Month: `view -month=`](#9-view-dishes-for-the-month-view--month1-12blank--year2015-2035)
   10. [Update Recipes: `update -recipe`](#10-update-recipes-update--recipe)
   11. [Update Dish: `update -dish`](#11-update-dish-update--dish)
-  12. [Update Ingredient: ](#12-update-ingredient-update--ingredient)
-  13. [Delete Dish from Schedule: `delete -dish`](#13-delete-dish-from-schedule-delete--dishdishname-)
-  14. [Delete Ingredient: `delete -ingredient`](#14-delete-ingredient-delete--ingredientingredientname-)
-  15. [Delete Recipe from Recipe Bank: `delete -recipe`](#15-delete-recipe-from-recipe-bank-delete--reciperecipename-)
+  12. [Update Ingredient: `update -ingredient`](#12-update-ingredient-update--ingredient)
+  13. [Delete Dish from Schedule: `delete -dish`](#13-delete-dish-from-schedule-delete--dishdishname)
+  14. [Delete Ingredient: `delete -ingredient`](#14-delete-ingredient-delete--ingredientingredientname)
+  15. [Delete Recipe from Recipe Bank: `delete -recipe`](#15-delete-recipe-from-recipe-bank-delete--reciperecipename)
   16. [Suggest Dishes: `suggest`](#16-suggest-dishes-suggest)
   17. [Search Recipes by Tag: `search -recipetags`](#17-search-recipes-by-tag-search--recipetags)
   18. [Exit program: `bye`](#18-exit-bye)
-- [Command List](#command-list-)
+- [Command List](#command-list)
 
 ---
 
