@@ -275,7 +275,7 @@ Below is a sequence diagram detailing the control flow:
 The component follows SOLID principles: 
 - Single Responsibility: Focuses solely on recipe suggestions
 - Open for Extension: New suggestion algorithms can be added 
-- Depends on abstractions: Works weith ingredient and recipe interfaces
+- Depends on abstractions: Works with ingredient and recipe interfaces
 
 
 # Appendix: Requirements

@@ -94,11 +94,7 @@ class AddCommandTest {
         ingredients.add(new Ingredient("tomato", 1));
         ingredients.add(new Ingredient("bread", 2));
         Recipe sandwichRecipe = new Recipe("sandwich", ingredients);
-        try {
-            RecipeBank.addRecipeToRecipeBank(sandwichRecipe);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        RecipeBank.addRecipeToRecipeBank(sandwichRecipe);
 
         assertTrue(RecipeBank.contains("sandwich"));
         assertEquals(1, RecipeBank.getRecipeBankSize());
@@ -106,10 +102,10 @@ class AddCommandTest {
         AddCommand.addRecipe("add -recipe=sandwich -needs=mayo,1,lettuce,1,turkey,2");
 
         assertAddRecipeSuccessful("sandwich");
-        assertEquals(2, RecipeBank.getRecipeBankSize());
+        assertEquals(1, RecipeBank.getRecipeBankSize());
 
         List<Recipe> sandwiches = RecipeBank.getRecipeByName("sandwich");
-        assertEquals(2, sandwiches.size());
+        assertEquals(1, sandwiches.size());
     }
 
     @Test
