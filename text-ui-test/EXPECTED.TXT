@@ -45,8 +45,6 @@ No data found, creating new lists.
 
 For more details, visit our User Guide at:
 https://ay2425s2-cs2113-t11b-1.github.io/tp/UserGuide.html
-
-
 ______________________________________________________________________________
 >>> Invalid format. Use: add -dish=dish_name -when=YYYY/MM/DD
 dish name should be in lower_snake_case
