@@ -79,7 +79,7 @@ it will check if you have enough ingredients from the ingredients list and subtr
 <br> here is a rough flowchart of what goes on when adding dish
 ![img.png](images/addDishFlow.png)
 
-> **Warning:** __add dishes in lower_snake_case form__ 
+> **Warning:** __add dishes in lower_snake_case form__
 > <br> If your dish contains multiple strings it will add the first string only
 
 **Usage:**  
@@ -385,6 +385,7 @@ Updates quantity and/or expiry date of an Ingredient in storage
 <br> To update an ingredient, enter its name and current expiry date. If there is no expiry date you can leave it empty
 
 <br> Please add date in YYYY/MM/DD format only future dates will be accepted
+
 **Usage:**
 ```plaintext
 update -ingredient={ingredientName} [-expiry={expiryDate}] [-qty={quantity}] [-new_expiry={newExpiryDate]
@@ -409,6 +410,10 @@ update -ingredient={ingredientName} [-expiry={expiryDate}] [-qty={quantity}] [-n
 ### **13. Delete Dish from Schedule: `delete -dish={dishName}`** 
 
 Removes a dish from the schedule.  
+
+> **Warning:** deleting dishes causes ingredients used up by them to be released back into ingredient storage with no expiry date
+> <br> we only assume you use the ingredients that are expiring soon we have no way of knowing which ingredients 
+> you actually plan use, please use [update -ingredient](#12-update-ingredient-update--ingredient) method to reset expiry date
 
 **Usage:**  
 ```plaintext

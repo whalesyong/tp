@@ -3,7 +3,6 @@ package seedu.cookingaids.commands;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import seedu.cookingaids.collections.RecipeBank;
 import seedu.cookingaids.items.Ingredient;
 import seedu.cookingaids.items.Recipe;
@@ -16,7 +15,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class UpdateCommandTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -37,14 +38,10 @@ class UpdateCommandTest {
         testRecipe = new Recipe("Pasta", ingredients, tags);
 
         // Add recipe to the recipe bank
-        try {
-            RecipeBank.addRecipeToRecipeBank(testRecipe);
-            // Reset output content
-            outContent.reset();
+        RecipeBank.addRecipeToRecipeBank(testRecipe);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // Reset output content
+        outContent.reset();
     }
 
     @AfterEach
@@ -100,7 +97,8 @@ class UpdateCommandTest {
 
     @Test
     void updateRecipe_updateMultipleFields_successfullyUpdatesAllFields() {
-        UpdateCommand.updateRecipe("-recipe=Pasta -newname=PastaDeluxe -newingredients=tomato,5,cheese,200 -newtags=gourmet,special");
+        UpdateCommand.updateRecipe("-recipe=Pasta -newname=PastaDeluxe " +
+                "-newingredients=tomato,5,cheese,200 -newtags=gourmet,special");
 
         // Verify all fields were updated
         List<Recipe> updatedRecipes = RecipeBank.getRecipeByName("PastaDeluxe");
@@ -133,25 +131,20 @@ class UpdateCommandTest {
         ingredients2.add(new Ingredient("bacon", 50));
 
         Recipe testRecipe2 = new Recipe("Pasta", ingredients2);
-        try {
-            RecipeBank.addRecipeToRecipeBank(testRecipe2);
+        RecipeBank.addRecipeToRecipeBank(testRecipe2);
 
-            // Create list of recipes
-            List<Recipe> recipes = RecipeBank.getRecipeByName("Pasta");
+        // Create list of recipes
+        List<Recipe> recipes = RecipeBank.getRecipeByName("Pasta");
 
-            // Simulate user input
-            String input = "1\n";
-            ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
-            System.setIn(in);
+        // Simulate user input
+        String input = "1\n";
+        ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
 
-            Recipe selectedRecipe = UpdateCommand.promptUserForRecipeUpdate(recipes);
+        Recipe selectedRecipe = UpdateCommand.promptUserForRecipeUpdate(recipes);
 
-            // Verify the correct recipe was selected
-            assertEquals(testRecipe, selectedRecipe);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        // Verify the correct recipe was selected
+        assertEquals(testRecipe, selectedRecipe);
     }
 
     @Test

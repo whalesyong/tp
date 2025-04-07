@@ -6,14 +6,14 @@ import org.junit.jupiter.api.Test;
 import seedu.cookingaids.collections.RecipeBank;
 import seedu.cookingaids.items.Ingredient;
 import seedu.cookingaids.items.Recipe;
-import seedu.cookingaids.search.Search;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class SearchCommandTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
