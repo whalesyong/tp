@@ -1,6 +1,26 @@
 {
   "recipes" : [ ],
-  "ingredients" : { },
+  "ingredients" : {
+    "hi" : [ {
+      "name" : "hi",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "2025/04/08"
+      }
+    }, {
+      "name" : "hi",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "2026/03/31"
+      }
+    }, {
+      "name" : "hi",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ]
+  },
   "dishes" : [ {
     "name" : "spaghetti",
     "dishDate" : {

@@ -210,8 +210,9 @@ public class AddCommand {
                 throw new IllegalArgumentException("Ingredient name cannot be empty");
             }
             String expiryDate = ingredientFields.get("expiry_date");
-            if (expiryDate.isEmpty() && !isValidDate(expiryDate)) {
-                throw new IllegalArgumentException("Expiry date is invalid");
+
+            if (!expiryDate.equals("None") && !isValidDate(expiryDate)) {
+                throw new IllegalArgumentException("Expiry date is invalid, \nensure that date is in YYYY/MM/DD format and only future dates are accepted");
             }
             int quantity;
             try {
