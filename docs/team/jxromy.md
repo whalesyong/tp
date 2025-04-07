@@ -56,13 +56,10 @@ I developed comprehensive JUnit tests to ensure the correctness and robustness o
 
 - **Command Parsing Logic:**  
   Refined the central command parser that interprets user inputs and maps them to their corresponding actions. This involved:
-    - Refactoring early parsing implementations into a more modular and testable structure.
-    - Implementing a robust parsing structure to extract command keywords and arguments for the addition and deletion of recipes, ingredients or dishes.
-    - Handling edge cases such as missing flags, malformed inputs, and whitespace errors.
+    - Refactored early parsing implementations into a more modular and testable structure.
+    - Implemented a robust parsing structure to extract command keywords and arguments for the addition and deletion of recipes, ingredients or dishes.
+    - Handled edge cases such as missing flags, malformed inputs, and whitespace errors.
 
-
-- **Input Validation & Feedback Mechanism:**  
-  Introduced input sanitization and user-friendly error messages for invalid commands, improving the overall UX of the CLI.
 
 ### **Contributions to the UG (User Guide)**
 
