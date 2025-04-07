@@ -1,4 +1,4 @@
-# Developer Guide
+# CookingAids Developer Guide
 
 ## Table of Contents
 - [Acknowledgements](#acknowledgements)
