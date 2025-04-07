@@ -4,87 +4,84 @@ hide circle
 skinparam classAttributeIconSize 0
 
 class Parser {
-+ decipherCommand(String receivedText)
-- handleViewCommand(String receivedText)
-- handleDisplayCommand(String receivedText)
-- handleAddCommand(String receivedText)
-- handleDeleteCommand(String receivedText)
-- handleUpdateCommand(String receivedText)
-- handleSearchCommand(String receivedText)
-+ parseDish(String input): String[]
-+ parseRecipe(String receivedText): String[]
-+ parseIngredient(String command): HashMap<String, String>
-+ parseDishNameForDeletion(String receivedText): String
-+ parseWhenForDeletion(String receivedText): String
-+ parseDishAndWhenForDeletion(String receivedText): String[]
-+ parseIngredientForDeletion(String receivedText): String
-+ parseRecipeForDeletion(String receivedText): String
-+ parseRecipeNameForUpdate(String receivedText): String
-+ parseNewNameForUpdate(String receivedText): String
-+ parseNewTagsForUpdate(String receivedText): String
-+ parseNewIngredientsForUpdate(String receivedText): String
-+ parseIngredientUpdate(String command): HashMap<String, String>
-+ parseTagsForSearch(String receivedText): String
-+ parseSearchType(String receivedText): String
-+ isDate(String input): boolean
+    - String NEW_INGREDIENTS_FLAG
+    - String NEW_NAME_FLAG
+    - String RECIPE_FLAG
+    + decipherCommand(receivedText: String): void
+    + void handleAddCommand(receivedText: String): void
+    + void handleDeleteCommand(receivedText: String): void
+    + void handleSearchCommand(receivedText: String): void
+    + String parseTagsForSearch(receivedText: String): String
+    + String parseSearchType(receivedText: String): String
+    ...
+}
+
+class ListCommand {
+    - String COMMAND_WORD
+    + void displayRecipeBank(): void
+    + void displayDishList(receivedText: String): void
+    + void displayIngredients(): void
+    ...
 }
 
 class AddCommand {
-+ static addRecipe(String receivedText)
-+ static addDish(String receivedText)
-+ static addIngredient(String receivedText)
+    - String COMMAND_WORD
+    + void addDish(receivedText: String): void
+    + void addRecipe(receivedText: String): void
+    + void addIngredient(receivedText: String): void
+    ...
 }
 
 class DeleteCommand {
-+ static deleteRecipe(String receivedText)
-+ static deleteDishWithWhen(String receivedText)
-+ static deleteDish(String receivedText)
-+ static deleteDishByWhen(String receivedText)
-+ static deleteIngredient(String receivedText)
-}
-
-class ListCommand {
-+ static displayRecipeBank()
-+ static displayDishList(String receivedText)
-+ static displayIngredients()
-+ static displayShoppingList()
-}
-
-class ListCommand {
-+ static displayRecipeBank()
-+ static displayDishList(String receivedText)
-+ static displayIngredients()
-+ static displayShoppingList()
-}
-
-class HelpCommand {
-+ static showHelp()
-}
-
-class SuggestCommand {
-+ static printSuggestions()
-}
-
-class SearchCommand {
-+ static printSearchResult(String receivedText, String searchType)
+    - String COMMAND_WORD
+    + void deleteDish(receivedText: String): void
+    + void deleteIngredient(receivedText: String): void
+    + void deleteRecipe(receivedText: String): void
+    ...
 }
 
 class UpdateCommand {
-+ static printSearchResult(String receivedText, String searchType)
+    - String COMMAND_WORD
+    + void updateDish(receivedText: String): void
+    + void updateRecipe(receivedText: String): void
+    + void updateIngredient(receivedText: String): void
+    ...
 }
 
 class ViewCommand {
-+ static displayDishMonth(int month)
+    - String COMMAND_WORD
+    + void displayShoppingList(): void
+    + void displayDishMonth(month: int, year: int): void
+    + void displayDishMonth(month: int): void
+    ...
 }
 
-Parser -up-> HelpCommand
-Parser -up-> UpdateCommand
-Parser -up-> AddCommand
-DeleteCommand <- Parser
-Parser --> ListCommand
-Parser -> SuggestCommand
-Parser --> SearchCommand
-Parser --> ViewCommand
+class HelpCommand {
+    - String COMMAND_WORD
+    + void showHelp(): void
+    ...
+}
+
+class SuggestCommand {
+    - String COMMAND_WORD
+    + void printSuggestions(): void
+    ...
+}
+
+class SearchCommand {
+    - String COMMAND_WORD
+    + void printSearchResult(tags: String, searchType: String): void
+    ...
+}
+
+Parser "1" .up.> HelpCommand : "uses"
+Parser "1" .up.> UpdateCommand : "uses"
+Parser "1" .up.> AddCommand : "uses"
+DeleteCommand <. "1" Parser : "uses"
+Parser "1" ..> ListCommand : "uses"
+Parser "1" .> SuggestCommand : "uses"
+Parser "1" ..> SearchCommand : "uses"
+Parser "1" ..> ViewCommand : "uses"
 
 
 @enduml

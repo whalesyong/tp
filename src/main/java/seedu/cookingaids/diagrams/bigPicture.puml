@@ -1,30 +1,30 @@
 @startuml
 actor User
 participant ":UI" as UI
-participant ":Command" as Command
-participant ":Collections" as Collections
+participant ":AddCommand" as AddCommand
+participant ":IngredientStorage" as IngredientStorage
 participant ":Storage" as Storage
-participant ":Items" as Items
+participant ":Ingredient" as Ingredient
 
 User -> UI: "add -ingredient=tomato -quantity=5 -expiry=2025/04/03"
 activate UI
-UI -> Command: addIngredient("-ingredient=tomato -quantity=5 -expiry=2025/04/03")
-activate Command
-Command -> Items: new Ingredient(ID, tomato, 5, 2025/04/03)
-activate Items
-Items --> Command
-deactivate Items
-Command -> Collections: addToStorage(ingredient)
-activate Collections
-Collections -> Storage: storeData()
+UI -> AddCommand: addIngredient("-ingredient=tomato -quantity=5 -expiry=2025/04/03")
+activate AddCommand
+AddCommand -> Ingredient: new Ingredient(ID, tomato, 5, 2025/04/03)
+activate Ingredient
+Ingredient --> AddCommand
+deactivate Ingredient
+AddCommand -> IngredientStorage: addToStorage(ingredient)
+activate IngredientStorage
+IngredientStorage -> Storage: storeData()
 activate Storage
 Storage -> Storage: Save to file
-Storage --> Collections
+Storage --> IngredientStorage
 deactivate Storage
-Collections --> Command
-deactivate Collections
-Command -->> UI
-deactivate Command
+IngredientStorage --> AddCommand
+deactivate IngredientStorage
+AddCommand -->> UI
+deactivate AddCommand
 UI -->> User
 deactivate UI
 @enduml
