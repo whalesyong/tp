@@ -162,7 +162,6 @@ public class Parser {
         return year;
     }
 
-
     private static void handleDisplayCommand(String receivedText) {
         if (receivedText.contains("-recipe")) {
             ListCommand.displayRecipeBank();
@@ -223,7 +222,6 @@ public class Parser {
             System.out.println("Use 'update -recipe=INDEX -newname=NAME -newingredients=INGREDIENTS'");
         }
     }
-
 
     private static void handleSearchCommand(String receivedText) {
         if (receivedText.contains(RECIPE_TAGS_FLAG)) {
