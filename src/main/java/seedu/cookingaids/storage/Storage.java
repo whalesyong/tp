@@ -106,7 +106,7 @@ public class Storage {
             // Validate loaded data
             if (data.dishes == null || data.recipes == null ||
                     data.ingredients == null || data.shopping == null) {
-                LOGGER.warning("Corrupted data detected - missing required fields");
+                LOGGER.warning("Corrupted data detected - missing required fields. Your data will be discarded.");
                 throw new IOException("Corrupted data format");
             }
 
@@ -116,7 +116,8 @@ public class Storage {
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Failed to load data: {0}", e.getMessage());
             Ui.printItems(String.format(MESSAGE_LOAD_FAILURE, FILE_PATH));
-            Ui.printItems(e.getMessage());
+            Ui.printItems("Corrupted data detected, discarding corrupted data.");
+            Ui.printItems(Ui.DATA_CORRUPTED_WARNING_MESSAGE);
             return new DataWrapper(new ArrayList<>(), new ArrayList<>(), new HashMap<>(), new ArrayList<>());
         }
     }
