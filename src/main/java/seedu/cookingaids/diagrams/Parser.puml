@@ -9,14 +9,23 @@ class Parser {
 - handleDisplayCommand(String receivedText)
 - handleAddCommand(String receivedText)
 - handleDeleteCommand(String receivedText)
+- handleUpdateCommand(String receivedText)
+- handleSearchCommand(String receivedText)
++ parseDish(String input): String[]
++ parseRecipe(String receivedText): String[]
++ parseIngredient(String command): HashMap<String, String>
 + parseDishNameForDeletion(String receivedText): String
 + parseWhenForDeletion(String receivedText): String
 + parseDishAndWhenForDeletion(String receivedText): String[]
 + parseIngredientForDeletion(String receivedText): String
 + parseRecipeForDeletion(String receivedText): String
-+ parseDish(String input): String[]
-+ parseRecipe(String receivedText): String[]
-+ parseIngredient(String command): HashMap<String, String>
++ parseRecipeNameForUpdate(String receivedText): String
++ parseNewNameForUpdate(String receivedText): String
++ parseNewTagsForUpdate(String receivedText): String
++ parseNewIngredientsForUpdate(String receivedText): String
++ parseIngredientUpdate(String command): HashMap<String, String>
++ parseTagsForSearch(String receivedText): String
++ parseSearchType(String receivedText): String
 + isDate(String input): boolean
 }
 
@@ -41,6 +50,13 @@ class ListCommand {
 + static displayShoppingList()
 }
 
+class ListCommand {
++ static displayRecipeBank()
++ static displayDishList(String receivedText)
++ static displayIngredients()
++ static displayShoppingList()
+}
+
 class HelpCommand {
 + static showHelp()
 }
@@ -49,15 +65,26 @@ class SuggestCommand {
 + static printSuggestions()
 }
 
+class SearchCommand {
++ static printSearchResult(String receivedText, String searchType)
+}
+
+class UpdateCommand {
++ static printSearchResult(String receivedText, String searchType)
+}
+
 class ViewCommand {
 + static displayDishMonth(int month)
 }
 
-Parser --> AddCommand
-Parser --> DeleteCommand
+Parser -up-> HelpCommand
+Parser -up-> UpdateCommand
+Parser -up-> AddCommand
+DeleteCommand <- Parser
 Parser --> ListCommand
-Parser --> HelpCommand
-Parser --> SuggestCommand
+Parser -> SuggestCommand
+Parser --> SearchCommand
 Parser --> ViewCommand
+
 
 @enduml
