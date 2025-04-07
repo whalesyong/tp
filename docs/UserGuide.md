@@ -118,7 +118,7 @@ add -dish=fries -when=tmr  //(tomorrow,today,td,tdy also works)
 
 ### **3. Adding an Ingredient: `add -ingredient={ingredientName}`** 
 
-Adds an ingredient to the ingredient database.
+Adds an ingredient to the ingredient database. Ingredients will be displayed with in-built units, the default is pcs.
 <br> If no quantity is specified, it defaults to 1.
 <br> If no expiry date is specified, it defaults to None.
 <br> Please add date in YYYY/MM/DD format only future dates will be accepted
