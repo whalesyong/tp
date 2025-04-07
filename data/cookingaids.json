@@ -1,5 +1,15 @@
 {
-  "recipes" : [ ],
+  "recipes" : [ {
+    "name" : "meow",
+    "ingredients" : [ {
+      "name" : "cat",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ],
+    "tags" : [ "meow", "gsfd" ]
+  } ],
   "ingredients" : { },
   "dishes" : [ {
     "name" : "spaghetti",
