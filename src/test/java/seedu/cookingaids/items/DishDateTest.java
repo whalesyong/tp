@@ -13,7 +13,7 @@ public class DishDateTest {
     void constructor_addLocalDateFormat_expectLocalDateSaved(){
         DishDate dishDate = new DishDate("2002-11-26");
         assertEquals(LocalDate.parse("2002-11-26"),dishDate.getDateLocalDate());
-        assertEquals("26/11/2002",dishDate.toString());
+        assertEquals("2002/11/26",dishDate.toString());
 
     }
     @Test
@@ -21,7 +21,7 @@ public class DishDateTest {
         DishDate dishDate = new DishDate("tomorrow");
         String dishString =  dishDate.toString();
         assert dishString != null : "Dish fields should not be null";
-        assertEquals(LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),dishString);
+        assertEquals(LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy/MM/dd")),dishString);
 
     }
     

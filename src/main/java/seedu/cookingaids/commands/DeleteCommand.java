@@ -1,5 +1,6 @@
 package seedu.cookingaids.commands;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -67,6 +68,8 @@ public class DeleteCommand {
         } catch (InvalidInputException e) {
             LOGGER.warning("Invalid input format for delete dish command");
             System.out.println("Invalid input");
+        }catch(InputMismatchException e){
+            System.out.println("input an integer");
         }
     }
 
@@ -108,6 +111,7 @@ public class DeleteCommand {
             String dishName = parsedDish[0];
             String date = parsedDish[1];
             if (date.equals("none")) {
+                System.out.println("Invalid format. Use: delete dish_name -when=YYYY/MM/DD");
                 LOGGER.warning("Invalid format for delete dish with date command");
                 System.out.println("Invalid format. Use: delete dish_name -when=YYYY-MM-DD");
                 return;
@@ -142,12 +146,14 @@ public class DeleteCommand {
     public static void deleteDishByWhen(String receivedText) {
         LOGGER.info("Attempting to delete all dishes for date: " + receivedText);
         String date = receivedText.trim();
+        String parsedDate = Parser.parseWhenForDeletion(receivedText);
 
-        List<Dish> dishesToRemove = DishCalendar.getDishesByDate(date);
+        List<Dish> dishesToRemove = DishCalendar.getDishesByDate(parsedDate);
 
         if (dishesToRemove.isEmpty()) {
             LOGGER.warning("No dishes found on date: " + date);
             System.out.println("No dishes found on " + date);
+            System.out.println("No dishes found on " + parsedDate);
             return;
         }
 
@@ -157,6 +163,7 @@ public class DeleteCommand {
 
         System.out.println("Deleted all dishes scheduled for " + date);
         LOGGER.info("Deleted all dishes for date: " + date);
+        System.out.println("Deleted all dishes scheduled for " + parsedDate);
 
         LOGGER.info("Saving to file after bulk dish deletion");
         Storage.storeData(DishCalendar.getDishCalendar(),

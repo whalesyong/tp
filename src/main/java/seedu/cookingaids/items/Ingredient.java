@@ -30,14 +30,16 @@ public class Ingredient extends Food {
         expiryDate = new ExpiryDate("None");
         this.name = name;
     }
+
     /**
      * creates a new instance of Ingredient
      * saves string input as name
      * calls ExpiryDate constructor to convert second string input into ExpiryDate object and save it to expiryDate
      * saves integer input as quantity
-     * @param name is the name of Ingredient
+     *
+     * @param name       is the name of Ingredient
      * @param expiryDate is the expiry date of the ingredient
-     * @param quantity is the amount of ingredients added
+     * @param quantity   is the amount of ingredients added
      */
     @JsonCreator
     public Ingredient(@JsonProperty("name") String name,
@@ -68,7 +70,13 @@ public class Ingredient extends Food {
     }
 
     public void addQuantity(int quantity) {
-        this.quantity += quantity;
+        if (quantity > Integer.MAX_VALUE - this.quantity) {
+            this.quantity = Integer.MAX_VALUE;
+            System.out.println("Maximum " + this.name + " added, value will be capped at " + Integer.MAX_VALUE +
+                    " please go use them :D");
+        } else {
+            this.quantity += quantity;
+        }
     }
 
     public void removeQuantity(int quantity) {
@@ -84,7 +92,7 @@ public class Ingredient extends Food {
         LocalDate tomorrow = LocalDate.now().plusDays(1);
         LocalDate today = LocalDate.now();
 
-        if (expiryDate.getDateLocalDate() != null ) {
+        if (expiryDate.getDateLocalDate() != null) {
             if (expiryDate.getDateLocalDate().equals(tomorrow) || expiryDate.getDateLocalDate().equals(today)) {
                 this.expiringSoon = true;
             }

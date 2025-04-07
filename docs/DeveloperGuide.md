@@ -29,7 +29,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 The class `CookingAids` is in charge of the app launch and shut down.
 
-* At it initializes the other components in the correct sequence, and connects them up with each other.
+* At init, it initializes the other components in the correct sequence, and connects them up with each other.
 * At shut down, it shuts down the other components and invokes cleanup methods where necessary.
 
 The bulk of the app's work is done by the following components:
@@ -47,7 +47,7 @@ The bulk of the app's work is done by the following components:
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues
 the command: 
 ```
-add -ingredient=tomato -quantity=5 -expiry=2025-04-03
+add -ingredient=tomato -quantity=5 -expiry=2025/04/03
 ```
 
 ![img.png](images/img.png)
@@ -106,8 +106,8 @@ operations on items separately and keep a temporary storage of the results of op
 file.
 
 The following is a class diagram of one of the classes `IngredientStorage`.
- 
-![ingredientStorage.png](images/ingredientStorage.png)
+
+![img.png](images/ingredientStorage.png)
 
 <div style="page-break-after: always;"></div>
 

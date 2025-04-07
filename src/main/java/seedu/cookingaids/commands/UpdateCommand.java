@@ -10,7 +10,7 @@ import seedu.cookingaids.items.Recipe;
 import seedu.cookingaids.parser.Parser;
 
 import seedu.cookingaids.exception.InvalidInputException;
-
+import java.util.InputMismatchException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -186,7 +186,8 @@ public class UpdateCommand {
                     throw new IllegalArgumentException("Quantity must be a positive integer");
                 }
             } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("Quantity must be a positive integer");
+                throw new IllegalArgumentException("Quantity must be a positive integer and less than "
+                        + Integer.MAX_VALUE);
             }
             IngredientStorage.updateIngredient(ingredientName, expiryDate, quantity, newExpiry);
         } catch (IllegalArgumentException e) {
@@ -237,6 +238,10 @@ public class UpdateCommand {
                     "Format error ensure you do not have additional flags. use update -dish={dishName} only," +
                     " remove additional flags");
             System.out.println("ensure that date is in YYYY/MM/DD format ");
+        }catch(InputMismatchException e){
+
+                System.out.println("input an integer");
+
         }
     }
 

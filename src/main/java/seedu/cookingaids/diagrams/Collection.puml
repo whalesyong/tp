@@ -29,6 +29,10 @@ class Ingredient {
     - ExpiryDate expiryDate
     - int quantity
     - String name
+    - boolean expiringSoon
+    - boolean expired
+    - expired()
+    - expiringSoon()
     + Ingredient(name: String)
     + Ingredient(name: String, quantity: int)
     + Ingredient(name: String, expiry: String, quantity: int)
@@ -38,6 +42,9 @@ class Ingredient {
     + getName(): String
     + addQuantity(quantity: int)
     + removeQuantity(quantity: int)
+    + setExpiringSoon(b: boolean)
+    + setExpired(b: boolean)
+    + setExpiryDate(expiryDate: ExpiryDate)
     + displayInfo()
     + toString(): String
 }
@@ -59,6 +66,7 @@ class IngredientStorage {
     + static int getUnexpiredIngredients(String ingredientName)
     + static int getExpiringSoonIngredients(String ingredientName)
     + static int getTotalIngredientQuantity(Ingredient ingredient)
+    + static void updateIngredient(String name, String oldExpiry, int newQuantity, String newExpiry)
     + static void printMap()
 }
 
