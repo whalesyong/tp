@@ -3,7 +3,6 @@ package seedu.cookingaids.suggest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,41 +35,26 @@ public class Suggest {
             return new ArrayList<>();
         }
 
-        ArrayList<String> availableIngredients = getAvailableIngredientNames(availableIngredientsMap.keySet());
-        LOGGER.log(Level.FINE, "Found {0} available ingredients", availableIngredients.size());
-        return findRecipesWithAvailableIngredients(availableRecipes, availableIngredients);
-    }
-
-    /**
-     * Converts all ingredient names to lowercase for case-insensitive comparison.
-     *
-     * @param ingredientSet Set of ingredient names from storage
-     * @return List of ingredient names in lowercase
-     */
-    private static ArrayList<String> getAvailableIngredientNames(Set<String> ingredientSet) {
-        ArrayList<String> availableIngredients = new ArrayList<>();
-        for (String ingredient : ingredientSet) {
-            availableIngredients.add(ingredient.toLowerCase());
-        }
-        return availableIngredients;
+        LOGGER.log(Level.FINE, "Found {0} available ingredients", availableIngredientsMap.size());
+        return findRecipesWithAvailableIngredients(availableRecipes, availableIngredientsMap);
     }
 
     /**
      * Finds recipes that can be made with the available ingredients.
      *
      * @param availableRecipes List of all available recipes
-     * @param availableIngredients List of available ingredient names
+     * @param availableIngredientsMap Map of available ingredients with their quantities
      * @return List of recipes that can be made with available ingredients
      */
     private static List<Recipe> findRecipesWithAvailableIngredients(
             ArrayList<Recipe> availableRecipes,
-            ArrayList<String> availableIngredients) {
+            HashMap<String, List<Ingredient>> availableIngredientsMap) {
 
         List<Recipe> suggestedRecipes = new ArrayList<>();
         LOGGER.log(Level.FINE, "Checking {0} recipes for matches", availableRecipes.size());
 
         for (Recipe recipe : availableRecipes) {
-            checkRecipeIngredients(recipe, availableIngredients, suggestedRecipes);
+            checkRecipeIngredients(recipe, availableIngredientsMap, suggestedRecipes);
         }
 
         LOGGER.log(Level.INFO, "Found {0} suggested recipes", suggestedRecipes.size());
@@ -78,41 +62,67 @@ public class Suggest {
     }
 
     /**
-     * Checks if a recipe can be made with available ingredients.
-     * If all ingredients are available, adds the recipe to suggested recipes.
-     * If not, prints the missing ingredients.
+     * Checks if a recipe can be made with available ingredients and their quantities.
+     * If all ingredients are available in sufficient quantities, adds the recipe to suggested recipes.
+     * If not, prints the missing ingredients or insufficient quantities.
      *
      * @param recipe The recipe to check
-     * @param availableIngredients List of available ingredient names
+     * @param availableIngredientsMap Map of available ingredients with their quantities
      * @param suggestedRecipes List to add recipes that can be made
      */
     private static void checkRecipeIngredients(
             Recipe recipe,
-            ArrayList<String> availableIngredients,
+            HashMap<String, List<Ingredient>> availableIngredientsMap,
             List<Recipe> suggestedRecipes) {
 
         LOGGER.log(Level.FINE, "Checking ingredients for recipe: {0}", recipe.getRecipeName());
         ArrayList<Ingredient> neededIngredients = recipe.getIngredients();
         ArrayList<Ingredient> missingIngredients = new ArrayList<>();
-        int availableCount = 0;
+        boolean canMakeRecipe = true;
 
         for (Ingredient neededIngredient : neededIngredients) {
-            if (availableIngredients.contains(neededIngredient.getName().toLowerCase())) {
-                availableCount++;
-            } else {
+            String ingredientName = neededIngredient.getName().toLowerCase();
+
+            // Look for the ingredient in availableIngredientsMap (case-insensitive)
+            List<Ingredient> availableIngredientsList = null;
+            for (String key : availableIngredientsMap.keySet()) {
+                if (key.toLowerCase().equals(ingredientName)) {
+                    availableIngredientsList = availableIngredientsMap.get(key);
+                    break;
+                }
+            }
+
+            if (availableIngredientsList == null || availableIngredientsList.isEmpty()) {
+                // Ingredient not available at all
                 missingIngredients.add(neededIngredient);
+                canMakeRecipe = false;
+            } else if (neededIngredient.getQuantity() > 0) {
+                // Check if we have enough quantity (only if the recipe specifies a quantity)
+                int totalAvailableQuantity = 0;
+                for (Ingredient availableIngredient : availableIngredientsList) {
+                    totalAvailableQuantity += availableIngredient.getQuantity();
+                }
+
+                if (totalAvailableQuantity < neededIngredient.getQuantity()) {
+                    // Not enough quantity, create a new ingredient with the missing amount
+                    Ingredient insufficientIngredient = new Ingredient(
+                            neededIngredient.getName(),
+                            neededIngredient.getQuantity() - totalAvailableQuantity
+                    );
+                    missingIngredients.add(insufficientIngredient);
+                    canMakeRecipe = false;
+                }
             }
         }
 
-        if (availableCount == neededIngredients.size()) {
+        if (canMakeRecipe) {
             LOGGER.log(Level.INFO, "Recipe {0} can be made with available ingredients", recipe.getRecipeName());
             suggestedRecipes.add(recipe);
-        } else if (availableCount < neededIngredients.size()) {
+        } else {
             LOGGER.log(
                     Level.FINE,
-                    "Recipe {0} is missing {1} ingredients",
-                    new Object[]{recipe.getRecipeName(),
-                            missingIngredients.size()});
+                    "Recipe {0} is missing {1} ingredients or has insufficient quantities",
+                    new Object[]{recipe.getRecipeName(), missingIngredients.size()});
             printMissingIngredients(recipe, missingIngredients);
         }
     }

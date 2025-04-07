@@ -12,7 +12,7 @@ public class DishTest {
 
 
         assertEquals("pasta", dish1.getName());
-        assertEquals("20/03/2025", dish1.getDishDate().toString());
+        assertEquals("2025/03/20", dish1.getDishDate().toString());
 
 
 

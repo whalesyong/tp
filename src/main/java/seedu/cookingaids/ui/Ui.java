@@ -36,7 +36,9 @@ public class Ui {
 
     public static final String USER_MARKER = ">>> ";
     public static final String WELCOME_MESSAGE = "welcome to cooking";
-
+    public static final String DATA_CORRUPTED_WARNING_MESSAGE = "In order to preserve your data, please perform " +
+            "Ctrl+C (Win) or Cmd+C (MacOS) and look through cookingaids.json for any potential corrupted fields, " +
+            "and delete them. Sending the 'bye' command will permanently wipe all data.";
     public static final String ASCII_MESSAGE = """ 
              ░▒▓██████▓▒░░▒▓█▓▒░▒▓███████▓▒░ ░▒▓███████▓▒░\s
             ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░       \s
