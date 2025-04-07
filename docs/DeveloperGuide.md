@@ -70,7 +70,7 @@ Contains the following classes and their respective purposes:
 These classes facilitate user interaction by providing formatted output and handling command-based operations.
 
 Below is a Sequence Diagram of an example of how a User performs command view -month=5 to view his dishes for the month of May
-![img.png](images/sequenceView.png)
+![img.png](images/sequence_view.png)
 The class diagrams of UI and Calendar printer are seen below
 
 #### <ins>Design Considerations</ins>
@@ -132,7 +132,7 @@ The Items component contains classes that represent the smallest unit of functio
 
 The following is the class diagram for the classes `Recipe` and `RecipeBank`.
 
-![Items.png](images/Items.png)
+![Items.png](images/items.png)
 
 The Items classes follow the above design consideration of modularity. Each class in this package serves as building
 blocks for the rest of the project.
@@ -168,7 +168,7 @@ We used this design to maintain a clear separation of concerns. Commands act as 
 
 The following is a UML diagram of the `commands` package:
 
-![Commands.png](images/Commands.png)
+![Commands.png](images/commands.png)
 
 <div style="page-break-after: always;"></div>
 

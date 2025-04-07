@@ -36,7 +36,7 @@ public class ListCommand {
         List<Dish> invalidDishes = listOfDish.stream()
                 .filter(dish -> dish.getDishDate() == null || dish.getDishDate().getDateLocalDate() == null)
                 .toList();
-        if (receivedString.contains("-u")) {
+        if (receivedString.contains("-upcoming")) {
             List<Dish> today = ViewCommand.sortDishesToday(validDishes);
             List<Dish> afterToday = ViewCommand.sortDishesAfterToday(validDishes);
 
