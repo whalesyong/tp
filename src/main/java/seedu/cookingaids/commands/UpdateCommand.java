@@ -172,12 +172,14 @@ public class UpdateCommand {
                 throw new IllegalArgumentException("Ingredient name cannot be empty");
             }
             String expiryDate = ingredientFields.get("expiry_date");
-            if (expiryDate.isEmpty()) {
+            if (expiryDate.isEmpty() ) {
                 throw new IllegalArgumentException("Expiry date cannot be empty");
             }
             String newExpiry = ingredientFields.get("new_expiry");
-            if (newExpiry.isEmpty()) {
-                throw new IllegalArgumentException("New expiry date cannot be empty");
+            if (newExpiry.isEmpty() || !isValidDate(newExpiry)) {
+                throw new IllegalArgumentException("New expiry date cannot be empty " +
+                        "\nnew date should be in YYYY/MM/DD format" +
+                        "\nonly futuredates accepted");
             }
             int quantity;
             try {

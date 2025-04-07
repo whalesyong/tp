@@ -121,7 +121,7 @@ add -dish=fries -when=tmr  //(tomorrow,today,td,tdy also works)
 Adds an ingredient to the ingredient database.
 <br> If no quantity is specified, it defaults to 1.
 <br> If no expiry date is specified, it defaults to None.
-<br> _Expiry date format is to be in YYYY/MM/DD_
+<br> Please add date in YYYY/MM/DD format only future dates will be accepted
 <br> _add ingredients in lower_snake_case form_ 
 
 > **Warning:** Ingredients will not expire if no expiry date is set.  
@@ -393,7 +393,7 @@ update -dish={dishName}
 Updates quantity and/or expiry date of an Ingredient in storage
 <br> To update an ingredient, enter its name and current expiry date. If there is no expiry date you can leave it empty
 
-
+<br> Please add date in YYYY/MM/DD format only future dates will be accepted
 **Usage:**
 ```plaintext
 update -ingredient={ingredientName} [-expiry={expiryDate}] [-qty={quantity}] [-new_expiry={newExpiryDate]
