@@ -149,13 +149,13 @@ The Commands component contains classes that execute specific actions on their r
 
 Contains the classes and their respective purposes:
 
-* `AddCommand` adds Dishes, Recipes, Ingredients and ShoppingList items to their respective collections.
-* `ListCommand` 
-* `ViewCommand` 
-* `UpdateCommand` updates details of Recipes and Ingredients.
-* `DeleteCommand` removes Dishes, Recipes, Ingredients and ShoppingList items from their respective collections.
-* `HelpCommand` displays a manual for the commands and expected outputs.
-* `SuggestCommand` suggests possible Recipes to cook based on current Ingredients.
+* `AddCommand` adds Dishes, Recipes and Ingredients to their respective collections.
+* `ListCommand` lists scheduled Dishes, known Recipes and available Ingredients.
+* `ViewCommand` displays Dish Calendar, or Shopping List of ingredients to purchase.
+* `UpdateCommand` updates details of Recipes or Ingredients.
+* `DeleteCommand` removes Dishes, Recipes and Ingredients from their respective collections.
+* `HelpCommand` displays a manual for the commands and a link to the User Guide.
+* `SuggestCommand` suggests possible Recipes to cook based on available Ingredients.
 * `SearchCommand` searches Recipes based on tags.
 
 Each command interacts with a specific collection and ensures the necessary updates are performed before storing changes in the system.
@@ -184,21 +184,14 @@ The `Parser` class contains methods to process and handle different user command
 
 * `decipherCommand(String receivedText)`: Identifies the command type from user input and executes the relevant method.
 * `handleViewCommand(String receivedText)`: Handles requests to view data based on user-specified parameters.
-* `handleDisplayCommand(String receivedText)`: Manages the display of lists such as recipes, dishes, ingredients, and shopping lists.
-* `handleAddCommand(String receivedText)`: Directs the addition of new recipes, dishes, or ingredients to their respective storages.
+* `handleDisplayCommand(String receivedText)`: Manages the display of lists such as recipes, dishes and ingredients.
+* `handleAddCommand(String receivedText)`: Directs the addition of new recipes, dishes, or ingredients to their respective collections.
 * `handleDeleteCommand(String receivedText)`: Manages the removal of recipes, dishes, or ingredients based on user input.
-* `parseDish(String input)`: Extracts dish details from a given command.
+* `parseDish(String input)`: Extracts dish name and scheduled date from user input.
 * `parseRecipe(String receivedText)`: Extracts recipe details and its required ingredients.
-* `parseIngredient(String command)`: Parses an ingredient command into a structured data format.
+* `parseIngredient(String command)`: Parses an ingredient command into a structured data format with ingredient name, expiry date and quantity.
 
-The `Parser` class interacts with the following command classes:
-
-* `AddCommand` - Adds recipes, dishes, or ingredients.
-* `DeleteCommand` - Removes recipes, dishes, or ingredients.
-* `ListCommand` - Displays stored recipes, dishes, ingredients, or shopping lists.
-* `HelpCommand` - Shows available user commands.
-* `SuggestCommand` - Provides cooking suggestions.
-* `ViewCommand` - Displays information based on date or ingredient filters.
+The `Parser` class interacts with all command classes.
 
 <div style="page-break-after: always;"></div>
 
@@ -210,7 +203,7 @@ The design choice of the `Parser` class emphasizes modularity and maintainabilit
 2. **Scalability**: New commands can be integrated without affecting existing logic.
 3. **Error handling**: Unrecognized commands are identified, preventing incorrect execution.
 
-The following is a class diagram of the `Parser` class and its interactions:
+The following is an overview of the `Parser` class and its interactions:
 
 ![Parser.png](images/Parser.png)
 
