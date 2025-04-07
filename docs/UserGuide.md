@@ -77,7 +77,7 @@ Adds a dish to the calendar.
 it will check if you have enough ingredients from the ingredients list and subtract accordingly.
 <br> Any ingredient debts will be added to the shopping list.
 <br> here is a rough flowchart of what goes on when adding dish
-![img.png](images/addDishFlow.png)
+![img.png](images/add_dish_flow.png)
 
 > **Warning:** __add dishes in lower_snake_case form__
 > <br> If your dish contains multiple strings it will add the first string only
@@ -180,13 +180,13 @@ add -recipe={recipeName} -needs={ingredient_1},{quantity_1},{ingredient_2},{quan
 ### **5. View Scheduled Dishes: `list -dish`**
 
 Displays a list of all dishes in dishList sorted by date
-<br> add a -u flag to view upcoming dishes filtered by date
+<br> add a -upcoming flag to view upcoming dishes filtered by date
 
 
 **Usage:**  
 ```plaintext
 list -dish  
-list -dish -u
+list -dish -upcoming
 ```
 
 **Expected Output:**  
@@ -266,7 +266,7 @@ Displays Shopping List with ingredients needed to cook dishes.
 <br> [see add dish to view flowchart](#2-adding-dish-to-schedule-add--dishdishname-)
 <br> here is an image with annotations on how to use shopping list
 <br>
-<br> ![shoppingAnnotations.png](images/shoppingAnnotations.png)
+<br> ![shoppingAnnotations.png](images/shopping_annotations.png)
 
 **Usage:**
 ```plaintext
@@ -302,7 +302,7 @@ view -month=1 -year=2026
 **Expected Output:**
 - `view -month=`:
 
-![viewMonth.png](images/viewMonth.png)
+![viewMonth.png](images/view_month.png)
 
 ---
 
@@ -444,7 +444,7 @@ delete -dish={dishName} -when={date}
   The application supports deletion of dishes on a single date.
   ```
   Example usage of `delete -when={date}`:
-  ![bulkDelete](images/bulkDelete.png)
+  ![bulkDelete](images/bulk_delete.png)
 - If only one dish is scheduled:  
   ```plaintext
   {date} - {dishName} Successfully deleted!
