@@ -31,6 +31,8 @@ Given below are my contributions to the project.
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ### **Code Contributed**
 🔗 [RepoSense link](https://nus-cs2113-ay2425s2.github.io/tp-dashboard/?search=roycecodes&breakdown=true&sort=groupTitle%20dsc&sortWithin=title&since=2025-02-21&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other)
 
@@ -61,6 +63,8 @@ Given below are my contributions to the project.
 - **Justification**: Helps users review meal plans.
 - **Highlights**: Integrates filters that sorts dishes in chronological order and whether they have a scheduled date.
 ![listDish.png](../images/listDish.png)
+- 
+<div style="page-break-after: always;"></div>
 
 #### **Changing Scheduled Date of Dishes**
 - **What it does**: Enables rescheduling of meals already in the calendar.
@@ -69,6 +73,8 @@ Given below are my contributions to the project.
 - **credits** : Duplicate dish handling method inspired by Jeromey's [delete dish](../UserGuide.md/#12-delete-dish-from-schedule-delete--dishdishname-) and delete recipe code! 
 ![updateDish.png](../images/updateDish.png)
 ---
+
+<div style="page-break-after: always;"></div>
 
 ## Quality of Life Features
 
@@ -83,13 +89,17 @@ Given below are my contributions to the project.
 - **Highlights**: Designed to display any month of year within a range. Adjusted to calculate leap years.
 - **Credits**: Inspired by terminal-based calendar printouts but implemented without third-party libraries to reduce dependencies.
 ![viewMonth.png](../images/viewMonth.png)
-  
+
+<div style="page-break-after: always;"></div>
+
 ### **Shopping List Implementation**
 - **What it does**: Automatically compiles a shopping list based on planned dishes and ingredients.
 - **Justification**: Greatly reduces food waste and unnecessary spending.
 - **Highlights**: Aggregates overlapping ingredients across dishes to avoid duplicates. Considers multiple factors from different collections and relates all three collection together, by far one of the most complex features I implemented in this project.
 [link to flowchart](../UserGuide.md/#2-adding-dish-to-schedule-add--dishdishname-)
 ---
+
+<div style="page-break-after: always;"></div>
 
 ## Enhancements to Existing Features
 
@@ -98,6 +108,8 @@ Given below are my contributions to the project.
 - additional flag allows dish list to display upcoming dishes only to enhance readability
 ![upcomingDish.png](../images/upcomingDish.png)
 ---
+
+<div style="page-break-after: always;"></div>
 
 ## Documentation
 
@@ -111,12 +123,16 @@ Given below are my contributions to the project.
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ## Community Contributions
 - Reported bugs and improvement suggestions to other teams: [[CS2113-W11-3] Travel Diary
   #52](https://github.com/nus-cs2113-AY2425S2/tp/pull/52/files/6d04833aec4dd84f3122d08c8c7e6f2a6c713634), [[CS2113-W13-1]/tp#175](https://github.com/Roycecodes/ped/issues)
-![royce_suggestion.png](../images/royce_suggestion.png)
-![royce_suggestion1.png](../images/royce_suggestion1.png)
-![royce_suggestion2.png](../images/royce_suggestion2.png)
 
 - Also gave suggestions and ideated with teammates to improve these two features. [suggestions with missing ingredients](../UserGuide.md/#15-suggest-dishes-suggest), [favourite recipe](../UserGuide.md/#16-search-recipes-by-tag-search--recipetags)
-
+- example of suggestion to team 11-3
+  ![royce_suggestion.png](../images/royce_suggestion.png)
+- an example of one of the suggestions I made to team 13-1
+  ![royce_suggestion1.png](../images/royce_suggestion1.png)
+- snapshot of all suggestions to team 13-1
+  ![royce_suggestion2.png](../images/royce_suggestion2.png)
