@@ -1,34 +1,32 @@
 package seedu.cookingaids.commands;
 
-import seedu.cookingaids.collections.DishCalendar;
-import seedu.cookingaids.collections.RecipeBank;
-import seedu.cookingaids.collections.IngredientStorage;
-import seedu.cookingaids.collections.ShoppingList;
-import seedu.cookingaids.exception.InvalidInputException;
-import seedu.cookingaids.items.Dish;
-import seedu.cookingaids.items.Recipe;
-import seedu.cookingaids.items.Ingredient;
-import seedu.cookingaids.logger.LoggerFactory;
-
-import seedu.cookingaids.storage.Storage;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
-
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.cookingaids.parser.Parser.RECIPE_FLAG;
-import static seedu.cookingaids.parser.Parser.INGREDIENT_FLAG;
+import seedu.cookingaids.collections.DishCalendar;
+import seedu.cookingaids.collections.IngredientStorage;
+import seedu.cookingaids.collections.RecipeBank;
+import seedu.cookingaids.collections.ShoppingList;
+import seedu.cookingaids.exception.InvalidInputException;
+import seedu.cookingaids.items.Dish;
+import seedu.cookingaids.items.Ingredient;
+import seedu.cookingaids.items.Recipe;
+import seedu.cookingaids.logger.LoggerFactory;
 import static seedu.cookingaids.parser.Parser.DISH_FLAG;
+import static seedu.cookingaids.parser.Parser.INGREDIENT_FLAG;
+import static seedu.cookingaids.parser.Parser.RECIPE_FLAG;
 import static seedu.cookingaids.parser.Parser.parseDish;
 import static seedu.cookingaids.parser.Parser.parseIngredient;
 import static seedu.cookingaids.parser.Parser.parseRecipe;
+import seedu.cookingaids.storage.Storage;
 
 public class AddCommand {
     public static final String COMMAND_WORD = "add";
@@ -56,7 +54,10 @@ public class AddCommand {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu/MM/dd")
                         .withResolverStyle(ResolverStyle.STRICT);
-                LocalDate.parse(dateString, formatter);
+                LocalDate date = LocalDate.parse(dateString, formatter);
+                if (date.isBefore(LocalDate.now())){
+                    return false;
+                }
                 return true;
             } catch (DateTimeParseException e) {
                 return false;
@@ -141,15 +142,25 @@ public class AddCommand {
             if (!dishFields[1].isEmpty() && !isValidDate(dishFields[1])) {
                 throw new InvalidInputException();
             }
+            String dishName = dishFields[0];
+            String dishDate = dishFields[1];
+            // check if there are matching recipes. If not, warn the user that
+            // needed ingredients for this might not be added to shopping list
+            List<Recipe> matchingNames = RecipeBank.getRecipeByName(dishName);
 
-            Dish dish = new Dish(dishFields[0], dishFields[1]);
+            if (matchingNames.isEmpty()) {
+                LOGGER.warning("No matching recipe found for name: " + dishName + "," +
+                        " its ingredients may not be added to shopping list" );
+            }
+
+            Dish dish = new Dish(dishName, dishDate);
             DishCalendar.addDishToCalendar(dish);
             printDishResult(dish, dishFields[1]);
             saveAll();
 
         } catch (InvalidInputException e) {
             System.out.println("Invalid format. Use: add -dish=dish_name -when=YYYY/MM/DD " +
-                    "\ndish name should be in lower_snake_case");
+                    "\ndish name should be in lower_snake_case"+"\nonly dates in the future are accepted");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
@@ -177,14 +188,18 @@ public class AddCommand {
 
             ArrayList<Ingredient> ingredients = parseIngredients(pairsArray);
             Recipe recipe = new Recipe(replaceSpaceWithUnderscore(recipeFields[0]), ingredients);
-            RecipeBank.addRecipeToRecipeBank(recipe);
 
-            System.out.println("Added Recipe: " + recipeFields[0]);
-            System.out.println("Ingredients: " + recipe.getIngredientsString());
-            saveAll();
+            if (RecipeBank.getRecipeByName(recipeFields[0]).isEmpty()) {
+                RecipeBank.addRecipeToRecipeBank(recipe);
+                System.out.println("Added Recipe: " + recipeFields[0]);
+                System.out.println("Ingredients: " + recipe.getIngredientsString());
+                saveAll();
+            } else {
+                System.out.println("Recipe already exists: " + recipeFields[0]);
+            }
 
         } catch (InvalidInputException e) {
-            System.out.println("Invalid format, ingredients must be pairs: ingredient,quantity,...");
+            System.out.println("Invalid format, try add -recipe=recipeName -ingredients=ingredient_1,quantity_1");
         }
     }
 
@@ -210,8 +225,10 @@ public class AddCommand {
                 throw new IllegalArgumentException("Ingredient name cannot be empty");
             }
             String expiryDate = ingredientFields.get("expiry_date");
-            if (expiryDate.isEmpty() && !isValidDate(expiryDate)) {
-                throw new IllegalArgumentException("Expiry date is invalid");
+
+            if (!expiryDate.equals("None") && !isValidDate(expiryDate)) {
+                throw new IllegalArgumentException("Expiry date is invalid, \nensure that date is in" +
+                        " YYYY/MM/DD format and only future dates are accepted");
             }
             int quantity;
             try {

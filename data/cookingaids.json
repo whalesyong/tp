@@ -4,37 +4,7 @@
   "dishes" : [ {
     "name" : "spaghetti",
     "dishDate" : {
-      "dateString" : "20/03/2025"
-    }
-  }, {
-    "name" : "kuay_teow",
-    "dishDate" : {
-      "dateString" : "None"
-    }
-  }, {
-    "name" : "chicken_briyanni",
-    "dishDate" : {
-      "dateString" : "06/04/2025"
-    }
-  }, {
-    "name" : "mutton_soup",
-    "dishDate" : {
-      "dateString" : "07/04/2025"
-    }
-  }, {
-    "name" : "chicken_rice",
-    "dishDate" : {
-      "dateString" : "None"
-    }
-  }, {
-    "name" : "mutton_soup",
-    "dishDate" : {
-      "dateString" : "06/04/2025"
-    }
-  }, {
-    "name" : "mutton_soup",
-    "dishDate" : {
-      "dateString" : "07/04/2025"
+      "dateString" : "2025/03/20"
     }
   } ],
   "shopping" : [ ]

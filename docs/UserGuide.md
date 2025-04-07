@@ -1,27 +1,28 @@
 # **CookingAids User Guide**  
 
 ## **Table of Contents**  
-- [Introduction](#introduction-)
-- [Notes About the Command Format](#notes-about-the-command-format-)
-- [Features](#features-)
-  1. [Viewing Help: `help`](#1-viewing-help-help-)
-  2. [Adding Dish to Schedule: `add -dish`](#2-adding-dish-to-schedule-add--dishdishname-)
-  3. [Adding an Ingredient: `add -ingredient`](#3-adding-an-ingredient-add--ingredientingredientname-)  
+- [Introduction](#introduction)
+- [Notes About the Command Format](#notes-about-the-command-format)
+- [Features](#features)
+  1. [Viewing Help: `help`](#1-viewing-help-help)
+  2. [Adding Dish to Schedule: `add -dish`](#2-adding-dish-to-schedule-add--dishdishname)
+  3. [Adding an Ingredient: `add -ingredient`](#3-adding-an-ingredient-add--ingredientingredientname)  
   4. [Adding Recipe to Recipe Bank: `add -recipe`](#4-adding-recipe-to-recipe-bank-add--reciperecipename)
   5. [View Scheduled Dishes: `list -dish`](#5-view-scheduled-dishes-list--dish)  
-  6. [View Available Ingredients: `list -ingredient`](#6-view-available-ingredients-list--ingredient) 
-  7. [View Shopping List: `list -shopping`](#7-view-shopping-list-list--shopping)
-  8. [View Dishes for the Month: `view -month=`](#8-view-dishes-for-the-month-view--month1-12blank)
-  9. [View Available Recipes: `list -recipe`](#9-view-available-recipes-list--recipe)
+  6. [View Available Ingredients: `list -ingredient`](#6-view-available-ingredients-list--ingredient)
+  7. [View Available Recipes: `list -recipe`](#7-view-available-recipes-list--recipe)
+  8. [View Shopping List: `view -shopping`](#8-view-shopping-list-view--shopping)
+  9. [View Dishes for the Month: `view -month=`](#9-view-dishes-for-the-month-view--month1-12blank--year2015-2035)
   10. [Update Recipes: `update -recipe`](#10-update-recipes-update--recipe)
   11. [Update Dish: `update -dish`](#11-update-dish-update--dish)
-  12. [Delete Dish from Schedule: `delete -dish`](#12-delete-dish-from-schedule-delete--dishdishname-)
-  13. [Delete Ingredient: `delete -ingredient`](#13-delete-ingredient-delete--ingredientingredientname-)
-  14. [Delete Recipe from Recipe Bank: `delete -recipe`](#14-delete-recipe-from-recipe-bank-delete--reciperecipename-)
-  15. [Suggest Dishes: `suggest`](#15-suggest-dishes-suggest)
-  16. [Search Recipes by Tag: `search -recipetags`](#16-search-recipes-by-tag-search--recipetags)
-  17. [Exit program: `bye`](#17-exit-bye)
-- [Command List](#command-list-)
+  12. [Update Ingredient: `update -ingredient`](#12-update-ingredient-update--ingredient)
+  13. [Delete Dish from Schedule: `delete -dish`](#13-delete-dish-from-schedule-delete--dishdishname)
+  14. [Delete Ingredient: `delete -ingredient`](#14-delete-ingredient-delete--ingredientingredientname)
+  15. [Delete Recipe from Recipe Bank: `delete -recipe`](#15-delete-recipe-from-recipe-bank-delete--reciperecipename)
+  16. [Suggest Dishes: `suggest`](#16-suggest-dishes-suggest)
+  17. [Search Recipes by Tag: `search -recipetags`](#17-search-recipes-by-tag-search--recipetags)
+  18. [Exit program: `bye`](#18-exit-bye)
+- [Command List](#command-list)
 
 ---
 
@@ -78,7 +79,7 @@ it will check if you have enough ingredients from the ingredients list and subtr
 <br> here is a rough flowchart of what goes on when adding dish
 ![img.png](images/addDishFlow.png)
 
-> **Warning:** __add dishes in lower_snake_case form__ 
+> **Warning:** __add dishes in lower_snake_case form__
 > <br> If your dish contains multiple strings it will add the first string only
 
 **Usage:**  
@@ -87,7 +88,7 @@ add -dish={dishName}
 add -dish={dishName} [-when={date}]
 ```
 
-<br> Please add date in YYYY/MM/DD format 
+<br> Please add date in YYYY/MM/DD format only future dates will be accepted
 
 **Example:**
 ```plaintext
@@ -117,10 +118,10 @@ add -dish=fries -when=tmr  //(tomorrow,today,td,tdy also works)
 
 ### **3. Adding an Ingredient: `add -ingredient={ingredientName}`** 
 
-Adds an ingredient to the ingredient database.
+Adds an ingredient to the ingredient database. Ingredients will be displayed with in-built units, the default is pcs.
 <br> If no quantity is specified, it defaults to 1.
 <br> If no expiry date is specified, it defaults to None.
-<br> _Expiry date format is to be in YYYY/MM/DD_
+<br> Please add date in YYYY/MM/DD format only future dates will be accepted
 <br> _add ingredients in lower_snake_case form_ 
 
 > **Warning:** Ingredients will not expire if no expiry date is set.  
@@ -163,7 +164,7 @@ Adds a new recipe to the recipe bank.
 
 **Usage:**
 ```plaintext
-add -recipe={recipeName} -needs={ingredient1},{quantity_1},{ingredient2},{quantity_2}
+add -recipe={recipeName} -needs={ingredient_1},{quantity_1},{ingredient_2},{quantity_2}
 ```
 
 **Expected Output:**
@@ -239,8 +240,25 @@ list -ingredient
   ```
 
 ---
+### **7. View Available Recipes: `list -recipe`**
 
-### **7. View Shopping List: `view -shopping`**
+Displays a list of available recipes and/or their required ingredients.
+
+**Usage:**
+```plaintext
+list -recipe  
+```
+**Expected Output:**
+- `list -recipe`:
+  ```plaintext
+  Recipes:  
+  - recipeName1  
+  - recipeName2  
+  - ...
+  ```
+---
+
+### **8. View Shopping List: `view -shopping`**
 
 Displays Shopping List with ingredients needed to cook dishes.
 <br> shopping list is generated by adding dishes which generate an ingredient debt
@@ -266,7 +284,7 @@ view -shopping
 
 <div style="page-break-after: always;"></div>
 
-### **8. View Dishes for the Month: `view -month={1-12/BLANK} [-year={2015-2035}]`**
+### **9. View Dishes for the Month: `view -month={1-12/BLANK} [-year={2015-2035}]`**
 
 Displays dishes scheduled for a specific month or the current month.
 <br> Current date will be highlighted in red
@@ -289,30 +307,6 @@ view -month=1 -year=2026
 
 <div style="page-break-after: always;"></div>
 
-### **9. View Available Recipes: `list -recipe`**
-
-Displays a list of available recipes and/or their required ingredients.
-
-**Usage:**
-```plaintext
-list -recipe  
-list -recipe={recipeName}
-```
-**Expected Output:**
-- `list -recipe`:
-  ```plaintext
-  Recipes:  
-  - recipeName1  
-  - recipeName2  
-  - ...
-  ```
-- `list -recipe={recipeName}`:
-  ```plaintext
-  recipeName:  
-  - ingredientName1  
-  - ingredientName2  
-  - ...
-  ```
 ### **10. Update Recipes: `update -recipe`**
 
 Updates the name of a recipe and/or the required ingredients.
@@ -343,6 +337,8 @@ update -recipe={recipeName} -newtags={tag1,tag2}
 ### **11. Update Dish: `update -dish`**
 
 Updates the name of a recipe and/or the required ingredients.
+
+<br> Please add date in YYYY/MM/DD format only future dates will be accepted
 
 **Usage:**
 ```plaintext
@@ -388,6 +384,7 @@ update -dish={dishName}
 Updates quantity and/or expiry date of an Ingredient in storage
 <br> To update an ingredient, enter its name and current expiry date. If there is no expiry date you can leave it empty
 
+<br> Please add date in YYYY/MM/DD format only future dates will be accepted
 
 **Usage:**
 ```plaintext
@@ -413,6 +410,10 @@ update -ingredient={ingredientName} [-expiry={expiryDate}] [-qty={quantity}] [-n
 ### **13. Delete Dish from Schedule: `delete -dish={dishName}`** 
 
 Removes a dish from the schedule.  
+
+> **Warning:** deleting dishes causes ingredients used up by them to be released back into ingredient storage with no expiry date
+> <br> we only assume you use the ingredients that are expiring soon we have no way of knowing which ingredients 
+> you actually plan use, please use [update -ingredient](#12-update-ingredient-update--ingredient) method to reset expiry date
 
 **Usage:**  
 ```plaintext
@@ -498,7 +499,7 @@ delete -recipe={recipeName}
 
 ### **16. Suggest Dishes: `suggest`**
 
-Suggests dishes based on available ingredients. 
+Suggests dishes based on available ingredients.
 
 **Usage:**
 ```
@@ -524,26 +525,22 @@ If no flag is given, the default is OR-based.
 **Usage:**
 ```
 search -recipetags=italian,mexican
-``` 
-**Expected Output:**
-```plaintext
-Recipes that match your tags:
-1: garlic_bread
-2: tacos
-```
-```
 search -recipetags=italian,mexican -type=or
 ``` 
 **Expected Output:**
+- `search -recipetags=italian,mexican`
 ```plaintext
 Recipes that match your tags:
 1: garlic_bread
 2: tacos
 ```
+- `search -recipetags=italian,mexican -type=or`
+```plaintext
+Recipes that match your tags:
+1: garlic_bread
+2: tacos
 ```
-search -recipetags=italian,mexican -type=and
-``` 
-**Expected Output:**
+- `search -recipetags=italian,mexican -type=and`
 ```plaintext
 No recipes match your tags.
 ```

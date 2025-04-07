@@ -19,20 +19,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class DeleteCommandTest {
 
     private DishCalendar dishCalendar;
-    private RecipeBank recipeBank;
 
     @BeforeEach
     void setUp() {
         dishCalendar = new DishCalendar();
         Dish spaghetti = new Dish( "spaghetti", "20/03/2025");
         DishCalendar.addDishToCalendar(spaghetti);
-        recipeBank = new RecipeBank();
     }
 
     @AfterEach
     void tearDown() {
-        dishCalendar.clear();
-        recipeBank.clear();
+        DishCalendar.clear();
+        RecipeBank.clear();
     }
 
     @Test
@@ -69,7 +67,11 @@ class DeleteCommandTest {
         ingredients.add(new Ingredient("tomato", 1));
         ingredients.add(new Ingredient("egg", 1));
         Recipe sandwich = new Recipe("sandwich", ingredients);
+        Recipe lasagna = new Recipe("lasagna");
         RecipeBank.addRecipeToRecipeBank(sandwich);
+        RecipeBank.addRecipeToRecipeBank(lasagna);
+
+        assertDeletionSuccessfulRecipe("lasagna");
 
         assertTrue(RecipeBank.contains("sandwich"));
         assertEquals(1, RecipeBank.getRecipeBankSize());
@@ -78,18 +80,6 @@ class DeleteCommandTest {
 
         assertFalse(RecipeBank.contains("sandwich"));
         assertEquals(0, RecipeBank.getRecipeBankSize());
-
-    }
-
-    @Test
-    void execute_nonExistentRecipe_printsNoRecipeFoundMessage() {
-        DeleteCommand.deleteRecipe("delete -recipe=NonExistentRecipe");
-    }
-
-    @Test
-    void execute_deleteFromEmptyRecipeBank_returnsRecipeNotFoundMessage() {
-        recipeBank.clear();
-        DeleteCommand.deleteRecipe("delete -recipe=AnyRecipe");
 
     }
 
@@ -115,13 +105,13 @@ class DeleteCommandTest {
 
     @Test
     void execute_nonExistentRecipe_returnsRecipeNotFoundMessage() {
-        assertDeletionFailsDueToNoSuchRecipe("30");
+        assertDeletionFailsDueToNoSuchRecipe("NonExistentRecipe");
     }
 
     @Test
     void execute_afterDishCalendarCleared_returnsDishNotFoundMessage() {
-        dishCalendar.clear();
-        assertDeletionFailsDueToNoSuchDish("2", dishCalendar);
+        DishCalendar.clear();
+        assertDeletionFailsDueToNoSuchDish("toast", dishCalendar);
     }
 
     @Test
@@ -165,7 +155,7 @@ class DeleteCommandTest {
 
     private void assertDeletionSuccessfulRecipe(String recipeName) {
         assertTrue(RecipeBank.contains(recipeName));
-        DeleteCommand.deleteRecipe("delete -recipe=3");
+        DeleteCommand.deleteRecipe("delete -recipe=" + recipeName);
         assertFalse(RecipeBank.contains(recipeName));
     }
 

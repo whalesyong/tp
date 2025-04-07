@@ -36,7 +36,9 @@ public class Ui {
 
     public static final String USER_MARKER = ">>> ";
     public static final String WELCOME_MESSAGE = "welcome to cooking";
-
+    public static final String DATA_CORRUPTED_WARNING_MESSAGE = "In order to preserve your data, please perform " +
+            "Ctrl+C (Win) or Cmd+C (MacOS) and look through cookingaids.json for any potential corrupted fields, " +
+            "and delete them. Sending the 'bye' command will permanently wipe all data.";
     public static final String ASCII_MESSAGE = """ 
              ░▒▓██████▓▒░░▒▓█▓▒░▒▓███████▓▒░ ░▒▓███████▓▒░\s
             ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░       \s
@@ -45,11 +47,14 @@ public class Ui {
             ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░\s
             ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░\s
             ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓███████▓▒░░▒▓███████▓▒░ \s""";
+    public static Runnable waitForCommand;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Ui.class);
     private static final String MESSAGE_INDEXED_LIST_ITEM = "\t%1$d. %2$s";
     private static final String MESSAGE_STORE_SUCCESS = "Stored Dish List successfully in: ";
     private static final String FILE_PATH= "./data/cookingaids.json";
+
+
     public static void printLineDivider() {
         System.out.println(LINE_DIVIDER);
     }

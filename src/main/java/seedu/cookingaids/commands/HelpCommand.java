@@ -1,9 +1,12 @@
 package seedu.cookingaids.commands;
 
+import java.util.logging.Logger;
+import seedu.cookingaids.logger.LoggerFactory;
 
 public class HelpCommand {
-
     public static final String COMMAND_WORD = "help";
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(HelpCommand.class);
 
     /**
      * Displays the help menu with available commands and their usage.
@@ -11,6 +14,7 @@ public class HelpCommand {
      * and explains how to use each of them.
      */
     public static void showHelp() {
+        LOGGER.info("Displaying help menu");
         System.out.println("Available commands:\n");
 
         // Add command
