@@ -18,14 +18,7 @@ public class RecipeBank {
     }
 
     public static void addRecipeToRecipeBank(Recipe recipe){
-
-//        if (getRecipeByName(recipe.getRecipeName()).isEmpty()) {
-            recipeBank.add(recipe);
-//        } else {
-//            throw new Exception("There is already a recipe with the name " + recipe.getRecipeName());
-//        }
-
-        //        index += 1;
+        recipeBank.add(recipe);
     }
 
     public static ArrayList<Recipe> getRecipeBank() {

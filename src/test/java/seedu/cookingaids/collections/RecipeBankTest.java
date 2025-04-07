@@ -69,25 +69,16 @@ class RecipeBankTest {
         assertTrue(RecipeBank.getRecipeBank().isEmpty());
 
         // When adding a recipe
-        try {
-            RecipeBank.addRecipeToRecipeBank(testRecipe1);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        RecipeBank.addRecipeToRecipeBank(testRecipe1);
 
         // Then the recipe bank should contain that recipe
         assertEquals(1, RecipeBank.getRecipeBank().size());
         assertTrue(RecipeBank.getRecipeBank().contains(testRecipe1));
 
         // When adding another recipe
-        try {
-            RecipeBank.addRecipeToRecipeBank(testRecipe2);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        RecipeBank.addRecipeToRecipeBank(testRecipe2);
 
-
-    // Then the recipe bank should contain both recipes
+        // Then the recipe bank should contain both recipes
         assertEquals(2, RecipeBank.getRecipeBank().size());
         assertTrue(RecipeBank.getRecipeBank().contains(testRecipe2));
     }
