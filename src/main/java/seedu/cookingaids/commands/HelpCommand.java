@@ -4,8 +4,8 @@ import java.util.logging.Logger;
 import seedu.cookingaids.logger.LoggerFactory;
 
 public class HelpCommand {
-    private static final Logger LOGGER = LoggerFactory.getLogger(HelpCommand.class);
     public static final String COMMAND_WORD = "help";
+    private static final Logger LOGGER = LoggerFactory.getLogger(HelpCommand.class);
 
     /**
      * Displays the help menu with available commands and their usage.

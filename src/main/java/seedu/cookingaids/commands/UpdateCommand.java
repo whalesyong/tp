@@ -239,9 +239,7 @@ public class UpdateCommand {
                     " remove additional flags");
             System.out.println("ensure that date is in YYYY/MM/DD format ");
         }catch(InputMismatchException e){
-
-                System.out.println("input an integer");
-
+            System.out.println("input an integer");
         }
     }
 

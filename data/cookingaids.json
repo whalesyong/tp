@@ -1,21 +1,11 @@
 {
   "recipes" : [ ],
-  "ingredients" : {
-    "bread" : [ {
-      "name" : "bread",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
-    } ],
-    "fish" : [ {
-      "name" : "fish",
-      "quantity" : 1,
-      "expiryDate" : {
-        "dateString" : "None"
-      }
-    } ]
-  },
-  "dishes" : [ ],
+  "ingredients" : { },
+  "dishes" : [ {
+    "name" : "spaghetti",
+    "dishDate" : {
+      "dateString" : "2025/03/20"
+    }
+  } ],
   "shopping" : [ ]
 }
