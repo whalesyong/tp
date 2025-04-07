@@ -1,7 +1,7 @@
 # **CookingAids User Guide**  
 
 ## **Table of Contents**  
-- [Introduction](#introduction-)
+- [Introduction](#introduction)
 - [Notes About the Command Format](#notes-about-the-command-format)
 - [Features](#features)
   1. [Viewing Help: `help`](#1-viewing-help-help)
@@ -529,26 +529,22 @@ If no flag is given, the default is OR-based.
 **Usage:**
 ```
 search -recipetags=italian,mexican
-``` 
-**Expected Output:**
-```plaintext
-Recipes that match your tags:
-1: garlic_bread
-2: tacos
-```
-```
 search -recipetags=italian,mexican -type=or
 ``` 
 **Expected Output:**
+- `search -recipetags=italian,mexican`
 ```plaintext
 Recipes that match your tags:
 1: garlic_bread
 2: tacos
 ```
+- `search -recipetags=italian,mexican -type=or`
+```plaintext
+Recipes that match your tags:
+1: garlic_bread
+2: tacos
 ```
-search -recipetags=italian,mexican -type=and
-``` 
-**Expected Output:**
+- `search -recipetags=italian,mexican -type=and`
 ```plaintext
 No recipes match your tags.
 ```

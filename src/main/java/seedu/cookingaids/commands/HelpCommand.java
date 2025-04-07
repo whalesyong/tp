@@ -40,9 +40,10 @@ public class HelpCommand {
 
         // Update command
         System.out.println("  update - Edits a recipe or ingredient quantity");
-        System.out.println("    Usage: update -recipe=<recipe_name> -name=<new_name> " +
-                "-ingredients=<new_ingredient_1,quantity_1,new_ingredient_2,quantity_2> "
-                + "(Updates available recipes and/or their required ingredients)");
+        System.out.println("    Usage: update -recipe=<recipe_name> -newname=<new_name> " +
+                "-newingredients=<new_ingredient_1,quantity_1,new_ingredient_2,quantity_2>\n " +
+                "-newtags=<tag_1,tag_2>" +
+                "(Updates available recipes, required ingredients, and/or tags)");
         System.out.println("           update -ingredient=<ingredient_name> -quantity=<new_quantity> "
                 + "(Updates available quantity of selected ingredient)\n");
 
@@ -56,6 +57,15 @@ public class HelpCommand {
         // Suggest command
         System.out.println("  suggest - Suggests dishes based on available ingredients");
         System.out.println("    Usage: suggest\n");
+
+        // Search command
+        System.out.println("  search - Searches recipes based on tags");
+        System.out.println("    Usage: search -recipetags=<tag_1> \n");
+        System.out.println("           search -recipetags=<tag_1,tag_2> -type=and " +
+                "(Searches recipes with OR-based search)\n");
+        System.out.println("           search -recipetags=<tag_1,tag_2> -type=or " +
+                "(Searches recipes with OR-based search)\n");
+        System.out.println("           search -recipetags=<tag_1,tag_2> (does the same as -type=or)\n");
 
         // Bye command
         System.out.println("  bye - Exits the program");
