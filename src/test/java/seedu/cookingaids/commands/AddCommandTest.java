@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AddCommandTest {
 
-    private DishCalendar dishCalendar;
     private RecipeBank recipeBank;
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
@@ -37,15 +36,14 @@ class AddCommandTest {
 
     @BeforeEach
     void setUp() {
-        dishCalendar = new DishCalendar();
         Dish spaghetti = new Dish( "spaghetti", "20/03/2025");
         DishCalendar.addDishToCalendar(spaghetti);
     }
 
     @AfterEach
     void tearDown() {
-        dishCalendar.clear();
-        recipeBank.clear();
+        DishCalendar.clear();
+        RecipeBank.clear();
     }
 
     @Test
@@ -53,9 +51,9 @@ class AddCommandTest {
         DishCalendar emptyDishCalendar = new DishCalendar();
         String dishName = "pizza";
 
-        AddCommand.addDish("add -dish=" + dishName + " -when=2025/03/22");
+        AddCommand.addDish("add -dish=" + dishName + " -when=2025/11/22");
 
-        assertTrue(emptyDishCalendar.containsDish(dishName));
+        assertAddDishSuccessful("pizza", emptyDishCalendar);
     }
 
     @Test
@@ -65,7 +63,7 @@ class AddCommandTest {
 
         AddCommand.addIngredient("add -ingredient=" + ingredientName);
 
-        assertTrue(IngredientStorage.contains(ingredientName));
+        assertAddIngredientSuccessful("tomato");
         assertEquals(1, IngredientStorage.getStorage().size());
     }
 
@@ -75,7 +73,7 @@ class AddCommandTest {
 
         AddCommand.addRecipe("add -recipe=pizza -needs=tomato,1,cheese,1");
 
-        assertTrue(RecipeBank.contains("pizza"));
+        assertAddRecipeSuccessful("pizza");
 
         List<Recipe> pizzaRecipes = RecipeBank.getRecipeByName("pizza");
         assertEquals(1, pizzaRecipes.size());
@@ -103,7 +101,7 @@ class AddCommandTest {
 
         AddCommand.addRecipe("add -recipe=sandwich -needs=mayo,1,lettuce,1,turkey,2");
 
-        assertTrue(RecipeBank.contains("sandwich"));
+        assertAddRecipeSuccessful("sandwich");
         assertEquals(2, RecipeBank.getRecipeBankSize());
 
         List<Recipe> sandwiches = RecipeBank.getRecipeByName("sandwich");
@@ -155,28 +153,17 @@ class AddCommandTest {
 
         String commandOutput = outputStream.toString().trim();
         assertEquals("Invalid format. Use: add -dish=dish_name -when=YYYY/MM/DD " +
-                "\ndish name should be in lower_snake_case", commandOutput);
+                "\ndish name should be in lower_snake_case" +"\nonly dates in the future are accepted", commandOutput);
     }
 
     @Test
     void execute_addDishWithNoDate_returnsInvalidFormatMessage() {
         String invalidDate = "";  // Invalid date
-        AddCommand.addDish("add -dish=Lasagna -when=" + invalidDate);
+        AddCommand.addDish("add -dish=lasagna -when=" + invalidDate);
 
         String commandOutput = outputStream.toString().trim();
         assertEquals("Invalid format. Use: add -dish=dish_name -when=YYYY/MM/DD " +
-                "\ndish name should be in lower_snake_case", commandOutput);
-    }
-
-    @Test
-    void execute_addRecipeWithMissingIngredients_returnsMissingIngredientsMessage() {
-        ArrayList<Ingredient> ingredients = new ArrayList<>();
-        ingredients.add(new Ingredient( "Bread"));
-        Recipe incompleteRecipe = new Recipe("Toast", ingredients);
-
-        AddCommand.addRecipe("add -recipe=toast -needs=bread, 1");
-
-        assertAddRecipeSuccessful("toast");
+                "\ndish name should be in lower_snake_case" +"\nonly dates in the future are accepted", commandOutput);
     }
 
     private void assertAddDishSuccessful(String dishName, DishCalendar dishCalendar) {

@@ -53,7 +53,10 @@ public class AddCommand {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu/MM/dd")
                         .withResolverStyle(ResolverStyle.STRICT);
-                LocalDate.parse(dateString, formatter);
+                LocalDate date = LocalDate.parse(dateString, formatter);
+                if (date.isBefore(LocalDate.now())){
+                    return false;
+                }
                 return true;
             } catch (DateTimeParseException e) {
                 return false;
@@ -146,7 +149,7 @@ public class AddCommand {
 
         } catch (InvalidInputException e) {
             System.out.println("Invalid format. Use: add -dish=dish_name -when=YYYY/MM/DD " +
-                    "\ndish name should be in lower_snake_case");
+                    "\ndish name should be in lower_snake_case"+"\nonly dates in the future are accepted");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
@@ -207,8 +210,10 @@ public class AddCommand {
                 throw new IllegalArgumentException("Ingredient name cannot be empty");
             }
             String expiryDate = ingredientFields.get("expiry_date");
-            if (expiryDate.isEmpty() && !isValidDate(expiryDate)) {
-                throw new IllegalArgumentException("Expiry date is invalid");
+
+            if (!expiryDate.equals("None") && !isValidDate(expiryDate)) {
+                throw new IllegalArgumentException("Expiry date is invalid, \nensure that date is in" +
+                        " YYYY/MM/DD format and only future dates are accepted");
             }
             int quantity;
             try {

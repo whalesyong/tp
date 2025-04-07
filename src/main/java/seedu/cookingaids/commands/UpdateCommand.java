@@ -172,12 +172,14 @@ public class UpdateCommand {
                 throw new IllegalArgumentException("Ingredient name cannot be empty");
             }
             String expiryDate = ingredientFields.get("expiry_date");
-            if (expiryDate.isEmpty()) {
+            if (expiryDate.isEmpty() ) {
                 throw new IllegalArgumentException("Expiry date cannot be empty");
             }
             String newExpiry = ingredientFields.get("new_expiry");
-            if (newExpiry.isEmpty()) {
-                throw new IllegalArgumentException("New expiry date cannot be empty");
+            if (newExpiry.isEmpty() || !isValidDate(newExpiry)) {
+                throw new IllegalArgumentException("New expiry date cannot be empty " +
+                        "\nnew date should be in YYYY/MM/DD format" +
+                        "\nonly futuredates accepted");
             }
             int quantity;
             try {
@@ -235,9 +237,9 @@ public class UpdateCommand {
 
         } catch (InvalidInputException e) {
             System.out.println("" +
-                    "Format error ensure you do not have additional flags. use update -dish={dishName} only," +
+                    "Format error ensure you do not have additional flags.\nuse update -dish={dishName} only," +
                     " remove additional flags");
-            System.out.println("ensure that date is in YYYY/MM/DD format ");
+            System.out.println("ensure that date is in YYYY/MM/DD format and only future dates are accepted");
         }catch(InputMismatchException e){
             System.out.println("input an integer");
         }
