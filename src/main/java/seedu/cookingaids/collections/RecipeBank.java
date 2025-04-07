@@ -17,9 +17,8 @@ public class RecipeBank {
         recipeBank.addAll(recipesList);
     }
 
-    public static void addRecipeToRecipeBank(Recipe recipe) {
+    public static void addRecipeToRecipeBank(Recipe recipe){
         recipeBank.add(recipe);
-        //        index += 1;
     }
 
     public static ArrayList<Recipe> getRecipeBank() {
@@ -70,22 +69,6 @@ public class RecipeBank {
         }
 
         return recipeList;
-    }
-
-    public static ArrayList<Recipe> getRecipeByTags(ArrayList<String> tags) {
-        ArrayList<Recipe> recipeList = new ArrayList<>();
-
-        for (Recipe recipe : recipeBank) {
-            for (String tag : tags) {
-                if (recipe.getTags().contains(tag)) {
-                    recipeList.add(recipe);
-                    break;
-                }
-            }
-        }
-
-        return recipeList;
-
     }
 
     public static ArrayList<Recipe> getRecipeByORTags(ArrayList<String> tags) {

@@ -177,14 +177,18 @@ public class AddCommand {
 
             ArrayList<Ingredient> ingredients = parseIngredients(pairsArray);
             Recipe recipe = new Recipe(replaceSpaceWithUnderscore(recipeFields[0]), ingredients);
-            RecipeBank.addRecipeToRecipeBank(recipe);
 
-            System.out.println("Added Recipe: " + recipeFields[0]);
-            System.out.println("Ingredients: " + recipe.getIngredientsString());
-            saveAll();
+            if (RecipeBank.getRecipeByName(recipeFields[0]).isEmpty()) {
+                RecipeBank.addRecipeToRecipeBank(recipe);
+                System.out.println("Added Recipe: " + recipeFields[0]);
+                System.out.println("Ingredients: " + recipe.getIngredientsString());
+                saveAll();
+            } else {
+                System.out.println("Recipe already exists: " + recipeFields[0]);
+            }
 
         } catch (InvalidInputException e) {
-            System.out.println("Invalid format, ingredients must be pairs: ingredient,quantity,...");
+            System.out.println("Invalid format, try add -recipe=recipeName -ingredients=ingredient_1,quantity_1");
         }
     }
 

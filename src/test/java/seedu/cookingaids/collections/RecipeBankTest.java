@@ -86,8 +86,12 @@ class RecipeBankTest {
     @Test
     void getRecipeBank() {
         // Given a recipe bank with test recipes
-        RecipeBank.addRecipeToRecipeBank(testRecipe1);
-        RecipeBank.addRecipeToRecipeBank(testRecipe2);
+        try {
+            RecipeBank.addRecipeToRecipeBank(testRecipe1);
+            RecipeBank.addRecipeToRecipeBank(testRecipe2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // When getting the recipe bank
         ArrayList<Recipe> recipeBank = RecipeBank.getRecipeBank();
@@ -104,18 +108,30 @@ class RecipeBankTest {
         assertEquals(0, RecipeBank.getRecipeBankSize());
 
         // When adding recipes
-        RecipeBank.addRecipeToRecipeBank(testRecipe1);
+        try {
+            RecipeBank.addRecipeToRecipeBank(testRecipe1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         assertEquals(1, RecipeBank.getRecipeBankSize());
 
-        RecipeBank.addRecipeToRecipeBank(testRecipe2);
+        try {
+            RecipeBank.addRecipeToRecipeBank(testRecipe2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         assertEquals(2, RecipeBank.getRecipeBankSize());
     }
 
     @Test
     void removeRecipeFromRecipeBank() {
         // Given a recipe bank with test recipes
-        RecipeBank.addRecipeToRecipeBank(testRecipe1);
-        RecipeBank.addRecipeToRecipeBank(testRecipe2);
+        try {
+            RecipeBank.addRecipeToRecipeBank(testRecipe1);
+            RecipeBank.addRecipeToRecipeBank(testRecipe2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         assertEquals(2, RecipeBank.getRecipeBank().size());
 
         // When removing a recipe
@@ -130,8 +146,12 @@ class RecipeBankTest {
     @Test
     void getRecipeByName() {
         // Given a recipe bank with test recipes
-        RecipeBank.addRecipeToRecipeBank(testRecipe1);
-        RecipeBank.addRecipeToRecipeBank(testRecipe2);
+        try {
+            RecipeBank.addRecipeToRecipeBank(testRecipe1);
+            RecipeBank.addRecipeToRecipeBank(testRecipe2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // When getting recipes by name
         List<Recipe> foundRecipes = RecipeBank.getRecipeByName("Spaghetti Carbonara");
@@ -153,7 +173,11 @@ class RecipeBankTest {
     @Test
     void contains() {
         // Given a recipe bank with test recipes
-        RecipeBank.addRecipeToRecipeBank(testRecipe1);
+        try {
+            RecipeBank.addRecipeToRecipeBank(testRecipe1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // When checking if it contains a recipe by name
         boolean containsExisting = RecipeBank.contains("Spaghetti Carbonara");
@@ -191,8 +215,12 @@ class RecipeBankTest {
     @Test
     void clear() {
         // Given a recipe bank with test recipes
-        RecipeBank.addRecipeToRecipeBank(testRecipe1);
-        RecipeBank.addRecipeToRecipeBank(testRecipe2);
+        try {
+            RecipeBank.addRecipeToRecipeBank(testRecipe1);
+            RecipeBank.addRecipeToRecipeBank(testRecipe2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         assertEquals(2, RecipeBank.getRecipeBank().size());
 
         // When clearing the recipe bank
