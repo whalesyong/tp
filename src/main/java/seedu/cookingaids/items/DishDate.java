@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 
 /**
@@ -34,9 +35,9 @@ public class DishDate {
         try {
             dateLocalDate = parseDate(date);
             dateString = dateLocalDate == null ? "None" : //None set here to match format
-                    dateLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    dateLocalDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
             assert dateString != null : "Date string should not be null";
-            assert (dateLocalDate == null || dateLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+            assert (dateLocalDate == null || dateLocalDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"))
                     .equals(dateString))
                     : "dateLocalDate and dateString should be consistent";
 
@@ -70,7 +71,7 @@ public class DishDate {
             }
         }
         dateString = dateLocalDate == null ? "None" : //None set here to match format
-                dateLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                dateLocalDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
     }
     /**
      * Parses a string into a LocalDate object.
@@ -84,7 +85,7 @@ public class DishDate {
             return null;
         }
         // Expecting the pattern dd/MM/yyyy as per your formatting
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         return LocalDate.parse(receivedText, formatter);
     }
 
@@ -141,7 +142,21 @@ public class DishDate {
         return dateString;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        DishDate dishDate = (DishDate) object;
+        return this.dateString.equals(dishDate.dateString);
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(dateString);
+    }
 
 }

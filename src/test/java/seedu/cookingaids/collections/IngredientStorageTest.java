@@ -61,8 +61,8 @@ public class IngredientStorageTest {
         List<Ingredient> sugarList = IngredientStorage.getIngredients("Sugar");
         assertEquals(2, sugarList.size());
 
-        assertEquals("31/12/2025", sugarList.get(0).getExpiryDate().toString());
-        assertEquals("01/01/2026", sugarList.get(1).getExpiryDate().toString());
+        assertEquals("2025/12/31", sugarList.get(0).getExpiryDate().toString());
+        assertEquals("2026/01/01", sugarList.get(1).getExpiryDate().toString());
     }
 
     @Test
@@ -132,7 +132,7 @@ public class IngredientStorageTest {
         assertEquals(1, sugarList.size());
         assertEquals(300, sugarList.get(0).getQuantity());
 
-        assertEquals("31/12/2025", sugarList.get(0).getExpiryDate().toString());
+        assertEquals("2025/12/31", sugarList.get(0).getExpiryDate().toString());
     }
 
     @Test

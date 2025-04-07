@@ -1,40 +1,35 @@
 package seedu.cookingaids.commands;
 
-import seedu.cookingaids.collections.DishCalendar;
-import seedu.cookingaids.collections.RecipeBank;
-import seedu.cookingaids.collections.IngredientStorage;
-import seedu.cookingaids.collections.ShoppingList;
-import seedu.cookingaids.exception.InvalidInputException;
-import seedu.cookingaids.items.Dish;
-import seedu.cookingaids.items.Recipe;
-import seedu.cookingaids.items.Ingredient;
-import seedu.cookingaids.logger.LoggerFactory;
-
-import seedu.cookingaids.storage.Storage;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.cookingaids.parser.Parser.RECIPE_FLAG;
-import static seedu.cookingaids.parser.Parser.INGREDIENT_FLAG;
+import seedu.cookingaids.collections.DishCalendar;
+import seedu.cookingaids.collections.IngredientStorage;
+import seedu.cookingaids.collections.RecipeBank;
+import seedu.cookingaids.collections.ShoppingList;
+import seedu.cookingaids.exception.InvalidInputException;
+import seedu.cookingaids.items.Dish;
+import seedu.cookingaids.items.Ingredient;
+import seedu.cookingaids.items.Recipe;
+import seedu.cookingaids.logger.LoggerFactory;
 import static seedu.cookingaids.parser.Parser.DISH_FLAG;
+import static seedu.cookingaids.parser.Parser.INGREDIENT_FLAG;
+import static seedu.cookingaids.parser.Parser.RECIPE_FLAG;
 import static seedu.cookingaids.parser.Parser.parseDish;
 import static seedu.cookingaids.parser.Parser.parseIngredient;
 import static seedu.cookingaids.parser.Parser.parseRecipe;
+import seedu.cookingaids.storage.Storage;
 
 public class AddCommand {
     public static final String COMMAND_WORD = "add";
     private static final int SPACE = 1;
-    private static final String INGREDIENT_SEPARATOR = ",";
     private static final Logger LOGGER = LoggerFactory.getLogger(AddCommand.class);
 
     /**
@@ -58,12 +53,73 @@ public class AddCommand {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu/MM/dd")
                         .withResolverStyle(ResolverStyle.STRICT);
-                LocalDate.parse(dateString, formatter);
+                LocalDate date = LocalDate.parse(dateString, formatter);
+                if (date.isBefore(LocalDate.now())){
+                    return false;
+                }
                 return true;
             } catch (DateTimeParseException e) {
                 return false;
             }
         }
+    }
+
+    private static boolean hasConflictingFlags(String input, String... flags) {
+        for (String flag : flags) {
+            if (input.contains(flag)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static void validateDishFlags(String text) {
+        Pattern pattern = Pattern.compile("-(\\w+)=");
+        Matcher matcher = pattern.matcher(text);
+        while (matcher.find()) {
+            String key = matcher.group(1);
+            if (!(key.equals("dish") || key.equals("when"))) {
+                throw new IllegalArgumentException("Unexpected key: " + key);
+            }
+        }
+    }
+
+    private static void printDishResult(Dish dish, String inputDate) {
+        String date = dish.getDishDate().toString();
+        if (date.equals("None") && !inputDate.isEmpty()) {
+            System.out.println("Could not recognise date! Saving without date");
+        }
+        System.out.println("Added Dish: " + dish.getName() +
+                (date.equals("None") ? ", No scheduled date yet" : ", Scheduled for: " + date));
+    }
+
+    private static ArrayList<Ingredient> parseIngredients(String[] fields) throws InvalidInputException {
+        ArrayList<Ingredient> ingredients = new ArrayList<>();
+        for (int i = 0; i < fields.length; i += 2) {
+            try {
+                ingredients.add(new Ingredient(fields[i].trim(), Integer.parseInt(fields[i + 1].trim())));
+            } catch (NumberFormatException e) {
+                throw new InvalidInputException();
+            }
+        }
+        return ingredients;
+    }
+
+    private static void saveAll() {
+        LOGGER.info("Saving to file now");
+        Storage.storeData(DishCalendar.getDishCalendar(),
+                RecipeBank.getRecipeBank(), IngredientStorage.getStorage(),
+                ShoppingList.getShoppingList());
+    }
+
+    /**
+     * Replaces spaces in a string with underscores.
+     *
+     * @param input The input string.
+     * @return The modified string with spaces replaced by underscores.
+     */
+    private static String replaceSpaceWithUnderscore(String input) {
+        return input.replace(" ", "_");
     }
 
     /**
@@ -73,55 +129,29 @@ public class AddCommand {
      */
     public static void addDish(String receivedText) {
         try {
-            if(receivedText.contains(RECIPE_FLAG) || receivedText.contains(INGREDIENT_FLAG)){
+            if (hasConflictingFlags(receivedText, RECIPE_FLAG, INGREDIENT_FLAG)) {
                 System.out.println("Other commands found, I can only process one at a time");
                 return;
             }
 
             receivedText = removeCommandWord(receivedText);
-            Pattern pattern = Pattern.compile("-(\\w+)=");
-            Matcher matcher = pattern.matcher(receivedText);
+            validateDishFlags(receivedText);
 
-            while (matcher.find()) {
-                String key = matcher.group(1);
-
-
-                if (!(key.equals("dish") || key.equals("when"))) {
-                    throw new IllegalArgumentException("Unexpected key: " + key);
-                }
-            }
             String[] dishFields = parseDish(receivedText);
-
-            assert dishFields.length == 2 : "Dish fields should contain exactly two elements";
-
             if (!dishFields[1].isEmpty() && !isValidDate(dishFields[1])) {
                 throw new InvalidInputException();
             }
 
             Dish dish = new Dish(dishFields[0], dishFields[1]);
             DishCalendar.addDishToCalendar(dish);
+            printDishResult(dish, dishFields[1]);
+            saveAll();
 
-            String date = dish.getDishDate().toString();
-            assert date != null : "Dish date should not be null";
-
-            if (date.equals("None") && !dishFields[1].isEmpty()) {
-                System.out.println("Could not recognise date! Saving without date");
-                System.out.println("Added Dish: " + dish.getName() + ", No scheduled date yet");
-            } else if (date.equals("None")) {
-                System.out.println("Added Dish: " + dish.getName() + ", No scheduled date yet");
-            } else {
-                System.out.println("Added Dish: " + dish.getName() + ", Scheduled for: " + date);
-            }
-
-            LOGGER.info("Saving to file now");
-            Storage.storeData(DishCalendar.getDishCalendar(),
-                    RecipeBank.getRecipeBank(), IngredientStorage.getStorage(),
-                    ShoppingList.getShoppingList());
         } catch (InvalidInputException e) {
             System.out.println("Invalid format. Use: add -dish=dish_name -when=YYYY/MM/DD " +
-                    "\ndish name should be in lower_snake_case");
-        } catch(IllegalArgumentException e){
-            System.out.println("Invalid command. Use: add -dish=dish_name -when=YYYY/MM/DD ");
+                    "\ndish name should be in lower_snake_case"+"\nonly dates in the future are accepted");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -131,86 +161,31 @@ public class AddCommand {
      * @param receivedText The user input containing recipe details.
      */
     public static void addRecipe(String receivedText) {
-
         try {
-            if (receivedText.contains(DISH_FLAG) || receivedText.contains(INGREDIENT_FLAG)) {
+            if (hasConflictingFlags(receivedText, DISH_FLAG, INGREDIENT_FLAG)) {
                 System.out.println("Other commands found, I can only process one at a time");
                 return;
             }
+
             receivedText = removeCommandWord(receivedText);
             String[] recipeFields = parseRecipe(receivedText);
+            String[] pairsArray = recipeFields[1].split(",");
 
-            assert recipeFields != null : "Recipe fields should not be null";
-            assert recipeFields.length == 2 : "Recipe fields should contain exactly two elements";
-
-            String recipeName = recipeFields[0];
-            String ingredientsString = recipeFields[1];
-
-            ArrayList<Ingredient> ingredients = new ArrayList<>();
-
-            if (!ingredientsString.isEmpty()) {
-                String[] pairsArray = ingredientsString.split(",");
-
-                // Check if we have an even number of elements (pairs of ingredient and quantity)
-                if (pairsArray.length % 2 != 0) {
-                    throw new InvalidInputException();
-                }
-
-                // Process pairs of ingredient name and quantity
-                for (int i = 0; i < pairsArray.length; i += 2) {
-                    String ingredientName = pairsArray[i].trim();
-                    String quantityStr = pairsArray[i + 1].trim();
-
-                    try {
-                        int quantity = Integer.parseInt(quantityStr);
-                        // Assuming a static counter or method to generate IDs
-                        Ingredient ingredient = new Ingredient(ingredientName, quantity);
-                        ingredients.add(ingredient);
-                    } catch (NumberFormatException e) {
-                        throw new InvalidInputException();
-                    }
-                }
-            } else {
+            if (pairsArray.length % 2 != 0 || pairsArray.length == 0) {
                 throw new InvalidInputException();
             }
 
-            assert recipeName != null && !recipeName.isEmpty() : "Recipe name should not be empty";
-            Recipe recipe = ingredients.isEmpty()
-                    ? new Recipe(replaceSpaceWithUnderscore(recipeName))
-                    : new Recipe(replaceSpaceWithUnderscore(recipeName), ingredients);
-
+            ArrayList<Ingredient> ingredients = parseIngredients(pairsArray);
+            Recipe recipe = new Recipe(replaceSpaceWithUnderscore(recipeFields[0]), ingredients);
             RecipeBank.addRecipeToRecipeBank(recipe);
 
-            System.out.println("Added Recipe: " + recipeName);
+            System.out.println("Added Recipe: " + recipeFields[0]);
             System.out.println("Ingredients: " + recipe.getIngredientsString());
-
-            LOGGER.info("Saving to file now");
-            Storage.storeData(DishCalendar.getDishCalendar(),
-                    RecipeBank.getRecipeBank(), IngredientStorage.getStorage(),
-                    ShoppingList.getShoppingList());
+            saveAll();
 
         } catch (InvalidInputException e) {
-
-            System.out.println("Invalid format, recipe should have ingredients and quantities in pairs" +
-                    " (use -needs=ingredient_1,quantity_1,ingredient_2,quantity_2)");
+            System.out.println("Invalid format, ingredients must be pairs: ingredient,quantity,...");
         }
-    }
-
-    /**
-     * Parses the ingredients string into an ArrayList.
-     *
-     * @param ingredientsString The string containing ingredient details.
-     * @return A list of parsed ingredient names.
-     */
-    private static ArrayList<String> parseIngredients(String ingredientsString) {
-        ArrayList<String> ingredients = new ArrayList<>();
-        if (!ingredientsString.isEmpty()) {
-            String[] ingredientArray = ingredientsString.split(INGREDIENT_SEPARATOR);
-            for (String ingredient : ingredientArray) {
-                ingredients.add(ingredient.trim());
-            }
-        }
-        return ingredients;
     }
 
     /**
@@ -235,8 +210,10 @@ public class AddCommand {
                 throw new IllegalArgumentException("Ingredient name cannot be empty");
             }
             String expiryDate = ingredientFields.get("expiry_date");
-            if (expiryDate.isEmpty() && !isValidDate(expiryDate)) {
-                throw new IllegalArgumentException("Expiry date is invalid");
+
+            if (!expiryDate.equals("None") && !isValidDate(expiryDate)) {
+                throw new IllegalArgumentException("Expiry date is invalid, \nensure that date is in" +
+                        " YYYY/MM/DD format and only future dates are accepted");
             }
             int quantity;
             try {
@@ -261,15 +238,5 @@ public class AddCommand {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    /**
-     * Replaces spaces in a string with underscores.
-     *
-     * @param input The input string.
-     * @return The modified string with spaces replaced by underscores.
-     */
-    private static String replaceSpaceWithUnderscore(String input) {
-        return input.replace(" ", "_");
     }
 }

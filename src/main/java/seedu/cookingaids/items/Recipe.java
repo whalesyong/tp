@@ -28,6 +28,12 @@ public class Recipe {
         this.tags = new ArrayList<>();
     }
 
+    public Recipe(String recipeName, ArrayList<Ingredient> ingredients, ArrayList<String> tags) {
+        this.recipeName = recipeName;
+        this.ingredients = ingredients;
+        this.tags = tags;
+    }
+
     @JsonIgnore
     public String getRecipeName() {
         return this.recipeName;
