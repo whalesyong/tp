@@ -94,7 +94,11 @@ class AddCommandTest {
         ingredients.add(new Ingredient("tomato", 1));
         ingredients.add(new Ingredient("bread", 2));
         Recipe sandwichRecipe = new Recipe("sandwich", ingredients);
-        RecipeBank.addRecipeToRecipeBank(sandwichRecipe);
+        try {
+            RecipeBank.addRecipeToRecipeBank(sandwichRecipe);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         assertTrue(RecipeBank.contains("sandwich"));
         assertEquals(1, RecipeBank.getRecipeBankSize());

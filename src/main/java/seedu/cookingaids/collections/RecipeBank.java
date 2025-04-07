@@ -17,8 +17,14 @@ public class RecipeBank {
         recipeBank.addAll(recipesList);
     }
 
-    public static void addRecipeToRecipeBank(Recipe recipe) {
-        recipeBank.add(recipe);
+    public static void addRecipeToRecipeBank(Recipe recipe){
+
+//        if (getRecipeByName(recipe.getRecipeName()).isEmpty()) {
+            recipeBank.add(recipe);
+//        } else {
+//            throw new Exception("There is already a recipe with the name " + recipe.getRecipeName());
+//        }
+
         //        index += 1;
     }
 
@@ -70,22 +76,6 @@ public class RecipeBank {
         }
 
         return recipeList;
-    }
-
-    public static ArrayList<Recipe> getRecipeByTags(ArrayList<String> tags) {
-        ArrayList<Recipe> recipeList = new ArrayList<>();
-
-        for (Recipe recipe : recipeBank) {
-            for (String tag : tags) {
-                if (recipe.getTags().contains(tag)) {
-                    recipeList.add(recipe);
-                    break;
-                }
-            }
-        }
-
-        return recipeList;
-
     }
 
     public static ArrayList<Recipe> getRecipeByORTags(ArrayList<String> tags) {

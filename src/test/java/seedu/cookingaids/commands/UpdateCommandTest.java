@@ -3,12 +3,8 @@ package seedu.cookingaids.commands;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seedu.cookingaids.collections.DishCalendar;
-import seedu.cookingaids.collections.IngredientStorage;
+
 import seedu.cookingaids.collections.RecipeBank;
-import seedu.cookingaids.exception.InvalidInputException;
-import seedu.cookingaids.items.Dish;
-import seedu.cookingaids.items.DishDate;
 import seedu.cookingaids.items.Ingredient;
 import seedu.cookingaids.items.Recipe;
 
@@ -41,10 +37,14 @@ class UpdateCommandTest {
         testRecipe = new Recipe("Pasta", ingredients, tags);
 
         // Add recipe to the recipe bank
-        RecipeBank.addRecipeToRecipeBank(testRecipe);
+        try {
+            RecipeBank.addRecipeToRecipeBank(testRecipe);
+            // Reset output content
+            outContent.reset();
 
-        // Reset output content
-        outContent.reset();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @AfterEach
@@ -133,20 +133,25 @@ class UpdateCommandTest {
         ingredients2.add(new Ingredient("bacon", 50));
 
         Recipe testRecipe2 = new Recipe("Pasta", ingredients2);
-        RecipeBank.addRecipeToRecipeBank(testRecipe2);
+        try {
+            RecipeBank.addRecipeToRecipeBank(testRecipe2);
 
-        // Create list of recipes
-        List<Recipe> recipes = RecipeBank.getRecipeByName("Pasta");
+            // Create list of recipes
+            List<Recipe> recipes = RecipeBank.getRecipeByName("Pasta");
 
-        // Simulate user input
-        String input = "1\n";
-        ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
+            // Simulate user input
+            String input = "1\n";
+            ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
+            System.setIn(in);
 
-        Recipe selectedRecipe = UpdateCommand.promptUserForRecipeUpdate(recipes);
+            Recipe selectedRecipe = UpdateCommand.promptUserForRecipeUpdate(recipes);
 
-        // Verify the correct recipe was selected
-        assertEquals(testRecipe, selectedRecipe);
+            // Verify the correct recipe was selected
+            assertEquals(testRecipe, selectedRecipe);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Test

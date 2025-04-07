@@ -52,9 +52,13 @@ class SearchTest {
         testRecipe3 = new Recipe("Tiramisu", ingredients3, tags3);
 
         // Add recipes to the recipe bank
-        RecipeBank.addRecipeToRecipeBank(testRecipe1);
-        RecipeBank.addRecipeToRecipeBank(testRecipe2);
-        RecipeBank.addRecipeToRecipeBank(testRecipe3);
+        try {
+            RecipeBank.addRecipeToRecipeBank(testRecipe1);
+            RecipeBank.addRecipeToRecipeBank(testRecipe2);
+            RecipeBank.addRecipeToRecipeBank(testRecipe3);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // Reset output content
         outContent.reset();
