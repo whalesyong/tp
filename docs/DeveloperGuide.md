@@ -235,8 +235,7 @@ The Storage component is responsible for reading data from and writing data to t
 Below is a class diagram showing the interactions between the `Storage` and `DataWrapper` classes, with all other components:
 
 
-
-![alt text](images/storage.png)
+![storage image](images/storage.png)
 The Storage class handles two main operations:
 1. **Loading**. The loading of data is done only once, when the program is launched.
 2. **Storing**. The storing of data occurs every time any of its fields are updated, which includes the adding and deleting of dishes, ingredients, and recipes. 
