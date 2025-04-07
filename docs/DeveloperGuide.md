@@ -107,7 +107,7 @@ file.
 
 The following is a class diagram of one of the classes `IngredientStorage`.
 
-![img.png](images/ingredientStorage.png)
+![img.png](images/IngredientStorage.png)
 
 <div style="page-break-after: always;"></div>
 
