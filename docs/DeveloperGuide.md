@@ -1,7 +1,6 @@
 # Developer Guide
 
 ## Table of Contents
-- [Acknowledgements](#acknowledgements)
 - [Design & Implementation](#design--implementation)
   - [Main Components](#main-components-of-the-architecture)
   - [Architecture Interactions](#how-the-architecture-components-interact-with-each-other)
@@ -16,9 +15,6 @@
   - [User Stories](#user-stories)
   - [Non-Functional Requirements](#non-functional-requirements)
   - [Instructions for Manual Testing](#instructions-for-manual-testing)
-
-## Acknowledgements
-<!-- -->
 
 
 ## Design & implementation
@@ -150,8 +146,8 @@ The Commands component contains classes that execute specific actions on their r
 Contains the classes and their respective purposes:
 
 * `AddCommand` adds Dishes, Recipes, Ingredients and ShoppingList items to their respective collections.
-* `ListCommand` 
-* `ViewCommand` 
+* `ListCommand` displays Dishes, Recipes and Ingredients.
+* `ViewCommand` displays scheduled Dishes in the Calendar and the ShoppingList.
 * `UpdateCommand` updates details of Recipes and Ingredients.
 * `DeleteCommand` removes Dishes, Recipes, Ingredients and ShoppingList items from their respective collections.
 * `HelpCommand` displays a manual for the commands and expected outputs.
@@ -346,13 +342,18 @@ Here we provide some basic testing, and is meant to be a starting point for test
 Shutdown and save data by typing `bye` in the terminal window. 
 
 ### Adding and Saving Data 
-Add a sample item:
+Add a sample ingredient:
 ```text
 add -ingredient=tomato -quantity=5 -expiry=2025-04-03
 ```
 Test that the saving of data works either by performing `Ctrl+C` (`Command+C` on MacOS) or by typing `bye` in ther terminal window.Ensure that file data is stored in `./data/cookingaids.json`.
-Some other sample items you may try:
-<!-- TODO: Add more sample commands-->
+Some other sample commands you may try:
+
+```text
+add -dish=tomato_soup -ingredients=tomato,3,onion,1,spices,2
+```
+
+
 
 ### Automation Testing
 We have written some test cases for automation testing. Below are some steps to perform this test in IntelliJ IDEA. 
