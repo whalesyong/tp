@@ -53,7 +53,7 @@ class AddCommandTest {
         DishCalendar emptyDishCalendar = new DishCalendar();
         String dishName = "pizza";
 
-        AddCommand.addDish("add -dish=" + dishName + " -when=2025/03/22");
+        AddCommand.addDish("add -dish=" + dishName + " -when=2025/11/22");
 
         assertTrue(emptyDishCalendar.containsDish(dishName));
     }
@@ -155,7 +155,7 @@ class AddCommandTest {
 
         String commandOutput = outputStream.toString().trim();
         assertEquals("Invalid format. Use: add -dish=dish_name -when=YYYY/MM/DD " +
-                "\ndish name should be in lower_snake_case", commandOutput);
+                "\ndish name should be in lower_snake_case" +"\nonly dates in the future are accepted", commandOutput);
     }
 
     @Test
@@ -165,7 +165,7 @@ class AddCommandTest {
 
         String commandOutput = outputStream.toString().trim();
         assertEquals("Invalid format. Use: add -dish=dish_name -when=YYYY/MM/DD " +
-                "\ndish name should be in lower_snake_case", commandOutput);
+                "\ndish name should be in lower_snake_case" +"\nonly dates in the future are accepted", commandOutput);
     }
 
     @Test

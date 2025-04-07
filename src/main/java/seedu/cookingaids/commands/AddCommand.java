@@ -53,7 +53,10 @@ public class AddCommand {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu/MM/dd")
                         .withResolverStyle(ResolverStyle.STRICT);
-                LocalDate.parse(dateString, formatter);
+                LocalDate date = LocalDate.parse(dateString, formatter);
+                if (date.isBefore(LocalDate.now())){
+                    return false;
+                }
                 return true;
             } catch (DateTimeParseException e) {
                 return false;
@@ -146,7 +149,7 @@ public class AddCommand {
 
         } catch (InvalidInputException e) {
             System.out.println("Invalid format. Use: add -dish=dish_name -when=YYYY/MM/DD " +
-                    "\ndish name should be in lower_snake_case");
+                    "\ndish name should be in lower_snake_case"+"\nonly dates in the future are accepted");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }

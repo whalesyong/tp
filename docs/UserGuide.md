@@ -88,7 +88,7 @@ add -dish={dishName}
 add -dish={dishName} [-when={date}]
 ```
 
-<br> Please add date in YYYY/MM/DD format 
+<br> Please add date in YYYY/MM/DD format only future dates will be accepted
 
 **Example:**
 ```plaintext
@@ -346,6 +346,8 @@ update -recipe={recipeName} -newtags={tag1,tag2}
 ### **11. Update Dish: `update -dish`**
 
 Updates the name of a recipe and/or the required ingredients.
+
+<br> Please add date in YYYY/MM/DD format only future dates will be accepted
 
 **Usage:**
 ```plaintext

@@ -235,9 +235,9 @@ public class UpdateCommand {
 
         } catch (InvalidInputException e) {
             System.out.println("" +
-                    "Format error ensure you do not have additional flags. use update -dish={dishName} only," +
+                    "Format error ensure you do not have additional flags.\nuse update -dish={dishName} only," +
                     " remove additional flags");
-            System.out.println("ensure that date is in YYYY/MM/DD format ");
+            System.out.println("ensure that date is in YYYY/MM/DD format and only future dates are accepted");
         }catch(InputMismatchException e){
             System.out.println("input an integer");
         }
