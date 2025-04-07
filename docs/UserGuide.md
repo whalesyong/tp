@@ -6,7 +6,7 @@
 - [Features](#features-)
   1. [Viewing Help: `help`](#1-viewing-help-help-)
   2. [Adding Dish to Schedule: `add -dish`](#2-adding-dish-to-schedule-add--dishdishname-)
-  3. [Adding an Ingredient: `add -ingredient`](#3-adding-an-ingredient-add--ingredientingredientname)  
+  3. [Adding an Ingredient: `add -ingredient`](#3-adding-an-ingredient-add--ingredientingredientname-)  
   4. [Adding Recipe to Recipe Bank: `add -recipe`](#4-adding-recipe-to-recipe-bank-add--reciperecipename)
   5. [View Scheduled Dishes: `list -dish`](#5-view-scheduled-dishes-list--dish)  
   6. [View Available Ingredients: `list -ingredient`](#6-view-available-ingredients-list--ingredient)
@@ -88,7 +88,7 @@ add -dish={dishName}
 add -dish={dishName} [-when={date}]
 ```
 
-<br> Please add date in YYYY/MM/DD format only future dates will be accepted
+<br> Please add date in YYYY/MM/DD format only dates starting from today will be accepted
 
 **Example:**
 ```plaintext
@@ -181,6 +181,7 @@ add -recipe={recipeName} -needs={ingredient_1},{quantity_1},{ingredient_2},{quan
 
 Displays a list of all dishes in dishList sorted by date
 <br> add a -u flag to view upcoming dishes filtered by date
+
 
 **Usage:**  
 ```plaintext
@@ -338,7 +339,7 @@ update -recipe={recipeName} -newtags={tag1,tag2}
 
 Updates the name of a recipe and/or the required ingredients.
 
-<br> Please add date in YYYY/MM/DD format only future dates will be accepted
+<br> Please add date in YYYY/MM/DD format only dates starting from today will be accepted
 
 **Usage:**
 ```plaintext
@@ -384,7 +385,7 @@ update -dish={dishName}
 Updates quantity and/or expiry date of an Ingredient in storage
 <br> To update an ingredient, enter its name and current expiry date. If there is no expiry date you can leave it empty
 
-<br> Please add date in YYYY/MM/DD format only future dates will be accepted
+<br> Please add date in YYYY/MM/DD format only dates starting from today will be accepted
 
 **Usage:**
 ```plaintext

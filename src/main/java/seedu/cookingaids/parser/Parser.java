@@ -161,8 +161,7 @@ public class Parser {
             } else {
                 System.out.printf((UNKNOWN_COMMAND_STR) + "%n", receivedText);
             }
-        }
-        catch (InvalidInputException e){
+        } catch (InvalidInputException e) {
             System.out.println("Illegal format of commands received");
         }
     }

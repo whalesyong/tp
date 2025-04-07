@@ -87,7 +87,7 @@ Given below are my contributions to the project.
 ### **Shopping List Implementation**
 - **What it does**: Automatically compiles a shopping list based on planned dishes and ingredients.
 - **Justification**: Greatly reduces food waste and unnecessary spending.
-- **Highlights**: Aggregates overlapping ingredients across dishes to avoid duplicates. Combined methods from all three collections together.
+- **Highlights**: Aggregates overlapping ingredients across dishes to avoid duplicates. Considers multiple factors from different collections and relates all three collection together, by far one of the most complex features I implemented in this project.
 [link to flowchart](../UserGuide.md/#2-adding-dish-to-schedule-add--dishdishname-)
 ---
 
@@ -114,5 +114,9 @@ Given below are my contributions to the project.
 ## Community Contributions
 - Reported bugs and improvement suggestions to other teams: [[CS2113-W11-3] Travel Diary
   #52](https://github.com/nus-cs2113-AY2425S2/tp/pull/52/files/6d04833aec4dd84f3122d08c8c7e6f2a6c713634), [[CS2113-W13-1]/tp#175](https://github.com/Roycecodes/ped/issues)
-- Gave advice and ideated with teammates to improve their features. [suggestions with missing ingredients](../UserGuide.md/#15-suggest-dishes-suggest), [favourite recipe](../UserGuide.md/#16-search-recipes-by-tag-search--recipetags)
+![royce_suggestion.png](../images/royce_suggestion.png)
+![royce_suggestion1.png](../images/royce_suggestion1.png)
+![royce_suggestion2.png](../images/royce_suggestion2.png)
+
+- Also gave suggestions and ideated with teammates to improve these two features. [suggestions with missing ingredients](../UserGuide.md/#15-suggest-dishes-suggest), [favourite recipe](../UserGuide.md/#16-search-recipes-by-tag-search--recipetags)
 
