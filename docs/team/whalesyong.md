@@ -32,7 +32,7 @@ Given below are my contributions to the project.
    - Highlights: This enhancement was one of the core features suggested for the project, as it was one of the features
    we felt would give a good user experience. In implementing this feature, I was required to come up with a 
    suggestion algorithm.
-3. Logger implementation for logging useful information to a log file, as well as showing warnings to the user. 
+3. **Logger implementation for logging useful information to a log file, as well as showing warnings to the user.** 
    
    - What it does: Logs all occurrences to a log file stored in the data directory. This allows for better debugging
    and front-facing error declaration. 
