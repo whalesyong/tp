@@ -1,35 +1,44 @@
 @startuml
 hide circle
+hide empty members
 skinparam classAttributeIconSize 0
 
 class Recipe {
-    - String recipeName
-    - ArrayList<Ingredient> ingredients
+    - recipeName: String
+    - ingredients: ArrayList<Ingredient>
+    - tags: ArrayList<String>
 
-    + Recipe(String recipeName)
-    + Recipe(String recipeName, ArrayList<Ingredient> ingredients)
-    + String getRecipeName()
-    + void setRecipeName(String recipeName)
-    + ArrayList<Ingredient> getIngredients()
-    + void setIngredients(ArrayList<Ingredient> ingredients)
-    + String getName()
-    + String toString()
+    + Recipe(recipeName: String)
+    + Recipe(recipeName: String, ingredients: ArrayList<Ingredient>)
+    + getRecipeName() : String
+    + setRecipeName(recipeName: String) 
+    + getIngredients() : ArrayList<Ingredient>
+    + setIngredients(ingredients: ArrayList<Ingredient>)
+    + getTags(): ArrayList<String>
+    + setTags(tags: ArrayList<String>
+    + getName() : String
+    + toString() : String
 }
 
 class RecipeBank {
-    - static ArrayList<Recipe> recipeBank
+    - recipeBank : ArrayList<Recipe>
 
-    + static void initializeRecipeBank(List<Recipe> recipesList)
-    + static void addRecipeToRecipeBank(Recipe recipe)
-    + static ArrayList<Recipe> getRecipeBank()
-    + static void removeRecipeFromRecipeBank(String command)
-    + static boolean contains(String recipeName)
-    + static List<Ingredient> getIngredientList(Dish dish)
-    + static void clear()
+    + initializeRecipeBank(recipesList: List<Recipe>) 
+    + addRecipeToRecipeBank(recipe: Recipe) 
+    + getRecipeBank() : ArrayList<Recipe>
+    + getRecipeBankSize(): Integer
+    + removeRecipeFromRecipeBank(command: String) 
+    + contains(recipeName: String) : boolean
+    + getRecipeByName(recipeName: String) : List<Recipe>
+    + getRecipeByORTags(tags: ArrayList<String>) : ArrayList<Recipe>
+    + getRecipeByANDTags(tags: ArrayList<String>) : ArrayList<Recipe>
+    + promptUserForRecipeDish(recipes: List<Recipe>) : Recipe
+    + getIngredientList(dish: Dish) : List<Ingredient>
+    + clear() 
 }
 
-RecipeBank "1" *-- "many" Recipe : contains
-Recipe --* Ingredient : has
-RecipeBank -- Dish : references
+RecipeBank "1" *-- "*" Recipe : contains
+Recipe -* "1..*" Ingredient : has
+RecipeBank - Dish : references
 
 @enduml
