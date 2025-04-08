@@ -70,7 +70,7 @@ Given below are my contributions to the project.
 - **What it does**: Enables rescheduling of meals already in the calendar.
 - **Justification**: Provides flexibility for students with changing schedules.
 - **Highlights**: Ensures dish updates reflect in the calendar, created to handle rescheduling dish with other duplicates in list.
-- **credits** : Duplicate dish handling method inspired by Jeromey's [delete dish](../UserGuide.md/#12-delete-dish-from-schedule-delete--dishdishname-) and delete recipe code! 
+- **credits** : Duplicate dish handling method inspired by Jeromey's [delete dish](../UserGuide.md/#13-delete-dish-from-schedule-delete--dishdishname-) and delete recipe code! 
 ![updateDish.png](../images/updateDish.png)
 ---
 
@@ -88,7 +88,7 @@ Given below are my contributions to the project.
 - **Justification**: Useful for users who prefer a visual overview of their cooking schedule.
 - **Highlights**: Designed to display any month of year within a range. Adjusted to calculate leap years.
 - **Credits**: Inspired by terminal-based calendar printouts but implemented without third-party libraries to reduce dependencies.
-![viewMonth.png](../images/viewMonth.png)
+![viewMonth.png](../images/view_month.png)
 
 <div style="page-break-after: always;"></div>
 
@@ -114,7 +114,7 @@ Given below are my contributions to the project.
 ## Documentation
 
 ### User Guide
-- Added documentation for the [list dish](../UserGuide.md/#5-view-scheduled-dishes-list--dish), [add dish](../UserGuide.md/#2-adding-dish-to-schedule-add--dishdishname-), [view month](../UserGuide.md/#8-view-dishes-for-the-month-view--month1-12blank--year2015-2035) ,  [view shopping](../UserGuide.md/#7-view-shopping-list-view--shopping) and  [update dish](../UserGuide.md/#11-update-dish-update--dish) commands in User guide.
+- Added documentation for the [list dish](../UserGuide.md/#5-view-scheduled-dishes-list--dish), [add dish](../UserGuide.md/#2-adding-dish-to-schedule-add--dishdishname-), [view month](../UserGuide.md/#9-view-dishes-for-the-month-view--month1-12blank--year2015-2035) ,  [view shopping](../UserGuide.md/#8-view-shopping-list-view--shopping) and  [update dish](../UserGuide.md/#11-update-dish-update--dish) commands in User guide.
 
 ### Developer Guide
 - Added design and implementation details for the [UI and calendar printer](../DeveloperGuide.md/#ui) components.
