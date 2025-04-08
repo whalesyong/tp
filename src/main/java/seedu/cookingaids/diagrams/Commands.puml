@@ -14,59 +14,59 @@ User -> Parser: decipherCommand()
 activate Parser
 
 alt AddCommand
-    Parser -> AddCommand: addDish(String receivedText)
+    Parser -> AddCommand: addDish(receivedText: String)
     activate AddCommand
     AddCommand --> Parser: Dish added
     deactivate AddCommand
 
-    Parser -> AddCommand: addRecipe(String receivedText)
+    Parser -> AddCommand: addRecipe(receivedText: String)
     activate AddCommand
     AddCommand --> Parser: Recipe added
     deactivate AddCommand
 
-    Parser -> AddCommand: addIngredient(String receivedText)
+    Parser -> AddCommand: addIngredient(receivedText: String)
     activate AddCommand
     AddCommand --> Parser: Ingredient added
     deactivate AddCommand
 
 else DeleteCommand
-    Parser -> DeleteCommand: deleteDish(String receivedText)
+    Parser -> DeleteCommand: deleteDish(receivedText: String)
     activate DeleteCommand
     DeleteCommand --> Parser: Dish deleted
     deactivate DeleteCommand
 
-    Parser -> DeleteCommand: deleteDishWithWhen(String receivedText)
+    Parser -> DeleteCommand: deleteDishWithWhen(receivedText: String)
     activate DeleteCommand
     DeleteCommand --> Parser: Dish deleted (with time)
     deactivate DeleteCommand
 
-    Parser -> DeleteCommand: deleteDishByWhen(String receivedText)
+    Parser -> DeleteCommand: deleteDishByWhen(receivedText: String)
     activate DeleteCommand
     DeleteCommand --> Parser: Dish deleted (by time)
     deactivate DeleteCommand
 
-    Parser -> DeleteCommand: deleteIngredient(String receivedText)
+    Parser -> DeleteCommand: deleteIngredient(receivedText: String)
     activate DeleteCommand
     DeleteCommand --> Parser: Ingredient deleted
     deactivate DeleteCommand
 
-    Parser -> DeleteCommand: deleteRecipe(String receivedText)
+    Parser -> DeleteCommand: deleteRecipe(receivedText: String)
     activate DeleteCommand
     DeleteCommand --> Parser: Recipe deleted
     deactivate DeleteCommand
 
 else UpdateCommand
-    Parser -> UpdateCommand: updateDish(String receivedText)
+    Parser -> UpdateCommand: updateDish(receivedText: String)
     activate UpdateCommand
     UpdateCommand --> Parser: Dish updated
     deactivate UpdateCommand
 
-    Parser -> UpdateCommand: updateRecipe(String receivedText)
+    Parser -> UpdateCommand: updateRecipe(receivedText: String)
     activate UpdateCommand
     UpdateCommand --> Parser: Recipe updated
     deactivate UpdateCommand
 
-    Parser -> UpdateCommand: updateIngredient(String receivedText)
+    Parser -> UpdateCommand: updateIngredient(receivedText: String)
     activate UpdateCommand
     UpdateCommand --> Parser: Ingredient updated
     deactivate UpdateCommand
@@ -100,17 +100,17 @@ else SuggestCommand
     deactivate SuggestCommand
 
 else ViewCommand
-    Parser -> ViewCommand: viewDish(String receivedText)
+    Parser -> ViewCommand: viewDish(receivedText: String)
     activate ViewCommand
     ViewCommand --> Parser: Dish details
     deactivate ViewCommand
 
-    Parser -> ViewCommand: viewRecipe(String receivedText)
+    Parser -> ViewCommand: viewRecipe(receivedText: String)
     activate ViewCommand
     ViewCommand --> Parser: Recipe details
     deactivate ViewCommand
 
-    Parser -> ViewCommand: viewIngredient(String receivedText)
+    Parser -> ViewCommand: viewIngredient(receivedText: String)
     activate ViewCommand
     ViewCommand --> Parser: Ingredient details
     deactivate ViewCommand

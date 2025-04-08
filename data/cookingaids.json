@@ -1,62 +1,35 @@
 {
   "recipes" : [ {
-    "name" : "fish",
+    "name" : "tomato_pasta",
     "ingredients" : [ {
-      "name" : "plaa",
-      "quantity" : 2147483647,
+      "name" : "tomato",
+      "quantity" : 2,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    }, {
+      "name" : "pasta",
+      "quantity" : 1,
       "expiryDate" : {
         "dateString" : "None"
       }
     } ],
     "tags" : [ ]
   } ],
-  "ingredients" : { },
+  "ingredients" : {
+    "pasta" : [ {
+      "name" : "pasta",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ]
+  },
   "dishes" : [ {
     "name" : "spaghetti",
     "dishDate" : {
       "dateString" : "2025/03/20"
     }
-  }, {
-    "name" : "plaa",
-    "dishDate" : {
-      "dateString" : "None"
-    }
-  }, {
-    "name" : "plaa",
-    "dishDate" : {
-      "dateString" : "None"
-    }
-  }, {
-    "name" : "plaa",
-    "dishDate" : {
-      "dateString" : "None"
-    }
-  }, {
-    "name" : "fish",
-    "dishDate" : {
-      "dateString" : "None"
-    }
-  }, {
-    "name" : "fish",
-    "dishDate" : {
-      "dateString" : "None"
-    }
-  }, {
-    "name" : "fish",
-    "dishDate" : {
-      "dateString" : "None"
-    }
-  }, {
-    "name" : "fish",
-    "dishDate" : {
-      "dateString" : "None"
-    }
   } ],
-  "shopping" : [ {
-    "name" : "plaa",
-    "quantity" : 2147483647,
-    "expiryDate" : {
-      "dateString" : "None"
-    }
-  } ]
+  "shopping" : [ ]
 }

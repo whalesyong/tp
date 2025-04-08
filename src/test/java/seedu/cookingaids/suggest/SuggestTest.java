@@ -1,4 +1,3 @@
-
 package seedu.cookingaids.suggest;
 
 import org.junit.jupiter.api.AfterEach;
@@ -137,6 +136,88 @@ class SuggestTest {
         }
         assertTrue(suggestedRecipeNames.contains("Grilled Cheese"));
         assertTrue(suggestedRecipeNames.contains("Tomato Sandwich"));
+    }
+
+    @Test
+    void suggestRecipes_noRecipesAvailable_returnsEmptyList() {
+        // Mock empty recipe bank
+        ArrayList<Recipe> emptyRecipes = new ArrayList<>();
+        mockedRecipeBank.when(RecipeBank::getRecipeBank).thenReturn(emptyRecipes);
+
+        List<Recipe> suggestedRecipes = Suggest.suggestRecipes();
+
+        assertTrue(suggestedRecipes.isEmpty());
+    }
+
+    @Test
+    void suggestRecipes_insufficientQuantity_returnsNoRecipes() {
+        // Mock ingredient storage with insufficient quantities
+        HashMap<String, List<Ingredient>> ingredientMap = new HashMap<>();
+        ingredientMap.put("Cheese", List.of(new Ingredient("Cheese", 1)));
+        ingredientMap.put("Bread", List.of(new Ingredient("Bread", 1)));
+        mockedIngredientStorage.when(IngredientStorage::getStorage).thenReturn(ingredientMap);
+
+        // Create recipe requiring more ingredients than available
+        Recipe recipe = new Recipe("Double Grilled Cheese", new ArrayList<>(
+                List.of(
+                        new Ingredient("cheese", 2),  // Requires 2 but only 1 available
+                        new Ingredient("bread", 2)    // Requires 2 but only 1 available
+                )
+        ));
+        ArrayList<Recipe> recipes = new ArrayList<>(List.of(recipe));
+        mockedRecipeBank.when(RecipeBank::getRecipeBank).thenReturn(recipes);
+
+        List<Recipe> suggestedRecipes = Suggest.suggestRecipes();
+
+        assertTrue(suggestedRecipes.isEmpty());
+    }
+
+    @Test
+    void suggestRecipes_caseSensitiveIngredients_matchesCorrectly() {
+        // Mock ingredient storage with mixed case ingredients
+        HashMap<String, List<Ingredient>> ingredientMap = new HashMap<>();
+        ingredientMap.put("CHEESE", List.of(new Ingredient("CHEESE", 1)));
+        ingredientMap.put("bread", List.of(new Ingredient("bread", 1)));
+        mockedIngredientStorage.when(IngredientStorage::getStorage).thenReturn(ingredientMap);
+
+        // Create recipe with different case in ingredients
+        Recipe recipe = new Recipe("Grilled Cheese", new ArrayList<>(
+                List.of(
+                        new Ingredient("cheese"),  // Different case from storage
+                        new Ingredient("BREAD")    // Different case from storage
+                )
+        ));
+        ArrayList<Recipe> recipes = new ArrayList<>(List.of(recipe));
+        mockedRecipeBank.when(RecipeBank::getRecipeBank).thenReturn(recipes);
+
+        List<Recipe> suggestedRecipes = Suggest.suggestRecipes();
+
+        assertEquals(1, suggestedRecipes.size());
+        assertEquals("Grilled Cheese", suggestedRecipes.get(0).getRecipeName());
+    }
+
+    @Test
+    void suggestRecipes_multipleQuantitiesOfSameIngredient_sumsTotalCorrectly() {
+        // Mock ingredient storage with multiple entries of same ingredient
+        HashMap<String, List<Ingredient>> ingredientMap = new HashMap<>();
+        ingredientMap.put("Flour", List.of(
+                new Ingredient("Flour", 1),
+                new Ingredient("Flour", 2),
+                new Ingredient("Flour", 3)
+        ));
+        mockedIngredientStorage.when(IngredientStorage::getStorage).thenReturn(ingredientMap);
+
+        // Create recipe requiring total sum of flour
+        Recipe recipe = new Recipe("Bread", new ArrayList<>(
+                List.of(new Ingredient("flour", 5))  // Requires 5, storage has 1+2+3=6
+        ));
+        ArrayList<Recipe> recipes = new ArrayList<>(List.of(recipe));
+        mockedRecipeBank.when(RecipeBank::getRecipeBank).thenReturn(recipes);
+
+        List<Recipe> suggestedRecipes = Suggest.suggestRecipes();
+
+        assertEquals(1, suggestedRecipes.size());
+        assertEquals("Bread", suggestedRecipes.get(0).getRecipeName());
     }
 
 }

@@ -81,39 +81,75 @@ public class Suggest {
         boolean canMakeRecipe = true;
 
         for (Ingredient neededIngredient : neededIngredients) {
-            String ingredientName = neededIngredient.getName().toLowerCase();
-
-            // Look for the ingredient in availableIngredientsMap (case-insensitive)
-            List<Ingredient> availableIngredientsList = null;
-            for (String key : availableIngredientsMap.keySet()) {
-                if (key.toLowerCase().equals(ingredientName)) {
-                    availableIngredientsList = availableIngredientsMap.get(key);
-                    break;
-                }
-            }
-
-            if (availableIngredientsList == null || availableIngredientsList.isEmpty()) {
-                // Ingredient not available at all
-                missingIngredients.add(neededIngredient);
+            if (!checkIngredientAvailability(neededIngredient, availableIngredientsMap, missingIngredients)) {
                 canMakeRecipe = false;
-            } else if (neededIngredient.getQuantity() > 0) {
-                // Check if we have enough quantity (only if the recipe specifies a quantity)
-                int totalAvailableQuantity = 0;
-                for (Ingredient availableIngredient : availableIngredientsList) {
-                    totalAvailableQuantity += availableIngredient.getQuantity();
-                }
-
-                if (totalAvailableQuantity < neededIngredient.getQuantity()) {
-                    // Not enough quantity, create a new ingredient with the missing amount
-                    Ingredient insufficientIngredient = new Ingredient(
-                            neededIngredient.getName(),
-                            neededIngredient.getQuantity() - totalAvailableQuantity
-                    );
-                    missingIngredients.add(insufficientIngredient);
-                    canMakeRecipe = false;
-                }
             }
         }
+
+        handleRecipeResult(recipe, canMakeRecipe, missingIngredients, suggestedRecipes);
+    }
+
+    private static boolean checkIngredientAvailability(
+            Ingredient neededIngredient,
+            HashMap<String, List<Ingredient>> availableIngredientsMap,
+            ArrayList<Ingredient> missingIngredients) {
+
+        List<Ingredient> availableIngredientsList = findAvailableIngredients(neededIngredient, availableIngredientsMap);
+
+        if (availableIngredientsList == null || availableIngredientsList.isEmpty()) {
+            missingIngredients.add(neededIngredient);
+            return false;
+        }
+
+        if (neededIngredient.getQuantity() > 0) {
+            return checkIngredientQuantity(neededIngredient, availableIngredientsList, missingIngredients);
+        }
+
+        return true;
+    }
+
+    private static List<Ingredient> findAvailableIngredients(
+            Ingredient neededIngredient,
+            HashMap<String, List<Ingredient>> availableIngredientsMap) {
+
+        String ingredientName = neededIngredient.getName().toLowerCase();
+        for (String key : availableIngredientsMap.keySet()) {
+            if (key.toLowerCase().equals(ingredientName)) {
+                return availableIngredientsMap.get(key);
+            }
+        }
+        return null;
+    }
+
+    private static boolean checkIngredientQuantity(
+            Ingredient neededIngredient,
+            List<Ingredient> availableIngredientsList,
+            ArrayList<Ingredient> missingIngredients) {
+
+        int totalAvailableQuantity = calculateTotalQuantity(availableIngredientsList);
+
+        if (totalAvailableQuantity < neededIngredient.getQuantity()) {
+            Ingredient insufficientIngredient = new Ingredient(
+                    neededIngredient.getName(),
+                    neededIngredient.getQuantity() - totalAvailableQuantity
+            );
+            missingIngredients.add(insufficientIngredient);
+            return false;
+        }
+        return true;
+    }
+
+    private static int calculateTotalQuantity(List<Ingredient> ingredients) {
+        return ingredients.stream()
+                .mapToInt(Ingredient::getQuantity)
+                .sum();
+    }
+
+    private static void handleRecipeResult(
+            Recipe recipe,
+            boolean canMakeRecipe,
+            ArrayList<Ingredient> missingIngredients,
+            List<Recipe> suggestedRecipes) {
 
         if (canMakeRecipe) {
             LOGGER.log(Level.INFO, "Recipe {0} can be made with available ingredients", recipe.getRecipeName());
