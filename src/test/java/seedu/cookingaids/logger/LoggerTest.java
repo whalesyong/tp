@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import java.util.logging.Handler;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
+import java.util.logging.MemoryHandler;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -74,21 +75,35 @@ class LoggerTest {
     }
 
     @Test
-    void getLogger_createsLogFile() {
+    void getLogger_createsLogFile() throws Exception {
         Logger logger = LoggerFactory.getLogger(LoggerTest.class);
-        logger.info("Triggering log flush for test validation");
+        logger.info("Logger initialized");
 
-        logger.severe("Test severe message");
-        flushHandlers(logger);
-        waitForLogFile();
+        for (Handler h : logger.getHandlers()) {
+            if (h instanceof MemoryHandler mh) {
+                mh.push();
+            }
+        }
 
-        File[] files = getLogFiles();
-        File[] listingFiles = new File("./data/log").listFiles();
+        Thread.sleep(100);  // Let flush happen
 
-        assertNotNull(listingFiles, "Log files array should not be null");
-        assertTrue(listingFiles.length > 0, "At least one log file should exist");
-        System.out.println("Log file created at: " + listingFiles[0].getAbsolutePath());
+        System.out.println("=== DEBUG: Checking files in ./data/log ===");
+        File logDir = new File("./data/log");
+        File[] files = logDir.listFiles();
+        System.out.println("Log directory exists: " + logDir.exists());
+        System.out.println("Log directory absolute path: " + logDir.getAbsolutePath());
+        if (files != null) {
+            for (File f : files) {
+                System.out.println("Found log file: " + f.getName());
+            }
+        } else {
+            System.out.println("No files found or directory does not exist");
+        }
+
+        assertNotNull(files);
+        assertTrue(files.length > 0, "At least one log file should exist");
     }
+
 
     @Test
     void getLogger_logLevelsAreCorrect() {
