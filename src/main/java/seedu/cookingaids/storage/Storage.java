@@ -93,7 +93,7 @@ public class Storage {
         File file = new File(FILE_PATH);
 
         if (!file.exists()) {
-            LOGGER.warning("Data file not found at: " + FILE_PATH);
+            LOGGER.info("No data found, creating new lists at " + FILE_PATH);
             Ui.printItems(MESSAGE_NO_DATA_FOUND);
             IngredientStorage.clear();
             return new DataWrapper(new ArrayList<>(), new ArrayList<>(), new HashMap<>(), new ArrayList<>());
