@@ -53,10 +53,14 @@ class LoggerTest {
         int retries = 10;
         while (retries-- > 0) {
             File[] files = getLogFiles();
-            if (files != null && files.length > 0 && files[0].exists()) return;
+            if (files != null && files.length > 0 && files[0].exists()) {
+                return;
+            }
             try {
                 Thread.sleep(50);  // Allow time for async file I/O
-            } catch (InterruptedException ignored) {}
+            } catch (InterruptedException ignored) {
+                System.out.println("Sleep interrupted");
+            }
         }
     }
 
