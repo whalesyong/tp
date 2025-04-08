@@ -1,7 +1,6 @@
 # Developer Guide
 
 ## Table of Contents
-- [Acknowledgements](#acknowledgements)
 - [Design & Implementation](#design--implementation)
   - [Main Components](#main-components-of-the-architecture)
   - [Architecture Interactions](#how-the-architecture-components-interact-with-each-other)
@@ -16,9 +15,6 @@
   - [User Stories](#user-stories)
   - [Non-Functional Requirements](#non-functional-requirements)
   - [Instructions for Manual Testing](#instructions-for-manual-testing)
-
-## Acknowledgements
-<!-- -->
 
 
 ## Design & implementation
@@ -351,6 +347,8 @@ Type `help` in the terminal window.
 ### Test: Adding ingredients, recipes, dishes
 #### Adding Ingredients
 Add some sample ingredients:
+### Adding and Saving Data 
+Add a sample ingredient:
 ```text
 add -ingredient=garlic -quantity=5 -expiry=2025/12/03
 ```

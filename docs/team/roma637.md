@@ -8,19 +8,21 @@ The application was built using Java and follows Object-Oriented Programming pri
 
 ### **Enhancements Implemented**
 
+[Code contributions, summarised on RepoSense.](https://nus-cs2113-ay2425s2.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2025-02-21&tabOpen=true&tabType=authorship&tabAuthor=Roma637&tabRepo=AY2425S2-CS2113-T11b-1%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
+
 Implemented the following functionalities:
 - `Recipe` and `RecipeBank` classes
-- Basic CRUD, ie `add`, `update`, `list` and `delete` for `Recipes`
-- `search` feature for recipes via tags
+- Basic CRUD, ie `add`, `update`, `list` and `delete` for `Recipes`, including handling of duplicates 
+- Tagging and `search` feature for recipes, including two types of searches (customisable AND-based and OR-based searching) for increased flexibility
 
 ### **Contributions to the UG (User Guide)**
 
-- Documented and wrote instructions for all implemented functionalities for recipes
+- Documented and wrote instructions for all implemented functionalities for recipes: `add -recipe`, `update -recipe`, `list -recipe`, `delete -recipe`, `search -recipetags`
 
 ### **Contributions to the DG (Developer Guide)**
 
-- Wrote the "Items" section.
-- Creates UML diagrams for the Items section.`
+- Authored the `Items` section, explaining the use of the Items package
+- Created UML diagram for the Items section, detailing the relationship between several `Items` classes and their respectively `Collections` classes
 
 ### **Contributions to Team-Based Tasks**
 
@@ -29,8 +31,11 @@ Implemented the following functionalities:
 
 ### **Review / Mentoring Contributions**
 
-- Reviewed team members' pull requests
+- Reviewed team members' pull requests.
 
 ### **Contributions Beyond the Project Team**
 
-- Reported 7 bugs of other team's application during PE dry run.
+- Actively reviewed and gave constructive feedback on multiple teams' codebases during review sessions.
+
+- Reported 7 bugs of other team's application during PE dry run, giving useful feedback
+![PE_dry_run](images/roma_other_contributions.png)
