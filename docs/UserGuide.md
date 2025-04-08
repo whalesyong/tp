@@ -58,7 +58,7 @@ With CookingAids, you can:
 
 ### **1. Viewing Help: `help`** 
 
-Displays a link to this guide. 
+Displays a guide to use Cooking Aids and a link to this guide. 
 
 **Usage:**  
 ```plaintext
