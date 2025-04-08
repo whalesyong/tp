@@ -60,7 +60,6 @@ public class LoggerFactory {
                 File logDir = new File(getLogFolder());
                 if (!logDir.exists()) {
                     boolean created = logDir.mkdirs();
-                    System.out.println("Created log dir: " + created + ", path: " + logDir.getAbsolutePath());
                 }
 
                 String timestamp = LocalDateTime.now().format(DATE_FORMAT);
@@ -73,7 +72,6 @@ public class LoggerFactory {
                 fileHandler.setFormatter(new SimpleFormatter());
                 fileHandler.setLevel(Level.ALL);
 
-                System.out.println("Log file path: " + currentLogPath);
             } catch (IOException e) {
                 System.err.println("Failed to set up log file handler: " + e.getMessage());
 
