@@ -8,6 +8,8 @@ The application was built using Java and follows Object-Oriented Programming pri
 
 ### **Enhancements Implemented**
 
+[Code contributions, summarised on RepoSense.](https://nus-cs2113-ay2425s2.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2025-02-21&tabOpen=true&tabType=authorship&tabAuthor=Roma637&tabRepo=AY2425S2-CS2113-T11b-1%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
+
 Implemented the following functionalities:
 - `Recipe` and `RecipeBank` classes
 - Basic CRUD, ie `add`, `update`, `list` and `delete` for `Recipes`
@@ -15,12 +17,13 @@ Implemented the following functionalities:
 
 ### **Contributions to the UG (User Guide)**
 
-- Documented and wrote instructions for all implemented functionalities for recipes
+- Documented and wrote instructions for all implemented functionalities for recipes.
+- `add -recipe`, `update -recipe`, `list -recipe`, `delete -recipe`, `search -recipetags`
 
 ### **Contributions to the DG (Developer Guide)**
 
-- Wrote the "Items" section.
-- Created UML diagrams for the Items section.
+- Authored the `Items` section.
+- Created UML diagram for the Items section, detailing the relationship between several `Items` classes and their respectively `Collections` classes
 
 ### **Contributions to Team-Based Tasks**
 
