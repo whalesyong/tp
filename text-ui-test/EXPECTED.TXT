@@ -19,15 +19,18 @@ No data found, creating new lists.
   list - Displays all stored recipes, scheduled dishes and available ingredients
     Usage: list -recipe       (Displays a list of available recipes)
            list -dish         (Displays a list of scheduled dishes sorted by month)
+           list -dish   -u    (Displays a list of upcoming dishes
            list -ingredient   (Displays all available ingredients)
 
   view - Displays dishes scheduled and shopping list
     Usage: view -month=<month_index>   (Displays a calendar showing your scheduled dishes)
+    Usage: view -month=<month_index>  -year=<year_from_2015-2035> (to specify year)
            view -shopping              (Displays Shopping List showing ingredients to obtain for scheduled dishes)
 
-  update - Edits a recipe or ingredient quantity
+  update - Edits a recipe or ingredient quantity or dish date
     Usage: update -recipe=<recipe_name> -name=<new_name> -ingredients=<new_ingredient_1,quantity_1,new_ingredient_2,quantity_2> (Updates available recipes and/or their required ingredients)
            update -ingredient=<ingredient_name> -quantity=<new_quantity> (Updates available quantity of selected ingredient)
+           update -dish=<dish_name> (Prompts user for new date to change dish's date only dates starting from today allowed)
 
   delete - Deletes a recipe, dish or ingredient
     Usage: delete -recipe=<recipe_name>      (Deletes a recipe)
@@ -48,5 +51,6 @@ https://ay2425s2-cs2113-t11b-1.github.io/tp/UserGuide.html
 ______________________________________________________________________________
 >>> Invalid format. Use: add -dish=dish_name -when=YYYY/MM/DD
 dish name should be in lower_snake_case
+only dates starting from today onwards will be accepted
 ______________________________________________________________________________
 >>> Stored Dish List successfully in: ./data/cookingaids.json

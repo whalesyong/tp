@@ -5,6 +5,7 @@ import seedu.cookingaids.logger.LoggerFactory;
 
 public class HelpCommand {
     public static final String COMMAND_WORD = "help";
+
     private static final Logger LOGGER = LoggerFactory.getLogger(HelpCommand.class);
 
     /**
@@ -29,23 +30,28 @@ public class HelpCommand {
         System.out.println("  list - Displays all stored recipes, scheduled dishes and available ingredients");
         System.out.println("    Usage: list -recipe       (Displays a list of available recipes)");
         System.out.println("           list -dish         (Displays a list of scheduled dishes sorted by month)");
+        System.out.println("           list -dish   -u    (Displays a list of upcoming dishes");
         System.out.println("           list -ingredient   (Displays all available ingredients)\n");
 
         // View command
         System.out.println("  view - Displays dishes scheduled and shopping list");
         System.out.println("    Usage: view -month=<month_index>   (Displays a calendar showing your scheduled dishes)"
         );
+        System.out.println("    Usage: view -month=<month_index>  -year=<year_from_2015-2035> " +
+                "(to specify year)"
+        );
         System.out.println("           view -shopping              " +
                 "(Displays Shopping List showing ingredients to obtain for scheduled dishes)\n");
 
         // Update command
-        System.out.println("  update - Edits a recipe or ingredient quantity");
-        System.out.println("    Usage: update -recipe=<recipe_name> -newname=<new_name> " +
-                "-newingredients=<new_ingredient_1,quantity_1,new_ingredient_2,quantity_2>\n " +
-                "-newtags=<tag_1,tag_2>" +
-                "(Updates available recipes, required ingredients, and/or tags)");
+        System.out.println("  update - Edits a recipe or ingredient quantity or dish date");
+        System.out.println("    Usage: update -recipe=<recipe_name> -name=<new_name> " +
+                "-ingredients=<new_ingredient_1,quantity_1,new_ingredient_2,quantity_2> "
+                + "(Updates available recipes and/or their required ingredients)");
         System.out.println("           update -ingredient=<ingredient_name> -quantity=<new_quantity> "
-                + "(Updates available quantity of selected ingredient)\n");
+                + "(Updates available quantity of selected ingredient)");
+        System.out.println("           update -dish=<dish_name> "
+                + "(Prompts user for new date to change dish's date only dates starting from today allowed)\n");
 
         // Delete command
         System.out.println("  delete - Deletes a recipe, dish or ingredient");
@@ -57,15 +63,6 @@ public class HelpCommand {
         // Suggest command
         System.out.println("  suggest - Suggests dishes based on available ingredients");
         System.out.println("    Usage: suggest\n");
-
-        // Search command
-        System.out.println("  search - Searches recipes based on tags");
-        System.out.println("    Usage: search -recipetags=<tag_1> \n");
-        System.out.println("           search -recipetags=<tag_1,tag_2> -type=and " +
-                "(Searches recipes with OR-based search)\n");
-        System.out.println("           search -recipetags=<tag_1,tag_2> -type=or " +
-                "(Searches recipes with OR-based search)\n");
-        System.out.println("           search -recipetags=<tag_1,tag_2> (does the same as -type=or)\n");
 
         // Bye command
         System.out.println("  bye - Exits the program");

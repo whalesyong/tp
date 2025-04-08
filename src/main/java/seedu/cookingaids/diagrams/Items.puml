@@ -5,31 +5,39 @@ skinparam classAttributeIconSize 0
 class Recipe {
     - String recipeName
     - ArrayList<Ingredient> ingredients
+    - ArrayList<String> tags
 
     + Recipe(String recipeName)
     + Recipe(String recipeName, ArrayList<Ingredient> ingredients)
-    + String getRecipeName()
-    + void setRecipeName(String recipeName)
-    + ArrayList<Ingredient> getIngredients()
-    + void setIngredients(ArrayList<Ingredient> ingredients)
-    + String getName()
-    + String toString()
+    + getRecipeName(): String
+    + setRecipeName(String recipeName)
+    + getIngredients(): ArrayList<Ingredient>
+    + setIngredients(ArrayList<Ingredient> ingredients)
+    + getTags(): ArrayList<String>
+    + setTags(ArrayList<String> tags)
+    + getName(): String
+    + toString(): String
 }
 
 class RecipeBank {
-    - static ArrayList<Recipe> recipeBank
+    - ArrayList<Recipe> recipeBank
 
-    + static void initializeRecipeBank(List<Recipe> recipesList)
-    + static void addRecipeToRecipeBank(Recipe recipe)
-    + static ArrayList<Recipe> getRecipeBank()
-    + static void removeRecipeFromRecipeBank(String command)
-    + static boolean contains(String recipeName)
-    + static List<Ingredient> getIngredientList(Dish dish)
-    + static void clear()
+    + initializeRecipeBank(List<Recipe> recipesList)
+    + addRecipeToRecipeBank(Recipe recipe)
+    + getRecipeBank(): ArrayList<Recipe>
+    + getRecipeBankSize(): Integer
+    + removeRecipeFromRecipeBank(String command)
+    + contains(String recipeName): boolean
+    + getRecipeByName(String recipeName): List<Recipe>
+    + getRecipeByORTags(ArrayList<String> tags): ArrayList<Recipe>
+    + getRecipeByANDTags(ArrayList<String> tags): ArrayList<Recipe>
+    + promptUserForRecipeDish(List<Recipe> recipes): Recipe
+    + getIngredientList(Dish dish): List<Ingredient>
+    + clear()
 }
 
-RecipeBank "1" *-- "many" Recipe : contains
-Recipe --* Ingredient : has
-RecipeBank -- Dish : references
+RecipeBank "1" *-- "*" Recipe : contains
+Recipe -* "1..*" Ingredient : has
+RecipeBank - Dish : references
 
 @enduml

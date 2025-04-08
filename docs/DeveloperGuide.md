@@ -1,7 +1,6 @@
 # Developer Guide
 
 ## Table of Contents
-- [Acknowledgements](#acknowledgements)
 - [Design & Implementation](#design--implementation)
   - [Main Components](#main-components-of-the-architecture)
   - [Architecture Interactions](#how-the-architecture-components-interact-with-each-other)
@@ -16,9 +15,6 @@
   - [User Stories](#user-stories)
   - [Non-Functional Requirements](#non-functional-requirements)
   - [Instructions for Manual Testing](#instructions-for-manual-testing)
-
-## Acknowledgements
-<!-- -->
 
 
 ## Design & implementation
@@ -70,7 +66,7 @@ Contains the following classes and their respective purposes:
 These classes facilitate user interaction by providing formatted output and handling command-based operations.
 
 Below is a Sequence Diagram of an example of how a User performs command view -month=5 to view his dishes for the month of May
-![img.png](images/sequenceView.png)
+![img.png](images/sequence_view.png)
 The class diagrams of UI and Calendar printer are seen below
 
 #### <ins>Design Considerations</ins>
@@ -107,7 +103,7 @@ file.
 
 The following is a class diagram of one of the classes `IngredientStorage`.
 
-![img.png](images/ingredientStorage.png)
+![img.png](images/IngredientStorage.png)
 
 <div style="page-break-after: always;"></div>
 
@@ -132,7 +128,7 @@ The Items component contains classes that represent the smallest unit of functio
 
 The following is the class diagram for the classes `Recipe` and `RecipeBank`.
 
-![Items.png](images/Items.png)
+![Items.png](images/items.png)
 
 The Items classes follow the above design consideration of modularity. Each class in this package serves as building
 blocks for the rest of the project.
@@ -149,16 +145,16 @@ The Commands component contains classes that execute specific actions on their r
 
 Contains the classes and their respective purposes:
 
-* `AddDishCommand` adds a dish to the DishCalendar.
-* `RemoveDishCommand` removes a dish from the DishCalendar.
-* `AddRecipeCommand` adds a recipe to the RecipeBank.
-* `RemoveRecipeCommand` removes a recipe from the RecipeBank.
-* `AddIngredientCommand` adds an ingredient to the IngredientStorage.
-* `RemoveIngredientCommand` removes an ingredient from the IngredientStorage.
-* `AddShoppingItemCommand` adds an item to the ShoppingList.
-* `RemoveShoppingItemCommand` removes an item from the ShoppingList.
+* `AddCommand` adds Dishes, Recipes and Ingredients to their respective collections.
+* `ListCommand` lists scheduled Dishes, known Recipes and available Ingredients.
+* `ViewCommand` displays Dish Calendar, or Shopping List of ingredients to purchase.
+* `UpdateCommand` updates details of Recipes or Ingredients.
+* `DeleteCommand` removes Dishes, Recipes and Ingredients from their respective collections.
+* `HelpCommand` displays a manual for the commands and a link to the User Guide.
+* `SuggestCommand` suggests possible Recipes to cook based on available Ingredients.
+* `SearchCommand` searches Recipes based on tags.
 
-Each command modifies a specific collection and ensures the necessary updates are performed before storing changes in the system.
+Each command interacts with a specific collection and ensures the necessary updates are performed before storing changes in the system.
 
 <div style="page-break-after: always;"></div>
 
@@ -168,7 +164,7 @@ We used this design to maintain a clear separation of concerns. Commands act as 
 
 The following is a UML diagram of the `commands` package:
 
-![Commands.png](images/Commands.png)
+![Commands.png](images/commands.png)
 
 <div style="page-break-after: always;"></div>
 
@@ -184,21 +180,14 @@ The `Parser` class contains methods to process and handle different user command
 
 * `decipherCommand(String receivedText)`: Identifies the command type from user input and executes the relevant method.
 * `handleViewCommand(String receivedText)`: Handles requests to view data based on user-specified parameters.
-* `handleDisplayCommand(String receivedText)`: Manages the display of lists such as recipes, dishes, ingredients, and shopping lists.
-* `handleAddCommand(String receivedText)`: Directs the addition of new recipes, dishes, or ingredients to their respective storages.
+* `handleDisplayCommand(String receivedText)`: Manages the display of lists such as recipes, dishes and ingredients.
+* `handleAddCommand(String receivedText)`: Directs the addition of new recipes, dishes, or ingredients to their respective collections.
 * `handleDeleteCommand(String receivedText)`: Manages the removal of recipes, dishes, or ingredients based on user input.
-* `parseDish(String input)`: Extracts dish details from a given command.
+* `parseDish(String input)`: Extracts dish name and scheduled date from user input.
 * `parseRecipe(String receivedText)`: Extracts recipe details and its required ingredients.
-* `parseIngredient(String command)`: Parses an ingredient command into a structured data format.
+* `parseIngredient(String command)`: Parses an ingredient command into a structured data format with ingredient name, expiry date and quantity.
 
-The `Parser` class interacts with the following command classes:
-
-* `AddCommand` - Adds recipes, dishes, or ingredients.
-* `DeleteCommand` - Removes recipes, dishes, or ingredients.
-* `ListCommand` - Displays stored recipes, dishes, ingredients, or shopping lists.
-* `HelpCommand` - Shows available user commands.
-* `SuggestCommand` - Provides cooking suggestions.
-* `ViewCommand` - Displays information based on date or ingredient filters.
+The `Parser` class interacts with all command classes.
 
 <div style="page-break-after: always;"></div>
 
@@ -210,7 +199,7 @@ The design choice of the `Parser` class emphasizes modularity and maintainabilit
 2. **Scalability**: New commands can be integrated without affecting existing logic.
 3. **Error handling**: Unrecognized commands are identified, preventing incorrect execution.
 
-The following is a class diagram of the `Parser` class and its interactions:
+The following is an overview of the `Parser` class and its interactions:
 
 ![Parser.png](images/Parser.png)
 
@@ -235,8 +224,7 @@ The Storage component is responsible for reading data from and writing data to t
 Below is a class diagram showing the interactions between the `Storage` and `DataWrapper` classes, with all other components:
 
 
-
-![alt text](images/storage.png)
+![storage image](images/storage.png)
 The Storage class handles two main operations:
 1. **Loading**. The loading of data is done only once, when the program is launched.
 2. **Storing**. The storing of data occurs every time any of its fields are updated, which includes the adding and deleting of dishes, ingredients, and recipes. 
@@ -275,7 +263,7 @@ Below is a sequence diagram detailing the control flow:
 The component follows SOLID principles: 
 - Single Responsibility: Focuses solely on recipe suggestions
 - Open for Extension: New suggestion algorithms can be added 
-- Depends on abstractions: Works weith ingredient and recipe interfaces
+- Depends on abstractions: Works with ingredient and recipe interfaces
 
 
 # Appendix: Requirements
@@ -297,32 +285,21 @@ planning their meals with their limited budget and time.
 ## User Stories
 
 
-| Version | As a ...                          | I can ...                                                       | So that I can ...                                                                  |
-| ------- | --------------------------------- | --------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| v1.0    | Veteran cook                      | add new recipes to the list                                     | enjoy my own recipes without relying on the default list                           |
-| v1.0    | forgetful student                 | see my current quantity of ingredients                          | check if I have enough ingredients to make foods and whether I should buy more     |
-| v1.0    | indecisive user                   | change my meal plans                                            | have flexibility in my meals                                                       |
-| v1.0    | forgetful student                 | see my meal plans for the day                                   | be reminded of what I planned to eat                                               |
-| v1.0    | student on exchange               | plan my meals                                                   | efficiently plan out my use of ingredients                                         |
-| v1.0    | someone new to cooking            | enter my current ingredients                                    | get suggestions on recipes                                                         |
-| v1.0    | user who made a mistake           | delete entries                                                  | customize plan                                                                     |
-| v2.0    | inexperienced cook                | see possible recipes that I can create with current ingredients | decide on what food I can create without the effort of referencing online material |
-| v2.0    | user                              | see my shopping list                                            | save time and effort of thinking of what to buy for my meal plan                   |
-| v2.0    | inexperienced cook                | see the difficulty and time it takes to cook a certain recipe   | know whether I have the time and skills to do some meals                           |
-| v2.0    | forgetful student                 | keep track of expiry dates of foods                             | efficiently consume the foods without waste, and so I won't eat expired foods      |
-| v2.0    | someone with dietary restrictions | filter recipes based on my restrictions                         | access meals I can eat                                                             |
-| v2.0    | nutritionist                      | create healthy recipes for students                             | promote healthier diets amongst unhealthy youths                                   |
-| v2.0    | student on a diet                 | home-cook food and be intentional with my ingredients           | maintain a balanced diet                                                           |
-| v2.0    | a family member                   | figure out what to cook for the family                          | prepare a good dinner for loved ones                                               |
-| v2.0    | student cook with roommates       | share shopping lists with my roommates                          | coordinate buying ingredients                                                      |
-| v2.0    | student cook with friends         | calculate cost per meal of each person                          | easily split costs with friends                                                    |
-| v2.1    | inexperienced cook                | click on links that direct me to youtube videos                 | refer to videos if I am unable to follow the recipe                                |
-| v2.1    | poor student                      | find affordable food shopping locations near me                 | save money                                                                         |
-| v2.1    | a busy cook                       | get reminders on expiry dates of ingredients                    | use all my groceries without wasting any                                           |
-| v2.1    | beginner meal prepper             | see meal-prepping tips                                          | improve my meal-prepping                                                           |
-| v2.1    | health conscious student          | track calories of dishes                                        | know exactly how many calories my food has                                         |
-| v2.1    | aspiring chef                     | save my favourite recipes                                       | access them easily                                                                 |
-| v2.1    | user that is going to shop soon   | be recommended recipes that are an item away                    | plan what to buy next when I'm not limited by my current ingredients               |
+| Version | As a ...                        | I can ...                                                       | So that I can ...                                                                  |
+|---------|---------------------------------|-----------------------------------------------------------------|------------------------------------------------------------------------------------|
+| v1.0    | Veteran cook                    | add new recipes to the list                                     | enjoy my own recipes without relying on the default list                           |
+| v1.0    | forgetful student               | see my current quantity of ingredients                          | check if I have enough ingredients to make foods and whether I should buy more     |
+| v1.0    | indecisive user                 | change my meal plans                                            | have flexibility in my meals                                                       |
+| v1.0    | forgetful student               | see my meal plans for the day                                   | be reminded of what I planned to eat                                               |
+| v1.0    | student on exchange             | plan my meals                                                   | efficiently plan out my use of ingredients                                         |
+| v1.0    | someone new to cooking          | enter my current ingredients                                    | get suggestions on recipes                                                         |
+| v1.0    | user who made a mistake         | delete entries                                                  | customize plan                                                                     |
+| v2.0    | inexperienced cook              | see possible recipes that I can create with current ingredients | decide on what food I can create without the effort of referencing online material |
+| v2.0    | user                            | see my shopping list                                            | save time and effort of thinking of what to buy for my meal plan                   |
+| v2.0    | forgetful student               | keep track of expiry dates of foods                             | efficiently consume the foods without waste, and so I won't eat expired foods      |
+| v2.1    | a busy cook                     | get reminders on expiry dates of ingredients                    | use all my groceries without wasting any                                           |
+| v2.1    | aspiring chef                   | save my favourite recipes                                       | access them easily                                                                 |
+| v2.1    | user that is going to shop soon | be recommended recipes that are an item away                    | plan what to buy next when I'm not limited by my current ingredients               |
 
 ## Non-Functional Requirements
 
@@ -335,7 +312,7 @@ planning their meals with their limited budget and time.
 
 ### Basic Testing 
 Here we provide some basic testing, and is meant to be a starting point for testers. For more comprehensive or exploratory testing, visit the [automation testing](#automation-testing) section.
-#### Launching and Shutdown
+### Test: Launching and Shutdown
 1. Ensure you have Java 17 installed.
 2. Run using:
   ```shell
@@ -343,22 +320,97 @@ Here we provide some basic testing, and is meant to be a starting point for test
   ```
 > Note that CookingAids does not support double clicking on the `.jar` file is not supported on all operating systems. For reliability, we recommend launching the application through a terminal. 
 
+
 Shutdown and save data by typing `bye` in the terminal window. 
 
+**Expected Output**: 
+- After launching: A welcome message, showing CookingAids version number. 
+- After sending `bye`: `Stored Dish List successfully in: ./data/cookingaids.json
+`.
+### Test: Showing Help
+Follow the same instructions for launching according to [the launch and shutdown test](#test-launching-and-shutdown).\
+Type `help` in the terminal window. 
+
+**Expected Output**:  A comprehensive help message detailing the commands and their appropriate flags. 
+
+### Test: Adding ingredients, recipes, dishes
+#### Adding Ingredients
+Add some sample ingredients:
 ### Adding and Saving Data 
-Add a sample item:
+Add a sample ingredient:
 ```text
-add -ingredient=tomato -quantity=5 -expiry=2025-04-03
+add -ingredient=garlic -quantity=5 -expiry=2025/12/03
 ```
-Test that the saving of data works either by performing `Ctrl+C` (`Command+C` on MacOS) or by typing `bye` in ther terminal window.Ensure that file data is stored in `./data/cookingaids.json`.
-Some other sample items you may try:
-<!-- TODO: Add more sample commands-->
+**Expected Output**: `Added Ingredient: garlic (5pcs, Expiry: 2025/12/03, Expiring Soon: No, Expired: No)
+`
+```aiignore
+add -ingredient=bread -quantity=2 -expiry=2025/12/03
+```
+**Expected Output**: `Added Ingredient: bread (2pcs, Expiry: 2025/12/03, Expiring Soon: No, Expired: No)
+`
+```aiignore
+add -ingredient=tomato 
+```
+**Expected Output**: `Added Ingredient: tomato (1pcs, Expiry: None, Expiring Soon: No, Expired: No)
+`
+
+After ensuring ingredients are added successfully, we can proceed to adding dishes. 
+#### Adding Recipes
+```aiignore
+add -recipe=garlic_bread -needs=garlic,1,bread,2
+```
+**Expected Output**: 
+```aiignore
+Added Recipe: garlic_bread
+Ingredients: garlic (1), bread (2)
+```
+#### Adding Dishes 
+```aiignore
+add -dish=garlic_bread -when=tmr
+```
+**Expected Output** (as of performing this test on 2025/04/08: `Added Dish: garlic_bread, Scheduled for: 2025/04/08
+`.
+
+### Test:Viewing Dish Calendar 
+Make sure that you have added some dishes. Given the [above example](#adding-dishes-), we can do 
+`view -month=4` to see our garlic bread dish.
+
+**Expected Output**: 
+
+<img src="images/dish_cal_1.png" alt="structure" width="400"/>
+
+### Test: Suggest 
+Say we only had one ingredient available:
+`  garlic (10pcs, Expiry: 2025/12/03, Expiring Soon: No, Expired: No)`.
+Add a recipe like `garlic_bread`:
+```aiignore
+add -recipe=garlic_bread -needs=garlic,1,bread,2
+```
+
+Performing the `suggest` command should give us the following:
+**Expected Output**: `Not enough ingredients for garlic_bread! Here's what you're missing: 
+2 bread`
+
+Once we add 2 pieces of bread, we should be able to get a suggestion: 
+
+`You have enough ingredients to make: 
+1: garlic_bread`
+
+
+### Test: Saving and Loading Data 
+Add some sample items. You may try those given from the [above tests](#test-adding-ingredients-recipes-dishes). 
+
+Test that the saving of data works either by performing `Ctrl+C` (`Command+C` on MacOS) or by typing `bye` in the
+terminal window. Ensure that file data is stored in `./data/cookingaids.json`.
 
 ### Automation Testing
 We have written some test cases for automation testing. Below are some steps to perform this test in IntelliJ IDEA. 
 1. Ensure you have the JUnit plugin installed. We will be using this to conduct our unit testing. 
 2. In IntelliJ, navigate to `src/test`. A snippet of the project structure is shown below:
+
 <img src="images/structure.png" alt="structure" width="300"/>
+
 3. Right click the "test" folder, and click on "Run all tests in tp.test", if successful, a window should appear detailing the results of the test:
+
 <img src="images/tests.png" alt="tests" width="500"/>
 

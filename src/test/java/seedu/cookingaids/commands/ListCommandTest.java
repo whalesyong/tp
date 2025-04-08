@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import seedu.cookingaids.collections.DishCalendar;
 import seedu.cookingaids.collections.IngredientStorage;
 import seedu.cookingaids.collections.RecipeBank;
+import seedu.cookingaids.exception.InvalidInputException;
 import seedu.cookingaids.items.Dish;
 import seedu.cookingaids.items.Ingredient;
 import seedu.cookingaids.items.Recipe;
@@ -32,7 +33,7 @@ class ListCommandTest {
     }
 
     @Test
-    void execute_listDishes_displaysDishList() {
+    void execute_listDishes_displaysDishList() throws InvalidInputException {
         Dish testDish = new Dish("spaghetti", "2025/03/29");
         DishCalendar.addDishToCalendar(testDish);
 
@@ -45,7 +46,7 @@ class ListCommandTest {
     }
 
     @Test
-    void execute_listDishesByMonth_displaysMonthlyDishList() {
+    void execute_listDishesByMonth_displaysMonthlyDishList() throws InvalidInputException {
         Dish marchDish = new Dish("pancakes", "2025/03/15");
         DishCalendar.addDishToCalendar(marchDish);
 

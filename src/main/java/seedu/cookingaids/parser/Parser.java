@@ -78,27 +78,20 @@ public class Parser {
         if (!receivedText.contains(MONTH_FLAG)) {
             System.out.println("Missing month flag, try \"view -month=\"");
             return;
-
         }
         if (receivedText.contains(YEAR_FLAG)) {
-
             try {
                 int year = extractYear(receivedText);
                 int month = extractMonth(receivedText);
                 ViewCommand.displayDishMonth(month, year);
-
             } catch (InvalidInputException e) {
                 System.out.println(
                         "Invalid month or year input. Use: view -year={2015-2035} " +
                                 "or leave blank for the current year.");
-
                 System.out.println(
                         "Use: view -month={1-12} or leave blank for the current month.");
-
             }
         } else {
-
-
             try {
                 int month = extractMonth(receivedText);
                 ViewCommand.displayDishMonth(month); // Assuming ViewCommand has an overloaded method
@@ -107,7 +100,6 @@ public class Parser {
                         "Invalid month input. Use: view -month={1-12} or leave blank for the current month.");
             }
         }
-
     }
 
     private static Integer extractMonth(String receivedText) throws InvalidInputException {
@@ -119,19 +111,16 @@ public class Parser {
             if (matcher.group(1).isBlank()) {
                 month = LocalDate.now().getMonthValue(); // Default to current month
             } else {
-
                 try {
                     month = Integer.parseInt(matcher.group(1).trim());
                 } catch (NumberFormatException e) {
-
                     throw new InvalidInputException();
-
                 }
             }
-
         } else {
             month = LocalDate.now().getMonthValue(); // Default to current month
         }
+
         return month;
     }
 
@@ -144,7 +133,6 @@ public class Parser {
             if (matcher.group(1).isBlank()) {
                 year = LocalDate.now().getYear(); // Default to current year
             } else {
-
                 try {
                     year = Integer.parseInt(matcher.group(1).trim());
                     if (year > 2035 || year < 2015) {
@@ -155,23 +143,26 @@ public class Parser {
                     throw new InvalidInputException();
                 }
             }
-
         } else {
             year = LocalDate.now().getYear(); // Default to current year
         }
+
         return year;
     }
 
-
     private static void handleDisplayCommand(String receivedText) {
-        if (receivedText.contains("-recipe")) {
-            ListCommand.displayRecipeBank();
-        } else if (receivedText.contains("-dish")) {
-            ListCommand.displayDishList(receivedText);
-        } else if (receivedText.contains("-ingredient")) {
-            ListCommand.displayIngredients();
-        } else {
-            System.out.printf((UNKNOWN_COMMAND_STR) + "%n", receivedText);
+        try {
+            if (receivedText.contains("-recipe")) {
+                ListCommand.displayRecipeBank();
+            } else if (receivedText.contains("-dish")) {
+                ListCommand.displayDishList(receivedText);
+            } else if (receivedText.contains("-ingredient")) {
+                ListCommand.displayIngredients();
+            } else {
+                System.out.printf((UNKNOWN_COMMAND_STR) + "%n", receivedText);
+            }
+        } catch (InvalidInputException e) {
+            System.out.println("Illegal format of commands received");
         }
     }
 
@@ -223,7 +214,6 @@ public class Parser {
             System.out.println("Use 'update -recipe=INDEX -newname=NAME -newingredients=INGREDIENTS'");
         }
     }
-
 
     private static void handleSearchCommand(String receivedText) {
         if (receivedText.contains(RECIPE_TAGS_FLAG)) {
@@ -357,21 +347,7 @@ public class Parser {
             endIndex = receivedText.length();
         }
 
-        // Return the raw string without trimming to preserve exact format
         return receivedText.substring(startIndex, endIndex);
-    }
-
-    public static String parseDishNameForDeletion(String receivedText) {
-        if (!receivedText.contains(DISH_FLAG)) {
-            return "";
-        }
-        int startIndex = receivedText.indexOf(DISH_FLAG) + DISH_FLAG.length();
-        int endIndex = receivedText.indexOf(" ", startIndex);
-        if (endIndex == -1) {
-            endIndex = receivedText.length();
-        }
-
-        return receivedText.substring(startIndex, endIndex).trim();
     }
 
     public static String parseWhenForDeletion(String receivedText) {
@@ -385,12 +361,6 @@ public class Parser {
         }
 
         return receivedText.substring(startIndex, endIndex).trim();
-    }
-
-    public static String[] parseDishAndWhenForDeletion(String receivedText) {
-        String dishName = parseDishNameForDeletion(receivedText);
-        String when = parseWhenForDeletion(receivedText);
-        return new String[]{dishName, when};
     }
 
     public static String parseIngredientForDeletion(String receivedText) {

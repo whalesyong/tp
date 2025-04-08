@@ -179,7 +179,7 @@ public class UpdateCommand {
             if (newExpiry.isEmpty() || !isValidDate(newExpiry)) {
                 throw new IllegalArgumentException("New expiry date cannot be empty " +
                         "\nnew date should be in YYYY/MM/DD format" +
-                        "\nonly futuredates accepted");
+                        "\nonly dates starting from today onwards will be accepted");
             }
             int quantity;
             try {
@@ -239,7 +239,8 @@ public class UpdateCommand {
             System.out.println("" +
                     "Format error ensure you do not have additional flags.\nuse update -dish={dishName} only," +
                     " remove additional flags");
-            System.out.println("ensure that date is in YYYY/MM/DD format and only future dates are accepted");
+            System.out.println("ensure that date is in YYYY/MM/DD format and only " +
+                    "dates starting from today onwards will be accepted");
         }catch(InputMismatchException e){
             System.out.println("input an integer");
         }
