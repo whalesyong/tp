@@ -67,38 +67,43 @@ I developed comprehensive JUnit tests to ensure the correctness and robustness o
 
 ### **Contributions to the UG (User Guide)**
 
-- Added documentation for the 
+- Added detailed documentation for [features](https://github.com/AY2425S2-CS2113-T11b-1/tp/blob/master/docs/UserGuide.md#features) to guide users and ensure proper usage of Cooking Aids.
 - Added example inputs and expected outputs for each command.
+- Added a [Command List](https://github.com/AY2425S2-CS2113-T11b-1/tp/blob/master/docs/UserGuide.md#command-list) to summarise the available commands and provide example inputs in an easy to read table.
 
 ### **Contributions to the DG (Developer Guide)**
 
-- Authored the Parser and Command implementation sections.
+- Authored the [Parser](https://github.com/AY2425S2-CS2113-T11b-1/tp/blob/master/docs/DeveloperGuide.md#parser) and [Command](https://github.com/AY2425S2-CS2113-T11b-1/tp/blob/master/docs/DeveloperGuide.md#commands) implementation sections.
 - Added UML diagrams:
-    - **Class Diagram** for the Parser-Command relationship.
-    - **Sequence Diagram** illustrating the flow from user input to command execution.
-- Documented the command execution lifecycle and described how input strings are tokenized and passed through the system.
-- Validated rest of the Developer Guide and helped the team correct non-standard notations in class diagrams.
+    - **Class Diagram** to depict the Parser-Command relationship.
+    - **Commands Sequence Diagram** illustrating the flow from user input to command execution.
+- Documented the command execution lifecycle and detailed how input strings are tokenized and passed through the system.
+- Explained our design considerations when implementing the command handler logic in Cooking Aids
+- Validated the entire Developer Guide by helping teammates correct non-standard notations in their class diagrams.
 
 ### **Contributions to Team-Based Tasks**
 
 - Participated actively in weekly team sync-ups and code walkthroughs.
 - Wrote unit and integration test cases that validated command parsing logic.
-- Coordinated with the rest of the team to ensure command logic aligned with the different collections' data structure. (Dish, Ingredient, Recipe)
+- Coordinated with the rest of the team to ensure command logic aligned with the different collections' (Dish, Ingredient, Recipe) data structure.
 
 ### **Review / Mentoring Contributions**
 
 - Reviewed issues and pull requests, offering suggestions to teammates to fix bugs spotted:
     - Brainstormed ideas to overcome challenges that teammates are facing in their implementation.
-    - Provided tips for following CS2113 coding standards in code and documentation.
-    - Improved code modularity and adherence to coding standards.
-    - Simplified conditional logic in command execution.
-    - Added inline documentation for public methods.
 
 ![Contribution_3](images/jeromy_other_contributions_3.png)
 ![Contribution_4](images/jeromy_other_contributions_4.png)
 
 #### Discussion with Teammate:
 ![Contribution_5](images/jeromy_other_contributions_5.png)
+
+  - Improved code modularity and adherence to CS2113 code quality guidelines by providing tips to teammates for following our course coding standards in their code and documentation.
+  - Simplified conditional logic in command execution by refactoring nested `if` statements into guard clauses
+
+![Example use of Guard](images/jeromy_example_use_guard_clause.png)
+
+  - Added inline documentation for public methods.
 
 ### **Contributions Beyond the Project Team**
 
