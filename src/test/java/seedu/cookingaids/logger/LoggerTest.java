@@ -67,6 +67,8 @@ class LoggerTest {
     @Test
     void getLogger_createsLogDirectory() {
         Logger logger = LoggerFactory.getLogger(LoggerTest.class);
+        logger.info("Triggering log flush for test validation");
+
         assertTrue(logDir.exists(), "Log directory should be created");
         assertTrue(logDir.isDirectory(), "Log directory path should be a directory");
     }
@@ -74,6 +76,8 @@ class LoggerTest {
     @Test
     void getLogger_createsLogFile() {
         Logger logger = LoggerFactory.getLogger(LoggerTest.class);
+        logger.info("Triggering log flush for test validation");
+
         logger.severe("Test severe message");
         flushHandlers(logger);
         waitForLogFile();
@@ -87,6 +91,8 @@ class LoggerTest {
     @Test
     void getLogger_logLevelsAreCorrect() {
         Logger logger = LoggerFactory.getLogger(LoggerTest.class);
+        logger.info("Triggering log flush for test validation");
+
         assertEquals(Level.FINE, logger.getLevel(), "Logger should have FINE level");
 
         Handler[] handlers = logger.getHandlers();
@@ -113,6 +119,8 @@ class LoggerTest {
         Logger logger1 = LoggerFactory.getLogger(LoggerTest.class);
         Logger logger2 = LoggerFactory.getLogger(String.class);
 
+        logger1.info("Triggering log flush for test validation");
+        logger2.info("Triggering log flush for test validation");
         logger1.severe("Log from logger1");
         logger2.severe("Log from logger2");
 
