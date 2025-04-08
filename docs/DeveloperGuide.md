@@ -132,7 +132,7 @@ The Items component contains classes that represent the smallest unit of functio
 
 The following is the class diagram for the classes `Recipe` and `RecipeBank`.
 
-![Items.png](images/Items.png)
+![Items.png](images/items.png)
 
 The Items classes follow the above design consideration of modularity. Each class in this package serves as building
 blocks for the rest of the project.
