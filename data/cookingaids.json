@@ -6,11 +6,6 @@
     "dishDate" : {
       "dateString" : "2025/03/20"
     }
-  }, {
-    "name" : "garlic_breaad",
-    "dishDate" : {
-      "dateString" : "None"
-    }
   } ],
   "shopping" : [ ]
 }

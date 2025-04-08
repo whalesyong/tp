@@ -3,7 +3,10 @@ package seedu.cookingaids.logger;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.File;
 import java.util.logging.Logger;
@@ -36,14 +39,14 @@ class LoggerTest {
     }
 
     @Test
-    void getLogger_CreatesLogDirectory() {
+    void getLogger_createsLogDirectory() {
         Logger logger = LoggerFactory.getLogger(LoggerTest.class);
         assertTrue(logDir.exists(), "Log directory should be created");
         assertTrue(logDir.isDirectory(), "Log directory path should be a directory");
     }
 
     @Test
-    void getLogger_CreatesLogFile() {
+    void getLogger_createsLogFile() {
         Logger logger = LoggerFactory.getLogger(LoggerTest.class);
         
         // Log something to ensure file is created
@@ -57,7 +60,7 @@ class LoggerTest {
     }
 
     @Test
-    void getLogger_LogLevelsAreCorrect() {
+    void getLogger_logLevelsAreCorrect() {
         Logger logger = LoggerFactory.getLogger(LoggerTest.class);
         assertEquals(Level.FINE, logger.getLevel(), "Logger should have FINE level");
         
@@ -79,7 +82,7 @@ class LoggerTest {
     }
 
     @Test
-    void getLogger_SingletonFileHandler() {
+    void getLogger_singletonFileHandler() {
         Logger logger1 = LoggerFactory.getLogger(LoggerTest.class);
         Logger logger2 = LoggerFactory.getLogger(String.class);
         
