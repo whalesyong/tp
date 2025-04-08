@@ -87,25 +87,34 @@ class AddCommandTest {
     }
 
     @Test
-    void execute_addRecipeThatExists_succeeds() {
-        RecipeBank.clear();
+    void execute_addRecipeThatExists_returnsErrorMessage() {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
 
-        ArrayList<Ingredient> ingredients = new ArrayList<>();
-        ingredients.add(new Ingredient("tomato", 1));
-        ingredients.add(new Ingredient("bread", 2));
-        Recipe sandwichRecipe = new Recipe("sandwich", ingredients);
-        RecipeBank.addRecipeToRecipeBank(sandwichRecipe);
+        try {
+            RecipeBank.clear();
 
-        assertTrue(RecipeBank.contains("sandwich"));
-        assertEquals(1, RecipeBank.getRecipeBankSize());
+            ArrayList<Ingredient> ingredients = new ArrayList<>();
+            ingredients.add(new Ingredient("tomato", 1));
+            ingredients.add(new Ingredient("bread", 2));
+            Recipe sandwichRecipe = new Recipe("sandwich", ingredients);
+            RecipeBank.addRecipeToRecipeBank(sandwichRecipe);
 
-        AddCommand.addRecipe("add -recipe=sandwich -needs=mayo,1,lettuce,1,turkey,2");
+            assertTrue(RecipeBank.contains("sandwich"));
+            assertEquals(1, RecipeBank.getRecipeBankSize());
 
-        assertAddRecipeSuccessful("sandwich");
-        assertEquals(1, RecipeBank.getRecipeBankSize());
+            // Attempt to add a duplicate recipe
+            AddCommand.addRecipe("add -recipe=sandwich -needs=mayo,1,lettuce,1,turkey,2");
 
-        List<Recipe> sandwiches = RecipeBank.getRecipeByName("sandwich");
-        assertEquals(1, sandwiches.size());
+            String consoleOutput = outputStream.toString().trim();
+            assertTrue(consoleOutput.contains("Recipe already exists: sandwich"));
+
+            List<Recipe> sandwiches = RecipeBank.getRecipeByName("sandwich");
+            assertEquals(1, sandwiches.size());
+        } finally {
+            System.setOut(originalOut);
+        }
     }
 
     @Test
@@ -153,7 +162,8 @@ class AddCommandTest {
 
         String commandOutput = outputStream.toString().trim();
         assertEquals("Invalid format. Use: add -dish=dish_name -when=YYYY/MM/DD " +
-                "\ndish name should be in lower_snake_case" +"\nonly dates in the future are accepted", commandOutput);
+                "\ndish name should be in lower_snake_case"+"\nonly dates starting from" +
+                " today onwards will be accepted", commandOutput);
     }
 
     @Test
@@ -163,7 +173,8 @@ class AddCommandTest {
 
         String commandOutput = outputStream.toString().trim();
         assertEquals("Invalid format. Use: add -dish=dish_name -when=YYYY/MM/DD " +
-                "\ndish name should be in lower_snake_case" +"\nonly dates in the future are accepted", commandOutput);
+                "\ndish name should be in lower_snake_case"+"\nonly dates starting from" +
+                " today onwards will be accepted", commandOutput);
     }
 
     private void assertAddDishSuccessful(String dishName, DishCalendar dishCalendar) {

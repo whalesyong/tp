@@ -160,7 +160,8 @@ public class AddCommand {
 
         } catch (InvalidInputException e) {
             System.out.println("Invalid format. Use: add -dish=dish_name -when=YYYY/MM/DD " +
-                    "\ndish name should be in lower_snake_case"+"\nonly dates in the future are accepted");
+                    "\ndish name should be in lower_snake_case"+"\nonly dates starting from" +
+                    " today onwards will be accepted");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
@@ -199,7 +200,7 @@ public class AddCommand {
             }
 
         } catch (InvalidInputException e) {
-            System.out.println("Invalid format, try add -recipe=recipeName -ingredients=ingredient_1,quantity_1");
+            System.out.println("Invalid format, try add -recipe=recipeName -needs=ingredient_1,quantity_1");
         }
     }
 
@@ -228,7 +229,7 @@ public class AddCommand {
 
             if (!expiryDate.equals("None") && !isValidDate(expiryDate)) {
                 throw new IllegalArgumentException("Expiry date is invalid, \nensure that date is in" +
-                        " YYYY/MM/DD format and only future dates are accepted");
+                        " YYYY/MM/DD format and only dates starting from today onwards will be accepted");
             }
             int quantity;
             try {

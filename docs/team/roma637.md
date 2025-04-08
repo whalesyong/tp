@@ -20,7 +20,7 @@ Implemented the following functionalities:
 ### **Contributions to the DG (Developer Guide)**
 
 - Wrote the "Items" section.
-- Creates UML diagrams for the Items section.
+- Created UML diagrams for the Items section.
 
 ### **Contributions to Team-Based Tasks**
 

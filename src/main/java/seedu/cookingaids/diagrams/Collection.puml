@@ -3,26 +3,17 @@ hide circle
 skinparam classAttributeIconSize 0
 class ExpiryDate {
     +ExpiryDate(dateString: String)
-    +isExpiringSoon(): boolean
-    +isExpired(): boolean
 }
 
 class DishDate {
-    +DishDate(dateString: String)
-    +setDate(dateString: String)
-    +getDateLocalDate(): LocalDate
-    +toString(): String
 }
 
-class Food {
-    - static Map<Integer, Food> foodDatabase
-    - int id
+abstract class Food <<abstract>> {
     - String name
     + Food(name: String)
-    + static void deleteFood(int id)
     + abstract void displayInfo()
-    + getName(): String
-    + toString(): String
+    + String getName(): String
+    + String toString(): String
 }
 
 class Ingredient {
@@ -31,43 +22,43 @@ class Ingredient {
     - String name
     - boolean expiringSoon
     - boolean expired
-    - expired()
-    - expiringSoon()
+    - void expired(): void
+    - void expiringSoon(): void
     + Ingredient(name: String)
     + Ingredient(name: String, quantity: int)
     + Ingredient(name: String, expiry: String, quantity: int)
-    + setQuantity(quantity: int)
-    + getQuantity(): int
-    + getExpiryDate(): ExpiryDate
-    + getName(): String
-    + addQuantity(quantity: int)
-    + removeQuantity(quantity: int)
-    + setExpiringSoon(b: boolean)
-    + setExpired(b: boolean)
-    + setExpiryDate(expiryDate: ExpiryDate)
-    + displayInfo()
-    + toString(): String
+    + void setQuantity(quantity: int): void
+    + int getQuantity(): int
+    + ExpiryDate getExpiryDate(): ExpiryDate
+    + String getName(): String
+    + void addQuantity(quantity: int): void
+    + void removeQuantity(quantity: int): void
+    + void setExpiringSoon(b: boolean): void
+    + void setExpired(b: boolean): void
+    + void setExpiryDate(expiryDate: ExpiryDate): void
+    + void displayInfo(): void
+    + String toString(): String
 }
 
 class IngredientStorage {
-    -  static HashMap<String, List<Ingredient>> ingredients
-    + static void initializeIngredientStorage(HashMap<String, List<Ingredient>> newIngredients)
-    + static void addToStorage(Ingredient newIngredient)
-    + static void removeIngredient(String ingredientName)
-    + static HashMap<String, List<Ingredient>> getStorage()
-    + static boolean contains(String ingredientName)
-    + static void clear()
-    + void displayStorage()
-    + static List<Ingredient> getIngredients(String name)
-    - static void checkExpiringSoon(String name)
-    - static void checkExpiredIngredients(String name)
-    - static void removeExpiredIngredients(String name)
-    + static void useIngredients(String name, int amount)
-    + static int getUnexpiredIngredients(String ingredientName)
-    + static int getExpiringSoonIngredients(String ingredientName)
-    + static int getTotalIngredientQuantity(Ingredient ingredient)
-    + static void updateIngredient(String name, String oldExpiry, int newQuantity, String newExpiry)
-    + static void printMap()
+    - HashMap<String, List<Ingredient>> ingredients
+    + void initializeIngredientStorage(HashMap<String, List<Ingredient>> newIngredients): void
+    + void addToStorage(Ingredient newIngredient): void
+    + void removeIngredient(String ingredientName): void
+    + HashMap<String, List<Ingredient>> getStorage(): HashMap<String, List<Ingredient>>
+    + boolean contains(String ingredientName): boolean
+    + void clear(): void
+    + void displayStorage(): void
+    + List<Ingredient> getIngredients(String name): List<Ingredient>
+    - void checkExpiringSoon(String name): void
+    - void checkExpiredIngredients(String name): void
+    - void removeExpiredIngredients(String name): void
+    + void useIngredients(String name, int amount): void
+    + int getUnexpiredIngredients(String ingredientName): int
+    + int getExpiringSoonIngredients(String ingredientName): int
+    + int getTotalIngredientQuantity(Ingredient ingredient): int
+    + void updateIngredient(String name, String oldExpiry, int newQuantity, String newExpiry): void
+    + void printMap(): void
 }
 
 ExpiryDate --|> DishDate
