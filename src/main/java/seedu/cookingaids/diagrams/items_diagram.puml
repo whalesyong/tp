@@ -1,0 +1,44 @@
+@startuml
+hide circle
+hide empty members
+skinparam classAttributeIconSize 0
+
+class Recipe {
+    - recipeName: String
+    - ingredients: ArrayList<Ingredient>
+    - tags: ArrayList<String>
+
+    + Recipe(recipeName: String)
+    + Recipe(recipeName: String, ingredients: ArrayList<Ingredient>)
+    + getRecipeName() : String
+    + setRecipeName(recipeName: String)
+    + getIngredients() : ArrayList<Ingredient>
+    + setIngredients(ingredients: ArrayList<Ingredient>)
+    + getTags(): ArrayList<String>
+    + setTags(tags: ArrayList<String>
+    + getName() : String
+    + toString() : String
+}
+
+class RecipeBank {
+    - recipeBank : ArrayList<Recipe>
+
+    + initializeRecipeBank(recipesList: List<Recipe>)
+    + addRecipeToRecipeBank(recipe: Recipe)
+    + getRecipeBank() : ArrayList<Recipe>
+    + getRecipeBankSize(): Integer
+    + removeRecipeFromRecipeBank(command: String)
+    + contains(recipeName: String) : boolean
+    + getRecipeByName(recipeName: String) : List<Recipe>
+    + getRecipeByORTags(tags: ArrayList<String>) : ArrayList<Recipe>
+    + getRecipeByANDTags(tags: ArrayList<String>) : ArrayList<Recipe>
+    + promptUserForRecipeDish(recipes: List<Recipe>) : Recipe
+    + getIngredientList(dish: Dish) : List<Ingredient>
+    + clear()
+}
+
+RecipeBank "1" *-- "*" Recipe : contains
+Recipe -* "1..*" Ingredient : has
+RecipeBank - Dish : references
+
+@enduml

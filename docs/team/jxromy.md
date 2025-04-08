@@ -78,6 +78,7 @@ I developed comprehensive JUnit tests to ensure the correctness and robustness o
     - **Class Diagram** for the Parser-Command relationship.
     - **Sequence Diagram** illustrating the flow from user input to command execution.
 - Documented the command execution lifecycle and described how input strings are tokenized and passed through the system.
+- Validated rest of the Developer Guide and helped the team correct non-standard notations in class diagrams.
 
 ### **Contributions to Team-Based Tasks**
 
@@ -87,12 +88,16 @@ I developed comprehensive JUnit tests to ensure the correctness and robustness o
 
 ### **Review / Mentoring Contributions**
 
-- Reviewed 10+ pull requests, offering suggestions on:
-    - Improving code modularity and adherence to coding standards.
-    - Simplifying conditional logic in command execution.
-    - Adding inline documentation for public methods.
+- Reviewed issues and pull requests, offering suggestions to teammates to fix bugs spotted:
+    - Brainstormed ideas to overcome challenges that teammates are facing in their implementation.
+    - Provided tips for following CS2113 coding standards in code and documentation.
+    - Improved code modularity and adherence to coding standards.
+    - Simplified conditional logic in command execution.
+    - Added inline documentation for public methods.
 
-{to insert screenshots}
+![Contribution_3](images/jeromy_other_contributions_3.png)
+![Contribution_4](images/jeromy_other_contributions_4.png)
+![Contribution_5](images/jeromy_other_contributions_5.png)
 
 ### **Contributions Beyond the Project Team**
 

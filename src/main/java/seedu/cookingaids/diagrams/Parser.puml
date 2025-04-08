@@ -4,73 +4,73 @@ hide circle
 skinparam classAttributeIconSize 0
 
 class Parser {
-    - String NEW_INGREDIENTS_FLAG
-    - String NEW_NAME_FLAG
-    - String RECIPE_FLAG
-    + decipherCommand(receivedText: String): void
-    + void handleAddCommand(receivedText: String): void
-    + void handleDeleteCommand(receivedText: String): void
-    + void handleSearchCommand(receivedText: String): void
-    + String parseTagsForSearch(receivedText: String): String
-    + String parseSearchType(receivedText: String): String
+    - NEW_INGREDIENTS_FLAG : String
+    - NEW_NAME_FLAG : String
+    - RECIPE_FLAG : String
+    + decipherCommand(receivedText: String)
+    + handleAddCommand(receivedText: String)
+    + handleDeleteCommand(receivedText: String)
+    + handleSearchCommand(receivedText: String)
+    + parseTagsForSearch(receivedText: String): String
+    + parseSearchType(receivedText: String): String
     ...
 }
 
 class ListCommand {
-    - String COMMAND_WORD
-    + void displayRecipeBank(): void
-    + void displayDishList(receivedText: String): void
-    + void displayIngredients(): void
+    - COMMAND_WORD : String
+    + displayRecipeBank()
+    + displayDishList(receivedText: String)
+    + displayIngredients()
     ...
 }
 
 class AddCommand {
-    - String COMMAND_WORD
-    + void addDish(receivedText: String): void
-    + void addRecipe(receivedText: String): void
-    + void addIngredient(receivedText: String): void
+    - COMMAND_WORD : String
+    + addDish(receivedText: String)
+    + addRecipe(receivedText: String)
+    + addIngredient(receivedText: String)
     ...
 }
 
 class DeleteCommand {
-    - String COMMAND_WORD
-    + void deleteDish(receivedText: String): void
-    + void deleteIngredient(receivedText: String): void
-    + void deleteRecipe(receivedText: String): void
+    - COMMAND_WORD : String
+    + deleteDish(receivedText: String)
+    + deleteIngredient(receivedText: String)
+    + deleteRecipe(receivedText: String)
     ...
 }
 
 class UpdateCommand {
-    - String COMMAND_WORD
-    + void updateDish(receivedText: String): void
-    + void updateRecipe(receivedText: String): void
-    + void updateIngredient(receivedText: String): void
+    - COMMAND_WORD : String
+    + updateDish(receivedText: String)
+    + updateRecipe(receivedText: String)
+    + updateIngredient(receivedText: String)
     ...
 }
 
 class ViewCommand {
-    - String COMMAND_WORD
-    + void displayShoppingList(): void
-    + void displayDishMonth(month: int, year: int): void
-    + void displayDishMonth(month: int): void
+    - COMMAND_WORD : String
+    + displayShoppingList()
+    + displayDishMonth(month: int, year: int)
+    + displayDishMonth(month: int)
     ...
 }
 
 class HelpCommand {
-    - String COMMAND_WORD
-    + void showHelp(): void
+    - COMMAND_WORD : String
+    + showHelp()
     ...
 }
 
 class SuggestCommand {
-    - String COMMAND_WORD
-    + void printSuggestions(): void
+    - COMMAND_WORD : String
+    + printSuggestions()
     ...
 }
 
 class SearchCommand {
-    - String COMMAND_WORD
-    + void printSearchResult(tags: String, searchType: String): void
+    - COMMAND_WORD : String
+    + printSearchResult(tags: String, searchType: String)
     ...
 }
 
