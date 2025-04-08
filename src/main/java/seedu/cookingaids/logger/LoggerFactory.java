@@ -69,8 +69,6 @@ public class LoggerFactory {
 
                 fileHandler = new FileHandler(currentLogPath, true);
 
-                // TODO: remove this line of code after successfully debugging GitHub CI.
-                System.err.println("File handler being initialized: " + currentLogPath);
 
                 fileHandler.setFormatter(new SimpleFormatter());
                 fileHandler.setLevel(Level.ALL);
@@ -78,8 +76,7 @@ public class LoggerFactory {
                 System.out.println("Log file path: " + currentLogPath);
             } catch (IOException e) {
                 System.err.println("Failed to set up log file handler: " + e.getMessage());
-                // TODO: remove this line after successfully debugging GitHub CI.
-                e.printStackTrace();
+
                 return logger;
             }
         }
