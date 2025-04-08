@@ -83,9 +83,11 @@ class LoggerTest {
         waitForLogFile();
 
         File[] files = getLogFiles();
-        assertNotNull(files, "Log files array should not be null");
-        assertTrue(files.length > 0, "At least one log file should exist");
-        System.out.println("Log file created at: " + files[0].getAbsolutePath());
+        File[] listingFiles = new File("./data/log").listFiles();
+
+        assertNotNull(listingFiles, "Log files array should not be null");
+        assertTrue(listingFiles.length > 0, "At least one log file should exist");
+        System.out.println("Log file created at: " + listingFiles[0].getAbsolutePath());
     }
 
     @Test

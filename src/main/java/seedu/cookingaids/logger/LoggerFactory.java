@@ -38,26 +38,27 @@ public class LoggerFactory {
         // Set up log file only if not already initialized
         if (fileHandler == null) {
             try {
-                // Create log directory if it doesn't exist
                 File logDir = new File(LOG_FOLDER);
                 if (!logDir.exists()) {
-                    logDir.mkdirs();
+                    boolean created = logDir.mkdirs();
+                    System.out.println("Created log dir: " + created + ", path: " + logDir.getAbsolutePath());
                 }
 
-                // Generate filename with current date and time
                 String timestamp = LocalDateTime.now().format(DATE_FORMAT);
-                String logFileName = String.format("%s_%s%s", 
-                        LOG_FILE_PREFIX, timestamp, LOG_FILE_SUFFIX);
+                String logFileName = String.format("%s_%s%s", LOG_FILE_PREFIX, timestamp, LOG_FILE_SUFFIX);
                 currentLogPath = LOG_FOLDER + File.separator + logFileName;
 
                 fileHandler = new FileHandler(currentLogPath, true);
                 fileHandler.setFormatter(new SimpleFormatter());
-                fileHandler.setLevel(Level.ALL); // Keep full logging in file
+                fileHandler.setLevel(Level.ALL);
+
+                System.out.println("Log file path: " + currentLogPath);
             } catch (IOException e) {
                 System.err.println("Failed to set up log file handler: " + e.getMessage());
                 return logger;
             }
         }
+
 
         // Add memory handler with existing file handler
         try {
