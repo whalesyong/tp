@@ -11,7 +11,7 @@ class Recipe {
     + Recipe(recipeName: String)
     + Recipe(recipeName: String, ingredients: ArrayList<Ingredient>)
     + getRecipeName() : String
-    + setRecipeName(recipeName: String) 
+    + setRecipeName(recipeName: String)
     + getIngredients() : ArrayList<Ingredient>
     + setIngredients(ingredients: ArrayList<Ingredient>)
     + getTags(): ArrayList<String>
@@ -23,18 +23,18 @@ class Recipe {
 class RecipeBank {
     - recipeBank : ArrayList<Recipe>
 
-    + initializeRecipeBank(recipesList: List<Recipe>) 
-    + addRecipeToRecipeBank(recipe: Recipe) 
+    + initializeRecipeBank(recipesList: List<Recipe>)
+    + addRecipeToRecipeBank(recipe: Recipe)
     + getRecipeBank() : ArrayList<Recipe>
     + getRecipeBankSize(): Integer
-    + removeRecipeFromRecipeBank(command: String) 
+    + removeRecipeFromRecipeBank(command: String)
     + contains(recipeName: String) : boolean
     + getRecipeByName(recipeName: String) : List<Recipe>
     + getRecipeByORTags(tags: ArrayList<String>) : ArrayList<Recipe>
     + getRecipeByANDTags(tags: ArrayList<String>) : ArrayList<Recipe>
     + promptUserForRecipeDish(recipes: List<Recipe>) : Recipe
     + getIngredientList(dish: Dish) : List<Ingredient>
-    + clear() 
+    + clear()
 }
 
 RecipeBank "1" *-- "*" Recipe : contains
