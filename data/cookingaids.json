@@ -1,0 +1,35 @@
+{
+  "recipes" : [ {
+    "name" : "tomato_pasta",
+    "ingredients" : [ {
+      "name" : "tomato",
+      "quantity" : 2,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    }, {
+      "name" : "pasta",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ],
+    "tags" : [ ]
+  } ],
+  "ingredients" : {
+    "pasta" : [ {
+      "name" : "pasta",
+      "quantity" : 1,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ]
+  },
+  "dishes" : [ {
+    "name" : "spaghetti",
+    "dishDate" : {
+      "dateString" : "2025/03/20"
+    }
+  } ],
+  "shopping" : [ ]
+}
