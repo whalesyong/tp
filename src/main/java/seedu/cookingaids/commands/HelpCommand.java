@@ -26,22 +26,28 @@ public class HelpCommand {
         System.out.println("  list - Displays all stored recipes, scheduled dishes and available ingredients");
         System.out.println("    Usage: list -recipe       (Displays a list of available recipes)");
         System.out.println("           list -dish         (Displays a list of scheduled dishes sorted by month)");
+        System.out.println("           list -dish   -u    (Displays a list of upcoming dishes");
         System.out.println("           list -ingredient   (Displays all available ingredients)\n");
 
         // View command
         System.out.println("  view - Displays dishes scheduled and shopping list");
         System.out.println("    Usage: view -month=<month_index>   (Displays a calendar showing your scheduled dishes)"
         );
+        System.out.println("    Usage: view -month=<month_index>  -year=<year_from_2015-2035> " +
+                "(to specify year)"
+        );
         System.out.println("           view -shopping              " +
                 "(Displays Shopping List showing ingredients to obtain for scheduled dishes)\n");
 
         // Update command
-        System.out.println("  update - Edits a recipe or ingredient quantity");
+        System.out.println("  update - Edits a recipe or ingredient quantity or dish date");
         System.out.println("    Usage: update -recipe=<recipe_name> -name=<new_name> " +
                 "-ingredients=<new_ingredient_1,quantity_1,new_ingredient_2,quantity_2> "
                 + "(Updates available recipes and/or their required ingredients)");
         System.out.println("           update -ingredient=<ingredient_name> -quantity=<new_quantity> "
-                + "(Updates available quantity of selected ingredient)\n");
+                + "(Updates available quantity of selected ingredient)");
+        System.out.println("           update -dish=<dish_name> "
+                + "(Prompts user for new date to change dish's date only dates starting from today allowed)\n");
 
         // Delete command
         System.out.println("  delete - Deletes a recipe, dish or ingredient");

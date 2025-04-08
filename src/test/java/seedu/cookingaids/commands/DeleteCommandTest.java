@@ -3,6 +3,11 @@ package seedu.cookingaids.commands;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.PrintStream;
 import seedu.cookingaids.collections.DishCalendar;
 import seedu.cookingaids.collections.IngredientStorage;
 import seedu.cookingaids.collections.RecipeBank;
@@ -84,23 +89,37 @@ class DeleteCommandTest {
     }
 
     @Test
-    void execute_multipleRecipesWithSameName_promptsUserToChoose() {
-        // Add two recipes with the same name but different ingredients
-        ArrayList<Ingredient> ingredients1 = new ArrayList<>();
-        ingredients1.add(new Ingredient("bread", 2));
-        ingredients1.add(new Ingredient("tomato", 1));
-        Recipe sandwich1 = new Recipe("sandwich", ingredients1);
+    void execute_multipleDishesWithSameName_promptsUserToChoose() {
+        // Simulate user input (e.g., "1\n" to select first dish)
+        ByteArrayInputStream testIn = new ByteArrayInputStream("1\n".getBytes());
+        InputStream originalIn = System.in;
+        System.setIn(testIn);
 
-        ArrayList<Ingredient> ingredients2 = new ArrayList<>();
-        ingredients2.add(new Ingredient("bread", 2));
-        ingredients2.add(new Ingredient("ham", 1));
-        ingredients2.add(new Ingredient("cheese", 1));
-        Recipe sandwich2 = new Recipe("sandwich", ingredients2);
+        // Capture console output
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
 
-        RecipeBank.addRecipeToRecipeBank(sandwich1);
-        RecipeBank.addRecipeToRecipeBank(sandwich2);
+        try {
+            // Add a second dish also called spaghetti
+            Dish spaghetti = new Dish( "spaghetti", "21/03/2025");
+            DishCalendar.addDishToCalendar(spaghetti);
 
-        assertEquals(2, RecipeBank.getRecipeByName("sandwich").size());
+            assertEquals(2, DishCalendar.getAllDishes().size());
+
+            // Run delete command that triggers the prompt
+            DeleteCommand.deleteDish("delete -dish=spaghetti");
+
+            // Check if prompt is printed
+            String consoleOutput = outputStream.toString().trim();
+            assertTrue(consoleOutput.contains("Which would you like to delete? Input a number."));
+
+            assertEquals(1, DishCalendar.getAllDishes().size());
+
+        } finally {
+            System.setIn(originalIn);
+            System.setOut(originalOut);
+        }
     }
 
     @Test
