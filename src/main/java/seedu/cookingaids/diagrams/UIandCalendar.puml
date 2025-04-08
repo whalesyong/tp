@@ -4,33 +4,33 @@ hide circle
 skinparam classAttributeIconSize 0
 
 class CalendarPrinter {
-    + static final String BLANK_SPACE
-    + static void printMonthCalendar(int year, Month month, ArrayList<Dish> list)
-    - static void printCalendarRow(int year, Month month, int startDate, int daysInMonth, ArrayList<Dish> list)
-    - static void printFoodRows(int year, Month month, int startDate, int daysInMonth, ArrayList<Dish> list)
-    - static void printFirstCalendarRow(int year, Month month, ArrayList<Dish> list, int firstDayOfWeek, LocalDate today)
-    - static void printFirstFoodRows(int year, Month month, ArrayList<Dish> list, int firstDayOfWeek)
+    + BLANK_SPACE: String
+    + printMonthCalendar(year: int, month: Month, list: ArrayList<Dish>)
+    - printCalendarRow(year: int, month: Month, startDate: int, daysInMonth: int, list: ArrayList<Dish>)
+    - printFoodRows(year: int, month: Month, startDate: int, daysInMonth: int, list: ArrayList<Dish>)
+    - printFirstCalendarRow(year: int, month: Month, list: ArrayList<Dish>, firstDayOfWeek: int, today: LocalDate)
+    - printFirstFoodRows(year: int, month: Month, list: ArrayList<Dish>, firstDayOfWeek: int)
 }
 
 
 class Ui {
-    + static final int DISPLAYED_INDEX_OFFSET
-    + static final String LINE_DIVIDER
-    + static final String WELCOME_MESSAGE
-    + static final String ASCII_MESSAGE
-    + static final String MESSAGE_INDEXED_LIST_ITEM
-    + void printLineDivider()
-    + void showWelcomeMessage()
-    + void printItems(String... messages)
-    + void printDishListView(List<Dish> dishes)
-    + void printShoppingListView(ArrayList<Ingredient> shoppingList)
-    + void printRecipeListView(ArrayList<Recipe> recipes)
-    + void printIngredientListView(HashMap<String, List<Ingredient>> ingredients)
-    - void formatIngredientsForList(Ingredient ingredient)
-    - void printAsIndexedList(List<String> list)
-    - String getIndexedListForViewing(List<String> listItems)
-    - String getIndexedListItem(int visibleIndex, String listItem)
-    + void waitForCommand()
+    + DISPLAYED_INDEX_OFFSET: int
+    + LINE_DIVIDER: String
+    + WELCOME_MESSAGE: String
+    + ASCII_MESSAGE: String
+    + MESSAGE_INDEXED_LIST_ITEM: String
+    + printLineDivider()
+    + showWelcomeMessage()
+    + printItems(messages: String...)
+    + printDishListView(dishes: List<Dish>)
+    + printShoppingListView(shoppingList: ArrayList<Ingredient>)
+    + printRecipeListView(recipes: ArrayList<Recipe>)
+    + printIngredientListView(ingredients: HashMap<String, List<Ingredient>>)
+    - formatIngredientsForList(ingredient: Ingredient)
+    - printAsIndexedList(list: List<String>)
+    - getIndexedListForViewing(listItems: List<String>) : String
+    - getIndexedListItem(visibleIndex: int, listItem: String) : String
+    + waitForCommand()
 }
 @enduml
 

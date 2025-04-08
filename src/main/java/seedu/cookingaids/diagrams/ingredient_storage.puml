@@ -1,0 +1,69 @@
+@startuml
+hide circle
+hide empty members
+skinparam classAttributeIconSize 0
+
+class ExpiryDate {
+    + ExpiryDate(dateString: String)
+}
+
+abstract class Food <<abstract>> {
+    - name : String
+    + Food(name: String)
+    + displayInfo()  {abstract}
+    + getName(): String
+    + toString(): String
+}
+
+class Ingredient {
+    - expiryDate : ExpiryDate
+    - quantity : int
+    - name : String
+    - expiringSoon : boolean
+    - expired : boolean
+    - expired()
+    - expiringSoon()
+    + Ingredient(name: String)
+    + Ingredient(name: String, quantity: int)
+    + Ingredient(name: String, expiry: String, quantity: int)
+    + setQuantity(quantity: int)
+    + getQuantity(): int
+    + getExpiryDate(): ExpiryDate
+    + getName(): String
+    + addQuantity(quantity: int)
+    + removeQuantity(quantity: int)
+    + setExpiringSoon(b: boolean)
+    + setExpired(b: boolean)
+    + setExpiryDate(expiryDate: ExpiryDate)
+    + displayInfo()
+    + toString(): String
+}
+
+class IngredientStorage {
+    - ingredients : HashMap<String, List<Ingredient>>
+    + initializeIngredientStorage(newIngredients: HashMap<String, List<Ingredient>>)
+    + addToStorage(newIngredient: Ingredient)
+    + removeIngredient(ingredientName: String)
+    + getStorage(): HashMap<String, List<Ingredient>>
+    + contains(ingredientName: String): boolean
+    + clear()
+    + displayStorage()
+    + getIngredients(name: String): List<Ingredient>
+    - checkExpiringSoon(name: String)
+    - checkExpiredIngredients(name: String)
+    - removeExpiredIngredients(name: String)
+    + useIngredients(name: String, amount: int)
+    + getUnexpiredIngredients(ingredientName: String): int
+    + getExpiringSoonIngredients(ingredientName: String): int
+    + getTotalIngredientQuantity(ingredient: Ingredient): int
+    + updateIngredient(name: String, oldExpiry: String newQuantity: int, newExpiry: String)
+    + printMap()
+}
+
+ExpiryDate --|> DishDate
+Ingredient --|> Food
+Ingredient *--> "1" ExpiryDate
+IngredientStorage "1" --> "*" Ingredient : works on
+
+
+@enduml

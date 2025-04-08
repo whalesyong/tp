@@ -103,7 +103,7 @@ file.
 
 The following is a class diagram of one of the classes `IngredientStorage`.
 
-![img.png](images/IngredientStorage.png)
+![img.png](images/ingredient_storage.png)
 
 <div style="page-break-after: always;"></div>
 
@@ -128,7 +128,7 @@ The Items component contains classes that represent the smallest unit of functio
 
 The following is the class diagram for the classes `Recipe` and `RecipeBank`.
 
-![Items.png](images/items.png)
+![items_diagram.png](images/items_diagram.png)
 
 The Items classes follow the above design consideration of modularity. Each class in this package serves as building
 blocks for the rest of the project.
@@ -201,7 +201,7 @@ The design choice of the `Parser` class emphasizes modularity and maintainabilit
 
 The following is an overview of the `Parser` class and its interactions:
 
-![Parser.png](images/Parser.png)
+![parser.png](images/parser.png)
 
 <div style="page-break-after: always;"></div>
 
