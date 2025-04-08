@@ -16,14 +16,33 @@ public class LoggerFactory {
     private static final Level DEFAULT_LEVEL = Level.FINE;
     private static final Level MEMORY_FLUSH_LEVEL = Level.INFO;
     private static final Level CONSOLE_LEVEL = Level.WARNING; // Only show severe errors to users
-    private static final String LOG_FOLDER = "./data/log";
     private static final String LOG_FILE_PREFIX = "cookingaids";
     private static final String LOG_FILE_SUFFIX = ".log";
     private static final DateTimeFormatter DATE_FORMAT = 
             DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
     
     private static FileHandler fileHandler = null;
-    private static String currentLogPath = null;
+
+    public static void closeFileHandler() {
+        if (fileHandler != null) {
+            fileHandler.flush();
+            fileHandler.close();
+            fileHandler = null;
+        }
+    }
+    public static void flushAndCloseFileHandler() {
+        if (fileHandler != null) {
+            fileHandler.flush();
+            fileHandler.close();
+            fileHandler = null;
+            System.err.println("FileHandler flushed and closed.");
+        }
+    }
+
+
+    private static String getLogFolder(){
+        return System.getProperty("cookingaids.logdir", "./data/log");
+    }
 
     public static Logger getLogger(Class<?> clazz) {
         Logger logger = Logger.getLogger(clazz.getName());
@@ -38,7 +57,7 @@ public class LoggerFactory {
         // Set up log file only if not already initialized
         if (fileHandler == null) {
             try {
-                File logDir = new File(LOG_FOLDER);
+                File logDir = new File(getLogFolder());
                 if (!logDir.exists()) {
                     boolean created = logDir.mkdirs();
                     System.out.println("Created log dir: " + created + ", path: " + logDir.getAbsolutePath());
@@ -46,7 +65,7 @@ public class LoggerFactory {
 
                 String timestamp = LocalDateTime.now().format(DATE_FORMAT);
                 String logFileName = String.format("%s_%s%s", LOG_FILE_PREFIX, timestamp, LOG_FILE_SUFFIX);
-                currentLogPath = LOG_FOLDER + File.separator + logFileName;
+                String currentLogPath = getLogFolder() + File.separator + logFileName;
 
                 fileHandler = new FileHandler(currentLogPath, true);
 

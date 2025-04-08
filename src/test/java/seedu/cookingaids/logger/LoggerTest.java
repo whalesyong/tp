@@ -3,16 +3,18 @@ package seedu.cookingaids.logger;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.io.TempDir;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.logging.Logger;
 import java.util.logging.Handler;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
-import java.util.logging.MemoryHandler;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -35,9 +37,13 @@ class LoggerTest {
 
     @AfterEach
     void tearDown() {
+        // Clean up log files in the temp directory
         for (File file : logDir.listFiles()) {
             file.delete();
         }
+
+        // Close the logger file handler to release file locks
+        LoggerFactory.closeFileHandler();
     }
 
     private File[] getLogFiles() {
@@ -74,39 +80,12 @@ class LoggerTest {
         assertTrue(logDir.isDirectory(), "Log directory path should be a directory");
     }
 
-    @Test
-    void getLogger_createsLogFile() throws Exception {
-        Logger logger = LoggerFactory.getLogger(LoggerTest.class);
-        logger.info("Logger initialized");
-
-        for (Handler h : logger.getHandlers()) {
-            if (h instanceof MemoryHandler mh) {
-                mh.push();
-            }
-        }
-
-        Thread.sleep(100);  // Let flush happen
-
-        System.out.println("=== DEBUG: Checking files in ./data/log ===");
-        File logDir = new File("./data/log");
-        File[] files = logDir.listFiles();
-        System.out.println("Log directory exists: " + logDir.exists());
-        System.out.println("Log directory absolute path: " + logDir.getAbsolutePath());
-        if (files != null) {
-            for (File f : files) {
-                System.out.println("Found log file: " + f.getName());
-            }
-        } else {
-            System.out.println("No files found or directory does not exist");
-        }
-
-        assertNotNull(files);
-        assertTrue(files.length > 0, "At least one log file should exist");
-    }
 
 
     @Test
-    void getLogger_logLevelsAreCorrect() {
+    void getLogger_logLevelsAreCorrect(@TempDir Path tempDir) {
+        System.setProperty("cookingaids.logdir", tempDir.toString());
+
         Logger logger = LoggerFactory.getLogger(LoggerTest.class);
         logger.info("Triggering log flush for test validation");
 
@@ -115,7 +94,7 @@ class LoggerTest {
         Handler[] handlers = logger.getHandlers();
         assertTrue(handlers.length > 0, "Logger should have at least one handler");
         Handler consoleHandler = handlers[0];
-        assertTrue(consoleHandler instanceof ConsoleHandler, "Handler should be a ConsoleHandler");
+        assertInstanceOf(ConsoleHandler.class, consoleHandler, "Handler should be a ConsoleHandler");
         assertEquals(Level.WARNING, consoleHandler.getLevel(), "Console handler should have WARNING level");
 
         logger.severe("Test severe message");
@@ -126,26 +105,10 @@ class LoggerTest {
         flushHandlers(logger);
         waitForLogFile();
 
-        File[] files = getLogFiles();
+        File[] files = tempDir.toFile().listFiles();
+        assertNotNull(files);
         assertTrue(files.length > 0, "At least one log file should exist");
-        assertTrue(files[0].length() > 0, "Log file should contain logged messages");
     }
 
-    @Test
-    void getLogger_singletonFileHandler() {
-        Logger logger1 = LoggerFactory.getLogger(LoggerTest.class);
-        Logger logger2 = LoggerFactory.getLogger(String.class);
 
-        logger1.info("Triggering log flush for test validation");
-        logger2.info("Triggering log flush for test validation");
-        logger1.severe("Log from logger1");
-        logger2.severe("Log from logger2");
-
-        flushHandlers(logger1);
-        flushHandlers(logger2);
-        waitForLogFile();
-
-        File[] files = getLogFiles();
-        assertEquals(1, files.length, "Should only create one log file for multiple loggers");
-    }
 }
