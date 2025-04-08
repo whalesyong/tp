@@ -1,11 +1,62 @@
 {
-  "recipes" : [ ],
+  "recipes" : [ {
+    "name" : "fish",
+    "ingredients" : [ {
+      "name" : "plaa",
+      "quantity" : 2147483647,
+      "expiryDate" : {
+        "dateString" : "None"
+      }
+    } ],
+    "tags" : [ ]
+  } ],
   "ingredients" : { },
   "dishes" : [ {
     "name" : "spaghetti",
     "dishDate" : {
       "dateString" : "2025/03/20"
     }
+  }, {
+    "name" : "plaa",
+    "dishDate" : {
+      "dateString" : "None"
+    }
+  }, {
+    "name" : "plaa",
+    "dishDate" : {
+      "dateString" : "None"
+    }
+  }, {
+    "name" : "plaa",
+    "dishDate" : {
+      "dateString" : "None"
+    }
+  }, {
+    "name" : "fish",
+    "dishDate" : {
+      "dateString" : "None"
+    }
+  }, {
+    "name" : "fish",
+    "dishDate" : {
+      "dateString" : "None"
+    }
+  }, {
+    "name" : "fish",
+    "dishDate" : {
+      "dateString" : "None"
+    }
+  }, {
+    "name" : "fish",
+    "dishDate" : {
+      "dateString" : "None"
+    }
   } ],
-  "shopping" : [ ]
+  "shopping" : [ {
+    "name" : "plaa",
+    "quantity" : 2147483647,
+    "expiryDate" : {
+      "dateString" : "None"
+    }
+  } ]
 }
